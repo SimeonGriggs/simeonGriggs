@@ -1,0 +1,51 @@
+{
+  "name": "simeongriggs.dev-studio",
+  "private": true,
+  "version": "1.0.0",
+  "description": "",
+  "main": "package.json",
+  "author": "Simeon Griggs <simeon@sanity.io>",
+  "license": "UNLICENSED",
+  "scripts": {
+    "start": "sanity start",
+    "build": "sanity build",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
+  },
+  "keywords": [
+    "sanity"
+  ],
+  "dependencies": {
+    "@sanity/base": "^2.21.1",
+    "@sanity/code-input": "^2.21.7",
+    "@sanity/core": "^2.21.0",
+    "@sanity/default-layout": "^2.21.1",
+    "@sanity/default-login": "^2.21.0",
+    "@sanity/desk-tool": "^2.21.1",
+    "@sanity/vision": "^2.21.1",
+    "prop-types": "^15.7",
+    "react": "^17.0",
+    "react-dom": "^17.0",
+    "sanity-plugin-asset-source-unsplash": "^0.1.4",
+    "sanity-plugin-media": "^1.4.3",
+    "styled-components": "^5.2.0"
+  },
+  "devDependencies": {
+    "@babel/plugin-syntax-jsx": "^7.14.5",
+    "@babel/preset-react": "^7.14.5",
+    "@typescript-eslint/eslint-plugin": "^4.31.2",
+    "babel-plugin-lodash": "^3.3.4",
+    "babel-plugin-wildcard": "^7.0.0",
+    "eslint": "^7.8.1",
+    "eslint-config-prettier": "^6.7.0",
+    "eslint-config-sanity": "^5.0.0",
+    "eslint-import-resolver-webpack": "^0.11.1",
+    "eslint-plugin-cypress": "^2.11.2",
+    "eslint-plugin-es5": "^1.4.1",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-prettier": "^3.1.1",
+    "eslint-plugin-react": "^7.20.6",
+    "eslint-plugin-react-hooks": "^4.1.2",
+    "prettier": "^2.3.0"
+  }
+}

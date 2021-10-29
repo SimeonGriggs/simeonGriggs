@@ -1,0 +1,56 @@
+---
+import {sanityFetch} from '../lib/sanityFetch'
+import {sanityImageUrl} from '../lib/sanityImageUrl'
+
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Label from '../components/Label'
+import Intro from '../components/Intro'
+
+const query = `*[_type == "article" && defined(slug.current)]|order(published desc){
+  _id,
+  title,
+  "slug": slug.current,
+  published,
+  updated,
+  summary,
+  image {
+    ...,
+    asset->
+  }
+}`
+
+const articles = await sanityFetch(query)
+
+---
+<BaseLayout>
+  <figure class="fixed w-full h-24 md:h-auto md:top-[8.33vw] lg:top-[6.25vw] md:bottom-[8.33vw] lg:bottom-[6.25vw] left-0 md:left-[8.33vw] lg:left-[6.25vw] right-0 md:right-auto md:w-3/12 lg:w-5/16 z-10">
+    <img
+        src={sanityImageUrl(articles[0].image.asset).height(600).width(300)} 
+        alt={articles[0]?.image?.asset?.altText ?? articles[0]?.title} 
+        class="w-full h-full object-cover" 
+    />
+  </figure>
+  <section class="pt-24 md:pt-0 col-span-6 md:col-start-6 lg:col-start-8 md:col-span-6 lg:col-span-8">
+    <div class="grid grid-cols-1 gap-y-24 py-24">
+      <article class="prose prose-lg prose-blue">
+        <h1><span class="wave">👋</span> Hey!</h1>
+      </article>
+
+      <Intro />
+    
+      {articles.map((article) => 
+        <article key={article._id} class="grid grid-cols-1 gap-y-4">
+          <h2 class="leading-none font-black tracking-tighter text-2xl md:text-4xl text-blue-500">
+            <a href={`/${article.slug}`} class="block hover:bg-blue-500 hover:text-white">
+              {article.title}
+            </a>
+          </h2>
+          <Label>{article.published}</Label>
+          <div class="prose prose-lg dark:prose-dark prose-blue">
+            <p>{article.summary}</p>
+          </div>
+        </article>
+      )}
+    </div>
+  </section>
+</BaseLayout>

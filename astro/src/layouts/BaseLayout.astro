@@ -1,0 +1,76 @@
+---
+import {sanityFetch} from '../lib/sanityFetch'
+import Header from '../components/Header'
+// import Grid from '../components/Grid'
+
+const {title} = Astro.props;
+
+const query = `*[_id == $siteMeta][0]`
+const params = {siteMeta: `siteMeta`}
+const siteMeta = await sanityFetch(query, params)
+---
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+        <title>{title ?? siteMeta.description} | {siteMeta.title}</title>
+        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="stylesheet" href={Astro.resolve("../styles/global.css")}>
+    </head>
+    <body class="transition-colors duration-100 ease-out">
+
+        <Header siteMeta={siteMeta} />
+        <main class="px-4 md:px-0 grid grid-cols-6 md:grid-cols-12 lg:grid-cols-16 min-h-screen w-screen">
+            <slot />
+        </main>
+        <script>
+            const localStorageKey = `darkModeToggle`
+
+            function handleDarkMode(action = 'toggle') {
+                const classes = [`dark`, `text-white`, `bg-blue-900`]
+
+                switch (action) {
+                    case 'toggle':
+                        classes.forEach(className => document.body.classList.toggle(className));
+                        localStorage.setItem(localStorageKey, 
+                            document.body.classList.contains('dark') ? 'true' : 'false'
+                        );
+                        break;
+                    case 'activate':
+                        classes.forEach(className => document.body.classList.add(className));
+                        localStorage.setItem(localStorageKey, 'true');
+                        break;
+                    case 'deactivate':
+                        classes.forEach(className => document.body.classList.remove(className));
+                        localStorage.setItem(localStorageKey, 'false');
+                        break;
+                
+                    default:
+                        break;
+                }
+            }
+
+            // Set initial mode
+            if (typeof window !== 'undefined') {
+                const darkModeSetting = localStorage.getItem(localStorageKey);
+
+                if (darkModeSetting) {
+                    handleDarkMode(darkModeSetting === 'true' ? `activate` : `deactivate`)
+                } else {
+                    window.addEventListener('load', () => {
+                        const prefersDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+                        handleDarkMode(prefersDarkMode ? `activate` : `deactivate`)
+                    });
+                }
+            }
+            
+            // Handle toggle
+            const darkModeToggle = document.querySelector(`[data-dark-mode-toggle]`)
+
+            if (darkModeToggle) {
+                darkModeToggle.addEventListener('click', () => handleDarkMode('toggle'))
+            }
+        </script>
+    </body>
+</html>

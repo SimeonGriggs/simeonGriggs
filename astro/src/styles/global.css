@@ -1,0 +1,151 @@
+@tailwind base;
+@tailwind components;
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: theme("spacing.8");
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  -webkit-text-size-adjust: 100%;
+  -ms-font-feature-settings: "kern" 1;
+  font-feature-settings: "kern";
+}
+
+a {
+  @apply transition-colors duration-200 ease-out;
+}
+
+@screen md {
+  .text-vertical {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+  }
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  font-weight: theme("fontWeight.normal");
+  font-display: swap;
+  src: url("/fonts/JetBrainsMono-Regular.woff2");
+}
+
+@font-face {
+  font-family: "JetBrains Mono";
+  font-weight: theme("fontWeight.bold");
+  font-display: swap;
+  src: url("/fonts/JetBrainsMono-Bold.woff2");
+}
+
+@font-face {
+  font-family: "Inter";
+  font-weight: theme("fontWeight.normal");
+  font-display: swap;
+  src: url("/fonts/Inter-Regular.woff2");
+}
+
+@font-face {
+  font-family: "Inter";
+  font-weight: theme("fontWeight.normal");
+  font-style: italic;
+  font-display: swap;
+  src: url("/fonts/Inter-Italic.woff2");
+}
+
+@font-face {
+  font-family: "Inter";
+  font-weight: theme("fontWeight.black");
+  font-display: swap;
+  src: url("/fonts/Inter-ExtraBold.woff2");
+}
+
+@font-face {
+  font-family: "Inter";
+  font-weight: theme("fontWeight.black");
+  font-style: italic;
+  font-display: swap;
+  src: url("/fonts/Inter-ExtraBoldItalic.woff2");
+}
+
+.button {
+  @apply transition-colors duration-200
+    bg-blue-500 text-white
+    border-0 cursor-pointer
+    whitespace-nowrap inline-flex items-center
+    leading-none text-base font-mono
+    p-6 no-underline;
+}
+
+.button:hover {
+  @apply bg-blue-800 text-white;
+}
+
+.button[disabled] {
+  @apply bg-blue-100 text-blue-200 pointer-events-none;
+}
+
+.wave {
+  animation-name: wave-animation; /* Refers to the name of your @keyframes element below */
+  animation-duration: 2.5s; /* Change to speed up or slow down */
+  animation-iteration-count: infinite; /* Never stop waving :) */
+  transform-origin: 70% 70%; /* Pivot around the bottom-left palm */
+  display: inline-block;
+}
+
+@keyframes wave-animation {
+  0% {
+    transform: rotate(0deg);
+  }
+  10% {
+    transform: rotate(14deg);
+  } /* The following five values can be played with to make the waving more or less extreme */
+  20% {
+    transform: rotate(-8deg);
+  }
+  30% {
+    transform: rotate(14deg);
+  }
+  40% {
+    transform: rotate(-4deg);
+  }
+  50% {
+    transform: rotate(10deg);
+  }
+  60% {
+    transform: rotate(0deg);
+  } /* Reset for the last half to pause */
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+  @apply -mx-4 py-4 px-4 border-t border-b border-blue-100 text-xs;
+
+  overflow: auto;
+}
+
+@screen md {
+  pre[class*="language-"] {
+    @apply mx-0 border rounded text-base;
+  }
+}
+
+.prose code {
+  @apply text-xs bg-gray-50 text-blue-700 p-1 rounded border border-blue-100 whitespace-nowrap;
+}
+
+.dark .prose code {
+  @apply bg-blue-800 text-white border-blue-700;
+}
+
+.prose code {
+  @apply text-sm;
+}
+
+/* Finish */
+@tailwind utilities;
