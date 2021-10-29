@@ -1,5 +1,3 @@
 # simeonGriggs.dev
 
-Content by Sanity. Frontend by Astro.
-
-More details, soonish.
+👋 I'm Simeon, a 🇦🇺 in 🇬🇧 and Solution Engineer @ Sanity.io
