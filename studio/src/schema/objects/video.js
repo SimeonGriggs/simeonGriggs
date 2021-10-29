@@ -29,6 +29,11 @@ export default {
       type: 'url',
       title: 'Video URL',
     },
+    {
+      name: 'title',
+      title: 'Title',
+      type: 'string',
+    },
   ],
   preview: {
     select: {

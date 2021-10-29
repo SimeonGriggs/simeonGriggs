@@ -2,7 +2,9 @@ import React from "react";
 import BlockContent from "@sanity/block-content-to-react";
 import Highlight, { defaultProps } from "prism-react-renderer";
 import github from 'prism-react-renderer/themes/github';
+import getYouTubeID from 'get-youtube-id';
 
+import YouTube from '../components/YouTube.astro'
 import { projectId, dataset } from "../lib/sanityConfig.mjs";
 import {sanityImageUrl} from '../lib/sanityImageUrl'
 import Button from "./Button";
@@ -13,18 +15,11 @@ const BlockRenderer = (props) => {
   if (/^h\d/.test(style)) {
     return React.createElement(
       style,
-      {
-        id: props.node._key,
-      },
+      {id: props.node._key},
       props.children
     );
   }
 
-  if (style === "blockquote") {
-    return <blockquote>- {props.children}</blockquote>;
-  }
-
-  // Fall back to default handling
   return BlockContent.defaultSerializers.types.block(props);
 };
 
@@ -32,11 +27,19 @@ const serializers = {
   container: ({ children }) => children,
   types: {
     block: BlockRenderer,
-    video: ({ node }) => (
-      <div className="bg-red-500 max-w-24 overflow-hidden">
-        {JSON.stringify(node)}
-      </div>
-    ),
+    video: ({ node }) => {
+      const id = getYouTubeID(node.url)
+
+      // <YouTube v={id} alt={node?.title ?? ``} />
+
+      return (
+        <lite-youtube v={id} alt={node?.title ?? ``}>
+          <a href={node.url} target="_blank" rel="noopener noreferrer">
+            <img src={`https://i.ytimg.com/vi/${id}/hqdefault.jpg`} loading="lazy" alt={node?.title ?? ``} className="w-full h-full object-cover" />
+          </a>
+        </lite-youtube>
+      )
+    },
     image: ({ node }) => (
       <p className="-mx-4 md:border md:border-gray-100">
         <img

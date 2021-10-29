@@ -19,7 +19,9 @@
     "@heroicons/react": "^1.0.5",
     "@sanity/block-content-to-react": "^3.0.0",
     "@sanity/image-url": "^1.0.1",
+    "@tailwindcss/aspect-ratio": "^0.3.0",
     "@tailwindcss/typography": "^0.4.1",
+    "get-youtube-id": "^1.0.1",
     "prism-react-renderer": "^1.2.1"
   }
 }
