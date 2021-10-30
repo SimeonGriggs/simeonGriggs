@@ -48,18 +48,18 @@ module.exports = {
             h1: {
               color: theme('colors.blue.500'),
               fontWeight: theme('fontWeight.black'),
-              letterSpacing: theme('tracking.tighter')
+              letterSpacing: theme('letterSpacing.tighter')
             },
             h2: {
               color: theme('colors.blue.500'),
               fontWeight: theme('fontWeight.black'),
-              letterSpacing: theme('tracking.tighter')
+              letterSpacing: theme('letterSpacing.tighter') 
             },
             'h2 a': {
               textDecoration: 'none',
               color: theme('colors.blue.500'),
               fontWeight: theme('fontWeight.black'),
-              tracking: theme('tracking.tighter'),
+              letterSpacing: theme('letterSpacing.tighter'),
               display: 'block',
               '&:hover': {
                 backgroundColor: theme('colors.blue.500'),
@@ -69,7 +69,7 @@ module.exports = {
             h3: {
               color: theme('colors.blue.500'),
               fontWeight: theme('fontWeight.black'),
-              letterSpacing: theme('tracking.tighter')
+              letterSpacing: theme('letterSpacing.tighter')
             },
             'code::before': false,
             code: false,

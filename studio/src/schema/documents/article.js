@@ -50,4 +50,11 @@ export default {
     },
     {type: 'seo', name: 'seo'},
   ],
+  preview: {
+    select: {
+      title: 'title',
+      subtitle: 'slug.current',
+      media: 'image',
+    },
+  },
 }

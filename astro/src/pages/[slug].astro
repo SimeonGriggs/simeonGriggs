@@ -36,11 +36,16 @@ const {article} = Astro.props
 ---
 <BaseLayout title={article.title}>
     {article?.image && (
-        <figure class="fixed z-10 inset-0 h-24 md:h-screen w-full md:w-1/12 lg:w-3/16">
+        <figure class="fixed z-10 inset-0 h-48 md:h-screen w-full md:w-1/12 lg:w-3/16">
             <img
-                src={sanityImageUrl(article.image).height(800).width(200)} 
+                src={sanityImageUrl(article.image).height(400).width(800)} 
                 alt={article?.altText ?? article.title} 
-                class="w-full h-full object-cover" 
+                class="block md:hidden w-full h-full object-cover" 
+            />
+            <img
+                src={sanityImageUrl(article.image).height(1200).width(400)} 
+                alt={article?.altText ?? article.title} 
+                class="hidden md:block w-full h-full object-cover" 
             />
         </figure>
     )}
@@ -54,7 +59,7 @@ const {article} = Astro.props
             </p>
         </div>
     </header>
-    <aside class="row-start-2 md:row-start-2 col-span-6 md:col-start-3 md:col-span-3 lg:col-start-5 lg:col-span-3 relative">
+    <aside class="mb-4 md:mb-0 row-start-2 md:row-start-2 col-span-6 md:col-start-3 md:col-span-3 lg:col-start-5 lg:col-span-3 relative">
         <div class="grid grid-cols-1 gap-y-4 md:pr-12 sticky top-6">
             <Label>Table of Contents</Label>
             <TableOfContents blocks={article.content} />

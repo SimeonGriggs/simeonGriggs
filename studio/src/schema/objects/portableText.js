@@ -1,3 +1,24 @@
+import React from 'react'
+
+const CodeRender = (props) => {
+  const {children, style = 'span'} = props
+
+  return React.createElement(
+    style,
+    {
+      style: {
+        display: `block`,
+        backgroundColor: `#efefef`,
+        padding: `1rem`,
+        overflowX: style === `pre` ? `scroll` : `auto`,
+        fontFamily:
+          'JetBrains Mono,ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace',
+      },
+    },
+    children ?? style
+  )
+}
+
 export default {
   name: 'portableText',
   type: 'array',
@@ -17,9 +38,21 @@ export default {
         {title: 'H3', value: 'h3'},
         // {title: 'H4', value: 'h4'},
         {title: 'Quote', value: 'blockquote'},
-        {title: 'Figure', value: 'figure'},
-        {title: 'Pre', value: 'pre'},
-        {title: 'Code', value: 'code'},
+        // {title: 'Figure', value: 'figure'},
+        {
+          title: 'Pre',
+          value: 'pre',
+          blockEditor: {
+            render: CodeRender,
+          },
+        },
+        {
+          title: 'Code',
+          value: 'code',
+          blockEditor: {
+            render: CodeRender,
+          },
+        },
       ],
       lists: [
         {title: 'Bullet', value: 'bullet'},

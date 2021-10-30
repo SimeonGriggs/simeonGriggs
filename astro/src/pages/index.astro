@@ -23,15 +23,20 @@ const articles = await sanityFetch(query)
 
 ---
 <BaseLayout>
-  <figure class="fixed w-full h-24 md:h-auto md:top-[8.33vw] lg:top-[6.25vw] md:bottom-[8.33vw] lg:bottom-[6.25vw] left-0 md:left-[8.33vw] lg:left-[6.25vw] right-0 md:right-auto md:w-3/12 lg:w-5/16 z-10">
+  <figure class="fixed w-full h-48 md:h-auto md:top-[8.33vw] lg:top-[6.25vw] md:bottom-[8.33vw] lg:bottom-[6.25vw] left-0 md:left-[8.33vw] lg:left-[6.25vw] right-0 md:right-auto md:w-3/12 lg:w-5/16 z-10">
     <img
-        src={sanityImageUrl(articles[0].image.asset).height(600).width(300)} 
+        src={sanityImageUrl(articles[0].image.asset).height(400).width(800)} 
         alt={articles[0]?.image?.asset?.altText ?? articles[0]?.title} 
-        class="w-full h-full object-cover" 
+        class="block md:hidden w-full h-full object-cover" 
+    />
+    <img
+        src={sanityImageUrl(articles[0].image.asset).height(800).width(400)} 
+        alt={articles[0]?.image?.asset?.altText ?? articles[0]?.title} 
+        class="hidden md:block w-full h-full object-cover" 
     />
   </figure>
-  <section class="pt-24 md:pt-0 col-span-6 md:col-start-6 lg:col-start-8 md:col-span-6 lg:col-span-8">
-    <div class="grid grid-cols-1 gap-y-24 py-24">
+  <section class="mt-48 md:mt-0 col-span-6 md:col-start-6 lg:col-start-8 md:col-span-6 lg:col-span-8">
+    <div class="grid grid-cols-1 gap-y-12 md:gap-y-24 pt-12 md:py-24">
       <article class="prose prose-lg prose-blue">
         <h1><span class="wave">👋</span> Hey!</h1>
       </article>

@@ -37,7 +37,7 @@ export default function ProseableText({blocks = []}) {
     <>
       {blockGroups.map((group) =>
         group[0]._type === 'block' ? (
-          <div key={group[0]._key} className="prose md:prose-lg dark:prose-dark prose-blue py-4">
+          <div key={group[0]._key} className="prose md:prose-lg dark:prose-dark prose-blue my-4 md:my-8">
             <PortableText blocks={group} />
           </div>
         ) : (

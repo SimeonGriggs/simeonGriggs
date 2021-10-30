@@ -20,7 +20,6 @@ const siteMeta = await sanityFetch(query, params)
         <link rel="stylesheet" href={Astro.resolve("../styles/global.css")}>
     </head>
     <body class="transition-colors duration-100 ease-out">
-
         <Header siteMeta={siteMeta} />
         <main class="px-4 md:px-0 grid grid-cols-6 md:grid-cols-12 lg:grid-cols-16 min-h-screen w-screen">
             <slot />
