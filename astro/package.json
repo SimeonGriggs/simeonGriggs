@@ -21,6 +21,7 @@
     "@sanity/image-url": "^1.0.1",
     "@tailwindcss/aspect-ratio": "^0.3.0",
     "@tailwindcss/typography": "^0.4.1",
+    "autoprefixer": "^10.4.0",
     "get-youtube-id": "^1.0.1",
     "prism-react-renderer": "^1.2.1"
   }
