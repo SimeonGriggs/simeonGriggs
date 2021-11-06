@@ -1,22 +1,28 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 const CodeRender = (props) => {
-  const {children, style = 'span'} = props
+  const {children, style: element = 'span'} = props
 
   return React.createElement(
-    style,
+    element,
     {
       style: {
         display: `block`,
         backgroundColor: `#efefef`,
         padding: `1rem`,
-        overflowX: style === `pre` ? `scroll` : `auto`,
+        overflowX: element === `pre` ? `scroll` : `auto`,
         fontFamily:
           'JetBrains Mono,ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace',
       },
     },
-    children ?? style
+    children ?? element
   )
+}
+
+CodeRender.propTypes = {
+  children: PropTypes.string.isRequired,
+  style: PropTypes.string.isRequired,
 }
 
 export default {

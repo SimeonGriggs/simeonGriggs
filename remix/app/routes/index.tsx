@@ -1,38 +1,36 @@
-import { MetaFunction, LinksFunction, LoaderFunction, useMatches } from "remix";
-import { useLoaderData, Link } from "remix";
+import {MetaFunction, LoaderFunction, useMatches, useLoaderData, Link} from 'remix'
 
 // import stylesUrl from "../styles/index.css";
-import { getClient } from "~/lib/sanityServer";
-import { homeQuery } from "~/lib/queries";
-import Intro from "~/components/Intro";
-import Date from "~/components/Date";
+import {getClient} from '~/lib/sanityServer'
+import {homeQuery} from '~/lib/queries'
+import Intro from '~/components/Intro'
+import Date from '~/components/Date'
 
-export const handle = `home`;
+export const handle = `home`
 
-export let meta: MetaFunction = ({ parentsData }) => {
-  const { siteMeta } = parentsData?.root ?? {};
+export const meta: MetaFunction = ({parentsData}) => {
+  const {siteMeta} = parentsData?.root ?? {}
 
   return {
     title: `${siteMeta?.title} - ${siteMeta?.description}`,
     description: siteMeta?.description,
-  };
-};
+  }
+}
 
 // export let links: LinksFunction = () => {
 //   return [{ rel: "stylesheet", href: stylesUrl }];
 // };
 
-export let loader: LoaderFunction = async () => {
-  const articles = await getClient().fetch(homeQuery);
+export const loader: LoaderFunction = async () => {
+  const articles = await getClient().fetch(homeQuery)
 
-  return { articles };
-};
+  return {articles}
+}
 
 export default function Index() {
-  let { articles } = useLoaderData();
-  const matches = useMatches();
-  const { bio } =
-    matches?.find((match) => match.handle === "root")?.data?.siteMeta ?? {};
+  const {articles} = useLoaderData()
+  const matches = useMatches()
+  const {bio} = matches?.find((match) => match.handle === 'root')?.data?.siteMeta ?? {}
 
   return (
     <section className="mt-48 md:mt-0 col-span-6 md:col-start-6 lg:col-start-8 md:col-span-6 lg:col-span-8">
@@ -64,5 +62,5 @@ export default function Index() {
         ))}
       </div>
     </section>
-  );
+  )
 }

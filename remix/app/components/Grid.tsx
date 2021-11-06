@@ -18,5 +18,5 @@ export default function Grid() {
       <div className="border-r border-red-500 hidden lg:block" />
       <div className="border-red-500 hidden lg:block" />
     </div>
-  );
+  )
 }

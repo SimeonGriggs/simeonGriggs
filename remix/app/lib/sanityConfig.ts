@@ -8,9 +8,9 @@ export const config = {
    **/
   // dataset: process.env.NEXT_PUBLIC_SANITY_DATASET || "production",
   // projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID || "az8av6xl",
-  dataset: "production",
-  projectId: "az8av6xl",
-  apiVersion: "2021-03-25",
+  dataset: 'production',
+  projectId: 'az8av6xl',
+  apiVersion: '2021-03-25',
   /**
    * Set useCdn to `false` if your application require the freshest possible
    * data always (potentially slightly slower and a bit more expensive).
@@ -18,4 +18,4 @@ export const config = {
    **/
   // useCdn: process.env.NODE_ENV === "production",
   useCdn: true,
-};
+}

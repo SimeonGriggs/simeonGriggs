@@ -54,12 +54,12 @@ __export(entry_server_exports, {
 var import_server = __toModule(require("react-dom/server"));
 var import_remix = __toModule(require("remix"));
 function handleRequest(request, responseStatusCode, responseHeaders, remixContext) {
-  let markup = import_server.default.renderToString(/* @__PURE__ */ React.createElement(import_remix.RemixServer, {
+  const markup = import_server.default.renderToString(/* @__PURE__ */ React.createElement(import_remix.RemixServer, {
     context: remixContext,
     url: request.url
   }));
   responseHeaders.set("Content-Type", "text/html");
-  return new Response("<!DOCTYPE html>" + markup, {
+  return new Response(`<!DOCTYPE html>${markup}`, {
     status: responseStatusCode,
     headers: responseHeaders
   });
@@ -75,123 +75,18 @@ __export(root_exports, {
   links: () => links,
   loader: () => loader
 });
-var import_remix4 = __toModule(require("remix"));
-var import_react_router_dom = __toModule(require("react-router-dom"));
+var import_remix5 = __toModule(require("remix"));
+var import_react_router_dom2 = __toModule(require("react-router-dom"));
 var import_usehooks_ts3 = __toModule(require("usehooks-ts"));
 
-// app/styles/global.css
-var global_default = "/build/_assets/global-BSQJH6GN.css";
-
-// app/components/Header.tsx
-var import_solid = __toModule(require("@heroicons/react/solid"));
+// app/lib/utils/scroll.tsx
+var React2 = __toModule(require("react"));
+var import_react_router_dom = __toModule(require("react-router-dom"));
+var import_react2 = __toModule(require("@remix-run/react"));
 var import_remix2 = __toModule(require("remix"));
-var import_usehooks_ts = __toModule(require("usehooks-ts"));
-
-// app/components/Twitter.tsx
-function Twitter({className}) {
-  return /* @__PURE__ */ React.createElement("svg", {
-    xmlns: "http://www.w3.org/2000/svg",
-    width: "24",
-    height: "24",
-    viewBox: "0 0 24 24",
-    className
-  }, /* @__PURE__ */ React.createElement("path", {
-    fill: "currentColor",
-    d: "M3 17.68a10.215 10.215 0 005.53 1.623c6.697 0 10.478-5.658 10.25-10.73a7.346 7.346 0 001.8-1.866 7.192 7.192 0 01-2.072.565 3.604 3.604 0 001.588-1.996 7.196 7.196 0 01-2.308.877 3.608 3.608 0 00-6.153 3.289 10.246 10.246 0 01-7.412-3.766 3.612 3.612 0 001.12 4.816 3.558 3.558 0 01-1.635-.454A3.612 3.612 0 006.6 13.622a3.623 3.623 0 01-1.63.062 3.612 3.612 0 003.368 2.504A7.238 7.238 0 013 17.68z"
-  }));
-}
-var Twitter_default = Twitter;
-
-// app/components/GitHub.tsx
-function GitHub({className}) {
-  return /* @__PURE__ */ React.createElement("svg", {
-    xmlns: "http://www.w3.org/2000/svg",
-    width: "24",
-    height: "24",
-    viewBox: "0 0 24 24",
-    className
-  }, /* @__PURE__ */ React.createElement("path", {
-    fill: "currentColor",
-    d: "M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
-  }));
-}
-var GitHub_default = GitHub;
-
-// app/components/Header.tsx
-var Header = ({siteMeta}) => {
-  const {title} = siteMeta != null ? siteMeta : {};
-  const menuClasses = "fixed text-sm z-50 inset-0 bottom-auto md:bottom-0 md:right-auto md:w-1/12 lg:w-1/16 flex items-center justify-center";
-  const buttonClasses = "flex items-center justify-center p-1 w-7 h-7 md:w-10 md:h-10 text-blue-500 rounded-full bg-white hover:bg-blue-900 hover:text-white";
-  const {isDarkMode, toggle} = (0, import_usehooks_ts.useDarkMode)();
-  return /* @__PURE__ */ React.createElement("header", {
-    className: menuClasses
-  }, /* @__PURE__ */ React.createElement("div", {
-    className: "md:w-full bg-blue-500 py-2 px-3 md:py-8 text-white font-mono flex md:flex-col justify-center items-center"
-  }, /* @__PURE__ */ React.createElement(import_remix2.Link, {
-    to: "/",
-    className: "text-vertical flex items-center justify-center hover:bg-blue-900"
-  }, title), /* @__PURE__ */ React.createElement("div", {
-    className: "w-12 md:h-16 lg:h-24 md:w-auto border-t md:border-t-none md:border-l border-white mx-3 md:mx-0 md:my-4"
-  }), /* @__PURE__ */ React.createElement("div", {
-    className: "flex space-x-3 md:flex-col md:space-x-0 md:space-y-3"
-  }, /* @__PURE__ */ React.createElement("a", {
-    className: buttonClasses,
-    href: "https://twitter.com/simeonGriggs/",
-    target: "blank",
-    rel: "noopener noreferrer"
-  }, /* @__PURE__ */ React.createElement(Twitter_default, {
-    className: "w-full"
-  }), /* @__PURE__ */ React.createElement("div", {
-    className: "sr-only"
-  }, "Twitter")), /* @__PURE__ */ React.createElement("a", {
-    className: buttonClasses,
-    href: "https://github.com/SimeonGriggs/",
-    target: "blank",
-    rel: "noopener noreferrer"
-  }, /* @__PURE__ */ React.createElement(GitHub_default, {
-    className: "w-full"
-  }), /* @__PURE__ */ React.createElement("div", {
-    className: "sr-only"
-  }, "GitHub")), /* @__PURE__ */ React.createElement("button", {
-    type: "button",
-    onClick: () => toggle(),
-    className: buttonClasses
-  }, isDarkMode ? /* @__PURE__ */ React.createElement(import_solid.SunIcon, {
-    className: "w-full h-auto md:w-5"
-  }) : /* @__PURE__ */ React.createElement(import_solid.MoonIcon, {
-    className: "w-full h-auto md:w-5"
-  }), /* @__PURE__ */ React.createElement("div", {
-    className: "sr-only"
-  }, isDarkMode ? `Light` : `Dark`, " Mode")))));
-};
-var Header_default = Header;
-
-// app/lib/sanityServer.tsx
-var import_next_sanity = __toModule(require("next-sanity"));
-
-// app/lib/sanityConfig.ts
-var config = {
-  dataset: "production",
-  projectId: "az8av6xl",
-  apiVersion: "2021-03-25",
-  useCdn: true
-};
-
-// app/lib/sanityServer.tsx
-var sanityClient = (0, import_next_sanity.createClient)(config);
-var previewClient = (0, import_next_sanity.createClient)(__objSpread(__objSpread({}, config), {
-  useCdn: false
-}));
-var getClient = (usePreview = false) => usePreview ? previewClient : sanityClient;
-
-// app/components/Banner.tsx
-var import_react = __toModule(require("react"));
-var import_remix3 = __toModule(require("remix"));
-var import_react_router = __toModule(require("react-router"));
-var import_framer_motion = __toModule(require("framer-motion"));
-var import_usehooks_ts2 = __toModule(require("usehooks-ts"));
 
 // app/lib/helpers.ts
+var import_react = __toModule(require("react"));
 function twoDecimals(num) {
   return Math.round(num * 100) / 100;
 }
@@ -215,6 +110,144 @@ function clipPathInset(columns, left, right, y) {
   ];
   return corners.join(",");
 }
+var useSSRLayoutEffect = typeof window === "undefined" ? () => {
+} : import_react.useLayoutEffect;
+
+// app/lib/utils/scroll.tsx
+var firstRender = true;
+var positions = {};
+var SESSION_STORAGE_KEY = "kody_scroll_positions";
+var _a;
+if (typeof window !== "undefined") {
+  try {
+    positions = JSON.parse((_a = sessionStorage.getItem(SESSION_STORAGE_KEY)) != null ? _a : "{}");
+  } catch {
+    sessionStorage.removeItem(SESSION_STORAGE_KEY);
+  }
+}
+function useScrollRestoration(enabled = true) {
+  var _a2, _b;
+  const location = (0, import_react_router_dom.useLocation)();
+  const latestLocationRef = React2.useRef(location);
+  React2.useEffect(() => {
+    latestLocationRef.current = location;
+  }, [location]);
+  const isSubmission = (_b = (_a2 = location.state) == null ? void 0 : _a2.isSubmission) != null ? _b : false;
+  const transition = (0, import_react2.useTransition)();
+  const hash = typeof window === "undefined" ? location.hash : window.location.hash;
+  React2.useEffect(() => {
+    if (transition.location) {
+      positions[location.key] = window.scrollY;
+    }
+  }, [transition, location]);
+  (0, import_remix2.useBeforeUnload)(React2.useCallback(() => {
+    positions[latestLocationRef.current.key] = window.scrollY;
+    sessionStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(positions));
+  }, []));
+  useSSRLayoutEffect(() => {
+    if (!enabled)
+      return;
+    if (transition.state !== "idle")
+      return;
+    if (isSubmission)
+      return;
+    if (firstRender) {
+      firstRender = false;
+      return;
+    }
+    if (hash) {
+      const el = document.getElementById(hash.slice(1));
+      if (el) {
+        el.scrollIntoView({behavior: "smooth"});
+        return;
+      }
+    }
+    const y = positions[location.key];
+    window.scrollTo(0, y != null ? y : 0);
+  }, [transition.state, location.key, hash, positions, isSubmission]);
+}
+function RestoreScrollPosition() {
+  return /* @__PURE__ */ React2.createElement("script", {
+    dangerouslySetInnerHTML: {
+      __html: `
+// yo, this code here ensures that you have a most excellent scroll management
+// experience on the site. It's inline to make sure your scroll position is
+// restored asap when refreshing or navigating back to the site using the back button
+window.history.scrollRestoration = 'manual'
+try {
+  const positions = JSON.parse(sessionStorage.getItem(${JSON.stringify(SESSION_STORAGE_KEY)}) ?? '{}')
+  if (window.history.state.key) {
+    const storedY = positions[window.history.state.key]
+    if (typeof storedY === 'number') {
+      window.scrollTo(0, storedY)
+    }
+  } else {
+    // we want to make sure there's a key so the position can be associated
+    // with the key and restored if they leave and come back.
+    window.history.replaceState({key: Date.now()}, null)
+  }
+} catch {
+  sessionStorage.removeItem('positions')
+}
+    `
+    }
+  });
+}
+
+// app/lib/sanityServer.tsx
+var import_next_sanity = __toModule(require("next-sanity"));
+
+// app/lib/sanityConfig.ts
+var config = {
+  dataset: "production",
+  projectId: "az8av6xl",
+  apiVersion: "2021-03-25",
+  useCdn: true
+};
+
+// app/lib/sanityServer.tsx
+var sanityClient = (0, import_next_sanity.createClient)(config);
+var previewClient = (0, import_next_sanity.createClient)(__objSpread(__objSpread({}, config), {
+  useCdn: false
+}));
+var getClient = (usePreview = false) => usePreview ? previewClient : sanityClient;
+
+// app/lib/queries.tsx
+var import_groq_store = __toModule(require("@sanity/groq-store"));
+var siteMetaQuery = import_groq_store.groq`*[_id == "siteMeta"][0]`;
+var articleQuery = import_groq_store.groq`*[_type == "article" && slug.current == $slug][0]{
+    ...,
+    image {
+      ...,
+      asset->
+    },
+    content[] {
+        ...,
+        _type == "image" => {
+            ...,
+            asset->
+        },
+    }
+  }`;
+var homeQuery = import_groq_store.groq`*[_type == "article" && defined(slug.current)]|order(published desc){
+    _id,
+    title,
+    "slug": slug.current,
+    published,
+    updated,
+    summary,
+    image {
+      ...,
+      asset->
+    }
+  }`;
+
+// app/components/Banner.tsx
+var import_react3 = __toModule(require("react"));
+var import_remix3 = __toModule(require("remix"));
+var import_react_router = __toModule(require("react-router"));
+var import_framer_motion = __toModule(require("framer-motion"));
+var import_usehooks_ts = __toModule(require("usehooks-ts"));
 
 // app/lib/sanityImageUrl.ts
 var import_image_url = __toModule(require("@sanity/image-url"));
@@ -226,13 +259,13 @@ function sanityImageUrl(source) {
 
 // app/components/Banner.tsx
 var Banner = () => {
-  var _a, _b;
+  var _a2, _b, _c, _d;
   const {pathname} = (0, import_react_router.useLocation)();
   const matches = (0, import_remix3.useMatches)();
-  const [isHome, setIsHome] = (0, import_react.useState)(pathname === "/");
-  const [bannerSize, setBannerSize] = (0, import_react.useState)({});
-  const [bannerImage, setBannerImage] = (0, import_react.useState)(null);
-  const {width: windowWidth} = (0, import_usehooks_ts2.useWindowSize)();
+  const [isHome, setIsHome] = (0, import_react3.useState)(pathname === "/");
+  const [bannerSize, setBannerSize] = (0, import_react3.useState)({});
+  const [bannerImage, setBannerImage] = (0, import_react3.useState)(null);
+  const {width: windowWidth} = (0, import_usehooks_ts.useWindowSize)();
   function updateBannerSize(useHomeSize = false) {
     const checkHomeSize = window && typeof useHomeSize === "undefined" ? window.location.pathname === "/" : useHomeSize;
     const bannerHomeMobile = {
@@ -271,10 +304,10 @@ var Banner = () => {
         break;
     }
   }
-  (0, import_react.useEffect)(() => {
-    var _a2, _b2;
+  (0, import_react3.useEffect)(() => {
+    var _a3, _b2;
     if (matches.length) {
-      const thisPathData = (_a2 = matches.find((match) => pathname === "/" ? match.handle === "home" : match.handle === "article")) == null ? void 0 : _a2.data;
+      const thisPathData = (_a3 = matches.find((match) => pathname === "/" ? match.handle === "home" : match.handle === "article")) == null ? void 0 : _a3.data;
       if (thisPathData) {
         const image = pathname === "/" ? thisPathData == null ? void 0 : thisPathData.articles[0].image : (_b2 = thisPathData == null ? void 0 : thisPathData.initialData) == null ? void 0 : _b2.image;
         if (image) {
@@ -282,14 +315,14 @@ var Banner = () => {
         }
       }
     }
-  }, [pathname]);
-  (0, import_react.useEffect)(() => {
+  }, [matches, pathname]);
+  (0, import_react3.useEffect)(() => {
     if (typeof window !== "undefined") {
       updateBannerSize();
       window.addEventListener("resize", () => updateBannerSize());
     }
   }, []);
-  (0, import_react.useEffect)(() => {
+  (0, import_react3.useEffect)(() => {
     const locationIsHome = pathname === "/";
     setIsHome(locationIsHome);
     updateBannerSize(locationIsHome);
@@ -307,10 +340,18 @@ var Banner = () => {
     exit: __objSpread({opacity: 0}, bannerSize.image),
     transition: {duration: 0.2}
   }, bannerImage && /* @__PURE__ */ React.createElement(import_framer_motion.AnimatePresence, null, /* @__PURE__ */ React.createElement(import_framer_motion.motion.img, {
-    key: (_a = bannerImage == null ? void 0 : bannerImage.asset) == null ? void 0 : _a._id,
-    src: sanityImageUrl(bannerImage).height(1200).width(600).toString(),
+    key: (_a2 = bannerImage == null ? void 0 : bannerImage.asset) == null ? void 0 : _a2._id,
+    src: sanityImageUrl(bannerImage).height(800).width(300).toString(),
     alt: (_b = bannerImage == null ? void 0 : bannerImage.altText) != null ? _b : null,
-    className: "hidden md:block w-full h-full object-fill",
+    className: "md:hidden w-full h-full object-cover",
+    initial: {opacity: 0},
+    animate: {opacity: 1},
+    exit: {opacity: 0}
+  }), /* @__PURE__ */ React.createElement(import_framer_motion.motion.img, {
+    key: (_c = bannerImage == null ? void 0 : bannerImage.asset) == null ? void 0 : _c._id,
+    src: sanityImageUrl(bannerImage).height(1200).width(600).toString(),
+    alt: (_d = bannerImage == null ? void 0 : bannerImage.altText) != null ? _d : null,
+    className: "hidden md:block w-full h-full object-cover",
     initial: {opacity: 0},
     animate: {opacity: 1},
     exit: {opacity: 0}
@@ -357,51 +398,104 @@ function Grid() {
   }));
 }
 
-// app/lib/queries.tsx
-var import_groq_store = __toModule(require("@sanity/groq-store"));
-var siteMetaQuery = import_groq_store.groq`*[_id == "siteMeta"][0]`;
-var articleQuery = import_groq_store.groq`*[_type == "article" && slug.current == $slug][0]{
-    ...,
-    image {
-      ...,
-      asset->
-    },
-    content[] {
-        ...,
-        _type == "image" => {
-            ...,
-            asset->
-        },
-    }
-  }`;
-var homeQuery = import_groq_store.groq`*[_type == "article" && defined(slug.current)]|order(published desc){
-    _id,
-    title,
-    "slug": slug.current,
-    published,
-    updated,
-    summary,
-    image {
-      ...,
-      asset->
-    }
-  }`;
+// app/components/Header.tsx
+var import_solid = __toModule(require("@heroicons/react/solid"));
+var import_remix4 = __toModule(require("remix"));
+var import_usehooks_ts2 = __toModule(require("usehooks-ts"));
+
+// app/components/Twitter.tsx
+function Twitter({className}) {
+  return /* @__PURE__ */ React.createElement("svg", {
+    xmlns: "http://www.w3.org/2000/svg",
+    width: "24",
+    height: "24",
+    viewBox: "0 0 24 24",
+    className
+  }, /* @__PURE__ */ React.createElement("path", {
+    fill: "currentColor",
+    d: "M3 17.68a10.215 10.215 0 005.53 1.623c6.697 0 10.478-5.658 10.25-10.73a7.346 7.346 0 001.8-1.866 7.192 7.192 0 01-2.072.565 3.604 3.604 0 001.588-1.996 7.196 7.196 0 01-2.308.877 3.608 3.608 0 00-6.153 3.289 10.246 10.246 0 01-7.412-3.766 3.612 3.612 0 001.12 4.816 3.558 3.558 0 01-1.635-.454A3.612 3.612 0 006.6 13.622a3.623 3.623 0 01-1.63.062 3.612 3.612 0 003.368 2.504A7.238 7.238 0 013 17.68z"
+  }));
+}
+var Twitter_default = Twitter;
+
+// app/components/GitHub.tsx
+function GitHub({className}) {
+  return /* @__PURE__ */ React.createElement("svg", {
+    xmlns: "http://www.w3.org/2000/svg",
+    width: "24",
+    height: "24",
+    viewBox: "0 0 24 24",
+    className
+  }, /* @__PURE__ */ React.createElement("path", {
+    fill: "currentColor",
+    d: "M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"
+  }));
+}
+var GitHub_default = GitHub;
+
+// app/components/Header.tsx
+var Header = ({siteMeta}) => {
+  const {title} = siteMeta != null ? siteMeta : {};
+  const menuClasses = "fixed text-sm z-50 inset-0 bottom-auto md:bottom-0 md:right-auto md:w-1/12 lg:w-1/16 flex items-center justify-center";
+  const buttonClasses = "flex items-center justify-center p-1 w-7 h-7 md:w-10 md:h-10 text-blue-500 rounded-full bg-white hover:bg-blue-900 hover:text-white";
+  const {isDarkMode, toggle} = (0, import_usehooks_ts2.useDarkMode)();
+  return /* @__PURE__ */ React.createElement("header", {
+    className: menuClasses
+  }, /* @__PURE__ */ React.createElement("div", {
+    className: "md:w-full bg-blue-500 py-2 px-3 md:py-8 text-white font-mono flex md:flex-col justify-center items-center"
+  }, /* @__PURE__ */ React.createElement(import_remix4.Link, {
+    to: "/",
+    className: "text-vertical flex items-center justify-center hover:bg-blue-900"
+  }, title), /* @__PURE__ */ React.createElement("div", {
+    className: "w-12 md:h-16 lg:h-24 md:w-auto border-t md:border-t-none md:border-l border-white mx-3 md:mx-0 md:my-4"
+  }), /* @__PURE__ */ React.createElement("div", {
+    className: "flex space-x-3 md:flex-col md:space-x-0 md:space-y-3"
+  }, /* @__PURE__ */ React.createElement("a", {
+    className: buttonClasses,
+    href: "https://twitter.com/simeonGriggs/",
+    target: "blank",
+    rel: "noopener noreferrer"
+  }, /* @__PURE__ */ React.createElement(Twitter_default, {
+    className: "w-full"
+  }), /* @__PURE__ */ React.createElement("div", {
+    className: "sr-only"
+  }, "Twitter")), /* @__PURE__ */ React.createElement("a", {
+    className: buttonClasses,
+    href: "https://github.com/SimeonGriggs/",
+    target: "blank",
+    rel: "noopener noreferrer"
+  }, /* @__PURE__ */ React.createElement(GitHub_default, {
+    className: "w-full"
+  }), /* @__PURE__ */ React.createElement("div", {
+    className: "sr-only"
+  }, "GitHub")), /* @__PURE__ */ React.createElement("button", {
+    type: "button",
+    onClick: () => toggle(),
+    className: buttonClasses
+  }, isDarkMode ? /* @__PURE__ */ React.createElement(import_solid.SunIcon, {
+    className: "w-full h-auto md:w-5"
+  }) : /* @__PURE__ */ React.createElement(import_solid.MoonIcon, {
+    className: "w-full h-auto md:w-5"
+  }), /* @__PURE__ */ React.createElement("div", {
+    className: "sr-only"
+  }, isDarkMode ? `Light` : `Dark`, " Mode")))));
+};
+var Header_default = Header;
+
+// app/styles/global.css
+var global_default = "/build/_assets/global-OE3DUKHJ.css";
 
 // route-module:/Users/simeongriggs/Sites/simeonGriggs/remix/app/root.tsx
 var handle = `root`;
 var links = () => {
   return [{rel: "stylesheet", href: global_default}];
 };
-var loader = async ({params}) => {
+var loader = async () => {
   const siteMeta = await getClient().fetch(siteMetaQuery);
   return {siteMeta};
 };
-function Document({
-  children,
-  title
-}) {
+function Document({children, title}) {
   const {isDarkMode} = (0, import_usehooks_ts3.useDarkMode)();
-  const data = (0, import_remix4.useLoaderData)();
   return /* @__PURE__ */ React.createElement("html", {
     lang: "en"
   }, /* @__PURE__ */ React.createElement("head", null, /* @__PURE__ */ React.createElement("meta", {
@@ -413,21 +507,27 @@ function Document({
   }), /* @__PURE__ */ React.createElement("meta", {
     name: "viewport",
     content: "width=device-width,initial-scale=1,viewport-fit=cover"
-  }), title ? /* @__PURE__ */ React.createElement("title", null, title) : null, /* @__PURE__ */ React.createElement(import_remix4.Meta, null), /* @__PURE__ */ React.createElement(import_remix4.Links, null)), /* @__PURE__ */ React.createElement("body", {
+  }), title ? /* @__PURE__ */ React.createElement("title", null, title) : null, /* @__PURE__ */ React.createElement(import_remix5.Meta, null), /* @__PURE__ */ React.createElement(import_remix5.Links, null)), /* @__PURE__ */ React.createElement("body", {
     className: `transition-colors duration-100 ease-out ${isDarkMode ? `dark text-white bg-blue-900` : ``}`
-  }, children, /* @__PURE__ */ React.createElement(import_remix4.Scripts, null), process.env.NODE_ENV === "development" && /* @__PURE__ */ React.createElement(Grid, null), process.env.NODE_ENV === "development" && /* @__PURE__ */ React.createElement(import_remix4.LiveReload, null)));
+  }, children, /* @__PURE__ */ React.createElement(RestoreScrollPosition, null), /* @__PURE__ */ React.createElement(import_remix5.Scripts, null), process.env.NODE_ENV === "development" && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(Grid, null), /* @__PURE__ */ React.createElement(import_remix5.LiveReload, null))));
 }
 function App() {
-  let data = (0, import_remix4.useLoaderData)();
+  const data = (0, import_remix5.useLoaderData)();
+  const matches = (0, import_remix5.useMatches)();
   const {siteMeta} = data;
+  const shouldManageScroll = matches.every((m) => {
+    var _a2;
+    return ((_a2 = m.handle) == null ? void 0 : _a2.scroll) !== false;
+  });
+  useScrollRestoration(shouldManageScroll);
   return /* @__PURE__ */ React.createElement(Document, null, /* @__PURE__ */ React.createElement(Header_default, {
     siteMeta
   }), /* @__PURE__ */ React.createElement(Banner_default, null), /* @__PURE__ */ React.createElement("main", {
     className: "px-4 md:px-0 grid grid-cols-6 md:grid-cols-12 lg:grid-cols-16 min-h-screen w-screen"
-  }, /* @__PURE__ */ React.createElement(import_react_router_dom.Outlet, null)));
+  }, /* @__PURE__ */ React.createElement(import_react_router_dom2.Outlet, null)));
 }
 function CatchBoundary() {
-  let caught = (0, import_remix4.useCatch)();
+  const caught = (0, import_remix5.useCatch)();
   switch (caught.status) {
     case 401:
     case 404:
@@ -453,24 +553,16 @@ __export(slug_exports, {
   loader: () => loader2,
   meta: () => meta
 });
-var import_remix5 = __toModule(require("remix"));
+var import_remix6 = __toModule(require("remix"));
 
 // app/components/PortableText.tsx
-var import_react2 = __toModule(require("react"));
+var import_react4 = __toModule(require("react"));
 var import_block_content_to_react = __toModule(require("@sanity/block-content-to-react"));
 var import_get_youtube_id = __toModule(require("get-youtube-id"));
 
 // app/components/Button.tsx
-var import_react_router_dom2 = __toModule(require("react-router-dom"));
-var Button = ({
-  children,
-  to,
-  className,
-  href,
-  disabled,
-  target,
-  type
-}) => {
+var import_react_router_dom3 = __toModule(require("react-router-dom"));
+var Button = ({children, to, className, href, disabled, target, type}) => {
   if (type === "submit") {
     return /* @__PURE__ */ React.createElement("button", {
       disabled,
@@ -497,7 +589,7 @@ var Button = ({
       className: "hidden md:block w-6 border-t border-white"
     }));
   }
-  return /* @__PURE__ */ React.createElement(import_react_router_dom2.Link, {
+  return /* @__PURE__ */ React.createElement(import_react_router_dom3.Link, {
     className: `button ${className || ""}`,
     to
   }, children);
@@ -521,14 +613,14 @@ function Prism({code = ``, language = `plaintext`}) {
 // app/components/PortableText.tsx
 var {projectId: projectId2, dataset: dataset2} = config;
 var BlockRenderer = (props) => {
-  var _a;
+  var _a2;
   const {style = "normal"} = props.node;
   if (/^h\d/.test(style)) {
-    return import_react2.default.createElement(style, {id: props.node._key}, props.children);
+    return import_react4.default.createElement(style, {id: props.node._key}, props.children);
   }
   if (["code", "pre"].includes(style)) {
-    const text = (_a = props == null ? void 0 : props.node) == null ? void 0 : _a.children.map(({text: text2}) => text2).join("");
-    return text ? /* @__PURE__ */ import_react2.default.createElement(Prism, {
+    const text = (_a2 = props == null ? void 0 : props.node) == null ? void 0 : _a2.children.map((child) => child.text).join("");
+    return text ? /* @__PURE__ */ import_react4.default.createElement(Prism, {
       code: text
     }) : null;
   }
@@ -539,42 +631,43 @@ var serializers = {
   types: {
     block: BlockRenderer,
     video: ({node}) => {
-      var _a;
+      var _a2;
       const id = (0, import_get_youtube_id.default)(node.url);
-      return /* @__PURE__ */ import_react2.default.createElement("a", {
+      return /* @__PURE__ */ import_react4.default.createElement("a", {
         href: node.url,
         target: "_blank",
-        rel: "noopener noreferrer"
-      }, /* @__PURE__ */ import_react2.default.createElement("img", {
+        rel: "noopener noreferrer",
+        className: "-mx-4 block aspect-w-16 aspect-h-9"
+      }, /* @__PURE__ */ import_react4.default.createElement("img", {
         src: `https://i.ytimg.com/vi/${id}/hqdefault.jpg`,
         loading: "lazy",
-        alt: (_a = node == null ? void 0 : node.title) != null ? _a : ``,
+        alt: (_a2 = node == null ? void 0 : node.title) != null ? _a2 : ``,
         className: "w-full h-full object-cover"
       }));
     },
-    break: () => /* @__PURE__ */ import_react2.default.createElement("hr", null),
+    break: () => /* @__PURE__ */ import_react4.default.createElement("hr", null),
     image: ({node}) => {
-      var _a;
-      return /* @__PURE__ */ import_react2.default.createElement("p", {
+      var _a2;
+      return /* @__PURE__ */ import_react4.default.createElement("p", {
         className: "-mx-4 border-t border-b md:border border-gray-100"
-      }, /* @__PURE__ */ import_react2.default.createElement("img", {
+      }, /* @__PURE__ */ import_react4.default.createElement("img", {
         loading: "lazy",
         src: sanityImageUrl(node.asset).width(800).toString(),
-        alt: (_a = node == null ? void 0 : node.asset) == null ? void 0 : _a.altText,
+        alt: (_a2 = node == null ? void 0 : node.asset) == null ? void 0 : _a2.altText,
         className: "w-full h-auto"
       }));
     },
-    code: ({node}) => (node == null ? void 0 : node.code) ? /* @__PURE__ */ import_react2.default.createElement(Prism, {
+    code: ({node}) => (node == null ? void 0 : node.code) ? /* @__PURE__ */ import_react4.default.createElement(Prism, {
       code: node.code,
       language: node == null ? void 0 : node.language
     }) : null,
-    button: ({node}) => /* @__PURE__ */ import_react2.default.createElement(Button_default, {
+    button: ({node}) => /* @__PURE__ */ import_react4.default.createElement(Button_default, {
       href: node.link.link
     }, node.link.text)
   }
 };
 function PortableText({blocks}) {
-  return /* @__PURE__ */ import_react2.default.createElement(import_block_content_to_react.default, {
+  return /* @__PURE__ */ import_react4.default.createElement(import_block_content_to_react.default, {
     blocks,
     serializers,
     projectId: projectId2,
@@ -607,24 +700,21 @@ function ProseableText({blocks = []}) {
 }
 
 // app/components/Label.tsx
-var import_react3 = __toModule(require("react"));
+var import_react5 = __toModule(require("react"));
 function Label({children}) {
-  return /* @__PURE__ */ import_react3.default.createElement("p", {
+  return /* @__PURE__ */ import_react5.default.createElement("p", {
     className: "text-xs font-mono text-blue-700 dark:text-blue-100 uppercase"
   }, children);
 }
 
 // app/components/Date.tsx
-var import_react4 = __toModule(require("react"));
-function Date({
-  updated,
-  published
-}) {
-  return /* @__PURE__ */ import_react4.default.createElement(Label, null, /* @__PURE__ */ import_react4.default.createElement("span", {
+var import_react6 = __toModule(require("react"));
+function Date({updated, published}) {
+  return /* @__PURE__ */ import_react6.default.createElement(Label, null, /* @__PURE__ */ import_react6.default.createElement("span", {
     className: "flex flex-col md:flex-row md:items-center"
-  }, updated ? /* @__PURE__ */ import_react4.default.createElement("span", null, "Updated ", updated, " ", /* @__PURE__ */ import_react4.default.createElement("span", {
+  }, updated ? /* @__PURE__ */ import_react6.default.createElement("span", null, "Updated ", updated, " ", /* @__PURE__ */ import_react6.default.createElement("span", {
     className: "opacity-50"
-  }, "// Published ", published)) : /* @__PURE__ */ import_react4.default.createElement("span", null, published)));
+  }, "| Published ", published)) : /* @__PURE__ */ import_react6.default.createElement("span", null, published)));
 }
 
 // app/components/TableOfContents.tsx
@@ -646,13 +736,13 @@ function TableOfContents({blocks}) {
 }
 
 // app/hooks/usePreviewSubscription.tsx
-var import_react5 = __toModule(require("react"));
+var import_react7 = __toModule(require("react"));
 function usePreviewSubscription(query, subscriptionOptions) {
   const {enabled, params, initialData} = subscriptionOptions;
-  const [data, setData] = (0, import_react5.useState)(initialData);
-  let sub;
-  let store;
-  (0, import_react5.useEffect)(() => {
+  const [data, setData] = (0, import_react7.useState)(initialData);
+  (0, import_react7.useEffect)(() => {
+    let sub;
+    let store;
     if (enabled) {
       sub = store.subscribe(query, params != null ? params : {}, (err, result) => {
         if (err) {
@@ -675,8 +765,8 @@ function usePreviewSubscription(query, subscriptionOptions) {
 // route-module:/Users/simeongriggs/Sites/simeonGriggs/remix/app/routes/$slug.tsx
 var handle2 = `article`;
 var meta = ({data, parentsData, location}) => {
-  var _a, _b;
-  const {title, summary, image} = (_a = data == null ? void 0 : data.initialData) != null ? _a : {};
+  var _a2, _b;
+  const {title, summary, image} = (_a2 = data == null ? void 0 : data.initialData) != null ? _a2 : {};
   const {siteMeta} = (_b = parentsData == null ? void 0 : parentsData.root) != null ? _b : {};
   const canonical = (siteMeta == null ? void 0 : siteMeta.siteUrl) + location.pathname;
   const imageWidth = 1200;
@@ -705,15 +795,15 @@ var loader2 = async ({params}) => {
   return {initialData: article, query: articleQuery, params, preview};
 };
 function Article() {
-  var _a, _b;
-  let {initialData, query, params, preview} = (0, import_remix5.useLoaderData)();
+  var _a2, _b;
+  const {initialData, query, params, preview} = (0, import_remix6.useLoaderData)();
   const {data: article} = usePreviewSubscription(query, {
     params,
     initialData,
     enabled: preview
   });
   return /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("header", {
-    className: "mt-48 md:mt-0 row-start-1 col-span-6 md:col-start-3 md:col-span-10 lg:col-start-5 lg:col-span-11"
+    className: "mt-32 md:mt-0 row-start-1 col-span-6 md:col-start-3 md:col-span-10 lg:col-start-5 lg:col-span-11"
   }, /* @__PURE__ */ React.createElement("div", {
     className: "py-12 md:py-24 max-w-xl"
   }, /* @__PURE__ */ React.createElement("h1", {
@@ -722,7 +812,7 @@ function Article() {
     className: "text-lg dark:text-blue-100 md:leading-8 font-mono"
   }, article.summary))), /* @__PURE__ */ React.createElement("aside", {
     className: "mb-4 md:mb-0 row-start-2 md:row-start-2 col-span-6 md:col-start-3 md:col-span-3 lg:col-start-5 lg:col-span-3 relative"
-  }, ((_a = article == null ? void 0 : article.content) == null ? void 0 : _a.length) > 0 ? /* @__PURE__ */ React.createElement("div", {
+  }, ((_a2 = article == null ? void 0 : article.content) == null ? void 0 : _a2.length) > 0 ? /* @__PURE__ */ React.createElement("div", {
     className: "grid grid-cols-1 gap-y-4 md:pr-12 sticky top-6"
   }, /* @__PURE__ */ React.createElement(Label, null, "Table of Contents"), /* @__PURE__ */ React.createElement(TableOfContents, {
     blocks: article.content
@@ -744,7 +834,6 @@ __export(routes_exports, {
   loader: () => loader3,
   meta: () => meta2
 });
-var import_remix6 = __toModule(require("remix"));
 var import_remix7 = __toModule(require("remix"));
 
 // app/components/Intro.tsx
@@ -759,8 +848,8 @@ function Intro({blocks = []}) {
 // route-module:/Users/simeongriggs/Sites/simeonGriggs/remix/app/routes/index.tsx
 var handle3 = `home`;
 var meta2 = ({parentsData}) => {
-  var _a;
-  const {siteMeta} = (_a = parentsData == null ? void 0 : parentsData.root) != null ? _a : {};
+  var _a2;
+  const {siteMeta} = (_a2 = parentsData == null ? void 0 : parentsData.root) != null ? _a2 : {};
   return {
     title: `${siteMeta == null ? void 0 : siteMeta.title} - ${siteMeta == null ? void 0 : siteMeta.description}`,
     description: siteMeta == null ? void 0 : siteMeta.description
@@ -771,10 +860,10 @@ var loader3 = async () => {
   return {articles};
 };
 function Index() {
-  var _a, _b, _c;
-  let {articles} = (0, import_remix7.useLoaderData)();
-  const matches = (0, import_remix6.useMatches)();
-  const {bio} = (_c = (_b = (_a = matches == null ? void 0 : matches.find((match) => match.handle === "root")) == null ? void 0 : _a.data) == null ? void 0 : _b.siteMeta) != null ? _c : {};
+  var _a2, _b, _c;
+  const {articles} = (0, import_remix7.useLoaderData)();
+  const matches = (0, import_remix7.useMatches)();
+  const {bio} = (_c = (_b = (_a2 = matches == null ? void 0 : matches.find((match) => match.handle === "root")) == null ? void 0 : _a2.data) == null ? void 0 : _b.siteMeta) != null ? _c : {};
   return /* @__PURE__ */ React.createElement("section", {
     className: "mt-48 md:mt-0 col-span-6 md:col-start-6 lg:col-start-8 md:col-span-6 lg:col-span-8"
   }, /* @__PURE__ */ React.createElement("div", {

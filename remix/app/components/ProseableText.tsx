@@ -1,18 +1,16 @@
-import { useMemo } from "react";
-
-import PortableText from "./PortableText";
+import PortableText from './PortableText'
 
 /**
  * Use Tailwind CSS's `prose` classes with Portable Text markup (blocks)
  * Without inheriting styles for custom components (types)
  * https://www.sanity.io/guides/tailwindcss-typography-prose-portable-text
  */
-export default function ProseableText({ blocks = [] }) {
+export default function ProseableText({blocks = []}) {
   // Group together standard `_type === "block"`  blocks
   // eg <p>, <li>, etc – and separate out everyone else
   const blockGroups = blocks.reduce(
     (acc, item) => {
-      const lastIdx = acc.length - 1;
+      const lastIdx = acc.length - 1
 
       if (
         // We don't have items in this group yet
@@ -20,23 +18,23 @@ export default function ProseableText({ blocks = [] }) {
         // The last group has the same `type`
         acc[lastIdx][0]._type === item._type
       ) {
-        acc[lastIdx].push(item);
+        acc[lastIdx].push(item)
       } else {
         // Time to create a new group, because the `type` is different compared to last group
-        acc.push([item]);
+        acc.push([item])
       }
 
-      return acc;
+      return acc
     },
     [[]]
-  );
+  )
 
-  if (!blockGroups?.length) return null;
+  if (!blockGroups?.length) return null
 
   return (
     <>
       {blockGroups.map((group) =>
-        group[0]._type === "block" ? (
+        group[0]._type === 'block' ? (
           <div
             key={group[0]._key}
             className="prose md:prose-lg dark:prose-dark prose-blue my-4 md:my-8"
@@ -48,5 +46,5 @@ export default function ProseableText({ blocks = [] }) {
         )
       )}
     </>
-  );
+  )
 }

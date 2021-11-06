@@ -1,9 +1,9 @@
 {
-  "version": "970a46e6",
+  "version": "3e9c1331",
   "entry": {
-    "module": "/build/entry.client-AR3S4ZNO.js",
+    "module": "/build/entry.client-NCMYJUI4.js",
     "imports": [
-      "/build/_shared/chunk-5F32KQJU.js",
+      "/build/_shared/chunk-GXYSHMGS.js",
       "/build/_shared/chunk-OPLT5EC3.js"
     ]
   },
@@ -11,9 +11,9 @@
     "root": {
       "id": "root",
       "path": "",
-      "module": "/build/root-YCTEPUQW.js",
+      "module": "/build/root-5JGAIY5E.js",
       "imports": [
-        "/build/_shared/chunk-G4K2NVI2.js"
+        "/build/_shared/chunk-MPMRCKXD.js"
       ],
       "hasAction": false,
       "hasLoader": true,
@@ -24,9 +24,9 @@
       "id": "routes/$slug",
       "parentId": "root",
       "path": ":slug",
-      "module": "/build/routes/$slug-YLUUMD6X.js",
+      "module": "/build/routes/$slug-ZLTLZBWU.js",
       "imports": [
-        "/build/_shared/chunk-C2A5XE3K.js"
+        "/build/_shared/chunk-OWWIMEIR.js"
       ],
       "hasAction": false,
       "hasLoader": true,
@@ -37,9 +37,9 @@
       "id": "routes/index",
       "parentId": "root",
       "index": true,
-      "module": "/build/routes/index-UTJCPFGS.js",
+      "module": "/build/routes/index-JG2IR6LB.js",
       "imports": [
-        "/build/_shared/chunk-C2A5XE3K.js"
+        "/build/_shared/chunk-OWWIMEIR.js"
       ],
       "hasAction": false,
       "hasLoader": true,
@@ -47,5 +47,5 @@
       "hasErrorBoundary": false
     }
   },
-  "url": "/build/manifest-970A46E6.js"
+  "url": "/build/manifest-3E9C1331.js"
 }

@@ -1,45 +1,41 @@
-import type { LinksFunction, LoaderFunction } from "remix";
 import {
+  LinksFunction,
+  LoaderFunction,
+  useMatches,
   Meta,
   Links,
   Scripts,
   useLoaderData,
   LiveReload,
   useCatch,
-} from "remix";
-import { Outlet } from "react-router-dom";
-import { useDarkMode } from "usehooks-ts";
+} from 'remix'
 
-import stylesUrl from "~/styles/global.css";
+import {Outlet} from 'react-router-dom'
+import {useDarkMode} from 'usehooks-ts'
 
-import Header from "~/components/Header";
-import { getClient } from "~/lib/sanityServer";
-import { removeTrailingSlash } from "./lib/helpers";
-import Banner from "./components/Banner";
-import Grid from "./components/Grid";
-import { siteMetaQuery } from "./lib/queries";
+// import {removeTrailingSlash} from './lib/helpers'
+import {RestoreScrollPosition, useScrollRestoration} from '~/lib/utils/scroll'
+import {getClient} from '~/lib/sanityServer'
+import {siteMetaQuery} from '~/lib/queries'
+import Banner from '~/components/Banner'
+import Grid from '~/components/Grid'
+import Header from '~/components/Header'
+import stylesUrl from '~/styles/global.css'
 
-export const handle = `root`;
+export const handle = `root`
 
-export let links: LinksFunction = () => {
-  return [{ rel: "stylesheet", href: stylesUrl }];
-};
+export const links: LinksFunction = () => {
+  return [{rel: 'stylesheet', href: stylesUrl}]
+}
 
-export let loader: LoaderFunction = async ({ params }) => {
-  const siteMeta = await getClient().fetch(siteMetaQuery);
+export const loader: LoaderFunction = async () => {
+  const siteMeta = await getClient().fetch(siteMetaQuery)
 
-  return { siteMeta };
-};
+  return {siteMeta}
+}
 
-function Document({
-  children,
-  title,
-}: {
-  children: React.ReactNode;
-  title?: string;
-}) {
-  const { isDarkMode } = useDarkMode();
-  const data = useLoaderData();
+function Document({children, title}: {children: React.ReactNode; title: string}) {
+  const {isDarkMode} = useDarkMode()
 
   return (
     <html lang="en">
@@ -52,10 +48,7 @@ function Document({
             `${data.requestInfo.origin}${data.requestInfo.path}`
           )}
         /> */}
-        <meta
-          name="viewport"
-          content="width=device-width,initial-scale=1,viewport-fit=cover"
-        />
+        <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
         {title ? <title>{title}</title> : null}
         <Meta />
         <Links />
@@ -66,18 +59,27 @@ function Document({
         }`}
       >
         {children}
-
+        <RestoreScrollPosition />
         <Scripts />
-        {process.env.NODE_ENV === "development" && <Grid />}
-        {process.env.NODE_ENV === "development" && <LiveReload />}
+        {process.env.NODE_ENV === 'development' && (
+          <>
+            <Grid />
+            <LiveReload />
+          </>
+        )}
       </body>
     </html>
-  );
+  )
 }
 
 export default function App() {
-  let data = useLoaderData();
-  const { siteMeta } = data;
+  const data = useLoaderData()
+  const matches = useMatches()
+
+  const {siteMeta} = data
+
+  const shouldManageScroll = matches.every((m) => (m.handle as any)?.scroll !== false)
+  useScrollRestoration(shouldManageScroll)
 
   return (
     <Document>
@@ -87,11 +89,11 @@ export default function App() {
         <Outlet />
       </main>
     </Document>
-  );
+  )
 }
 
 export function CatchBoundary() {
-  let caught = useCatch();
+  const caught = useCatch()
 
   switch (caught.status) {
     case 401:
@@ -102,26 +104,21 @@ export function CatchBoundary() {
             {caught.status} {caught.statusText}
           </h1>
         </Document>
-      );
+      )
 
     default:
-      throw new Error(
-        `Unexpected caught response with status: ${caught.status}`
-      );
+      throw new Error(`Unexpected caught response with status: ${caught.status}`)
   }
 }
 
-export function ErrorBoundary({ error }: { error: Error }) {
-  console.error(error);
+export function ErrorBoundary({error}: {error: Error}) {
+  console.error(error)
 
   return (
     <Document title="Uh-oh!">
       <h1>App Error</h1>
       <pre>{error.message}</pre>
-      <p>
-        Replace this UI with what you want users to see when your app throws
-        uncaught errors.
-      </p>
+      <p>Replace this UI with what you want users to see when your app throws uncaught errors.</p>
     </Document>
-  );
+  )
 }

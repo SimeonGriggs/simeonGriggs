@@ -1,7 +1,7 @@
 {
   "name": "simeongriggs.dev",
   "version": "1.0.0",
-  "description": "Sanity/Next.js Website",
+  "description": "sanity.io / remix.run blog",
   "author": "Simeon Griggs",
   "license": "UNLICENSED",
   "scripts": {
@@ -24,7 +24,6 @@
     "autoprefixer": "^10.2.4",
     "babel-eslint": "^10.1.0",
     "eslint": "^7.8.1",
-    "eslint-config-next": "^11.0.0",
     "eslint-config-prettier": "^6.7.0",
     "eslint-config-sanity": "^5.0.0",
     "eslint-import-resolver-webpack": "^0.11.1",

@@ -14,8 +14,6 @@ module.exports = {
     'sanity/import',
     'plugin:react-hooks/recommended',
     'prettier',
-    'prettier/react',
-    'next',
   ],
   rules: {
     'no-use-before-define': 'off',
@@ -39,14 +37,25 @@ module.exports = {
       },
     ],
     'react/forbid-prop-types': [0],
-    'react/jsx-filename-extension': false,
   },
-  plugins: ['import', 'prettier', 'react'],
+  plugins: ['prettier', 'react'],
   overrides: [
     {
       files: ['*.ts', '*.tsx'],
       rules: {
         'no-undef': 'off',
+        'react/react-in-jsx-scope': 'off',
+
+        // No more prop-types
+        'react/prop-types': 'off',
+        'react/require-default-props': 'off',
+
+        // Struggles with ~ paths
+        'import/no-unresolved': 'off',
+        'import/extensions': 'off',
+
+        // Rule from Studio
+        'no-process-env': 'off',
       },
     },
   ],

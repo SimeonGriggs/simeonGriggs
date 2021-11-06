@@ -1078,6 +1078,55 @@ video {
 .prose-blue a code {
 	color: #0703d8;
 }
+.aspect-w-1,
+.aspect-w-2,
+.aspect-w-3,
+.aspect-w-4,
+.aspect-w-5,
+.aspect-w-6,
+.aspect-w-7,
+.aspect-w-8,
+.aspect-w-9,
+.aspect-w-10,
+.aspect-w-11,
+.aspect-w-12,
+.aspect-w-13,
+.aspect-w-14,
+.aspect-w-15,
+.aspect-w-16 {
+	position: relative;
+	padding-bottom: calc(var(--tw-aspect-h) / var(--tw-aspect-w) * 100%);
+}
+.aspect-w-1 > *,
+.aspect-w-2 > *,
+.aspect-w-3 > *,
+.aspect-w-4 > *,
+.aspect-w-5 > *,
+.aspect-w-6 > *,
+.aspect-w-7 > *,
+.aspect-w-8 > *,
+.aspect-w-9 > *,
+.aspect-w-10 > *,
+.aspect-w-11 > *,
+.aspect-w-12 > *,
+.aspect-w-13 > *,
+.aspect-w-14 > *,
+.aspect-w-15 > *,
+.aspect-w-16 > * {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+}
+.aspect-w-16 {
+	--tw-aspect-w: 16;
+}
+.aspect-h-9 {
+	--tw-aspect-h: 9;
+}
 
 html {
   scroll-behavior: smooth;
@@ -1419,8 +1468,8 @@ pre[class*="language-"] {
 	margin-bottom: 1rem;
 }
 
-.mt-48 {
-	margin-top: 12rem;
+.mt-32 {
+	margin-top: 8rem;
 }
 
 .mb-8 {
@@ -1431,8 +1480,16 @@ pre[class*="language-"] {
 	margin-bottom: 1rem;
 }
 
+.mt-48 {
+	margin-top: 12rem;
+}
+
 .block {
 	display: block;
+}
+
+.inline {
+	display: inline;
 }
 
 .flex {
@@ -1586,11 +1643,6 @@ pre[class*="language-"] {
 .object-cover {
 	-o-object-fit: cover;
 	   object-fit: cover;
-}
-
-.object-fill {
-	-o-object-fit: fill;
-	   object-fit: fill;
 }
 
 .p-1 {
@@ -2075,6 +2127,10 @@ pre[class*="language-"] {
 
 	.md\:block {
 		display: block;
+	}
+
+	.md\:hidden {
+		display: none;
 	}
 
 	.md\:h-screen {

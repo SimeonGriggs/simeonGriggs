@@ -1,8 +1,8 @@
-import { groqStore, groq } from "@sanity/groq-store";
+import {groqStore} from '@sanity/groq-store'
 
-import { config } from "./sanityConfig";
+import {config} from './sanityConfig'
 
-const { projectId, dataset } = config;
+const {projectId, dataset} = config
 
 export const store = groqStore({
   projectId,
@@ -22,4 +22,4 @@ export const store = groqStore({
   // Optional limit on number of documents, to prevent using too much memory unexpectedly
   // Throws on the first operation (query, retrieval, subscription) if reaching this limit.
   documentLimit: 1000,
-});
+})
