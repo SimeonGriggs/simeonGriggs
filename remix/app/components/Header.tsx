@@ -1,11 +1,10 @@
 /* eslint-disable react/jsx-filename-extension */
-import { useState, useEffect } from "react";
 import { MoonIcon, SunIcon } from "@heroicons/react/solid";
-import { Link } from "react-router-dom";
+import { Link } from "remix";
+import { useDarkMode } from "usehooks-ts";
 
 import Twitter from "./Twitter";
 import GitHub from "./GitHub";
-import { useDarkMode } from "usehooks-ts";
 
 interface SiteMeta {
   title: string;

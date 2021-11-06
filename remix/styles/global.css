@@ -147,4 +147,12 @@ pre[class*="language-"] {
   @apply text-sm;
 }
 
+.intro a {
+  @apply underline;
+}
+
+.intro a:hover {
+  @apply bg-white text-blue-500 no-underline;
+}
+
 @tailwind utilities;

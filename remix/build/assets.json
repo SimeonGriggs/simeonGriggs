@@ -1,0 +1,51 @@
+{
+  "version": "970a46e6",
+  "entry": {
+    "module": "/build/entry.client-AR3S4ZNO.js",
+    "imports": [
+      "/build/_shared/chunk-5F32KQJU.js",
+      "/build/_shared/chunk-OPLT5EC3.js"
+    ]
+  },
+  "routes": {
+    "root": {
+      "id": "root",
+      "path": "",
+      "module": "/build/root-YCTEPUQW.js",
+      "imports": [
+        "/build/_shared/chunk-G4K2NVI2.js"
+      ],
+      "hasAction": false,
+      "hasLoader": true,
+      "hasCatchBoundary": true,
+      "hasErrorBoundary": true
+    },
+    "routes/$slug": {
+      "id": "routes/$slug",
+      "parentId": "root",
+      "path": ":slug",
+      "module": "/build/routes/$slug-YLUUMD6X.js",
+      "imports": [
+        "/build/_shared/chunk-C2A5XE3K.js"
+      ],
+      "hasAction": false,
+      "hasLoader": true,
+      "hasCatchBoundary": false,
+      "hasErrorBoundary": false
+    },
+    "routes/index": {
+      "id": "routes/index",
+      "parentId": "root",
+      "index": true,
+      "module": "/build/routes/index-UTJCPFGS.js",
+      "imports": [
+        "/build/_shared/chunk-C2A5XE3K.js"
+      ],
+      "hasAction": false,
+      "hasLoader": true,
+      "hasCatchBoundary": false,
+      "hasErrorBoundary": false
+    }
+  },
+  "url": "/build/manifest-970A46E6.js"
+}

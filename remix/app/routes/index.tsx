@@ -1,13 +1,13 @@
-import type { MetaFunction, LinksFunction, LoaderFunction } from "remix";
-import { useLoaderData } from "remix";
-import { Link } from "react-router-dom";
+import { MetaFunction, LinksFunction, LoaderFunction, useMatches } from "remix";
+import { useLoaderData, Link } from "remix";
 
 // import stylesUrl from "../styles/index.css";
 import { getClient } from "~/lib/sanityServer";
-import sanityImageUrl from "~/lib/sanityImageUrl";
 import { homeQuery } from "~/lib/queries";
 import Intro from "~/components/Intro";
 import Date from "~/components/Date";
+
+export const handle = `home`;
 
 export let meta: MetaFunction = ({ parentsData }) => {
   const { siteMeta } = parentsData?.root ?? {};
@@ -30,6 +30,9 @@ export let loader: LoaderFunction = async () => {
 
 export default function Index() {
   let { articles } = useLoaderData();
+  const matches = useMatches();
+  const { bio } =
+    matches?.find((match) => match.handle === "root")?.data?.siteMeta ?? {};
 
   return (
     <section className="mt-48 md:mt-0 col-span-6 md:col-start-6 lg:col-start-8 md:col-span-6 lg:col-span-8">
@@ -40,13 +43,14 @@ export default function Index() {
           </h1>
         </article>
 
-        <Intro />
+        {bio?.length > 0 ? <Intro blocks={bio} /> : null}
 
         {articles.map((article) => (
           <article key={article._id} className="grid grid-cols-1 gap-y-4">
             <h2 className="leading-none font-black tracking-tighter text-2xl md:text-4xl text-blue-500">
               <Link
                 to={`/${article.slug}`}
+                prefetch="intent"
                 className="block hover:bg-blue-500 hover:text-white"
               >
                 {article.title}

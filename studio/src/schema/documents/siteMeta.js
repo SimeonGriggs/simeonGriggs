@@ -23,5 +23,10 @@ export default {
       title: 'Author',
       type: 'string',
     },
+    {
+      name: 'bio',
+      title: 'Bio',
+      type: 'portableText',
+    },
   ],
 }

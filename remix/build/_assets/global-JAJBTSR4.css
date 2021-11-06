@@ -1316,18 +1316,6 @@ pre[class*="language-"] {
 	line-height: 1.25rem;
 }
 
-.intro a {
-	text-decoration: underline;
-}
-
-.intro a:hover {
-	--tw-bg-opacity: 1;
-	background-color: rgba(255, 255, 255, var(--tw-bg-opacity));
-	--tw-text-opacity: 1;
-	color: rgba(37, 34, 252, var(--tw-text-opacity));
-	text-decoration: none;
-}
-
 .sr-only {
 	position: absolute;
 	width: 1px;
@@ -1380,12 +1368,24 @@ pre[class*="language-"] {
 	top: 1.5rem;
 }
 
+.left-0 {
+	left: 0px;
+}
+
+.right-0 {
+	right: 0px;
+}
+
 .z-40 {
 	z-index: 40;
 }
 
 .z-50 {
 	z-index: 50;
+}
+
+.z-10 {
+	z-index: 10;
 }
 
 .col-span-6 {
@@ -1465,6 +1465,10 @@ pre[class*="language-"] {
 
 .h-auto {
 	height: auto;
+}
+
+.h-48 {
+	height: 12rem;
 }
 
 .min-h-screen {
@@ -1573,14 +1577,23 @@ pre[class*="language-"] {
 	background-color: rgba(1, 0, 20, var(--tw-bg-opacity));
 }
 
-.bg-blue-500 {
+.bg-green-400 {
 	--tw-bg-opacity: 1;
-	background-color: rgba(37, 34, 252, var(--tw-bg-opacity));
+	background-color: rgba(52, 211, 153, var(--tw-bg-opacity));
 }
 
 .bg-white {
 	--tw-bg-opacity: 1;
 	background-color: rgba(255, 255, 255, var(--tw-bg-opacity));
+}
+
+.bg-blue-500 {
+	--tw-bg-opacity: 1;
+	background-color: rgba(37, 34, 252, var(--tw-bg-opacity));
+}
+
+.bg-opacity-25 {
+	--tw-bg-opacity: 0.25;
 }
 
 .object-cover {
@@ -2026,6 +2039,18 @@ pre[class*="language-"] {
 		bottom: 0px;
 	}
 
+	.md\:top-\[8\.33vw\] {
+		top: 8.33vw;
+	}
+
+	.md\:bottom-\[8\.33vw\] {
+		bottom: 8.33vw;
+	}
+
+	.md\:left-\[8\.33vw\] {
+		left: 8.33vw;
+	}
+
 	.md\:col-span-10 {
 		grid-column: span 10 / span 10;
 	}
@@ -2077,6 +2102,10 @@ pre[class*="language-"] {
 		display: block;
 	}
 
+	.md\:hidden {
+		display: none;
+	}
+
 	.md\:h-screen {
 		height: 100vh;
 	}
@@ -2087,6 +2116,10 @@ pre[class*="language-"] {
 
 	.md\:h-16 {
 		height: 4rem;
+	}
+
+	.md\:h-auto {
+		height: auto;
 	}
 
 	.md\:w-4\/12 {
@@ -2111,6 +2144,10 @@ pre[class*="language-"] {
 
 	.md\:w-5 {
 		width: 1.25rem;
+	}
+
+	.md\:w-3\/12 {
+		width: 25%;
 	}
 
 	.md\:grid-cols-12 {
@@ -2203,6 +2240,18 @@ pre[class*="language-"] {
 
 @media (min-width: 1024px) {
 
+	.lg\:top-\[6\.25vw\] {
+		top: 6.25vw;
+	}
+
+	.lg\:bottom-\[6\.25vw\] {
+		bottom: 6.25vw;
+	}
+
+	.lg\:left-\[6\.25vw\] {
+		left: 6.25vw;
+	}
+
 	.lg\:col-span-11 {
 		grid-column: span 11 / span 11;
 	}
@@ -2237,6 +2286,14 @@ pre[class*="language-"] {
 
 	.lg\:w-1\/16 {
 		width: 6.25%;
+	}
+
+	.lg\:w-3\/16 {
+		width: 18.75%;
+	}
+
+	.lg\:w-5\/16 {
+		width: 31.25%;
 	}
 
 	.lg\:grid-cols-16 {

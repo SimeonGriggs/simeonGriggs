@@ -1266,8 +1266,6 @@ pre[class*="language-"] {
 	border-color: rgba(240, 240, 255, var(--tw-border-opacity));
 	padding-top: 1rem;
 	padding-bottom: 1rem;
-	padding-left: 1rem;
-	padding-right: 1rem;
 	font-size: 0.75rem;
 	line-height: 1rem;
 

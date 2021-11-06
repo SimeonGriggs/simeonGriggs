@@ -11,6 +11,8 @@ import Date from "~/components/Date";
 import TableOfContents from "~/components/TableOfContents";
 import { usePreviewSubscription } from "~/hooks/usePreviewSubscription";
 
+export const handle = `article`;
+
 export let meta: MetaFunction = ({ data, parentsData, location }) => {
   const { title, summary, image } = data?.initialData ?? {};
   const { siteMeta } = parentsData?.root ?? {};

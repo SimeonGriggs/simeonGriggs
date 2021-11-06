@@ -80,6 +80,7 @@ module.exports = {
             "ul > li::before": { backgroundColor: theme("colors.blue.500") },
             "ol > li::before": { color: theme("colors.blue.500") },
             hr: { borderColor: theme("colors.blue.500") },
+            pre: {padding: false},
             "a:hover": {
               backgroundColor: theme("colors.blue.500"),
               color: "white",

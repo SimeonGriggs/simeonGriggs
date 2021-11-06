@@ -2,12 +2,12 @@ import { Link } from "react-router-dom";
 
 interface Props {
   children: string;
-  to: string;
-  className: string;
-  href: string;
+  to?: string;
+  className?: string;
+  href?: string;
   disabled?: boolean;
-  target: string;
-  type: string;
+  target?: string;
+  type?: string;
 }
 
 interface Attributes {

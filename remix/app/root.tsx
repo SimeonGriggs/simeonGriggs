@@ -19,6 +19,8 @@ import Banner from "./components/Banner";
 import Grid from "./components/Grid";
 import { siteMetaQuery } from "./lib/queries";
 
+export const handle = `root`;
+
 export let links: LinksFunction = () => {
   return [{ rel: "stylesheet", href: stylesUrl }];
 };

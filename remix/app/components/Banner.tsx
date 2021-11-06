@@ -83,12 +83,9 @@ const Banner = () => {
   useEffect(() => {
     if (matches.length) {
       const thisPathData = matches.find((match: any) =>
-        pathname === "/"
-          ? match.pathname === pathname && match.data.articles
-          : match.pathname === pathname
+        pathname === "/" ? match.handle === "home" : match.handle === "article"
       )?.data;
 
-      console.log(matches);
       if (thisPathData) {
         const image =
           pathname === "/"
