@@ -14,6 +14,7 @@ import {Outlet} from 'react-router-dom'
 import {useDarkMode} from 'usehooks-ts'
 
 // import {removeTrailingSlash} from './lib/helpers'
+import {getEnv} from './lib/utils/env'
 import {RestoreScrollPosition, useScrollRestoration} from '~/lib/utils/scroll'
 import {getClient} from '~/lib/sanityServer'
 import {siteMetaQuery} from '~/lib/queries'
@@ -31,11 +32,12 @@ export const links: LinksFunction = () => {
 export const loader: LoaderFunction = async () => {
   const siteMeta = await getClient().fetch(siteMetaQuery)
 
-  return {siteMeta}
+  return {siteMeta, ENV: getEnv()}
 }
 
 function Document({children, title}: {children: React.ReactNode; title: string}) {
   const {isDarkMode} = useDarkMode()
+  const {ENV} = useLoaderData()
 
   return (
     <html lang="en">
@@ -61,7 +63,7 @@ function Document({children, title}: {children: React.ReactNode; title: string})
         {children}
         <RestoreScrollPosition />
         <Scripts />
-        {process.env.NODE_ENV === 'development' && (
+        {ENV.NODE_ENV === 'development' && (
           <>
             <Grid />
             <LiveReload />
@@ -82,7 +84,7 @@ export default function App() {
   useScrollRestoration(shouldManageScroll)
 
   return (
-    <Document>
+    <Document title={siteMeta?.title}>
       <Header siteMeta={siteMeta} />
       <Banner />
       <main className="px-4 md:px-0 grid grid-cols-6 md:grid-cols-12 lg:grid-cols-16 min-h-screen w-screen">

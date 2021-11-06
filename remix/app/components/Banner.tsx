@@ -134,7 +134,7 @@ const Banner = () => {
           {bannerImage && (
             <AnimatePresence>
               <motion.img
-                key={bannerImage?.asset?._id}
+                key={[`mobile`, bannerImage?.asset?._id].join('-')}
                 src={sanityImageUrl(bannerImage).height(800).width(300).toString()}
                 alt={bannerImage?.altText ?? null}
                 className="md:hidden w-full h-full object-cover"
@@ -143,7 +143,7 @@ const Banner = () => {
                 exit={{opacity: 0}}
               />
               <motion.img
-                key={bannerImage?.asset?._id}
+                key={[`desktop`, bannerImage?.asset?._id].join('-')}
                 src={sanityImageUrl(bannerImage).height(1200).width(600).toString()}
                 alt={bannerImage?.altText ?? null}
                 className="hidden md:block w-full h-full object-cover"

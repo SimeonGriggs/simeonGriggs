@@ -1,5 +1,5 @@
 {
-  "version": "3e9c1331",
+  "version": "eff4cc3b",
   "entry": {
     "module": "/build/entry.client-NCMYJUI4.js",
     "imports": [
@@ -11,7 +11,7 @@
     "root": {
       "id": "root",
       "path": "",
-      "module": "/build/root-5JGAIY5E.js",
+      "module": "/build/root-MD5Q73DL.js",
       "imports": [
         "/build/_shared/chunk-MPMRCKXD.js"
       ],
@@ -47,5 +47,5 @@
       "hasErrorBoundary": false
     }
   },
-  "url": "/build/manifest-3E9C1331.js"
+  "url": "/build/manifest-EFF4CC3B.js"
 }

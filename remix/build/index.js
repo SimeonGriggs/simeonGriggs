@@ -79,6 +79,14 @@ var import_remix5 = __toModule(require("remix"));
 var import_react_router_dom2 = __toModule(require("react-router-dom"));
 var import_usehooks_ts3 = __toModule(require("usehooks-ts"));
 
+// app/lib/utils/env.ts
+function getEnv() {
+  return {
+    FLY: process.env.FLY,
+    NODE_ENV: process.env.NODE_ENV
+  };
+}
+
 // app/lib/utils/scroll.tsx
 var React2 = __toModule(require("react"));
 var import_react_router_dom = __toModule(require("react-router-dom"));
@@ -340,7 +348,7 @@ var Banner = () => {
     exit: __objSpread({opacity: 0}, bannerSize.image),
     transition: {duration: 0.2}
   }, bannerImage && /* @__PURE__ */ React.createElement(import_framer_motion.AnimatePresence, null, /* @__PURE__ */ React.createElement(import_framer_motion.motion.img, {
-    key: (_a2 = bannerImage == null ? void 0 : bannerImage.asset) == null ? void 0 : _a2._id,
+    key: [`mobile`, (_a2 = bannerImage == null ? void 0 : bannerImage.asset) == null ? void 0 : _a2._id].join("-"),
     src: sanityImageUrl(bannerImage).height(800).width(300).toString(),
     alt: (_b = bannerImage == null ? void 0 : bannerImage.altText) != null ? _b : null,
     className: "md:hidden w-full h-full object-cover",
@@ -348,7 +356,7 @@ var Banner = () => {
     animate: {opacity: 1},
     exit: {opacity: 0}
   }), /* @__PURE__ */ React.createElement(import_framer_motion.motion.img, {
-    key: (_c = bannerImage == null ? void 0 : bannerImage.asset) == null ? void 0 : _c._id,
+    key: [`desktop`, (_c = bannerImage == null ? void 0 : bannerImage.asset) == null ? void 0 : _c._id].join("-"),
     src: sanityImageUrl(bannerImage).height(1200).width(600).toString(),
     alt: (_d = bannerImage == null ? void 0 : bannerImage.altText) != null ? _d : null,
     className: "hidden md:block w-full h-full object-cover",
@@ -492,10 +500,11 @@ var links = () => {
 };
 var loader = async () => {
   const siteMeta = await getClient().fetch(siteMetaQuery);
-  return {siteMeta};
+  return {siteMeta, ENV: getEnv()};
 };
 function Document({children, title}) {
   const {isDarkMode} = (0, import_usehooks_ts3.useDarkMode)();
+  const {ENV} = (0, import_remix5.useLoaderData)();
   return /* @__PURE__ */ React.createElement("html", {
     lang: "en"
   }, /* @__PURE__ */ React.createElement("head", null, /* @__PURE__ */ React.createElement("meta", {
@@ -509,7 +518,7 @@ function Document({children, title}) {
     content: "width=device-width,initial-scale=1,viewport-fit=cover"
   }), title ? /* @__PURE__ */ React.createElement("title", null, title) : null, /* @__PURE__ */ React.createElement(import_remix5.Meta, null), /* @__PURE__ */ React.createElement(import_remix5.Links, null)), /* @__PURE__ */ React.createElement("body", {
     className: `transition-colors duration-100 ease-out ${isDarkMode ? `dark text-white bg-blue-900` : ``}`
-  }, children, /* @__PURE__ */ React.createElement(RestoreScrollPosition, null), /* @__PURE__ */ React.createElement(import_remix5.Scripts, null), process.env.NODE_ENV === "development" && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(Grid, null), /* @__PURE__ */ React.createElement(import_remix5.LiveReload, null))));
+  }, children, /* @__PURE__ */ React.createElement(RestoreScrollPosition, null), /* @__PURE__ */ React.createElement(import_remix5.Scripts, null), ENV.NODE_ENV === "development" && /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement(Grid, null), /* @__PURE__ */ React.createElement(import_remix5.LiveReload, null))));
 }
 function App() {
   const data = (0, import_remix5.useLoaderData)();
@@ -520,7 +529,9 @@ function App() {
     return ((_a2 = m.handle) == null ? void 0 : _a2.scroll) !== false;
   });
   useScrollRestoration(shouldManageScroll);
-  return /* @__PURE__ */ React.createElement(Document, null, /* @__PURE__ */ React.createElement(Header_default, {
+  return /* @__PURE__ */ React.createElement(Document, {
+    title: siteMeta == null ? void 0 : siteMeta.title
+  }, /* @__PURE__ */ React.createElement(Header_default, {
     siteMeta
   }), /* @__PURE__ */ React.createElement(Banner_default, null), /* @__PURE__ */ React.createElement("main", {
     className: "px-4 md:px-0 grid grid-cols-6 md:grid-cols-12 lg:grid-cols-16 min-h-screen w-screen"
