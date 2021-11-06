@@ -1,0 +1,53 @@
+{
+  "private": true,
+  "name": "remix-app-template",
+  "description": "",
+  "license": "",
+  "scripts": {
+    "build:remix": "remix build",
+    "build:css": "postcss styles/**/*.css --base styles --dir app/styles --env production",
+    "build": "concurrently \"npm:build:*\"",
+    "dev:remix": "remix dev",
+    "dev:css": "postcss styles/**/*.css --base styles --dir app/styles --w",
+    "dev": "concurrently \"npm:dev:*\"",
+    "postinstall": "remix setup node",
+    "deploy": "flyctl deploy --build-arg REMIX_TOKEN=${REMIX_TOKEN}",
+    "start": "remix-serve build"
+  },
+  "dependencies": {
+    "@heroicons/react": "^1.0.5",
+    "@remix-run/react": "^0.20.1",
+    "@remix-run/serve": "^0.20.1",
+    "@sanity/block-content-to-react": "^3.0.0",
+    "@sanity/client": "^2.21.7",
+    "@sanity/groq-store": "^0.2.2",
+    "@sanity/image-url": "^1.0.1",
+    "@tailwindcss/aspect-ratio": "^0.3.0",
+    "@tailwindcss/typography": "^0.4.1",
+    "concurrently": "^6.3.0",
+    "framer-motion": "^5.2.1",
+    "get-youtube-id": "^1.0.1",
+    "next-sanity": "^0.4.0",
+    "prism-react-renderer": "^1.2.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-router-dom": "6.0.0-beta.8",
+    "remix": "^0.20.1",
+    "usehooks-ts": "^1.0.14"
+  },
+  "devDependencies": {
+    "@remix-run/dev": "^0.20.1",
+    "@types/react": "^17.0.24",
+    "@types/react-dom": "^17.0.9",
+    "esbuild": "^0.13.0",
+    "miniflare": "^1.4.1",
+    "postcss": "^8.3.11",
+    "postcss-cli": "^9.0.1",
+    "tailwindcss": "^2.2.19",
+    "typescript": "^4.1.2"
+  },
+  "engines": {
+    "node": ">=14"
+  },
+  "sideEffects": false
+}

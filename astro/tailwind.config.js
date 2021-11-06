@@ -1,9 +1,9 @@
-const defaultTheme = require('tailwindcss/defaultTheme')
+const defaultTheme = require("tailwindcss/defaultTheme");
 
 module.exports = {
-  mode: 'jit',
-  purge: ['./public/**/*.html', './src/**/*.{astro,js,jsx,svelte,ts,tsx,vue}'],
-  darkMode: 'class',
+  mode: "jit",
+  purge: ["./public/**/*.html", "./src/**/*.{astro,js,jsx,svelte,ts,tsx,vue}"],
+  darkMode: "class",
   corePlugins: {
     // Disable the default container
     container: false,
@@ -11,69 +11,69 @@ module.exports = {
   theme: {
     // Overrides
     fontFamily: {
-      mono: ['JetBrains Mono', ...defaultTheme.fontFamily.mono],
-      sans: ['Inter', ...defaultTheme.fontFamily.sans],
+      mono: ["JetBrains Mono", ...defaultTheme.fontFamily.mono],
+      sans: ["Inter", ...defaultTheme.fontFamily.sans],
     },
     // Extensions
     extend: {
       gridTemplateColumns: {
-        16: 'repeat(16, minmax(0, 1fr))',
+        16: "repeat(16, minmax(0, 1fr))",
       },
       gridColumn: {
-        'span-16': 'span 16 / span 16',
+        "span-16": "span 16 / span 16",
       },
       width: {
-        '1/16': `${100 / 16}%`,
-        '3/16': `${(100 / 16) * 3}%`,
-        '4/16': `${(100 / 16) * 4}%`,
-        '5/16': `${(100 / 16) * 5}%`,
+        "1/16": `${100 / 16}%`,
+        "3/16": `${(100 / 16) * 3}%`,
+        "4/16": `${(100 / 16) * 4}%`,
+        "5/16": `${(100 / 16) * 5}%`,
       },
       colors: {
         blue: {
-          50: '#fafaff',
-          100: '#f0f0ff',
-          200: '#bfbefe',
-          300: '#8886fd',
-          400: '#5754fd',
-          500: '#2522fc',
-          600: '#0703d8',
-          700: '#050297',
-          800: '#030156',
-          900: '#010014',
+          50: "#fafaff",
+          100: "#f0f0ff",
+          200: "#bfbefe",
+          300: "#8886fd",
+          400: "#5754fd",
+          500: "#2522fc",
+          600: "#0703d8",
+          700: "#050297",
+          800: "#030156",
+          900: "#010014",
         },
       },
       typography: (theme) => ({
         DEFAULT: {
           css: {
             h1: {
-              color: theme('colors.blue.500'),
-              fontWeight: theme('fontWeight.black'),
-              letterSpacing: theme('letterSpacing.tighter')
+              color: theme("colors.blue.500"),
+              fontWeight: theme("fontWeight.black"),
+              letterSpacing: theme("letterSpacing.tighter"),
             },
             h2: {
-              color: theme('colors.blue.500'),
-              fontWeight: theme('fontWeight.black'),
-              letterSpacing: theme('letterSpacing.tighter') 
+              color: theme("colors.blue.500"),
+              fontWeight: theme("fontWeight.black"),
+              letterSpacing: theme("letterSpacing.tighter"),
             },
-            'h2 a': {
-              textDecoration: 'none',
-              color: theme('colors.blue.500'),
-              fontWeight: theme('fontWeight.black'),
-              letterSpacing: theme('letterSpacing.tighter'),
-              display: 'block',
-              '&:hover': {
-                backgroundColor: theme('colors.blue.500'),
-                color: theme('colors.white')
-              }
+            "h2 a": {
+              textDecoration: "none",
+              color: theme("colors.blue.500"),
+              fontWeight: theme("fontWeight.black"),
+              letterSpacing: theme("letterSpacing.tighter"),
+              display: "block",
+              "&:hover": {
+                backgroundColor: theme("colors.blue.500"),
+                color: theme("colors.white"),
+              },
             },
             h3: {
-              color: theme('colors.blue.500'),
-              fontWeight: theme('fontWeight.black'),
-              letterSpacing: theme('letterSpacing.tighter')
+              color: theme("colors.blue.500"),
+              fontWeight: theme("fontWeight.black"),
+              letterSpacing: theme("letterSpacing.tighter"),
             },
-            'code::before': false,
+            "code::before": false,
             code: false,
-            'code::after': false,
+            "code::after": false,
             "ul > li::before": { backgroundColor: theme("colors.blue.500") },
             "ol > li::before": { color: theme("colors.blue.500") },
             hr: { borderColor: theme("colors.blue.500") },
@@ -97,7 +97,7 @@ module.exports = {
     extend: {},
   },
   plugins: [
-    require('@tailwindcss/typography'),
-    require('@tailwindcss/aspect-ratio'),
+    require("@tailwindcss/typography"),
+    require("@tailwindcss/aspect-ratio"),
   ],
-}
+};

@@ -14,11 +14,14 @@
     "@sanity/desk-tool",
     "@sanity/code-input",
     "asset-source-unsplash",
-    "media"
+    "media",
+    "iframe-pane"
   ],
   "env": {
     "development": {
-      "plugins": ["@sanity/vision"]
+      "plugins": [
+        "@sanity/vision"
+      ]
     }
   },
   "parts": [

@@ -9,8 +9,9 @@ import button from './objects/button'
 import video from './objects/video'
 import link from './objects/link'
 import siteMeta from './documents/siteMeta'
+import _break from './objects/break'
 
 export default createSchema({
   name: 'default',
-  types: schemaTypes.concat([article, siteMeta, seo, portableText, button, video, link]),
+  types: schemaTypes.concat([article, siteMeta, seo, portableText, button, video, link, _break]),
 })

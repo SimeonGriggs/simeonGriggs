@@ -66,6 +66,7 @@ export default {
           {title: 'Strong', value: 'strong'},
           {title: 'Emphasis', value: 'em'},
           {title: 'Code', value: 'code'},
+          {title: 'Strike', value: 'strike-through'},
         ],
         // Annotations can be any object structure – e.g. a link or a footnote.
         annotations: [
@@ -78,6 +79,10 @@ export default {
                 title: 'URL',
                 name: 'href',
                 type: 'url',
+                validation: (Rule) =>
+                  Rule.uri({
+                    scheme: ['http', 'https', 'mailto', 'tel'],
+                  }),
               },
             ],
           },
@@ -87,20 +92,13 @@ export default {
     // You can add additional types here. Note that you can't use
     // primitive types such as 'string' and 'number' in the same array
     // as a block type.
-    // {type: 'mainImage'},
     {type: 'image'},
     {
       type: 'code',
       // options: {language: 'js', languageAlternatives: ['js']}
     },
     {type: 'button'},
-    // {type: 'download'},
     {type: 'video'},
-    // {type: 'pageBuilderHero'},
-    // {type: 'pageBuilderContent'},
-    // {type: 'pageBuilderColumns'},
-    // {type: 'pageBuilderImage'},
-    // {type: 'pageBuilderProducts'},
-    // {type: 'cloudinary.asset'},
+    {type: 'break'},
   ],
 }

@@ -1,10 +1,26 @@
 import S from '@sanity/desk-tool/structure-builder'
+import Iframe from 'sanity-plugin-iframe-pane'
+
+import {resolveProductionUrl} from '../lib/resolveProductionUrl'
 
 export const getDefaultDocumentNode = ({schemaType}) => {
   if (schemaType === `article`) {
     return S.document().views([
       S.view.form(),
-      // ...and other views
+      S.view
+        .component(Iframe)
+        .options({
+          // Required: Accepts an async function
+          url: (doc) => resolveProductionUrl(doc),
+          // Optional: Set the default size
+          defaultSize: `mobile`, // default `desktop`
+          // Optional: Add a refresh button, or refresh on new document revisions
+          refresh: {
+            button: true, // default `undefined`
+            revision: true, // default `undefined`
+          },
+        })
+        .title('Preview'),
     ])
   }
 

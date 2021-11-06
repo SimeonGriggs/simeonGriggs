@@ -5,6 +5,13 @@ export default {
   title: 'Article',
   icon: IceCreamIcon,
   type: 'document',
+  orderings: [
+    {
+      title: 'Published',
+      name: 'publishedDesc',
+      by: [{field: 'published', direction: 'desc'}],
+    },
+  ],
   fields: [
     {
       name: 'title',

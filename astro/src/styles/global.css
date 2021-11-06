@@ -131,7 +131,7 @@ pre[class*="language-"] {
 
 @screen md {
   pre[class*="language-"] {
-    @apply mx-0 border rounded text-base;
+    @apply border rounded text-base;
   }
 }
 

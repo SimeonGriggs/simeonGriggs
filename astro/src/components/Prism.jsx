@@ -1,15 +1,10 @@
-import React from 'react'
+import React from "react";
 import Highlight, { defaultProps } from "prism-react-renderer";
 import github from "prism-react-renderer/themes/github";
 
 export default function Prism({ code = ``, language = `plaintext` }) {
   return (
-    <Highlight
-      {...defaultProps}
-      code={code}
-      language={language}
-      theme={github}
-    >
+    <Highlight {...defaultProps} code={code} language={language} theme={github}>
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
         <pre className={className} style={style}>
           {tokens.map((line, i) => (

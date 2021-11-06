@@ -11,21 +11,26 @@ import Button from "./Button";
 
 const PrismWrapper = ({ code = ``, language = `plaintext` }) => {
   return (
-     <Highlight.default {...defaultProps} code={code} language={language} theme={github}>
-       {({ className, style, tokens, getLineProps, getTokenProps }) => (
-         <pre className={className} style={style}>
-           {tokens.map((line, i) => (
-             <div {...getLineProps({ line, key: i })}>
-               {line.map((token, key) => (
-                 <span {...getTokenProps({ token, key })} />
-               ))}
-             </div>
-           ))}
-         </pre>
-       )}
-     </Highlight.default>
-  )
-}
+    <Highlight.default
+      {...defaultProps}
+      code={code}
+      language={language}
+      theme={github}
+    >
+      {({ className, style, tokens, getLineProps, getTokenProps }) => (
+        <pre className={className} style={style}>
+          {tokens.map((line, i) => (
+            <div {...getLineProps({ line, key: i })}>
+              {line.map((token, key) => (
+                <span {...getTokenProps({ token, key })} />
+              ))}
+            </div>
+          ))}
+        </pre>
+      )}
+    </Highlight.default>
+  );
+};
 
 const BlockRenderer = (props) => {
   const { style = "normal" } = props.node;
@@ -64,17 +69,21 @@ const serializers = {
         </lite-youtube>
       );
     },
+    break: () => <hr />,
     image: ({ node }) => (
       <p className="-mx-4 md:border md:border-gray-100">
         <img
           loading="lazy"
           src={sanityImageUrl(node.asset).width(800)}
           alt={node?.asset?.altText}
-          class="w-full h-auto"
+          className="w-full h-auto"
         />
       </p>
     ),
-    code: ({ node }) => node?.code ? <PrismWrapper code={node.code} language={node?.language} /> : null,
+    code: ({ node }) =>
+      node?.code ? (
+        <PrismWrapper code={node.code} language={node?.language} />
+      ) : null,
     button: ({ node }) => (
       <Button href={node.link.link}>{node.link.text}</Button>
     ),
