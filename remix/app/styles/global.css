@@ -1128,27 +1128,8 @@ video {
 	--tw-aspect-h: 9;
 }
 
-html {
-  scroll-behavior: smooth;
-  scroll-padding-top: 2rem;
-}
-
-body {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
-  -webkit-text-size-adjust: 100%;
-  -ms-font-feature-settings: "kern" 1;
-  font-feature-settings: "kern";
-}
-
-a {
-	transition-property: background-color, border-color, color, fill, stroke;
-	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-	transition-duration: 150ms;
-	transition-duration: 200ms;
-	transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
-}
+@import 'partials/base.css';
+@import 'partials/fonts.css';
 
 @media (min-width: 768px) {
   .text-vertical {
@@ -1157,50 +1138,6 @@ a {
     -webkit-text-orientation: mixed;
             text-orientation: mixed;
   }
-}
-
-@font-face {
-  font-family: "JetBrains Mono";
-  font-weight: 400;
-  font-display: swap;
-  src: url("/fonts/JetBrainsMono-Regular.woff2");
-}
-
-@font-face {
-  font-family: "JetBrains Mono";
-  font-weight: 700;
-  font-display: swap;
-  src: url("/fonts/JetBrainsMono-Bold.woff2");
-}
-
-@font-face {
-  font-family: "Inter";
-  font-weight: 400;
-  font-display: swap;
-  src: url("/fonts/Inter-Regular.woff2");
-}
-
-@font-face {
-  font-family: "Inter";
-  font-weight: 400;
-  font-style: italic;
-  font-display: swap;
-  src: url("/fonts/Inter-Italic.woff2");
-}
-
-@font-face {
-  font-family: "Inter";
-  font-weight: 900;
-  font-display: swap;
-  src: url("/fonts/Inter-ExtraBold.woff2");
-}
-
-@font-face {
-  font-family: "Inter";
-  font-weight: 900;
-  font-style: italic;
-  font-display: swap;
-  src: url("/fonts/Inter-ExtraBoldItalic.woff2");
 }
 
 .button {
@@ -1306,7 +1243,7 @@ a {
 }
 
 /* Code blocks */
-pre[class*="language-"] {
+pre[class*='language-'] {
 	margin-left: -1rem;
 	margin-right: -1rem;
 	border-top-width: 1px;
@@ -1324,13 +1261,13 @@ pre[class*="language-"] {
 }
 
 @media (min-width: 768px) {
-  pre[class*="language-"] {
+  pre[class*='language-'] {
 		border-radius: 0.25rem;
 	}
-  pre[class*="language-"] {
+  pre[class*='language-'] {
 		border-width: 1px;
 	}
-  pre[class*="language-"] {
+  pre[class*='language-'] {
 		font-size: 1rem;
 		line-height: 1.5rem;
 	}

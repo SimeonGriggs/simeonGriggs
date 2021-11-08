@@ -10,10 +10,10 @@ import {
   useCatch,
 } from 'remix'
 
-import {Outlet} from 'react-router-dom'
+import {Outlet, useLocation} from 'react-router-dom'
 import {useDarkMode} from 'usehooks-ts'
 
-// import {removeTrailingSlash} from './lib/helpers'
+import {removeTrailingSlash} from './lib/helpers'
 import {getEnv} from './lib/utils/env'
 import {RestoreScrollPosition, useScrollRestoration} from '~/lib/utils/scroll'
 import {getClient} from '~/lib/sanityServer'
@@ -37,19 +37,15 @@ export const loader: LoaderFunction = async () => {
 
 function Document({children, title}: {children: React.ReactNode; title: string}) {
   const {isDarkMode} = useDarkMode()
-  const {ENV} = useLoaderData()
+  const {ENV, siteMeta} = useLoaderData()
+  const {pathname} = useLocation()
 
   return (
     <html lang="en">
       <head>
         <meta charSet="utf-8" />
         <link rel="icon" href="/favicon.png" type="image/png" />
-        {/* <link
-          rel="canonical"
-          href={removeTrailingSlash(
-            `${data.requestInfo.origin}${data.requestInfo.path}`
-          )}
-        /> */}
+        <link rel="canonical" href={removeTrailingSlash(`${siteMeta?.siteUrl}${pathname}`)} />
         <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
         {title ? <title>{title}</title> : null}
         <Meta />

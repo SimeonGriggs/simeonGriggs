@@ -79,22 +79,11 @@ var import_remix5 = __toModule(require("remix"));
 var import_react_router_dom2 = __toModule(require("react-router-dom"));
 var import_usehooks_ts3 = __toModule(require("usehooks-ts"));
 
-// app/lib/utils/env.ts
-function getEnv() {
-  return {
-    FLY: process.env.FLY,
-    NODE_ENV: process.env.NODE_ENV
-  };
-}
-
-// app/lib/utils/scroll.tsx
-var React2 = __toModule(require("react"));
-var import_react_router_dom = __toModule(require("react-router-dom"));
-var import_react2 = __toModule(require("@remix-run/react"));
-var import_remix2 = __toModule(require("remix"));
-
 // app/lib/helpers.ts
 var import_react = __toModule(require("react"));
+function removeTrailingSlash(s) {
+  return s.endsWith("/") ? s.slice(0, -1) : s;
+}
 function twoDecimals(num) {
   return Math.round(num * 100) / 100;
 }
@@ -121,7 +110,19 @@ function clipPathInset(columns, left, right, y) {
 var useSSRLayoutEffect = typeof window === "undefined" ? () => {
 } : import_react.useLayoutEffect;
 
+// app/lib/utils/env.ts
+function getEnv() {
+  return {
+    FLY: process.env.FLY,
+    NODE_ENV: process.env.NODE_ENV
+  };
+}
+
 // app/lib/utils/scroll.tsx
+var React2 = __toModule(require("react"));
+var import_react_router_dom = __toModule(require("react-router-dom"));
+var import_react2 = __toModule(require("@remix-run/react"));
+var import_remix2 = __toModule(require("remix"));
 var firstRender = true;
 var positions = {};
 var SESSION_STORAGE_KEY = "kody_scroll_positions";
@@ -491,7 +492,7 @@ var Header = ({siteMeta}) => {
 var Header_default = Header;
 
 // app/styles/global.css
-var global_default = "/build/_assets/global-OE3DUKHJ.css";
+var global_default = "/build/_assets/global-AUIHHSHE.css";
 
 // route-module:/Users/simeongriggs/Sites/simeonGriggs/remix/app/root.tsx
 var handle = `root`;
@@ -504,7 +505,8 @@ var loader = async () => {
 };
 function Document({children, title}) {
   const {isDarkMode} = (0, import_usehooks_ts3.useDarkMode)();
-  const {ENV} = (0, import_remix5.useLoaderData)();
+  const {ENV, siteMeta} = (0, import_remix5.useLoaderData)();
+  const {pathname} = (0, import_react_router_dom2.useLocation)();
   return /* @__PURE__ */ React.createElement("html", {
     lang: "en"
   }, /* @__PURE__ */ React.createElement("head", null, /* @__PURE__ */ React.createElement("meta", {
@@ -513,6 +515,9 @@ function Document({children, title}) {
     rel: "icon",
     href: "/favicon.png",
     type: "image/png"
+  }), /* @__PURE__ */ React.createElement("link", {
+    rel: "canonical",
+    href: removeTrailingSlash(`${siteMeta == null ? void 0 : siteMeta.siteUrl}${pathname}`)
   }), /* @__PURE__ */ React.createElement("meta", {
     name: "viewport",
     content: "width=device-width,initial-scale=1,viewport-fit=cover"
@@ -837,15 +842,30 @@ function Article() {
   }) : null));
 }
 
+// route-module:/Users/simeongriggs/Sites/simeonGriggs/remix/app/routes/$slug/meta-image.tsx
+var meta_image_exports = {};
+__export(meta_image_exports, {
+  default: () => MetaImage,
+  loader: () => loader3
+});
+var import_remix7 = __toModule(require("remix"));
+var loader3 = async ({params}) => {
+  return {params};
+};
+function MetaImage() {
+  const {params} = (0, import_remix7.useLoaderData)();
+  return /* @__PURE__ */ React.createElement("div", null, JSON.stringify(params));
+}
+
 // route-module:/Users/simeongriggs/Sites/simeonGriggs/remix/app/routes/index.tsx
 var routes_exports = {};
 __export(routes_exports, {
   default: () => Index,
   handle: () => handle3,
-  loader: () => loader3,
+  loader: () => loader4,
   meta: () => meta2
 });
-var import_remix7 = __toModule(require("remix"));
+var import_remix8 = __toModule(require("remix"));
 
 // app/components/Intro.tsx
 function Intro({blocks = []}) {
@@ -866,14 +886,14 @@ var meta2 = ({parentsData}) => {
     description: siteMeta == null ? void 0 : siteMeta.description
   };
 };
-var loader3 = async () => {
+var loader4 = async () => {
   const articles = await getClient().fetch(homeQuery);
   return {articles};
 };
 function Index() {
   var _a2, _b, _c;
-  const {articles} = (0, import_remix7.useLoaderData)();
-  const matches = (0, import_remix7.useMatches)();
+  const {articles} = (0, import_remix8.useLoaderData)();
+  const matches = (0, import_remix8.useMatches)();
   const {bio} = (_c = (_b = (_a2 = matches == null ? void 0 : matches.find((match) => match.handle === "root")) == null ? void 0 : _a2.data) == null ? void 0 : _b.siteMeta) != null ? _c : {};
   return /* @__PURE__ */ React.createElement("section", {
     className: "mt-48 md:mt-0 col-span-6 md:col-start-6 lg:col-start-8 md:col-span-6 lg:col-span-8"
@@ -890,7 +910,7 @@ function Index() {
     className: "grid grid-cols-1 gap-y-4"
   }, /* @__PURE__ */ React.createElement("h2", {
     className: "leading-none font-black tracking-tighter text-2xl md:text-4xl text-blue-500"
-  }, /* @__PURE__ */ React.createElement(import_remix7.Link, {
+  }, /* @__PURE__ */ React.createElement(import_remix8.Link, {
     to: `/${article.slug}`,
     prefetch: "intent",
     className: "block hover:bg-blue-500 hover:text-white"
@@ -921,6 +941,14 @@ var routes = {
     index: void 0,
     caseSensitive: void 0,
     module: slug_exports
+  },
+  "routes/$slug/meta-image": {
+    id: "routes/$slug/meta-image",
+    parentId: "routes/$slug",
+    path: "meta-image",
+    index: void 0,
+    caseSensitive: void 0,
+    module: meta_image_exports
   },
   "routes/index": {
     id: "routes/index",

@@ -1,5 +1,5 @@
 {
-  "version": "eff4cc3b",
+  "version": "00230186",
   "entry": {
     "module": "/build/entry.client-NCMYJUI4.js",
     "imports": [
@@ -11,7 +11,7 @@
     "root": {
       "id": "root",
       "path": "",
-      "module": "/build/root-MD5Q73DL.js",
+      "module": "/build/root-2V35JQMY.js",
       "imports": [
         "/build/_shared/chunk-MPMRCKXD.js"
       ],
@@ -33,6 +33,16 @@
       "hasCatchBoundary": false,
       "hasErrorBoundary": false
     },
+    "routes/$slug/meta-image": {
+      "id": "routes/$slug/meta-image",
+      "parentId": "routes/$slug",
+      "path": "meta-image",
+      "module": "/build/routes/$slug/meta-image-XQN5YY7C.js",
+      "hasAction": false,
+      "hasLoader": true,
+      "hasCatchBoundary": false,
+      "hasErrorBoundary": false
+    },
     "routes/index": {
       "id": "routes/index",
       "parentId": "root",
@@ -47,5 +57,5 @@
       "hasErrorBoundary": false
     }
   },
-  "url": "/build/manifest-EFF4CC3B.js"
+  "url": "/build/manifest-00230186.js"
 }
