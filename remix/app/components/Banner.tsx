@@ -181,7 +181,9 @@ const Banner = () => {
               {banners.map((banner) => (
                 <React.Fragment key={banner.key}>
                   {bannerImage?.asset?.metadata?.blurHash && (
-                    <div className={`${banner.className} absolute inset-0 object-cover`}>
+                    <div
+                      className={`${banner.className} absolute inset-0 object-cover max-w-screen overflow-hidden`}
+                    >
                       <Blurhash
                         hash={bannerImage.asset.metadata.blurHash}
                         width={banner.width}
@@ -199,7 +201,7 @@ const Banner = () => {
                       .height(banner.height)
                       .width(banner.width)
                       .toString()}
-                    alt={bannerImage?.altText ?? null}
+                    alt={bannerImage?.altText ?? ``}
                     className={`${banner.className} absolute inset-0 object-cover`}
                     height={banner.height}
                     width={banner.width}

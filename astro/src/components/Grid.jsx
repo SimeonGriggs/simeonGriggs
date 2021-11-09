@@ -8,7 +8,7 @@ export default function Grid() {
       <div className="border-r border-gray-100" />
       <div className="border-r border-gray-100" />
       <div className="border-r border-gray-100" />
-      <div className="border-r border-gray-100" />
+      <div className="border-r border-gray-100 hidden md:block" />
       <div className="border-r border-gray-100 hidden md:block" />
       <div className="border-r border-gray-100 hidden md:block" />
       <div className="border-r border-gray-100 hidden md:block" />

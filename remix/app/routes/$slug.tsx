@@ -34,15 +34,13 @@ export const meta: MetaFunction = ({data, parentsData, location}) => {
     : {}
 
   return {
-    'theme-color': '#2522fc',
     title: `${title} | ${siteMeta?.title}`,
     description: summary,
     canonical,
     'twitter:card': 'summary_large_image',
     'twitter:creator': siteMeta?.author,
     'twitter:title': title,
-    'twitter:description': siteMeta?.description,
-    type: 'website',
+    'twitter:description': summary,
     'og:url': canonical,
     ...imageMeta,
   }

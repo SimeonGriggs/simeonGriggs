@@ -34,7 +34,7 @@ export default function Index() {
 
   return (
     <section className="mt-48 md:mt-0 col-span-6 md:col-start-6 lg:col-start-8 md:col-span-6 lg:col-span-8">
-      <div className="grid grid-cols-1 gap-y-12 md:gap-y-24 pt-12 md:py-48">
+      <div className="grid grid-cols-1 gap-y-12 md:gap-y-24 md:py-48">
         <article className="prose prose-lg prose-blue">
           <h1>
             <span className="wave">👋</span> Hey!

@@ -11,7 +11,7 @@
     "dev:remix": "remix dev",
     "dev:css": "tailwindcss -i ./styles/global.css -o ./app/styles/global.css --watch",
     "postinstall": "remix setup node",
-    "deploy": "npm run build && flyctl deploy --build-arg REMIX_TOKEN=${REMIX_TOKEN}",
+    "deploy": "npm run build && flyctl deploy --build-arg",
     "start": "remix-serve build"
   },
   "dependencies": {

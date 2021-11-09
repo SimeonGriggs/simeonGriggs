@@ -2,6 +2,7 @@ import {
   LinksFunction,
   LoaderFunction,
   useMatches,
+  MetaFunction,
   Meta,
   Links,
   Scripts,
@@ -25,8 +26,36 @@ import stylesUrl from '~/styles/global.css'
 
 export const handle = `root`
 
+export const meta: MetaFunction = () => {
+  return {
+    'theme-color': '#2522fc',
+    type: 'website',
+  }
+}
+
+const fonts = [
+  `/fonts/JetBrainsMono-Regular.woff2`,
+  `/fonts/JetBrainsMono-Bold.woff2`,
+  `/fonts/Inter-Regular.woff2`,
+  `/fonts/Inter-Italic.woff2`,
+  `/fonts/Inter-ExtraBold.woff2`,
+  `/fonts/Inter-ExtraBoldItalic.woff2`,
+]
+
 export const links: LinksFunction = () => {
-  return [{rel: 'stylesheet', href: stylesUrl}]
+  return [
+    ...fonts.map((path) => ({
+      rel: 'preload',
+      as: 'font',
+      href: path,
+      type: 'font/woff2',
+      crossOrigin: 'anonymous',
+    })),
+    {
+      rel: 'stylesheet',
+      href: stylesUrl,
+    },
+  ]
 }
 
 export const loader: LoaderFunction = async () => {
