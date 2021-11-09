@@ -48,9 +48,9 @@ export const meta: MetaFunction = ({data, parentsData, location}) => {
   }
 }
 
-// export let links: LinksFunction = () => {
-//   return [{ rel: "canonical", href: stylesUrl }];
-// };
+// export const links: LinksFunction = () => {
+//   return [{rel: 'canonical', href: `hmm`}]
+// }
 
 // Runs server side
 export const loader: LoaderFunction = async (props) => {
