@@ -26,7 +26,6 @@ function getNewBannerSize(useHomeSize = false, windowWidth = 0) {
   if (!windowWidth && typeof window === 'undefined') return null
 
   const width = windowWidth ?? window.innerWidth
-  console.log({width})
 
   // Double check, if no prop was given we should double check
   const checkHomeSize =

@@ -42,6 +42,5 @@ export const checkIfProjectUser = async () => {
     .then((res) => res.json())
     .catch((err) => console.error(err))
 
-  console.log(url, data)
   return data
 }
