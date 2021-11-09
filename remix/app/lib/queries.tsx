@@ -2,7 +2,7 @@ import {groq} from '@sanity/groq-store'
 
 export const siteMetaQuery = groq`*[_id == "siteMeta"][0]`
 
-export const articleQuery = groq`*[_type == "article" && slug.current == $slug][0]{
+export const articleQuery = groq`*[_type == "article" && slug.current == $slug]{
     ...,
     image {
       ...,

@@ -1,6 +1,6 @@
 import {useState, useEffect} from 'react'
 import {useMatches} from 'remix'
-import {useLocation} from 'react-router'
+import {useLocation} from 'react-router-dom'
 import {AnimatePresence, motion} from 'framer-motion'
 import {useWindowSize} from 'usehooks-ts'
 
@@ -30,6 +30,8 @@ const Banner = () => {
   const {width: windowWidth} = useWindowSize()
 
   function updateBannerSize(useHomeSize = false) {
+    if (!windowWidth) return
+
     // Double check, if no prop was given we should double check
     const checkHomeSize =
       window && typeof useHomeSize === 'undefined' ? window.location.pathname === '/' : useHomeSize
@@ -66,9 +68,11 @@ const Banner = () => {
 
     switch (true) {
       case windowWidth >= 768 && windowWidth < 1024:
+        console.log(`setting tablet`)
         setBannerSize(checkHomeSize ? bannerHomeTablet : bannerPostTablet)
         break
       case windowWidth >= 1024:
+        console.log(`setting desktop`)
         setBannerSize(checkHomeSize ? bannerHomeDesktop : bannerPostDesktop)
         break
       default:

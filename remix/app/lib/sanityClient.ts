@@ -25,3 +25,23 @@ export const PortableText = createPortableTextComponent({
 
 // Helper function for using the current logged in user account
 export const useCurrentUser = createCurrentUserHook(config)
+
+// interface UserResponse {
+//   id: string
+//   name: string
+//   email: string
+//   profileImage: string
+//   role: string
+//   provider: string
+// }
+
+// Loader-side check to see if you're a logged-in user
+export const checkIfProjectUser = async () => {
+  const url = `https://${config.projectId}.api.sanity.io/v${config.apiVersion}/users/me`
+  const data = await fetch(url, {credentials: `include`})
+    .then((res) => res.json())
+    .catch((err) => console.error(err))
+
+  console.log(url, data)
+  return data
+}

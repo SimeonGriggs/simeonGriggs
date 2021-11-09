@@ -23,13 +23,6 @@ module.exports = {
       gridColumn: {
         'span-16': 'span 16 / span 16',
       },
-      width: {
-        '1/16': `${100 / 16}%`,
-        '3/16': `${(100 / 16) * 3}%`,
-        '4/16': `${(100 / 16) * 4}%`,
-        '5/16': `${(100 / 16) * 5}%`,
-        '6/16': `${(100 / 16) * 6}%`,
-      },
       colors: {
         blue: {
           50: '#fafaff',
@@ -105,5 +98,9 @@ module.exports = {
   variants: {
     extend: {},
   },
-  plugins: [require('@tailwindcss/typography'), require('@tailwindcss/aspect-ratio')],
+  plugins: [
+    require('@tailwindcss/typography'),
+    require('@tailwindcss/aspect-ratio'),
+    require('tailwindcss-fraction-widths')(16),
+  ],
 }

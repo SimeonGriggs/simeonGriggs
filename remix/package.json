@@ -4,14 +4,14 @@
   "description": "",
   "license": "",
   "scripts": {
-    "build:remix": "remix build",
-    "build:css": "postcss styles/**/*.css --base styles --dir app/styles --env production",
     "build": "concurrently \"npm:build:*\"",
+    "build:remix": "remix build",
+    "build:css": "tailwindcss -i ./styles/global.css -o ./app/styles/global.css --minify",
+    "dev": "concurrently \"npm:dev:*\" --kill-others",
     "dev:remix": "remix dev",
-    "dev:css": "postcss styles/**/*.css --base styles --dir app/styles --w",
-    "dev": "concurrently \"npm:dev:*\"",
+    "dev:css": "tailwindcss -i ./styles/global.css -o ./app/styles/global.css --watch",
     "postinstall": "remix setup node",
-    "deploy": "flyctl deploy --build-arg REMIX_TOKEN=${REMIX_TOKEN}",
+    "deploy": "npm run build && flyctl deploy --build-arg REMIX_TOKEN=${REMIX_TOKEN}",
     "start": "remix-serve build"
   },
   "dependencies": {
@@ -33,6 +33,7 @@
     "react-dom": "^17.0.2",
     "react-router-dom": "6.0.0-beta.8",
     "remix": "^0.20.1",
+    "tailwindcss-fraction-widths": "^0.0.3",
     "usehooks-ts": "^1.0.14"
   },
   "devDependencies": {

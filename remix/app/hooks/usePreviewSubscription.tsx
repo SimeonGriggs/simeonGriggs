@@ -1,5 +1,7 @@
 import {useEffect, useState} from 'react'
 
+import {store} from '~/lib/sanityGroqStore'
+
 interface SubscriptionOptions<R = any> {
   enabled?: boolean
   params?: Record<string, unknown>
@@ -12,7 +14,6 @@ export function usePreviewSubscription(query: string, subscriptionOptions: Subsc
 
   useEffect(() => {
     let sub: any
-    let store: any
 
     if (enabled) {
       sub = store.subscribe(
@@ -30,8 +31,8 @@ export function usePreviewSubscription(query: string, subscriptionOptions: Subsc
     }
 
     return () => {
-      if (sub) sub.unsubscribe()
-      if (store) store.close()
+      if (sub?.unsubscribe()) sub.unsubscribe()
+      if (store?.close()) store.close()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
