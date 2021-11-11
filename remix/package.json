@@ -11,7 +11,7 @@
     "dev:remix": "rm -rf .cache && rm -rf build && remix dev",
     "dev:css": "tailwindcss -i ./styles/global.css -o ./app/styles/global.css --watch",
     "postinstall": "remix setup node",
-    "deploy": "npm run build && flyctl deploy",
+    "deploy": "npm run build && flyctl version update && flyctl deploy",
     "start": "remix-serve build"
   },
   "dependencies": {
@@ -20,6 +20,7 @@
     "@remix-run/serve": "^0.20.1",
     "@sanity/block-content-to-react": "^3.0.0",
     "@sanity/groq-store": "^0.2.2",
+    "@sanity/image-url": "^1.0.1",
     "@tailwindcss/aspect-ratio": "^0.3.0",
     "@tailwindcss/typography": "^0.4.1",
     "blurhash": "^1.1.4",
