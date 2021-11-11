@@ -1,6 +1,6 @@
 import {groqStore} from '@sanity/groq-store'
 
-import {config} from './sanityConfig'
+import {config} from './config'
 
 const {projectId, dataset} = config
 

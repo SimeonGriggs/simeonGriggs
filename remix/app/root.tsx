@@ -17,8 +17,8 @@ import {useDarkMode} from 'usehooks-ts'
 import {removeTrailingSlash} from './lib/helpers'
 import {getEnv} from './lib/utils/env'
 import {RestoreScrollPosition, useScrollRestoration} from '~/lib/utils/scroll'
-import {getClient} from '~/lib/sanityServer'
-import {siteMetaQuery} from '~/lib/queries'
+import {getClient} from '~/lib/sanity/getClient'
+import {siteMetaQuery} from '~/lib/sanity/queries'
 import Banner from '~/components/Banner'
 import Grid from '~/components/Grid'
 import Header from '~/components/Header'
@@ -60,8 +60,10 @@ export const links: LinksFunction = () => {
 
 export const loader: LoaderFunction = async () => {
   const siteMeta = await getClient().fetch(siteMetaQuery)
+  // const siteMeta = {}
+  const ENV = getEnv()
 
-  return {siteMeta, ENV: getEnv()}
+  return {siteMeta, ENV}
 }
 
 function Document({children, title}: {children: React.ReactNode; title: string}) {
@@ -81,9 +83,10 @@ function Document({children, title}: {children: React.ReactNode; title: string})
         <Links />
       </head>
       <body
-        className={`transition-colors duration-100 ease-out ${
-          isDarkMode ? `dark text-white bg-blue-900` : ``
-        }`}
+        className={[
+          `transition-colors duration-100 ease-out`,
+          isDarkMode ? `dark text-white bg-blue-900` : null,
+        ].join(' ')}
       >
         {children}
         <RestoreScrollPosition />

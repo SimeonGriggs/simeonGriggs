@@ -3,12 +3,9 @@ import React from 'react'
 import BlockContent from '@sanity/block-content-to-react'
 import getYouTubeID from 'get-youtube-id'
 
-import Button from './Button'
-import Prism from './Prism'
-import {config} from '~/lib/sanityConfig'
-import sanityImageUrl from '~/lib/sanityImageUrl'
-
-const {projectId, dataset} = config
+// import {urlFor} from './client'
+import Button from '~/components/Button'
+import Prism from '~/components/Prism'
 
 const BlockRenderer = (props: any) => {
   const {style = 'normal'} = props.node
@@ -29,6 +26,7 @@ interface BlockVideo {
   url: string
   title?: string
 }
+
 interface BlockImage {
   asset: {
     altText: string
@@ -47,7 +45,7 @@ interface BlockButton {
   }
 }
 
-const serializers = {
+export const serializers = {
   container: ({children}: {children: any}) => children,
   types: {
     block: BlockRenderer,
@@ -75,7 +73,7 @@ const serializers = {
       <p className="-mx-4 border-t border-b md:border border-gray-100">
         <img
           loading="lazy"
-          src={sanityImageUrl(node.asset).width(800).toString()}
+          // src={urlFor(node.asset).width(800).toString()}
           alt={node?.asset?.altText}
           className="w-full h-auto"
         />
@@ -87,15 +85,4 @@ const serializers = {
       <Button href={node.link.link}>{node.link.text}</Button>
     ),
   },
-}
-
-export default function PortableText({blocks}: {blocks: any[]}) {
-  return (
-    <BlockContent
-      blocks={blocks}
-      serializers={serializers}
-      projectId={projectId}
-      dataset={dataset}
-    />
-  )
 }

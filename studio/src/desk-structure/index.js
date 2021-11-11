@@ -12,13 +12,8 @@ export const getDefaultDocumentNode = ({schemaType}) => {
         .options({
           // Required: Accepts an async function
           url: (doc) => resolveProductionUrl(doc),
-          // Optional: Set the default size
-          defaultSize: `mobile`, // default `desktop`
-          // Optional: Add a refresh button, or refresh on new document revisions
-          refresh: {
-            button: true, // default `undefined`
-            revision: true, // default `undefined`
-          },
+          // defaultSize: `mobile`,
+          reload: {button: true},
         })
         .title('Preview'),
     ])

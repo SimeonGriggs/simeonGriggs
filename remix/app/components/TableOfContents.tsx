@@ -1,14 +1,6 @@
-interface Child {
-  text: string
-}
+import type {Block} from '~/lib/sanity/types'
 
-interface Block {
-  _key: string
-  style: string
-  children: [Child]
-}
-
-export default function TableOfContents({blocks}: {blocks: [Block]}) {
+export default function TableOfContents({blocks}: {blocks: Block[]}) {
   const headings = blocks.filter((block) => ['h2', 'h3'].includes(block.style))
 
   if (!headings?.length) {

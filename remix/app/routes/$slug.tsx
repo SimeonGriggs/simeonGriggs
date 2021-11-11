@@ -1,18 +1,17 @@
 import type {MetaFunction, LoaderFunction} from 'remix'
 import {useLoaderData} from 'remix'
 
-import sanityImageUrl from '~/lib/sanityImageUrl'
-import {articleQuery} from '~/lib/queries'
-import {getClient} from '~/lib/sanityServer'
-import {checkIfProjectUser} from '~/lib/sanityClient'
-import type {ArticleDocument} from '~lib/sanity/helpers'
+import {urlFor, filterDataToSingleItem} from '~/lib/sanity/helpers'
+import {articleQuery} from '~/lib/sanity/queries'
+import {getClient} from '~/lib/sanity/getClient'
+import {getEnv} from '~/lib/utils/env'
+import {usePreviewSubscription} from '~/lib/sanity/usePreviewSubscription'
 
-import ProseableText from '~/components/ProseableText'
-import Label from '~/components/Label'
 import Date from '~/components/Date'
+import Label from '~/components/Label'
+import Preview from '~/components/Preview'
+import ProseableText from '~/components/ProseableText'
 import TableOfContents from '~/components/TableOfContents'
-import {usePreviewSubscription} from '~/hooks/usePreviewSubscription'
-import {filterDataToSingleItem} from '~/lib/sanity/helpers'
 
 export const handle = `article`
 
@@ -27,9 +26,7 @@ export const meta: MetaFunction = ({data, parentsData, location}) => {
     ? {
         'og:image:width': image ? String(imageWidth) : null,
         'og:image:height': image ? String(imageHeight) : null,
-        'og:image': image
-          ? sanityImageUrl(image).height(imageHeight).width(imageWidth).toString()
-          : null,
+        'og:image': image ? urlFor(image).height(imageHeight).width(imageWidth).toString() : null,
       }
     : {}
 
@@ -53,17 +50,13 @@ export const meta: MetaFunction = ({data, parentsData, location}) => {
 // Runs server side
 export const loader: LoaderFunction = async (props) => {
   const {request, params} = props
-  const requestUrl = new URL(request.url)
-  const preview = requestUrl.searchParams.get('preview') === 'true'
-
-  // if () {
-  //   const currentUser = await checkIfProjectUser()
-  //   console.log({currentUser})
-  //   preview = currentUser?.role === 'administrator'
-  // }
+  const requestUrl = new URL(request?.url)
+  const ENV = getEnv()
+  const preview = requestUrl?.searchParams?.get('preview') === ENV.SANITY_PREVIEW_SECRET
 
   // This query can return more than one document, eg, a draft and published version
   const articles = await getClient(preview).fetch(articleQuery, params)
+  // const articles = [{_id: 'yeah', content: []}]
 
   // If preview is enabled, get the draft, otherwise, get the published
   const article = filterDataToSingleItem(articles, preview)
@@ -80,8 +73,9 @@ export default function Article() {
     initialData,
     enabled: preview,
   })
+  // const articles = initialData
 
-  const article = filterDataToSingleItem(articles, preview) as ArticleDocument
+  const article = filterDataToSingleItem(articles, preview)
 
   if (!article) {
     return null
@@ -89,13 +83,7 @@ export default function Article() {
 
   return (
     <>
-      {preview && (
-        <div className="fixed inset-0 flex justify-center items-end p-6 pointer-events-none z-50">
-          <div className="bg-pink-500 text-white p-3 px-6 font-bold rounded shadow-lg">
-            Preview Mode Enabled
-          </div>
-        </div>
-      )}
+      {preview && <Preview />}
       <header className="mt-32 md:mt-0 row-start-1 col-span-6 md:col-start-3 md:col-span-10 lg:col-start-5 lg:col-span-11">
         <div className="py-12 md:py-24 max-w-xl">
           {article?.title ? (
@@ -117,7 +105,9 @@ export default function Article() {
         ) : null}
       </aside>
       <section className="row-start-3 md:row-start-2 col-span-6 lg:col-start-8 lg:col-span-8 pb-24">
-        <Date updated={article?.updated} published={article?.published} />
+        {article?.published ? (
+          <Date updated={article?.updated} published={article.published} />
+        ) : null}
         {article?.content?.length > 0 ? <ProseableText blocks={article.content} /> : null}
       </section>
     </>

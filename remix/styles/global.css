@@ -3,7 +3,8 @@
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: theme('spacing.8');
+  scroll-padding-top: theme('spacing.20');
+  overflow: auto;
 }
 
 body {

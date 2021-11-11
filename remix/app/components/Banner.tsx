@@ -6,7 +6,7 @@ import {useWindowSize} from 'usehooks-ts'
 import {Blurhash} from 'react-blurhash'
 
 import {clipPathInset} from '../lib/helpers'
-import sanityImageUrl from '~/lib/sanityImageUrl'
+import {urlFor} from '~/lib/sanity/helpers'
 
 interface BannerSizeImage {
   scale: number
@@ -197,10 +197,7 @@ const Banner = () => {
                   <motion.img
                     loading="lazy"
                     key={[banner.key, bannerImage?.asset?._id].join('-')}
-                    src={sanityImageUrl(bannerImage)
-                      .height(banner.height)
-                      .width(banner.width)
-                      .toString()}
+                    src={urlFor(bannerImage).height(banner.height).width(banner.width).toString()}
                     alt={bannerImage?.altText ?? ``}
                     className={`${banner.className} absolute inset-0 object-cover`}
                     height={banner.height}

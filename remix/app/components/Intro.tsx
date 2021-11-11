@@ -1,4 +1,4 @@
-import PortableText from '~/components/PortableText'
+import {PortableText} from '~/lib/sanity/helpers'
 
 export default function Intro({blocks = []}) {
   return (

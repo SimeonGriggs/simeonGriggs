@@ -1,10 +1,11 @@
 import {MetaFunction, LoaderFunction, useMatches, useLoaderData, Link} from 'remix'
 
 // import stylesUrl from "../styles/index.css";
-import {getClient} from '~/lib/sanityServer'
-import {homeQuery} from '~/lib/queries'
+import {getClient} from '~/lib/sanity/getClient'
+import {homeQuery} from '~/lib/sanity/queries'
 import Intro from '~/components/Intro'
 import Date from '~/components/Date'
+import {ArticleDocument} from '~/lib/sanity/types'
 
 export const handle = `home`
 
@@ -22,13 +23,14 @@ export const meta: MetaFunction = ({parentsData}) => {
 // };
 
 export const loader: LoaderFunction = async () => {
-  const articles = await getClient().fetch(homeQuery)
+  const articles: ArticleDocument[] = await getClient(false).fetch(homeQuery)
+  // const articles = [{_id: 'yeah'}]
 
   return {articles}
 }
 
 export default function Index() {
-  const {articles} = useLoaderData()
+  const {articles}: {articles: ArticleDocument[]} = useLoaderData()
   const matches = useMatches()
   const {bio} = matches?.find((match) => match.handle === 'root')?.data?.siteMeta ?? {}
 
@@ -46,15 +48,21 @@ export default function Index() {
         {articles.map((article) => (
           <article key={article._id} className="grid grid-cols-1 gap-y-4">
             <h2 className="leading-none font-black tracking-tighter text-2xl md:text-4xl text-blue-500">
-              <Link
-                to={`/${article.slug}`}
-                prefetch="intent"
-                className="block hover:bg-blue-500 hover:text-white"
-              >
-                {article.title}
-              </Link>
+              {article?.slug?.current ? (
+                <Link
+                  to={`/${article.slug.current}`}
+                  prefetch="intent"
+                  className="block hover:bg-blue-500 hover:text-white"
+                >
+                  {article.title}
+                </Link>
+              ) : (
+                <>{article?.title}</>
+              )}
             </h2>
-            <Date updated={article?.updated} published={article?.published} />
+            {article?.published ? (
+              <Date updated={article?.updated} published={article.published} />
+            ) : null}
             <div className="prose prose-lg dark:prose-dark prose-blue">
               <p>{article.summary}</p>
             </div>

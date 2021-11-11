@@ -20,7 +20,7 @@ export const articleQuery = groq`*[_type == "article" && slug.current == $slug]{
 export const homeQuery = groq`*[_type == "article" && defined(slug.current)]|order(published desc){
     _id,
     title,
-    "slug": slug.current,
+    slug,
     published,
     updated,
     summary,
