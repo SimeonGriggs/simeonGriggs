@@ -1,16 +1,15 @@
-// import {createImageUrlBuilder} from 'next-sanity'
 import imageUrlBuilder from '@sanity/image-url'
 import SanityPortableText from '@sanity/block-content-to-react'
 
-import type {ArticleDocument} from './types'
+import type {ArticleDocument, Block} from './types'
 import {config} from './config'
 import {serializers} from './serializers'
 
 export const urlFor = (source: any) => imageUrlBuilder(config).image(source)
 // export const urlFor = (source: any) => null
 
-export function PortableText(props) {
-  return <SanityPortableText serializers={serializers} {...config} {...props} />
+export function PortableText({blocks}: {blocks: Block[]}) {
+  return <SanityPortableText serializers={serializers} {...config} blocks={blocks} />
 }
 
 // Helper function for using the current logged in user account

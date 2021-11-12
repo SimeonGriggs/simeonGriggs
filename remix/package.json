@@ -28,7 +28,6 @@
     "dotenv": "^10.0.0",
     "framer-motion": "^5.2.1",
     "get-youtube-id": "^1.0.1",
-    "next-sanity": "^0.4.0",
     "picosanity": "^3.0.2",
     "prism-react-renderer": "^1.2.1",
     "react": "^17.0.2",

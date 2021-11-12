@@ -8,6 +8,12 @@ export interface ArticleDocument {
   published?: string
   updated?: string
   content: Block[]
+  image: {
+    asset: {
+      _id: string
+      altText: string
+    }
+  }
 }
 
 export interface Block {

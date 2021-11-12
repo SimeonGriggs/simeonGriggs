@@ -70,13 +70,18 @@ function Document({children, title}: {children: React.ReactNode; title: string})
   const {isDarkMode} = useDarkMode()
   const {ENV, siteMeta} = useLoaderData()
   const {pathname} = useLocation()
+  const matches = useMatches()
+  const isMetaImage = matches.some((match) => match.handle === 'meta-image')
+  const canonical = isMetaImage
+    ? removeTrailingSlash(`${siteMeta?.siteUrl}${pathname}`).replace(`/meta-image`, ``)
+    : removeTrailingSlash(`${siteMeta?.siteUrl}${pathname}`)
 
   return (
     <html lang="en">
       <head>
         <meta charSet="utf-8" />
         <link rel="icon" href="/favicon.png" type="image/png" />
-        <link rel="canonical" href={removeTrailingSlash(`${siteMeta?.siteUrl}${pathname}`)} />
+        <link rel="canonical" href={canonical} />
         <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
         {title ? <title>{title}</title> : null}
         <Meta />
@@ -111,10 +116,16 @@ export default function App() {
   const shouldManageScroll = matches.every((m) => (m.handle as any)?.scroll !== false)
   useScrollRestoration(shouldManageScroll)
 
+  const shouldShowBanner = !matches.some((match) => match.handle === 'meta-image')
+
   return (
     <Document title={siteMeta?.title}>
-      <Header siteMeta={siteMeta} />
-      <Banner />
+      {shouldShowBanner && (
+        <>
+          <Header siteMeta={siteMeta} />
+          <Banner />
+        </>
+      )}
       <main className="px-4 md:px-0 grid grid-cols-6 md:grid-cols-12 lg:grid-cols-16 min-h-screen w-screen">
         <Outlet />
       </main>

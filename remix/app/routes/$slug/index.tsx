@@ -4,29 +4,40 @@ import {useLoaderData} from 'remix'
 import {urlFor, filterDataToSingleItem} from '~/lib/sanity/helpers'
 import {articleQuery} from '~/lib/sanity/queries'
 import {getClient} from '~/lib/sanity/getClient'
-import {getEnv} from '~/lib/utils/env'
 import {usePreviewSubscription} from '~/lib/sanity/usePreviewSubscription'
+import {getEnv} from '~/lib/utils/env'
 
 import Date from '~/components/Date'
 import Label from '~/components/Label'
 import Preview from '~/components/Preview'
 import ProseableText from '~/components/ProseableText'
 import TableOfContents from '~/components/TableOfContents'
+import {removeTrailingSlash} from '~/lib/helpers'
 
 export const handle = `article`
 
 export const meta: MetaFunction = ({data, parentsData, location}) => {
   const {title, summary, image} = data?.initialData ?? {}
   const {siteMeta} = parentsData?.root ?? {}
-  const canonical = siteMeta?.siteUrl + location.pathname
-  const imageWidth = 1200
-  const imageHeight = 630
+
+  const canonical = removeTrailingSlash(siteMeta?.siteUrl + location.pathname)
+  const canonicalMetaImage = removeTrailingSlash(`${canonical}/meta-image`)
+
+  const imageWidth = `1200`
+  const imageHeight = `630`
+  const imageUrl = new URL(`https://api.apiflash.com/v1/urltoimage`)
+  imageUrl.searchParams.set(`access_key`, `21a6a19367114878b3b23d4ef68504d4`)
+  imageUrl.searchParams.set(`url`, canonicalMetaImage)
+  imageUrl.searchParams.set(`height`, imageHeight)
+  imageUrl.searchParams.set(`width`, imageWidth)
+  imageUrl.searchParams.set(`format`, `png`)
+  imageUrl.searchParams.set(`response_type`, `image`)
 
   const imageMeta = image
     ? {
-        'og:image:width': image ? String(imageWidth) : null,
-        'og:image:height': image ? String(imageHeight) : null,
-        'og:image': image ? urlFor(image).height(imageHeight).width(imageWidth).toString() : null,
+        'og:image:width': imageWidth,
+        'og:image:height': imageHeight,
+        'og:image': imageUrl.toString(),
       }
     : {}
 
@@ -51,8 +62,8 @@ export const meta: MetaFunction = ({data, parentsData, location}) => {
 export const loader: LoaderFunction = async (props) => {
   const {request, params} = props
   const requestUrl = new URL(request?.url)
-  const ENV = getEnv()
-  const preview = requestUrl?.searchParams?.get('preview') === ENV.SANITY_PREVIEW_SECRET
+  // const ENV = getEnv()
+  const preview = requestUrl?.searchParams?.get('preview') === process.env.SANITY_PREVIEW_SECRET
 
   // This query can return more than one document, eg, a draft and published version
   const articles = await getClient(preview).fetch(articleQuery, params)

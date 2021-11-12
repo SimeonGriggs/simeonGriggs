@@ -1,7 +1,6 @@
-// The default implementation uses the full @sanity/client
-// import {createClient} from 'next-sanity'
-
-// If we don't need to do mutation, we can just use PicoSanity instead
+// The 'next-sanity' implementation uses the full @sanity/client
+// Since we don't need to do mutation, we can just use PicoSanity instead
+// (Also, @sanity/client was giving me drama)
 import PicoSanity from 'picosanity'
 
 import {config} from './config'

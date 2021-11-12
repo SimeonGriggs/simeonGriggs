@@ -3,7 +3,7 @@ import React from 'react'
 import BlockContent from '@sanity/block-content-to-react'
 import getYouTubeID from 'get-youtube-id'
 
-// import {urlFor} from './client'
+import {urlFor} from '~/lib/sanity/helpers'
 import Button from '~/components/Button'
 import Prism from '~/components/Prism'
 
@@ -73,7 +73,7 @@ export const serializers = {
       <p className="-mx-4 border-t border-b md:border border-gray-100">
         <img
           loading="lazy"
-          // src={urlFor(node.asset).width(800).toString()}
+          src={urlFor(node.asset).width(800).toString()}
           alt={node?.asset?.altText}
           className="w-full h-auto"
         />

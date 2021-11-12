@@ -4,7 +4,7 @@ export function getEnv() {
   return {
     FLY: process.env.FLY,
     NODE_ENV: process.env.NODE_ENV,
-    SANITY_PREVIEW_SECRET: process.env.SANITY_PREVIEW_SECRET,
+    // SANITY_PREVIEW_SECRET: process.env.SANITY_PREVIEW_SECRET,
   }
 }
 
