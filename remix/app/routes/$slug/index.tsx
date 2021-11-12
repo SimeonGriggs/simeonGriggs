@@ -115,7 +115,7 @@ export default function Article() {
           </div>
         ) : null}
       </aside>
-      <section className="row-start-3 md:row-start-2 col-span-6 lg:col-start-8 lg:col-span-8 pb-24">
+      <section className="row-start-3 md:row-start-2 col-span-6 lg:col-start-8 lg:col-span-8 mt-6 md:mt-0 pb-24">
         {article?.published ? (
           <Date updated={article?.updated} published={article.published} />
         ) : null}
