@@ -1,5 +1,5 @@
 const localUrl = `http://localhost:3000`
-const remoteUrl = `https://remix.simeongriggs.dev`
+const remoteUrl = `https://www.simeongriggs.dev`
 const baseUrl = window?.location?.hostname === 'localhost' ? localUrl : remoteUrl
 
 export function resolveProductionUrl(doc) {
