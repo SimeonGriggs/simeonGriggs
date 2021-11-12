@@ -16,6 +16,7 @@ import {useDarkMode} from 'usehooks-ts'
 
 import {removeTrailingSlash} from './lib/helpers'
 import {getEnv} from './lib/utils/env'
+import {cookieNames, themePreference as cookie} from '~/cookies'
 import {RestoreScrollPosition, useScrollRestoration} from '~/lib/utils/scroll'
 import {getClient} from '~/lib/sanity/getClient'
 import {siteMetaQuery} from '~/lib/sanity/queries'
@@ -26,9 +27,10 @@ import stylesUrl from '~/styles/global.css'
 
 export const handle = `root`
 
-export const meta: MetaFunction = () => {
+export const meta: MetaFunction = ({data}) => {
   return {
     'theme-color': '#2522fc',
+    'color-scheme': data?.themePreference ?? 'light',
     type: 'website',
   }
 }
@@ -58,17 +60,24 @@ export const links: LinksFunction = () => {
   ]
 }
 
-export const loader: LoaderFunction = async () => {
+export const loader: LoaderFunction = async ({request}) => {
   const siteMeta = await getClient().fetch(siteMetaQuery)
   // const siteMeta = {}
   const ENV = getEnv()
 
-  return {siteMeta, ENV}
+  const requestCookies = request.headers.get('Cookie')?.split(';')
+  const themePreference = requestCookies
+    ?.find((row) => row.includes(`${cookieNames.THEME_PREFERENCE}=`))
+    ?.split(`=`)
+    .pop()
+
+  return {siteMeta, ENV, themePreference}
 }
 
 function Document({children, title}: {children: React.ReactNode; title: string}) {
-  const {isDarkMode} = useDarkMode()
-  const {ENV, siteMeta} = useLoaderData()
+  const {ENV, siteMeta, themePreference} = useLoaderData()
+
+  const {isDarkMode} = useDarkMode(themePreference === 'dark')
   const {pathname} = useLocation()
   const matches = useMatches()
   const isMetaImage = matches.some((match) => match.handle === 'meta-image')
