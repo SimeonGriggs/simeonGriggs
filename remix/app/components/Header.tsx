@@ -2,7 +2,7 @@
 import {useMemo} from 'react'
 import {MoonIcon, SunIcon} from '@heroicons/react/solid'
 import {Link, useMatches} from 'remix'
-import {useDarkMode} from 'usehooks-ts'
+import {useDarkMode, useLocalStorage} from 'usehooks-ts'
 import useCookie from 'react-use-cookie'
 
 import Twitter from './Twitter'
@@ -30,11 +30,14 @@ const Header = ({siteMeta}: {siteMeta: SiteMeta}) => {
     cookieNames.THEME_PREFERENCE,
     currentThemePreference
   )
+  // usehooks-ts's useDarkMode uses this local storage key, but we can give it our default too?
+  // const [, setIsDarkModeLS] = useLocalStorage(`darkMode`, currentThemePreference === 'dark')
   const {isDarkMode, toggle} = useDarkMode(currentThemePreference === 'dark')
 
   function handleToggle() {
     toggle()
     const newPreference = isDarkMode ? `light` : `dark`
+    // setIsDarkModeLS(isDarkMode)
     setThemePreferenceCookie(newPreference)
     document.querySelector('meta[name="color-scheme"]')?.setAttribute(`content`, newPreference)
   }

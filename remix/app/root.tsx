@@ -99,7 +99,7 @@ function Document({children, title}: {children: React.ReactNode; title: string})
       <body
         className={[
           `transition-colors duration-100 ease-out`,
-          isDarkMode ? `dark text-white bg-blue-900` : null,
+          isDarkMode ? `dark text-white bg-blue-900` : `bg-white`,
         ]
           .join(' ')
           .trim()}
