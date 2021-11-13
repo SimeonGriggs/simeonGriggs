@@ -24,14 +24,19 @@ const Header = ({siteMeta}: {siteMeta: SiteMeta}) => {
 
   const currentThemePreference = useMemo(() => {
     return matches.find((match) => match.handle === 'root')?.data?.themePreference ?? `light`
-  }, [])
+  }, [matches])
 
-  const [, setThemePreference] = useCookie(cookieNames.THEME_PREFERENCE, currentThemePreference)
+  const [, setThemePreferenceCookie] = useCookie(
+    cookieNames.THEME_PREFERENCE,
+    currentThemePreference
+  )
   const {isDarkMode, toggle} = useDarkMode(currentThemePreference === 'dark')
 
   function handleToggle() {
     toggle()
-    setThemePreference(isDarkMode ? `light` : `dark`)
+    const newPreference = isDarkMode ? `light` : `dark`
+    setThemePreferenceCookie(newPreference)
+    document.querySelector('meta[name="color-scheme"]')?.setAttribute(`content`, newPreference)
   }
 
   return (

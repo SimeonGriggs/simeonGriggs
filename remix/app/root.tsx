@@ -100,7 +100,9 @@ function Document({children, title}: {children: React.ReactNode; title: string})
         className={[
           `transition-colors duration-100 ease-out`,
           isDarkMode ? `dark text-white bg-blue-900` : null,
-        ].join(' ')}
+        ]
+          .join(' ')
+          .trim()}
       >
         {children}
         <RestoreScrollPosition />
