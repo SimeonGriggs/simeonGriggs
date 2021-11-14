@@ -12,11 +12,14 @@ export function usePreviewSubscription(query: string, subscriptionOptions: Subsc
   const {enabled, params, initialData} = subscriptionOptions
   const [data, setData] = useState(initialData)
 
+  // Attempt to prevent bundling if not enabled?
+  const [groqStore] = useState(enabled ? store(enabled) : null)
+
   useEffect(() => {
     let sub: any
 
-    if (enabled) {
-      sub = store.subscribe(
+    if (enabled && groqStore) {
+      sub = groqStore.subscribe(
         query,
         params ?? {}, // Params
         (err: any, result: any) => {

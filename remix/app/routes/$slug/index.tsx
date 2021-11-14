@@ -1,11 +1,10 @@
 import type {MetaFunction, LoaderFunction} from 'remix'
 import {useLoaderData} from 'remix'
 
-import {urlFor, filterDataToSingleItem} from '~/lib/sanity/helpers'
+import {filterDataToSingleItem} from '~/lib/sanity/helpers'
 import {articleQuery} from '~/lib/sanity/queries'
 import {getClient} from '~/lib/sanity/getClient'
 import {usePreviewSubscription} from '~/lib/sanity/usePreviewSubscription'
-import {getEnv} from '~/lib/utils/env'
 
 import Date from '~/components/Date'
 import Label from '~/components/Label'
@@ -62,7 +61,6 @@ export const meta: MetaFunction = ({data, parentsData, location}) => {
 export const loader: LoaderFunction = async (props) => {
   const {request, params} = props
   const requestUrl = new URL(request?.url)
-  // const ENV = getEnv()
   const preview = requestUrl?.searchParams?.get('preview') === process.env.SANITY_PREVIEW_SECRET
 
   // This query can return more than one document, eg, a draft and published version
@@ -72,7 +70,12 @@ export const loader: LoaderFunction = async (props) => {
   // If preview is enabled, get the draft, otherwise, get the published
   const article = filterDataToSingleItem(articles, preview)
 
-  return {initialData: article, query: articleQuery, params, preview}
+  return {
+    initialData: article,
+    preview,
+    query: preview ? articleQuery : ``,
+    params: preview ? params : {},
+  }
 }
 
 // Runs client side
