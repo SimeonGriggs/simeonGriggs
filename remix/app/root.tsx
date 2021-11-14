@@ -77,7 +77,10 @@ export const loader: LoaderFunction = async ({request}) => {
 function Document({children, title}: {children: React.ReactNode; title: string}) {
   const {ENV, siteMeta, themePreference} = useLoaderData()
 
-  const {isDarkMode} = useDarkMode(themePreference === 'dark')
+  const {isDarkMode} = useDarkMode(
+    [`dark`, `light`].includes(themePreference) ? themePreference === 'dark' : false
+  )
+
   const {pathname} = useLocation()
   const matches = useMatches()
   const isMetaImage = matches.some((match) => match.handle === 'meta-image')
