@@ -1,6 +1,5 @@
+import {GroqStore} from '@sanity/groq-store'
 import {useEffect, useState} from 'react'
-
-import {store} from '~/lib/sanity/groqStore'
 
 interface SubscriptionOptions<R = any> {
   enabled?: boolean
@@ -12,14 +11,18 @@ export function usePreviewSubscription(query: string, subscriptionOptions: Subsc
   const {enabled, params, initialData} = subscriptionOptions
   const [data, setData] = useState(initialData)
 
-  // Attempt to prevent bundling if not enabled?
-  const [groqStore] = useState(enabled ? store(enabled) : null)
-
   useEffect(() => {
     let sub: any
+    let store: GroqStore | undefined
 
-    if (enabled && groqStore) {
-      sub = groqStore.subscribe(
+    async function createStore() {
+      const groqStore = await import('~/lib/sanity/groqStore')
+
+      if (!groqStore?.store) return
+
+      store = groqStore.store
+
+      store.subscribe(
         query,
         params ?? {}, // Params
         (err: any, result: any) => {
@@ -30,6 +33,10 @@ export function usePreviewSubscription(query: string, subscriptionOptions: Subsc
           setData(result)
         }
       )
+    }
+
+    if (enabled) {
+      createStore()
     }
 
     return () => {
