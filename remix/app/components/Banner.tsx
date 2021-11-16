@@ -114,7 +114,7 @@ const Banner = () => {
 
       if (thisPathData) {
         const image =
-          pathname === '/' ? thisPathData?.articles[0].image : thisPathData?.initialData?.image
+          pathname === '/' ? thisPathData?.articles[0].image : thisPathData?.initialData[0]?.image
 
         if (image) {
           setBannerImage(image)
