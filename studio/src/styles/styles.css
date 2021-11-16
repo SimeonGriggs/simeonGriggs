@@ -1,4 +1,6 @@
 :root {
   --brand-primary: #2522fc;
   --state-info-color: #2522fc;
+  --main-navigation-color: #030156;
+  --main-navigation-color--inverted: #fafaff;
 }

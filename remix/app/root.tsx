@@ -16,7 +16,7 @@ import {useDarkMode} from 'usehooks-ts'
 
 import {removeTrailingSlash} from './lib/helpers'
 import {getEnv} from './lib/utils/env'
-import {cookieNames, themePreference as cookie} from '~/cookies'
+import {cookieNames} from '~/cookies'
 import {RestoreScrollPosition, useScrollRestoration} from '~/lib/utils/scroll'
 import {getClient} from '~/lib/sanity/getClient'
 import {siteMetaQuery} from '~/lib/sanity/queries'

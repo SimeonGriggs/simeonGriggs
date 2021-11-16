@@ -1,10 +1,10 @@
+import {useState} from 'react'
 import type {MetaFunction, LoaderFunction} from 'remix'
 import {useLoaderData} from 'remix'
 
 import {filterDataToSingleItem} from '~/lib/sanity/helpers'
 import {articleQuery} from '~/lib/sanity/queries'
 import {getClient} from '~/lib/sanity/getClient'
-import {usePreviewSubscription} from '~/lib/sanity/usePreviewSubscription'
 
 import Date from '~/components/Date'
 import Label from '~/components/Label'
@@ -12,6 +12,7 @@ import Preview from '~/components/Preview'
 import ProseableText from '~/components/ProseableText'
 import TableOfContents from '~/components/TableOfContents'
 import {removeTrailingSlash} from '~/lib/helpers'
+import {config} from '~/lib/sanity/config'
 
 export const handle = `article`
 
@@ -62,16 +63,10 @@ export const loader: LoaderFunction = async (props) => {
   const {request, params} = props
   const requestUrl = new URL(request?.url)
   const preview = requestUrl?.searchParams?.get('preview') === process.env.SANITY_PREVIEW_SECRET
-
-  // This query can return more than one document, eg, a draft and published version
-  const articles = await getClient(preview).fetch(articleQuery, params)
-  // const articles = [{_id: 'yeah', content: []}]
-
-  // If preview is enabled, get the draft, otherwise, get the published
-  const article = filterDataToSingleItem(articles, preview)
+  const initialData = await getClient(preview).fetch(articleQuery, params)
 
   return {
-    initialData: article,
+    initialData,
     preview,
     query: preview ? articleQuery : ``,
     params: preview ? params : {},
@@ -80,16 +75,12 @@ export const loader: LoaderFunction = async (props) => {
 
 // Runs client side
 export default function Article() {
-  const {initialData, query, params, preview} = useLoaderData()
+  const {initialData, preview} = useLoaderData()
+  const [data, setData] = useState(initialData)
 
-  const {data: articles} = usePreviewSubscription(query, {
-    params,
-    initialData,
-    enabled: preview,
-  })
-  // const articles = initialData
-
-  const article = filterDataToSingleItem(articles, preview)
+  // The query may return more than one document, eg, a draft and published version
+  // If preview is enabled, get the draft, otherwise, get the published
+  const article = filterDataToSingleItem(data, preview)
 
   if (!article) {
     return null
@@ -97,7 +88,7 @@ export default function Article() {
 
   return (
     <>
-      {preview && <Preview />}
+      {preview && <Preview data={data} setData={setData} />}
       <header className="mt-32 md:mt-0 row-start-1 col-span-6 md:col-start-3 md:col-span-10 lg:col-start-5 lg:col-span-11">
         <div className="py-12 md:py-24 max-w-xl">
           {article?.title ? (
