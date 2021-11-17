@@ -14,8 +14,8 @@ import {
 import {Outlet, useLocation} from 'react-router-dom'
 import {useDarkMode} from 'usehooks-ts'
 
-import {removeTrailingSlash} from './lib/helpers'
-import {getEnv} from './lib/utils/env'
+import {removeTrailingSlash} from './lib/utils/helpers'
+import {getEnv} from './lib/utils/getEnv'
 import {cookieNames} from '~/cookies'
 import {RestoreScrollPosition, useScrollRestoration} from '~/lib/utils/scroll'
 import {getClient} from '~/lib/sanity/getClient'
@@ -37,11 +37,11 @@ export const meta: MetaFunction = ({data}) => {
 
 const fonts = [
   `/fonts/JetBrainsMono-Regular.woff2`,
-  `/fonts/JetBrainsMono-Bold.woff2`,
+  // `/fonts/JetBrainsMono-Bold.woff2`,
   `/fonts/Inter-Regular.woff2`,
   `/fonts/Inter-Italic.woff2`,
   `/fonts/Inter-ExtraBold.woff2`,
-  `/fonts/Inter-ExtraBoldItalic.woff2`,
+  // `/fonts/Inter-ExtraBoldItalic.woff2`,
 ]
 
 export const links: LinksFunction = () => {
@@ -116,6 +116,13 @@ function Document({children, title}: {children: React.ReactNode; title: string})
             <LiveReload />
           </>
         )}
+        {ENV ? (
+          <script
+            dangerouslySetInnerHTML={{
+              __html: `window.ENV = ${JSON.stringify(ENV)};`,
+            }}
+          />
+        ) : null}
       </body>
     </html>
   )

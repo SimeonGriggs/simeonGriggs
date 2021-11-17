@@ -5,11 +5,19 @@ interface ClientConfig {
   useCdn: boolean
 }
 
+// _probably_ a way to actually pull these from the getEnv.ts file
+type EnvKey = 'NODE_ENV' | 'SANITY_DATASET' | 'SANITY_PROJECT_ID'
+
+function getEnvByKey(key: EnvKey) {
+  return typeof window === 'undefined' ? process.env[key] : window.ENV[key]
+}
+
 export const config: ClientConfig = {
   apiVersion: '2021-03-25',
-  dataset: 'production',
-  projectId: 'az8av6xl',
-  // projectId: process.env.SANITY_PROJECT_ID || ``,
-  useCdn: true,
-  // useCdn: process.env.NODE_ENV === 'production',
+  dataset: getEnvByKey(`SANITY_DATASET`) ?? `production`,
+  projectId: getEnvByKey(`SANITY_PROJECT_ID`) ?? ``,
+  useCdn: getEnvByKey(`NODE_ENV`) === 'production',
+  // dataset: `production`,
+  // projectId: `az8av6xl`,
+  // useCdn: true,
 }

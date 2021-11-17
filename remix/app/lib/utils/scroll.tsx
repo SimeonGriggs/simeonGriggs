@@ -3,7 +3,7 @@ import {useLocation} from 'react-router-dom'
 import {useTransition} from '@remix-run/react'
 import {useBeforeUnload} from 'remix'
 
-import {useSSRLayoutEffect} from '../helpers'
+import {useSSRLayoutEffect} from './helpers'
 
 let firstRender = true
 let positions: {[key: string]: number} = {}

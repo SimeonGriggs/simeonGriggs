@@ -5,7 +5,7 @@ import {AnimatePresence, motion} from 'framer-motion'
 import {useWindowSize} from 'usehooks-ts'
 import {Blurhash} from 'react-blurhash'
 
-import {clipPathInset} from '../lib/helpers'
+import {clipPathInset} from '../lib/utils/helpers'
 import {urlFor} from '~/lib/sanity/helpers'
 
 interface BannerSizeImage {

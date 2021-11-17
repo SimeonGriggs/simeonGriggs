@@ -3,9 +3,9 @@ import {MetaFunction, LoaderFunction, useMatches, useLoaderData, Link} from 'rem
 // import stylesUrl from "../styles/index.css";
 import {getClient} from '~/lib/sanity/getClient'
 import {homeQuery} from '~/lib/sanity/queries'
+import {ArticleDocument} from '~/lib/sanity/types'
 import Intro from '~/components/Intro'
 import Date from '~/components/Date'
-import {ArticleDocument} from '~/lib/sanity/types'
 
 export const handle = `home`
 

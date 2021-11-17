@@ -5,14 +5,13 @@ import {useLoaderData} from 'remix'
 import {filterDataToSingleItem} from '~/lib/sanity/helpers'
 import {articleQuery} from '~/lib/sanity/queries'
 import {getClient} from '~/lib/sanity/getClient'
+import {removeTrailingSlash} from '~/lib/utils/helpers'
 
 import Date from '~/components/Date'
 import Label from '~/components/Label'
 import Preview from '~/components/Preview'
 import ProseableText from '~/components/ProseableText'
 import TableOfContents from '~/components/TableOfContents'
-import {removeTrailingSlash} from '~/lib/helpers'
-import {config} from '~/lib/sanity/config'
 
 export const handle = `article`
 
