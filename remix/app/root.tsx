@@ -18,7 +18,6 @@ import {useDarkMode} from 'usehooks-ts'
 import {removeTrailingSlash} from './lib/utils/helpers'
 import {getEnv} from './lib/utils/getEnv'
 import {cookieNames} from '~/cookies'
-import {useScrollRestoration} from '~/lib/utils/scroll'
 import {getClient} from '~/lib/sanity/getClient'
 import {siteMetaQuery} from '~/lib/sanity/queries'
 import Banner from '~/components/Banner'
@@ -134,9 +133,6 @@ export default function App() {
   const matches = useMatches()
 
   const {siteMeta} = data
-
-  const shouldManageScroll = matches.every((m) => (m.handle as any)?.scroll !== false)
-  useScrollRestoration(shouldManageScroll)
 
   const shouldShowBanner = !matches.some((match) => match.handle === 'meta-image')
 
