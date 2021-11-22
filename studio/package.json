@@ -1,6 +1,5 @@
 {
   "name": "simeongriggs.dev-studio",
-  "private": true,
   "version": "1.0.0",
   "description": "",
   "main": "package.json",
@@ -21,7 +20,7 @@
     "@sanity/core": "^2.22.0",
     "@sanity/default-layout": "^2.22.0",
     "@sanity/default-login": "^2.22.0",
-    "@sanity/desk-tool": "^2.22.1",
+    "@sanity/desk-tool": "^2.22.2",
     "@sanity/vision": "^2.22.0",
     "prop-types": "^15.7",
     "react": "^17.0",
