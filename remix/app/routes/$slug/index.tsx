@@ -37,6 +37,8 @@ export const meta: MetaFunction = ({
   const canonical = removeTrailingSlash(siteMeta?.siteUrl + location.pathname)
   const canonicalMetaImage = removeTrailingSlash(`${canonical}/meta-image`)
 
+  console.log(title)
+
   const imageWidth = `1200`
   const imageHeight = `630`
   const imageUrl = new URL(`https://api.apiflash.com/v1/urltoimage`)
@@ -53,7 +55,7 @@ export const meta: MetaFunction = ({
         'og:image:height': imageHeight,
         'og:image': imageUrl.toString(),
       }
-    : null
+    : {}
 
   return {
     title: `${title} | ${siteMeta?.title}`,

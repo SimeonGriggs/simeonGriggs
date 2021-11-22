@@ -9,6 +9,7 @@ import {
   useLoaderData,
   LiveReload,
   useCatch,
+  ScrollRestoration,
 } from 'remix'
 
 import {Outlet, useLocation} from 'react-router-dom'
@@ -17,7 +18,7 @@ import {useDarkMode} from 'usehooks-ts'
 import {removeTrailingSlash} from './lib/utils/helpers'
 import {getEnv} from './lib/utils/getEnv'
 import {cookieNames} from '~/cookies'
-import {RestoreScrollPosition, useScrollRestoration} from '~/lib/utils/scroll'
+import {useScrollRestoration} from '~/lib/utils/scroll'
 import {getClient} from '~/lib/sanity/getClient'
 import {siteMetaQuery} from '~/lib/sanity/queries'
 import Banner from '~/components/Banner'
@@ -74,7 +75,7 @@ export const loader: LoaderFunction = async ({request}) => {
   return {siteMeta, ENV, themePreference}
 }
 
-function Document({children, title}: {children: React.ReactNode; title: string}) {
+function Document({children}: {children: React.ReactNode}) {
   const {ENV, siteMeta, themePreference} = useLoaderData()
 
   const {isDarkMode} = useDarkMode(
@@ -95,7 +96,6 @@ function Document({children, title}: {children: React.ReactNode; title: string})
         <link rel="icon" href="/favicon.png" type="image/png" />
         <link rel="canonical" href={canonical} />
         <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-        {title ? <title>{title}</title> : null}
         <Meta />
         <Links />
       </head>
@@ -108,7 +108,7 @@ function Document({children, title}: {children: React.ReactNode; title: string})
           .trim()}
       >
         {children}
-        <RestoreScrollPosition />
+        <ScrollRestoration />
         <Scripts />
         {ENV?.NODE_ENV === 'development' && (
           <>
@@ -141,7 +141,7 @@ export default function App() {
   const shouldShowBanner = !matches.some((match) => match.handle === 'meta-image')
 
   return (
-    <Document title={siteMeta?.title}>
+    <Document>
       {shouldShowBanner && (
         <>
           <Header siteMeta={siteMeta} />
