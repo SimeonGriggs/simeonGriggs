@@ -2,7 +2,7 @@
 import {useMemo} from 'react'
 import {MoonIcon, SunIcon} from '@heroicons/react/solid'
 import {Link, useMatches} from 'remix'
-import {useDarkMode, useLocalStorage} from 'usehooks-ts'
+import {useDarkMode} from 'usehooks-ts'
 import useCookie from 'react-use-cookie'
 
 import Twitter from './Twitter'

@@ -46,7 +46,7 @@ const fonts = [
 
 export const links: LinksFunction = () => {
   return [
-    ...fonts.map((path) => ({
+    ...fonts.map((path: string) => ({
       rel: 'preload',
       as: 'font',
       href: path,
@@ -110,7 +110,7 @@ function Document({children, title}: {children: React.ReactNode; title: string})
         {children}
         <RestoreScrollPosition />
         <Scripts />
-        {ENV.NODE_ENV === 'development' && (
+        {ENV?.NODE_ENV === 'development' && (
           <>
             <Grid />
             <LiveReload />
@@ -118,6 +118,7 @@ function Document({children, title}: {children: React.ReactNode; title: string})
         )}
         {ENV ? (
           <script
+            // eslint-disable-next-line react/no-danger
             dangerouslySetInnerHTML={{
               __html: `window.ENV = ${JSON.stringify(ENV)};`,
             }}

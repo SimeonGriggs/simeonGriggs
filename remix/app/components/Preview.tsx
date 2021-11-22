@@ -16,6 +16,7 @@ export default function Preview({data, setData}: {data: any; setData: any}) {
     enabled: true,
   })
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => setData(previewData), [previewData])
 
   return (

@@ -1,3 +1,10 @@
+export interface ImageAsset {
+  asset: {
+    _id: string
+    altText: string
+  }
+}
+
 export interface ArticleDocument {
   _id: string
   slug?: {
@@ -8,12 +15,7 @@ export interface ArticleDocument {
   published?: string
   updated?: string
   content: Block[]
-  image: {
-    asset: {
-      _id: string
-      altText: string
-    }
-  }
+  image: ImageAsset
 }
 
 export interface Block {

@@ -12,12 +12,27 @@ import Label from '~/components/Label'
 import Preview from '~/components/Preview'
 import ProseableText from '~/components/ProseableText'
 import TableOfContents from '~/components/TableOfContents'
+import {ArticleDocument} from '~/lib/sanity/types'
 
 export const handle = `article`
 
-export const meta: MetaFunction = ({data, parentsData, location}) => {
-  const {title, summary, image} = data?.initialData ?? {}
+export const meta: MetaFunction = ({
+  data,
+  parentsData,
+  location,
+}: {
+  data: {
+    initialData: ArticleDocument[]
+    preview: boolean
+  }
+  parentsData: any
+  location: any
+}) => {
   const {siteMeta} = parentsData?.root ?? {}
+
+  const {initialData, preview} = data
+  const article = filterDataToSingleItem(initialData, preview)
+  const {title, summary, image} = article
 
   const canonical = removeTrailingSlash(siteMeta?.siteUrl + location.pathname)
   const canonicalMetaImage = removeTrailingSlash(`${canonical}/meta-image`)
@@ -38,7 +53,7 @@ export const meta: MetaFunction = ({data, parentsData, location}) => {
         'og:image:height': imageHeight,
         'og:image': imageUrl.toString(),
       }
-    : {}
+    : null
 
   return {
     title: `${title} | ${siteMeta?.title}`,
@@ -63,6 +78,7 @@ export const loader: LoaderFunction = async (props) => {
   const requestUrl = new URL(request?.url)
   const preview = requestUrl?.searchParams?.get('preview') === process.env.SANITY_PREVIEW_SECRET
   const initialData = await getClient(preview).fetch(articleQuery, params)
+  // const initialData = [{_id: `yo`}]
 
   return {
     initialData,
