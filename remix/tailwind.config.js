@@ -101,6 +101,6 @@ module.exports = {
   plugins: [
     require('@tailwindcss/typography'),
     require('@tailwindcss/aspect-ratio'),
-    require('tailwindcss-fraction-widths')(16),
+    require('tailwindcss-fraction-widths')([8, 16]),
   ],
 }

@@ -73,9 +73,9 @@ a {
 
 .button {
   @apply transition-colors duration-200
-    bg-blue-500 text-white
+    bg-blue-500 text-white text-center
     border-0 cursor-pointer
-    whitespace-nowrap inline-flex items-center
+    whitespace-nowrap inline-flex items-center justify-center
     leading-none text-base font-mono
     p-6 no-underline;
 }
@@ -134,6 +134,10 @@ pre[class*='language-'] {
   pre[class*='language-'] {
     @apply border rounded text-base;
   }
+}
+
+.prose [block-key] {
+  @apply relative;
 }
 
 .prose code {

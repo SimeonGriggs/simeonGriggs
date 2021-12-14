@@ -14,7 +14,8 @@ export const articleQuery = groq`*[_type == "article" && slug.current == $slug]{
             ...,
             asset->
         },
-    }
+    },
+    "comments": *[_type == "comment" && references(^._id)]
   }`
 
 export const homeQuery = groq`*[_type == "article" && defined(slug.current)]|order(published desc){

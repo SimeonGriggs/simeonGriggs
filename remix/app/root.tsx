@@ -39,7 +39,7 @@ const fonts = [
   `/fonts/JetBrainsMono-Regular.woff2`,
   // `/fonts/JetBrainsMono-Bold.woff2`,
   `/fonts/Inter-Regular.woff2`,
-  `/fonts/Inter-Italic.woff2`,
+  // `/fonts/Inter-Italic.woff2`,
   `/fonts/Inter-ExtraBold.woff2`,
   // `/fonts/Inter-ExtraBoldItalic.woff2`,
 ]
@@ -51,7 +51,7 @@ export const links: LinksFunction = () => {
       as: 'font',
       href: path,
       type: 'font/woff2',
-      crossOrigin: 'anonymous',
+      crossorigin: 'anonymous',
     })),
     {
       rel: 'stylesheet',
@@ -65,7 +65,7 @@ export const loader: LoaderFunction = async ({request}) => {
   // const siteMeta = {}
   const ENV = getEnv()
 
-  const requestCookies = request.headers.get('Cookie')?.split(';')
+  const requestCookies = request.headers?.get('Cookie')?.split(';')
   const themePreference = requestCookies
     ?.find((row) => row.includes(`${cookieNames.THEME_PREFERENCE}=`))
     ?.split(`=`)
@@ -74,7 +74,7 @@ export const loader: LoaderFunction = async ({request}) => {
   return {siteMeta, ENV, themePreference}
 }
 
-function Document({children}: {children: React.ReactNode}) {
+function Document({children, title}: {children: React.ReactNode; title: string}) {
   const {ENV, siteMeta, themePreference} = useLoaderData()
 
   const {isDarkMode} = useDarkMode(
@@ -92,6 +92,7 @@ function Document({children}: {children: React.ReactNode}) {
     <html lang="en">
       <head>
         <meta charSet="utf-8" />
+        {title ? <title>{title}</title> : null}
         <link rel="icon" href="/favicon.png" type="image/png" />
         <link rel="canonical" href={canonical} />
         <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />

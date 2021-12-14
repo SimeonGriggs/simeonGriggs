@@ -124,6 +124,8 @@ const Banner = () => {
   }, [matches, pathname])
 
   function updateBannerSize() {
+    if (!windowWidth) return
+
     const newSize = getNewBannerSize(isHome, windowWidth)
 
     if (newSize) {
@@ -164,7 +166,7 @@ const Banner = () => {
       onAnimationComplete={() => {
         if (firstAnimation) firstAnimation = false
       }}
-      className={`pointer-events-none h-32 md:h-screen opacity-0 w-screen z-40 origin-top-left ${
+      className={`pointer-events-none h-32 md:h-screen opacity-0 w-screen z-10 origin-top-left ${
         isHome ? `fixed` : `absolute md:fixed`
       }`}
     >

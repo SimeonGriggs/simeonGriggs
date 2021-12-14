@@ -1,4 +1,4 @@
-import {Link} from 'react-router-dom'
+import {Link} from 'remix'
 
 interface Props {
   children: string
@@ -15,11 +15,17 @@ interface Attributes {
   rel?: string
 }
 
+const buttonClasses = (className = ``) => {
+  return className ? [`button`, className].join(` `) : `button`
+}
+
 const Button = ({children, to, className, href, disabled, target, type}: Props) => {
   if (type === 'submit') {
     return (
-      <button disabled={disabled} className={`button ${className || ''}`} type="submit">
+      <button disabled={disabled} className={buttonClasses(className)} type="submit">
+        <span className="hidden md:block w-6 border-t border-white" />
         <span className="px-3">{children}</span>
+        <span className="hidden md:block w-6 border-t border-white" />
       </button>
     )
   }
@@ -33,7 +39,7 @@ const Button = ({children, to, className, href, disabled, target, type}: Props) 
 
   if (href) {
     return (
-      <a {...attributes} className={`button ${className || ''}`} href={href}>
+      <a {...attributes} className={buttonClasses(className)} href={href}>
         <span className="hidden md:block w-6 border-t border-white" />
         <span className="px-3">{children}</span>
         <span className="hidden md:block w-6 border-t border-white" />
@@ -41,11 +47,15 @@ const Button = ({children, to, className, href, disabled, target, type}: Props) 
     )
   }
 
-  return (
-    <Link className={`button ${className || ''}`} to={to}>
-      {children}
-    </Link>
-  )
+  if (to) {
+    return (
+      <Link className={buttonClasses(className)} to={to}>
+        {children}
+      </Link>
+    )
+  }
+
+  return <>children</>
 }
 
 export default Button

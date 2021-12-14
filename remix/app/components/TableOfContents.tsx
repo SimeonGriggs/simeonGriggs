@@ -1,4 +1,5 @@
 import type {Block} from '~/lib/sanity/types'
+import {scrollableKey} from '~/lib/scrollableId'
 
 export default function TableOfContents({blocks}: {blocks: Block[]}) {
   const headings = blocks.filter((block) => ['h2', 'h3'].includes(block.style))
@@ -16,7 +17,7 @@ export default function TableOfContents({blocks}: {blocks: Block[]}) {
           style={{textIndent: heading.style === 'h3' ? `-0.75rem` : ``}}
         >
           <a
-            href={`#${heading._key}`}
+            href={`#${scrollableKey(heading._key)}`}
             className="text-blue-500 dark:text-blue-200 hover:text-white dark:hover:text-white hover:bg-blue-500 block"
           >
             {heading.style === 'h3' ? `– ` : ``}

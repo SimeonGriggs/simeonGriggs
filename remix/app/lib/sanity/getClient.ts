@@ -12,7 +12,7 @@ export const sanityClient = new PicoSanity(config)
 export const previewClient = new PicoSanity({
   ...config,
   useCdn: false,
-  token: process.env.SANITY_API_TOKEN ?? ``,
+  token: typeof window === 'undefined' && process ? process.env.SANITY_API_TOKEN : ``,
 })
 
 // Helper function for easily switching between normal client and preview client

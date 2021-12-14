@@ -3,20 +3,35 @@ import React from 'react'
 import BlockContent from '@sanity/block-content-to-react'
 import getYouTubeID from 'get-youtube-id'
 
+import {scrollableKey} from '../scrollableId'
+import {BlockItem} from './types'
 import {urlFor} from '~/lib/sanity/helpers'
 import Button from '~/components/Button'
 import Prism from '~/components/Prism'
+import CommentableBlock from '~/components/Comments/CommentableBlock'
 
-const BlockRenderer = (props: any) => {
-  const {style = 'normal'} = props.node
+const BlockRenderer = (props: BlockItem) => {
+  const {style = `normal`} = props.node
+  // console.log(props.node)
 
+  // Eliminate empty blocks
+  const text = props?.node?.children.map((child: any) => child.text).join('')
+
+  if (!text) return null
+
+  // Add `id` attribute to headings
   if (/^h\d/.test(style)) {
-    return React.createElement(style, {id: props.node._key}, props.children)
+    return React.createElement(style, {id: scrollableKey(props.node._key)}, props.children)
   }
 
-  if (['code', 'pre'].includes(style)) {
-    const text = props?.node?.children.map((child: any) => child.text).join('')
+  // Prism code highlighting
+  if ([`code`, `pre`].includes(style)) {
     return text ? <Prism code={text} /> : null
+  }
+
+  // Fancy commenting block on paragraphs
+  if ([`normal`].includes(style)) {
+    return <CommentableBlock {...props} />
   }
 
   return BlockContent.defaultSerializers.types.block(props)

@@ -16,6 +16,24 @@ export interface ArticleDocument {
   updated?: string
   content: Block[]
   image: ImageAsset
+  comments?: CommentDocument[]
+}
+
+export interface CommentDocument {
+  _type: `comment`
+  content: string | null
+  name: string | null
+  commentKey: string | null
+  email: string | null
+  commentOn: {
+    _type: `reference`
+    _ref: string | null
+  }
+}
+
+export interface BlockItem {
+  node: Block
+  children: BlockChild[]
 }
 
 export interface Block {
@@ -23,6 +41,7 @@ export interface Block {
   _type: string
   style: string
   children: BlockChild[]
+  comments?: CommentDocument[]
 }
 
 export interface BlockChild {

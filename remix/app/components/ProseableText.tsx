@@ -1,17 +1,29 @@
 import {PortableText} from '~/lib/sanity/helpers'
-import {Block} from '~/lib/sanity/types'
+import {Block, CommentDocument} from '~/lib/sanity/types'
 
 /**
  * Use Tailwind CSS's `prose` classes with Portable Text markup (blocks)
  * Without inheriting styles for custom components (types)
  * https://www.sanity.io/guides/tailwindcss-typography-prose-portable-text
  */
-export default function ProseableText({blocks}: {blocks: Block[]}) {
+export default function ProseableText({
+  blocks,
+  comments,
+}: {
+  blocks: Block[]
+  comments: CommentDocument[]
+}) {
   // Group together standard `_type === "block"`  blocks
   // eg <p>, <li>, etc – and separate out everyone else
+  // Also use this opportunity to insert comments
   const blockGroups = blocks.reduce(
     (acc, item) => {
       const lastIdx = acc.length - 1
+
+      const blockComments = comments.filter((comment) => comment.commentKey === item._key)
+      if (blockComments.length) {
+        item.comments = blockComments
+      }
 
       if (
         // We don't have items in this group yet

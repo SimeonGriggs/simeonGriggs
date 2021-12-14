@@ -24,6 +24,8 @@ export const getDefaultDocumentNode = ({schemaType}) => {
 
 const items = [
   S.documentTypeListItem('article').title('Articles'),
+  S.documentTypeListItem('comment').title('Comments'),
+  S.divider(),
   S.documentListItem().schemaType(`siteMeta`).id(`siteMeta`).title(`Site Meta`),
   // ...S.documentTypeListItems().filter((listItem) => !['article'].includes(listItem.getId())),
 ]

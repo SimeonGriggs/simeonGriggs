@@ -1,6 +1,6 @@
 import {useState} from 'react'
-import type {MetaFunction, LoaderFunction} from 'remix'
-import {useLoaderData} from 'remix'
+import type {MetaFunction, LoaderFunction, ActionFunction} from 'remix'
+import {useLoaderData, redirect} from 'remix'
 
 import {filterDataToSingleItem} from '~/lib/sanity/helpers'
 import {articleQuery} from '~/lib/sanity/queries'
@@ -12,7 +12,8 @@ import Label from '~/components/Label'
 import Preview from '~/components/Preview'
 import ProseableText from '~/components/ProseableText'
 import TableOfContents from '~/components/TableOfContents'
-import {ArticleDocument} from '~/lib/sanity/types'
+import {ArticleDocument, CommentDocument} from '~/lib/sanity/types'
+import {createComment} from '~/lib/sanity/createComment'
 
 export const handle = `article`
 
@@ -36,8 +37,6 @@ export const meta: MetaFunction = ({
 
   const canonical = removeTrailingSlash(siteMeta?.siteUrl + location.pathname)
   const canonicalMetaImage = removeTrailingSlash(`${canonical}/meta-image`)
-
-  console.log(title)
 
   const imageWidth = `1200`
   const imageHeight = `630`
@@ -74,13 +73,48 @@ export const meta: MetaFunction = ({
 //   return [{rel: 'canonical', href: `hmm`}]
 // }
 
+export const action: ActionFunction = async ({request}) => {
+  const body = await request.formData()
+
+  // Basic honeypot check
+  if (body?.get(`validation`)) {
+    return
+  }
+
+  const {pathname} = new URL(request.url)
+
+  const comment: CommentDocument = {
+    _type: 'comment',
+    content: body?.get(`content`) ? String(body.get(`content`)) : null,
+    name: body?.get(`name`) ? String(body.get(`name`)) : null,
+    commentKey: body?.get(`_key`) ? String(body.get(`_key`)) : null,
+    email: body?.get(`email`) ? String(body.get(`email`)) : null,
+    commentOn: {
+      _type: `reference`,
+      _ref: body?.get(`_id`) ? String(body.get(`_id`)) : null,
+    },
+  }
+
+  await createComment(comment)
+
+  // console.log(data)
+
+  return redirect(pathname)
+}
+
 // Runs server side
 export const loader: LoaderFunction = async (props) => {
   const {request, params} = props
-  const requestUrl = new URL(request?.url)
-  const preview = requestUrl?.searchParams?.get('preview') === process.env.SANITY_PREVIEW_SECRET
+  const requestUrl = new URL(request.url)
+  const preview = requestUrl?.searchParams?.get(`preview`) === process.env.SANITY_PREVIEW_SECRET
   const initialData = await getClient(preview).fetch(articleQuery, params)
   // const initialData = [{_id: `yo`}]
+
+  if (!initialData) {
+    throw new Response(`Not Found`, {
+      status: 404,
+    })
+  }
 
   return {
     initialData,
@@ -103,34 +137,34 @@ export default function Article() {
     return null
   }
 
+  const {title, summary, content, published, updated, comments} = article
+
   return (
     <>
       {preview && <Preview data={data} setData={setData} />}
       <header className="mt-32 md:mt-0 row-start-1 col-span-6 md:col-start-3 md:col-span-10 lg:col-start-5 lg:col-span-11">
         <div className="py-12 md:py-24 max-w-xl">
-          {article?.title ? (
+          {title ? (
             <h1 className="leading-none font-black mb-8 tracking-tighter text-4xl md:text-6xl text-blue-500">
               {article.title}
             </h1>
           ) : null}
-          {article?.summary ? (
-            <p className="text-lg dark:text-blue-100 md:leading-8 font-mono">{article.summary}</p>
+          {summary ? (
+            <p className="text-lg dark:text-blue-100 md:leading-8 font-mono">{summary}</p>
           ) : null}
         </div>
       </header>
       <aside className="mb-4 md:mb-0 row-start-2 md:row-start-2 col-span-6 md:col-start-3 md:col-span-3 lg:col-start-5 lg:col-span-3 relative">
-        {article?.content?.length > 0 ? (
+        {content?.length > 0 ? (
           <div className="grid grid-cols-1 gap-y-4 md:pr-12 sticky top-6">
             <Label>Table of Contents</Label>
-            <TableOfContents blocks={article.content} />
+            <TableOfContents blocks={content} />
           </div>
         ) : null}
       </aside>
       <section className="row-start-3 md:row-start-2 col-span-6 lg:col-start-8 lg:col-span-8 mt-6 md:mt-0 pb-24">
-        {article?.published ? (
-          <Date updated={article?.updated} published={article.published} />
-        ) : null}
-        {article?.content?.length > 0 ? <ProseableText blocks={article.content} /> : null}
+        {published ? <Date updated={updated} published={published} /> : null}
+        {content?.length > 0 ? <ProseableText blocks={content} comments={comments} /> : null}
       </section>
     </>
   )
