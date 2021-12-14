@@ -38,7 +38,7 @@ export default function CommentableBlock(props: BlockItem) {
         type="button"
         ref={button}
         onClick={() => setOpen(open ? `` : _key)}
-        className="hidden md:flex md:w-1/6 lg:w-1/8 h-full transform translate-x-full text-blue-200 group-hover:text-blue-500 rounded absolute right-0 top-0 items-center justify-center opacity-50 group-hover:opacity-100 transition-all duration-75 ease-in-out"
+        className="hidden md:flex md:w-1/6 lg:w-1/8 h-full translate-x-full text-blue-200 group-hover:text-blue-500 rounded absolute right-0 top-0 items-center justify-center opacity-50 group-hover:opacity-100 transition-all duration-75 ease-in-out"
       >
         {commentsCount > 0 ? (
           <div className="w-5 h-5 flex items-center justify-center rounded-full bg-blue-200 group-hover:bg-blue-500 text-white font-bold text-xs leading-none absolute -translate-y-0 group-hover:-translate-y-2 transition-transform duration-75 ease-in-out">

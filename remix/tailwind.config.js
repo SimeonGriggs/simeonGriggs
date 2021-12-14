@@ -2,8 +2,7 @@ const defaultTheme = require('tailwindcss/defaultTheme')
 const colors = require('tailwindcss/colors')
 
 module.exports = {
-  mode: 'jit',
-  purge: ['./app/**/*.{js,jsx,ts,tsx}', './remix.config.js'],
+  content: ['./app/**/*.{js,jsx,ts,tsx}', './remix.config.js'],
   darkMode: 'class',
   corePlugins: {
     // Disable the default container
@@ -94,9 +93,6 @@ module.exports = {
         },
       }),
     },
-  },
-  variants: {
-    extend: {},
   },
   plugins: [
     require('@tailwindcss/typography'),
