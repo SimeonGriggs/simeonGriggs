@@ -52,10 +52,10 @@ export default function ProseableText({
             key={group[0]._key}
             className="prose md:prose-lg dark:prose-dark prose-blue my-4 md:my-8"
           >
-            <PortableText blocks={group} />
+            <PortableText blocks={group} comments />
           </div>
         ) : (
-          <PortableText key={group[0]._key} blocks={group} />
+          <PortableText key={group[0]._key} blocks={group} comments />
         )
       )}
     </>

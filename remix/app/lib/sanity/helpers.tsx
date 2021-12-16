@@ -8,8 +8,8 @@ import {serializers} from './serializers'
 export const urlFor = (source: any) => imageUrlBuilder(config).image(source)
 // export const urlFor = (source: any) => null
 
-export function PortableText({blocks}: {blocks: Block[]}) {
-  return <SanityPortableText serializers={serializers} {...config} blocks={blocks} />
+export function PortableText({blocks, comments}: {blocks: Block[]; comments: boolean}) {
+  return <SanityPortableText serializers={serializers(comments)} {...config} blocks={blocks} />
 }
 
 // Helper function for using the current logged in user account

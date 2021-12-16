@@ -14,6 +14,7 @@ import ProseableText from '~/components/ProseableText'
 import TableOfContents from '~/components/TableOfContents'
 import {ArticleDocument, CommentDocument} from '~/lib/sanity/types'
 import {createComment} from '~/lib/sanity/createComment'
+import Subscribe from '~/components/Subscribe'
 
 export const handle = `article`
 
@@ -165,6 +166,13 @@ export default function Article() {
       <section className="row-start-3 md:row-start-2 col-span-6 lg:col-start-8 lg:col-span-8 mt-6 md:mt-0 pb-24">
         {published ? <Date updated={updated} published={published} /> : null}
         {content?.length > 0 ? <ProseableText blocks={content} comments={comments} /> : null}
+        <aside className="mt-12 p-6 bg-blue-500 text-white">
+          <h3 className="border-b border-white text-2xl font-black mb-3 pb-3 leading-none">
+            There's more where this came from
+          </h3>
+          <p className="text-lg mb-6">Subscribe for updates. Not spam.</p>
+          <Subscribe />
+        </aside>
       </section>
     </>
   )

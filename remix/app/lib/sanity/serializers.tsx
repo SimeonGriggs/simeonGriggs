@@ -60,10 +60,11 @@ interface BlockButton {
   }
 }
 
-export const serializers = {
+export const serializers = (comments: boolean) => ({
   container: ({children}: {children: any}) => children,
   types: {
-    block: BlockRenderer,
+    block: (props: any) =>
+      comments ? BlockRenderer(props) : BlockContent.defaultSerializers.types.block(props),
     video: ({node}: {node: BlockVideo}) => {
       const id = getYouTubeID(node.url)
 
@@ -100,4 +101,4 @@ export const serializers = {
       <Button href={node.link.link}>{node.link.text}</Button>
     ),
   },
-}
+})
