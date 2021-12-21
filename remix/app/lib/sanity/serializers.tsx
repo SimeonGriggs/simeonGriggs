@@ -3,7 +3,6 @@ import React from 'react'
 import BlockContent from '@sanity/block-content-to-react'
 import getYouTubeID from 'get-youtube-id'
 
-import {scrollableKey} from '../scrollableId'
 import {BlockItem} from './types'
 import {urlFor} from '~/lib/sanity/helpers'
 import Button from '~/components/Button'

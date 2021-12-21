@@ -38,21 +38,18 @@ export const meta: MetaFunction = ({data}) => {
 
 const fonts = [
   `/fonts/JetBrainsMono-Regular.woff2`,
-  // `/fonts/JetBrainsMono-Bold.woff2`,
   `/fonts/Inter-Regular.woff2`,
-  // `/fonts/Inter-Italic.woff2`,
   `/fonts/Inter-ExtraBold.woff2`,
-  // `/fonts/Inter-ExtraBoldItalic.woff2`,
 ]
 
 export const links: LinksFunction = () => {
   return [
-    ...fonts.map((path: string) => ({
+    ...fonts.map((href: string) => ({
       rel: 'preload',
       as: 'font',
-      href: path,
+      href,
       type: 'font/woff2',
-      crossorigin: 'anonymous',
+      crossOrigin: 'anonymous',
     })),
     {
       rel: 'stylesheet',
