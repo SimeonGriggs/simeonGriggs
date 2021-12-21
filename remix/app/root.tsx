@@ -10,6 +10,7 @@ import {
   LiveReload,
   useCatch,
   ScrollRestoration,
+  Link,
 } from 'remix'
 
 import {Outlet, useLocation} from 'react-router-dom'
@@ -64,8 +65,9 @@ export const loader: LoaderFunction = async ({request}) => {
   const siteMeta = await getClient().fetch(siteMetaQuery)
   // const siteMeta = {}
   const ENV = getEnv()
+  // const ENV = {}
 
-  const requestCookies = request.headers?.get('Cookie')?.split(';')
+  const requestCookies = request?.headers?.get('Cookie')?.split(';')
   const themePreference = requestCookies
     ?.find((row) => row.includes(`${cookieNames.THEME_PREFERENCE}=`))
     ?.split(`=`)
@@ -74,8 +76,9 @@ export const loader: LoaderFunction = async ({request}) => {
   return {siteMeta, ENV, themePreference}
 }
 
-function Document({children, title}: {children: React.ReactNode; title: string}) {
-  const {ENV, siteMeta, themePreference} = useLoaderData()
+function Document({children, title}: {children: React.ReactNode; title?: string}) {
+  const loaderData = useLoaderData()
+  const {siteMeta, ENV, themePreference} = loaderData ?? {}
 
   const {isDarkMode} = useDarkMode(
     [`dark`, `light`].includes(themePreference) ? themePreference === 'dark' : false
@@ -131,10 +134,9 @@ function Document({children, title}: {children: React.ReactNode; title: string})
 
 export default function App() {
   const data = useLoaderData()
+  const {siteMeta} = data ?? {}
+
   const matches = useMatches()
-
-  const {siteMeta} = data
-
   const shouldShowBanner = !matches.some((match) => match.handle === 'meta-image')
 
   return (
@@ -160,9 +162,19 @@ export function CatchBoundary() {
     case 404:
       return (
         <Document title={`${caught.status} ${caught.statusText}`}>
-          <h1>
-            {caught.status} {caught.statusText}
-          </h1>
+          <div className="w-screen min-h-screen flex items-center justify-center">
+            <article className="prose prose-lg prose-blue w-full">
+              <h1>
+                <span className="font-mono pr-5">{caught.status}</span> {caught.statusText}
+              </h1>
+              <p>
+                Report a broken link to <a href="mailto:simeon@hey.com">simeon@hey.com</a>
+              </p>
+              <p>
+                <Link to="/">Return home</Link>
+              </p>
+            </article>
+          </div>
         </Document>
       )
 

@@ -32,8 +32,13 @@ export const meta: MetaFunction = ({
 }) => {
   const {siteMeta} = parentsData?.root ?? {}
 
-  const {initialData, preview} = data
+  const {initialData, preview} = data ?? {}
   const article = filterDataToSingleItem(initialData, preview)
+
+  if (!article?.title) {
+    return {title: `Article not found`}
+  }
+
   const {title, summary, image} = article
 
   const canonical = removeTrailingSlash(siteMeta?.siteUrl + location.pathname)
@@ -79,7 +84,7 @@ export const action: ActionFunction = async ({request}) => {
 
   // Basic honeypot check
   if (body?.get(`validation`)) {
-    return
+    return null
   }
 
   const {pathname} = new URL(request.url)
@@ -98,8 +103,6 @@ export const action: ActionFunction = async ({request}) => {
 
   await createComment(comment)
 
-  // console.log(data)
-
   return redirect(pathname)
 }
 
@@ -111,7 +114,7 @@ export const loader: LoaderFunction = async (props) => {
   const initialData = await getClient(preview).fetch(articleQuery, params)
   // const initialData = [{_id: `yo`}]
 
-  if (!initialData) {
+  if (!initialData || !initialData.length) {
     throw new Response(`Not Found`, {
       status: 404,
     })

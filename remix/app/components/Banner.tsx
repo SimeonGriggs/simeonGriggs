@@ -201,7 +201,7 @@ const Banner = () => {
                     key={[banner.key, bannerImage?.asset?._id].join('-')}
                     src={urlFor(bannerImage).height(banner.height).width(banner.width).toString()}
                     alt={bannerImage?.altText ?? ``}
-                    className={`${banner.className} absolute inset-0 object-cover`}
+                    className={`${banner.className} absolute inset-0 object-cover min-h-screen`}
                     height={banner.height}
                     width={banner.width}
                     initial={{opacity: 0}}

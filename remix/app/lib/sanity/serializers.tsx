@@ -9,6 +9,7 @@ import {urlFor} from '~/lib/sanity/helpers'
 import Button from '~/components/Button'
 import Prism from '~/components/Prism'
 import CommentableBlock from '~/components/Comments/CommentableBlock'
+import ProseHeader from '~/components/ProseHeader'
 
 const BlockRenderer = (props: BlockItem) => {
   const {style = `normal`} = props.node
@@ -21,7 +22,8 @@ const BlockRenderer = (props: BlockItem) => {
 
   // Add `id` attribute to headings
   if (/^h\d/.test(style)) {
-    return React.createElement(style, {id: scrollableKey(props.node._key)}, props.children)
+    // return React.createElement(style, {id: scrollableKey(props.node._key)}, props.children)
+    return <ProseHeader {...props} />
   }
 
   // Prism code highlighting
