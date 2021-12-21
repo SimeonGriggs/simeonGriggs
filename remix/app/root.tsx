@@ -55,6 +55,12 @@ export const links: LinksFunction = () => {
       rel: 'stylesheet',
       href: stylesUrl,
     },
+    {
+      rel: 'alternate',
+      type: 'application/rss+xml',
+      href: `/feed.xml`,
+      title: 'XML Feed',
+    },
   ]
 }
 
@@ -62,7 +68,6 @@ export const loader: LoaderFunction = async ({request}) => {
   const siteMeta = await getClient().fetch(siteMetaQuery)
   // const siteMeta = {}
   const ENV = getEnv()
-  // const ENV = {}
 
   const requestCookies = request?.headers?.get('Cookie')?.split(';')
   const themePreference = requestCookies

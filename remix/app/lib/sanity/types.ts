@@ -7,12 +7,12 @@ export interface ImageAsset {
 
 export interface ArticleDocument {
   _id: string
-  slug?: {
-    current?: string
+  slug: {
+    current: string
   }
   title?: string
-  summary?: string
-  published?: string
+  summary: string
+  published: string
   updated?: string
   content: Block[]
   image: ImageAsset
