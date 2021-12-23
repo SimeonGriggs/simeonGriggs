@@ -139,17 +139,13 @@ export default function App() {
   const {siteMeta} = data ?? {}
 
   const matches = useMatches()
-  const shouldShowBanner =
-    typeof window !== 'undefined' && !matches.some((match) => match.handle === 'meta-image')
+  const shouldShowHeader = !matches.some((match) => match.handle === 'meta-image')
+  const shouldShowBanner = typeof window !== 'undefined' && shouldShowHeader
 
   return (
     <Document>
-      {shouldShowBanner && (
-        <>
-          <Header siteMeta={siteMeta} />
-          <Banner />
-        </>
-      )}
+      {shouldShowHeader ? <Header siteMeta={siteMeta} /> : null}
+      {shouldShowBanner ? <Banner /> : null}
       <main className="px-4 md:px-0 grid grid-cols-6 md:grid-cols-12 lg:grid-cols-16 min-h-screen w-screen">
         <Outlet />
       </main>
