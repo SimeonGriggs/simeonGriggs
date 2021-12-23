@@ -17,3 +17,6 @@ export const previewClient = new PicoSanity({
 
 // Helper function for easily switching between normal client and preview client
 export const getClient = (usePreview = false) => (usePreview ? previewClient : sanityClient)
+
+// Quick client for querying community posts
+export const communityClient = new PicoSanity({...config, projectId: `81pocpw8`})

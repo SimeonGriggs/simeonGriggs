@@ -98,6 +98,17 @@ export const serializers = (comments: boolean) => ({
     ),
     code: ({node}: {node: BlockCode}) =>
       node?.code ? <Prism code={node.code} language={node?.language} /> : null,
+    codeSandbox: ({node}: {node: BlockVideo}) => {
+      return node?.url ? (
+        <iframe
+          loading="lazy"
+          src={node.url}
+          className="w-full h-[400px] border-0 rounded overflow-hidden"
+          allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
+          sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
+        />
+      ) : null
+    },
     button: ({node}: {node: BlockButton}) => (
       <Button href={node.link.link}>{node.link.text}</Button>
     ),

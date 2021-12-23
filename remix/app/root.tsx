@@ -139,7 +139,8 @@ export default function App() {
   const {siteMeta} = data ?? {}
 
   const matches = useMatches()
-  const shouldShowBanner = !matches.some((match) => match.handle === 'meta-image')
+  const shouldShowBanner =
+    typeof window !== 'undefined' && !matches.some((match) => match.handle === 'meta-image')
 
   return (
     <Document>

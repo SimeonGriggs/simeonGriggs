@@ -1,11 +1,12 @@
-import {MetaFunction, LoaderFunction, useMatches, useLoaderData, Link} from 'remix'
+import {MetaFunction, LoaderFunction, useMatches, useLoaderData} from 'remix'
 
 // import stylesUrl from "../styles/index.css";
-import {getClient} from '~/lib/sanity/getClient'
-import {homeQuery} from '~/lib/sanity/queries'
+import {communityClient, getClient} from '~/lib/sanity/getClient'
+import {communityParams, communityQuery, homeQuery} from '~/lib/sanity/queries'
 import {ArticleDocument} from '~/lib/sanity/types'
 import Intro from '~/components/Intro'
-import Date from '~/components/Date'
+import HomeBlog from '~/components/HomeBlog'
+import HomeCommunity from '~/components/HomeCommunity'
 
 export const handle = `home`
 
@@ -23,8 +24,17 @@ export const meta: MetaFunction = ({parentsData}) => {
 // };
 
 export const loader: LoaderFunction = async () => {
-  const articles: ArticleDocument[] = await getClient(false).fetch(homeQuery)
+  const blogArticles: ArticleDocument[] = await getClient(false).fetch(homeQuery)
   // const articles = [{_id: 'yeah'}]
+
+  const sanityArticles: ArticleDocument[] = await communityClient.fetch(
+    communityQuery,
+    communityParams
+  )
+
+  const articles = [...blogArticles, ...sanityArticles]
+    .filter((article) => article.published)
+    .sort((a, b) => new Date(b.published) - new Date(a.published))
 
   return {articles}
 }
@@ -45,29 +55,13 @@ export default function Index() {
 
         {bio?.length > 0 ? <Intro blocks={bio} /> : null}
 
-        {articles.map((article) => (
-          <article key={article._id} className="grid grid-cols-1 gap-y-4">
-            <h2 className="leading-none font-black tracking-tighter text-2xl md:text-4xl text-blue-500">
-              {article?.slug?.current ? (
-                <Link
-                  to={`/${article.slug.current}`}
-                  prefetch="intent"
-                  className="block hover:bg-blue-500 hover:text-white"
-                >
-                  {article.title}
-                </Link>
-              ) : (
-                <>{article?.title}</>
-              )}
-            </h2>
-            {article?.published ? (
-              <Date updated={article?.updated} published={article.published} />
-            ) : null}
-            <div className="prose prose-lg dark:prose-dark prose-blue">
-              <p>{article.summary}</p>
-            </div>
-          </article>
-        ))}
+        {articles.map((article) =>
+          article.source === 'blog' ? (
+            <HomeBlog key={article._id} article={article} />
+          ) : (
+            <HomeCommunity key={article._id} article={article} />
+          )
+        )}
       </div>
     </section>
   )

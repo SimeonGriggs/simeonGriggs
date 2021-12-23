@@ -20,7 +20,7 @@ export default function CommentForm({_key, closeDialog}: {_key: string; closeDia
           <Form method="post" className="grid grid-cols-1 gap-4">
             <input className="sr-only" type="hidden" name="_id" value={_id} />
             <input className="sr-only" type="hidden" name="_key" value={_key} />
-            <input className="sr-only" type="text" name="validation" value="" />
+            <input className="sr-only" type="text" name="validation" defaultValue="" />
             <div className="grid grid-cols-1 gap-2">
               <Label>Comment</Label>
               <textarea

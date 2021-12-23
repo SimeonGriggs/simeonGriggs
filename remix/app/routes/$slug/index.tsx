@@ -7,7 +7,7 @@ import {articleQuery} from '~/lib/sanity/queries'
 import {getClient} from '~/lib/sanity/getClient'
 import {removeTrailingSlash} from '~/lib/utils/helpers'
 
-import Date from '~/components/Date'
+import Published from '~/components/Published'
 import Label from '~/components/Label'
 import Preview from '~/components/Preview'
 import ProseableText from '~/components/ProseableText'
@@ -101,17 +101,25 @@ export const action: ActionFunction = async ({request}) => {
     },
   }
 
-  await createComment(comment)
+  const data = await createComment(comment)
+  const {transactionId} = data
+  const redirectPath = `${pathname}?transactionId=${transactionId}`
 
-  return redirect(pathname)
+  return redirect(redirectPath)
 }
 
 // Runs server side
 export const loader: LoaderFunction = async (props) => {
   const {request, params} = props
+
+  // Put site in preview mode if the right query param is used
   const requestUrl = new URL(request.url)
-  const preview = requestUrl?.searchParams?.get(`preview`) === process.env.SANITY_PREVIEW_SECRET
-  const initialData = await getClient(preview).fetch(articleQuery, params)
+  const preview = requestUrl.searchParams.get(`preview`) === process.env.SANITY_PREVIEW_SECRET
+
+  // Or if a new comment has been posted, query the API for fresh data
+  const newComment = Boolean(requestUrl.searchParams.get(`transactionId`))
+
+  const initialData = await getClient(preview || newComment).fetch(articleQuery, params)
   // const initialData = [{_id: `yo`}]
 
   if (!initialData || !initialData.length) {
@@ -167,7 +175,7 @@ export default function Article() {
         ) : null}
       </aside>
       <section className="row-start-3 md:row-start-2 col-span-6 lg:col-start-8 lg:col-span-8 mt-6 md:mt-0 pb-24">
-        {published ? <Date updated={updated} published={published} /> : null}
+        {published ? <Published updated={updated} published={published} /> : null}
         {content?.length > 0 ? <ProseableText blocks={content} comments={comments} /> : null}
         <aside className="mt-12 p-6 bg-blue-500 text-white">
           <h3 className="border-b border-white text-2xl font-black mb-3 pb-3 leading-none">

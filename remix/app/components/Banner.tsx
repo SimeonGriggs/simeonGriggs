@@ -7,6 +7,7 @@ import {Blurhash} from 'react-blurhash'
 
 import {clipPathInset} from '../lib/utils/helpers'
 import {urlFor} from '~/lib/sanity/helpers'
+import {ImageAsset} from '~/lib/sanity/types'
 
 interface BannerSizeImage {
   scale: number
@@ -29,7 +30,9 @@ function getNewBannerSize(useHomeSize = false, windowWidth = 0) {
 
   // Double check, if no prop was given we should double check
   const checkHomeSize =
-    window && typeof useHomeSize === 'undefined' ? window.location.pathname === '/' : useHomeSize
+    typeof window !== 'undefined' && typeof useHomeSize === 'undefined'
+      ? window.location.pathname === '/'
+      : useHomeSize
 
   const bannerHomeMobile = {
     wrapper: {clipPath: `polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)`},
@@ -81,14 +84,14 @@ function getNewBannerSize(useHomeSize = false, windowWidth = 0) {
 const banners = [
   {
     key: `mobile`,
-    width: 800,
-    height: 300,
+    width: 1200,
+    height: 600,
     className: `block md:hidden`,
   },
   {
     key: `desktop`,
-    width: 600,
-    height: 1200,
+    width: 800,
+    height: 1400,
     className: `hidden md:block`,
   },
 ]
@@ -101,7 +104,7 @@ const Banner = () => {
   const isHome = pathname === '/'
   const matches = useMatches()
   const [bannerSize, setBannerSize]: [BannerSize, any] = useState({})
-  const [bannerImage, setBannerImage] = useState(null)
+  const [bannerImage, setBannerImage]: [ImageAsset | null, any] = useState(null)
   const [showBanner, setShowBanner] = useState({desktop: false, mobile: false})
   const {width: windowWidth} = useWindowSize()
 
@@ -113,7 +116,7 @@ const Banner = () => {
       )?.data
 
       if (thisPathData) {
-        const image =
+        const image: ImageAsset =
           pathname === '/' ? thisPathData?.articles[0].image : thisPathData?.initialData[0]?.image
 
         if (image) {

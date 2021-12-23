@@ -11,6 +11,7 @@ import button from './objects/button'
 import video from './objects/video'
 import link from './objects/link'
 import _break from './objects/break'
+import codeSandbox from './objects/codeSandbox'
 
 export default createSchema({
   name: 'default',
@@ -27,5 +28,6 @@ export default createSchema({
     video,
     link,
     _break,
+    codeSandbox,
   ]),
 })

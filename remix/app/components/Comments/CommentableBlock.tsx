@@ -12,6 +12,7 @@ export default function CommentableBlock(props: BlockItem) {
   const [commentsCount, setCommentsCount] = useState(comments?.length ? comments.length : 0)
   const button = useRef()
   const transition = useTransition()
+  // console.log(transition)
   const {submission} = transition
 
   useEffect(() => {

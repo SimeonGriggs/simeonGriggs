@@ -11,7 +11,7 @@ export default function ProseableText({
   comments,
 }: {
   blocks: Block[]
-  comments: CommentDocument[]
+  comments?: CommentDocument[]
 }) {
   // Group together standard `_type === "block"`  blocks
   // eg <p>, <li>, etc – and separate out everyone else
@@ -20,7 +20,10 @@ export default function ProseableText({
     (acc, item) => {
       const lastIdx = acc.length - 1
 
-      const blockComments = comments.filter((comment) => comment.commentKey === item._key)
+      const blockComments = comments?.length
+        ? comments.filter((comment) => comment.commentKey === item._key)
+        : []
+
       if (blockComments.length) {
         item.comments = blockComments
       }

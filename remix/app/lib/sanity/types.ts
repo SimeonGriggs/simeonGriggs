@@ -2,10 +2,14 @@ export interface ImageAsset {
   asset: {
     _id: string
     altText: string
+    metadata: {
+      blurHash: string
+    }
   }
 }
 
 export interface ArticleDocument {
+  source: 'blog' | 'community'
   _id: string
   slug: {
     current: string

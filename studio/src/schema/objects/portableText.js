@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import {ImageIcon, CodeIcon, RemoveIcon, PackageIcon} from '@sanity/icons'
 
 const CodeRender = (props) => {
   const {children, style: element = 'span'} = props
@@ -98,13 +99,11 @@ export default {
     // You can add additional types here. Note that you can't use
     // primitive types such as 'string' and 'number' in the same array
     // as a block type.
-    {type: 'image'},
-    {
-      type: 'code',
-      // options: {language: 'js', languageAlternatives: ['js']}
-    },
+    {type: 'image', icon: ImageIcon},
+    {type: 'code', icon: CodeIcon},
     {type: 'button'},
     {type: 'video'},
-    {type: 'break'},
+    {type: 'break', icon: RemoveIcon},
+    {type: 'codeSandbox', icon: PackageIcon},
   ],
 }
