@@ -54,6 +54,7 @@ export const meta: MetaFunction = ({
   imageUrl.searchParams.set(`format`, `png`)
   imageUrl.searchParams.set(`response_type`, `image`)
   imageUrl.searchParams.set(`scale_factor`, `2`)
+  imageUrl.searchParams.set(`fail_on_status`, `300-399,400-499,500-599`)
 
   const imageMeta = image
     ? {
