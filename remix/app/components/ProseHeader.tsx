@@ -3,7 +3,7 @@ import {LinkIcon} from '@heroicons/react/solid'
 import {useCopyToClipboard} from 'usehooks-ts'
 
 import {BlockItem} from '~/lib/sanity/types'
-import {scrollableKey} from '~/lib/scrollableId'
+import {scrollableKey} from '~/lib/utils/scrollableId'
 
 function createCanonicalWithId(hash: string) {
   if (typeof window === 'undefined') {
@@ -13,7 +13,7 @@ function createCanonicalWithId(hash: string) {
   return `${window.location.href}#${hash}`
 }
 
-function ProseHeaderChildren({children}) {
+function ProseHeaderChildren({children}: {children: React.ReactNode | string}) {
   return (
     <>
       <span className="pointer-events-none absolute inset-0 flex items-center justify-end transition-opacity duration-200 opacity-0 group-hover:opacity-100">

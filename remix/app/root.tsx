@@ -65,11 +65,11 @@ export const links: LinksFunction = () => {
 }
 
 export const loader: LoaderFunction = async ({request}) => {
+  const ENV = getEnv()
   const siteMeta = await getClient().fetch(siteMetaQuery)
   // const siteMeta = {}
-  const ENV = getEnv()
 
-  const requestCookies = request?.headers?.get('Cookie')?.split(';')
+  const requestCookies = request.headers.get('Cookie')?.split(';')
   const themePreference = requestCookies
     ?.find((row) => row.includes(`${cookieNames.THEME_PREFERENCE}=`))
     ?.split(`=`)

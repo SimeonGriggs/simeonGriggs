@@ -12,6 +12,7 @@ import video from './objects/video'
 import link from './objects/link'
 import _break from './objects/break'
 import codeSandbox from './objects/codeSandbox'
+import tailwind from './documents/tailwind'
 
 export default createSchema({
   name: 'default',
@@ -20,6 +21,7 @@ export default createSchema({
     article,
     siteMeta,
     comment,
+    tailwind,
 
     // objects
     seo,

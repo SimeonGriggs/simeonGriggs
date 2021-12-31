@@ -47,12 +47,13 @@ export const meta: MetaFunction = ({
   const imageWidth = `1200`
   const imageHeight = `630`
   const imageUrl = new URL(`https://api.apiflash.com/v1/urltoimage`)
-  imageUrl.searchParams.set(`access_key`, `21a6a19367114878b3b23d4ef68504d4`)
+  imageUrl.searchParams.set(`access_key`, `d4345468a9d24be5a2e5d41fea154708`)
   imageUrl.searchParams.set(`url`, canonicalMetaImage)
   imageUrl.searchParams.set(`height`, imageHeight)
   imageUrl.searchParams.set(`width`, imageWidth)
   imageUrl.searchParams.set(`format`, `png`)
   imageUrl.searchParams.set(`response_type`, `image`)
+  imageUrl.searchParams.set(`scale_factor`, `2`)
 
   const imageMeta = image
     ? {
@@ -144,10 +145,6 @@ export default function Article() {
   // The query may return more than one document, eg, a draft and published version
   // If preview is enabled, get the draft, otherwise, get the published
   const article = filterDataToSingleItem(data, preview)
-
-  if (!article) {
-    return null
-  }
 
   const {title, summary, content, published, updated, comments} = article
 

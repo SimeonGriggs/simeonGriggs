@@ -15,7 +15,7 @@ function getEnvByKey(key: EnvKey) {
 export const config: ClientConfig = {
   apiVersion: '2021-03-25',
   dataset: getEnvByKey(`SANITY_DATASET`) ?? `production`,
-  projectId: getEnvByKey(`SANITY_PROJECT_ID`) ?? ``,
+  projectId: getEnvByKey(`SANITY_PROJECT_ID`) ?? `az8av6xl`,
   useCdn: getEnvByKey(`NODE_ENV`) === 'production',
   // dataset: `production`,
   // projectId: `az8av6xl`,

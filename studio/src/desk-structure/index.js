@@ -27,6 +27,8 @@ const items = [
   S.documentTypeListItem('comment').title('Comments'),
   S.divider(),
   S.documentListItem().schemaType(`siteMeta`).id(`siteMeta`).title(`Site Meta`),
+  S.divider(),
+  S.documentListItem().schemaType(`tailwind`).id(`tailwind`).title(`Tailwind`),
   // ...S.documentTypeListItems().filter((listItem) => !['article'].includes(listItem.getId())),
 ]
 
