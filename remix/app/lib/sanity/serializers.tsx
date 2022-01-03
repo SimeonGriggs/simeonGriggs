@@ -3,6 +3,7 @@ import React from 'react'
 import BlockContent from '@sanity/block-content-to-react'
 import getYouTubeID from 'get-youtube-id'
 
+import {PlayIcon} from '@heroicons/react/solid'
 import {BlockItem} from './types'
 import {urlFor} from '~/lib/sanity/helpers'
 import Button from '~/components/Button'
@@ -67,6 +68,10 @@ export const serializers = (comments: boolean) => ({
     block: (props: any) =>
       comments ? BlockRenderer(props) : BlockContent.defaultSerializers.types.block(props),
     video: ({node}: {node: BlockVideo}) => {
+      if (!node?.url) {
+        return null
+      }
+
       const id = getYouTubeID(node.url)
 
       return (
@@ -74,10 +79,18 @@ export const serializers = (comments: boolean) => ({
           href={node.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="-mx-4 block aspect-w-16 aspect-h-9"
+          className="-mx-4 block aspect-w-16 aspect-h-9 relative group"
         >
+          <div className="absolute z-10 inset-0 flex items-center justify-center text-white bg-blue-500/50 group-hover:bg-blue-500/20 transition-colors duration-100">
+            <PlayIcon className="w-1/6 h-auto group-hover:scale-125 transition-transform duration-100" />
+          </div>
+          {node?.title ? (
+            <div className="absolute z-10 inset-0 p-4">
+              <span className="text-xl md:text-2xl font-black text-white">{node.title}</span>
+            </div>
+          ) : null}
           <img
-            src={`https://i.ytimg.com/vi/${id}/hqdefault.jpg`}
+            src={`https://i.ytimg.com/vi/${id}/maxresdefault.jpg`}
             loading="lazy"
             alt={node?.title ?? ``}
             className="w-full h-full object-cover"

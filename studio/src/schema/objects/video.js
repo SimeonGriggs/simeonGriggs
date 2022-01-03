@@ -37,8 +37,8 @@ export default {
   ],
   preview: {
     select: {
-      url: 'url',
+      title: 'title',
+      subtitle: 'url',
     },
-    // component: VideoPreview,
   },
 }
