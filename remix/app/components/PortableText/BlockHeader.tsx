@@ -13,7 +13,7 @@ function createCanonicalWithId(hash: string) {
   return `${window.location.href}#${hash}`
 }
 
-function ProseHeaderChildren({children}: {children: React.ReactNode | string}) {
+function BlockHeaderChildren({children}: {children: React.ReactNode | string}) {
   return (
     <>
       <span className="pointer-events-none absolute inset-0 flex items-center justify-end transition-opacity duration-200 opacity-0 group-hover:opacity-100">
@@ -24,20 +24,20 @@ function ProseHeaderChildren({children}: {children: React.ReactNode | string}) {
   )
 }
 
-export default function ProseHeader(props: BlockItem) {
-  const {children, node} = props
+export default function BlockHeader(props: BlockItem) {
+  const {children, value} = props
 
   const [, setCopiedText] = useCopyToClipboard()
-  const id = scrollableKey(node._key)
+  const id = scrollableKey(value._key)
   const hashHref = createCanonicalWithId(id)
 
   return React.createElement(
-    node.style,
+    value.style,
     {
       id,
       onClick: () => (hashHref ? setCopiedText(hashHref) : null),
       className: `pr-10 relative group hover:cursor-pointer`,
     },
-    ProseHeaderChildren({children})
+    BlockHeaderChildren({children})
   )
 }

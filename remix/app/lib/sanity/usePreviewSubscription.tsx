@@ -1,5 +1,6 @@
 import {GroqStore} from '@sanity/groq-store'
 import {useEffect, useState} from 'react'
+import {getUser} from './getUser'
 
 interface SubscriptionOptions<R = any> {
   enabled?: boolean
@@ -16,6 +17,10 @@ export function usePreviewSubscription(query: string, subscriptionOptions: Subsc
     let store: GroqStore | undefined
 
     async function createStore() {
+      const user = await getUser()
+
+      if (!user?.id) return
+
       const groqStore = await import('~/lib/sanity/groqStore')
 
       if (!groqStore?.store) return

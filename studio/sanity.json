@@ -13,17 +13,11 @@
     "@sanity/default-login",
     "@sanity/desk-tool",
     "@sanity/code-input",
+    "@sanity/vision",
     "asset-source-unsplash",
     "media",
     "iframe-pane"
   ],
-  "env": {
-    "development": {
-      "plugins": [
-        "@sanity/vision"
-      ]
-    }
-  },
   "parts": [
     {
       "name": "part:@sanity/base/schema",
@@ -44,10 +38,6 @@
     {
       "implements": "part:@sanity/base/theme/variables/override-style",
       "path": "./src/styles/styles.css"
-    },
-    {
-      "implements": "part:@sanity/base/brand-logo",
-      "path": "./src/components/Logo.js"
     },
     {
       "implements": "part:@sanity/form-builder/input/image/asset-sources",

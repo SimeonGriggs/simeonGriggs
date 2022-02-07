@@ -36,7 +36,7 @@ export interface CommentDocument {
 }
 
 export interface BlockItem {
-  node: Block
+  value: Block
   children: BlockChild[]
 }
 

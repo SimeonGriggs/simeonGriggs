@@ -13,6 +13,7 @@ export default function Preview({data, setData}: {data: any; setData: any}) {
   const {data: previewData} = usePreviewSubscription(query, {
     params,
     initialData: data,
+    // This component only renders when the preview is enabled
     enabled: true,
   })
 

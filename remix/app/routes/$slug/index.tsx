@@ -122,7 +122,6 @@ export const loader: LoaderFunction = async (props) => {
   const newComment = Boolean(requestUrl.searchParams.get(`transactionId`))
 
   const initialData = await getClient(preview || newComment).fetch(articleQuery, params)
-  // const initialData = [{_id: `yo`}]
 
   if (!initialData || !initialData.length) {
     throw new Response(`Not Found`, {
@@ -147,7 +146,7 @@ export default function Article() {
   // If preview is enabled, get the draft, otherwise, get the published
   const article = filterDataToSingleItem(data, preview)
 
-  const {title, summary, content, published, updated, comments} = article
+  const {title, summary, content, published, updated, comments} = article ?? {}
 
   return (
     <>
@@ -156,7 +155,7 @@ export default function Article() {
         <div className="py-12 md:py-24 max-w-xl">
           {title ? (
             <h1 className="leading-none font-black mb-8 tracking-tighter text-4xl md:text-6xl text-blue-500">
-              {article.title}
+              {title}
             </h1>
           ) : null}
           {summary ? (

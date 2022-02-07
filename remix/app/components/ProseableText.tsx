@@ -13,11 +13,13 @@ export default function ProseableText({
   blocks: Block[]
   comments?: CommentDocument[]
 }) {
+  if (!blocks?.length) return []
+
   // Group together standard `_type === "block"`  blocks
   // eg <p>, <li>, etc – and separate out everyone else
   // Also use this opportunity to insert comments
-  const blockGroups = blocks.reduce(
-    (acc, item) => {
+  const blockGroups: Block[][] = blocks.reduce(
+    (acc: Block[][], item: Block) => {
       const lastIdx = acc.length - 1
 
       const blockComments = comments?.length
@@ -55,10 +57,12 @@ export default function ProseableText({
             key={group[0]._key}
             className="prose md:prose-lg dark:prose-dark prose-blue my-4 md:my-8"
           >
-            <PortableText blocks={group} comments />
+            {group.length > 0 ? <PortableText value={group} comments /> : null}
           </div>
         ) : (
-          <PortableText key={group[0]._key} blocks={group} comments />
+          <>
+            {group.length > 0 ? <PortableText key={group[0]._key} value={group} comments /> : null}
+          </>
         )
       )}
     </>

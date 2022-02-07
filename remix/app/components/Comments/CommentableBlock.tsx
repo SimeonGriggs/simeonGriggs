@@ -7,12 +7,12 @@ import {BlockItem} from '~/lib/sanity/types'
 
 export default function CommentableBlock(props: BlockItem) {
   const {children} = props
-  const {_key, comments} = props.node
+  const {_key, comments} = props.value
   const [open, setOpen] = useState(``)
-  const [commentsCount, setCommentsCount] = useState(comments?.length ? comments.length : 0)
-  const button = useRef()
+  const [commentsCount, setCommentsCount] = useState(comments?.length ?? 0)
+  const button = useRef<HTMLButtonElement>(null)
+
   const transition = useTransition()
-  // console.log(transition)
   const {submission} = transition
 
   useEffect(() => {
