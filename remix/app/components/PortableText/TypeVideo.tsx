@@ -17,6 +17,26 @@ export default function TypeVideo(props: TypeVideoProps) {
     return null
   }
 
+  const urlCheck = new URL(value.url)
+
+  if (urlCheck.hostname === 'www.loom.com') {
+    const loomId = urlCheck.pathname.split('/')[2]
+    const loomEmbedUrl = `https://www.loom.com/embed/${loomId}`
+
+    return (
+      <div className="-mx-4 block aspect-w-16 aspect-h-9 relative group">
+        <iframe
+          className="absolute top-0 left-0 w-full h-full"
+          src={loomEmbedUrl}
+          frameBorder="0"
+          webkitallowfullscreen="true"
+          mozallowfullscreen="true"
+          allowFullScreen
+        />
+      </div>
+    )
+  }
+
   const id = getYouTubeID(value.url)
 
   return (

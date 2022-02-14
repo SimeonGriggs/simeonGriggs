@@ -1,3 +1,4 @@
+import React from 'react'
 import {PortableText} from '~/lib/sanity/helpers'
 import {Block, CommentDocument} from '~/lib/sanity/types'
 
@@ -60,9 +61,9 @@ export default function ProseableText({
             {group.length > 0 ? <PortableText value={group} comments /> : null}
           </div>
         ) : (
-          <>
+          <React.Fragment key={group[0]._key}>
             {group.length > 0 ? <PortableText key={group[0]._key} value={group} comments /> : null}
-          </>
+          </React.Fragment>
         )
       )}
     </>
