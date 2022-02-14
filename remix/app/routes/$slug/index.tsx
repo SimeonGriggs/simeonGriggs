@@ -39,16 +39,21 @@ export const meta: MetaFunction = ({
     return {title: `Article not found`}
   }
 
-  const {title, summary, image} = article
+  const {title, summary, image, _updatedAt} = article
 
   const canonical = removeTrailingSlash(siteMeta?.siteUrl + location.pathname)
-  const canonicalMetaImage = removeTrailingSlash(`${canonical}/meta-image`)
+  const canonicalMetaImage = new URL(removeTrailingSlash(`${canonical}/meta-image`))
+
+  // Refresh meta image when article is updated
+  if (_updatedAt) {
+    canonicalMetaImage.searchParams.set('updatedAt', _updatedAt)
+  }
 
   const imageWidth = `1200`
   const imageHeight = `630`
   const imageUrl = new URL(`https://api.apiflash.com/v1/urltoimage`)
   imageUrl.searchParams.set(`access_key`, `d4345468a9d24be5a2e5d41fea154708`)
-  imageUrl.searchParams.set(`url`, canonicalMetaImage)
+  imageUrl.searchParams.set(`url`, canonicalMetaImage.toString())
   imageUrl.searchParams.set(`height`, imageHeight)
   imageUrl.searchParams.set(`width`, imageWidth)
   imageUrl.searchParams.set(`format`, `png`)

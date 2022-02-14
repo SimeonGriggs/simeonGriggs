@@ -11,6 +11,7 @@ export interface ImageAsset {
 export interface ArticleDocument {
   source: 'blog' | 'community'
   _id: string
+  _updatedAt: string
   slug: {
     current: string
   }
