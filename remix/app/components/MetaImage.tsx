@@ -22,7 +22,7 @@ export default function MetaImage({article}: {article: ArticleDocument}) {
         <div className="flex flex-col w-full h-full">
           <header className="p-12 w-2/3 scale-125 origin-top-left block">
             {title ? (
-              <h1 className="leading-none font-black mb-8 tracking-tighter text-7xl text-blue-500">
+              <h1 className="leading-none font-black mb-8 tracking-tighter text-6xl text-blue-500">
                 {title}
               </h1>
             ) : null}
