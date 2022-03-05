@@ -43,10 +43,11 @@ export const meta: MetaFunction = ({
 
   const canonical = removeTrailingSlash(siteMeta?.siteUrl + location.pathname)
   const canonicalMetaImage = new URL(removeTrailingSlash(`${canonical}/meta-image`))
+  canonicalMetaImage.searchParams.set(`version`, `1`)
 
   // Refresh meta image when article is updated
   if (_updatedAt) {
-    canonicalMetaImage.searchParams.set('updatedAt', _updatedAt)
+    canonicalMetaImage.searchParams.set(`updatedAt`, _updatedAt)
   }
 
   const imageWidth = `1200`

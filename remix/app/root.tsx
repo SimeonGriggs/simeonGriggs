@@ -71,7 +71,7 @@ export const loader: LoaderFunction = async ({request}) => {
 
   const requestCookies = request.headers.get('Cookie')?.split(';')
   const themePreference = requestCookies
-    ?.find((row) => row.includes(`${cookieNames.THEME_PREFERENCE}=`))
+    ?.find((row: string) => row.includes(`${cookieNames.THEME_PREFERENCE}=`))
     ?.split(`=`)
     .pop()
 

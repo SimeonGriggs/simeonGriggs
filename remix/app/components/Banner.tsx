@@ -7,7 +7,7 @@ import {Blurhash} from 'react-blurhash'
 
 import {clipPathInset} from '../lib/utils/helpers'
 import {urlFor} from '~/lib/sanity/helpers'
-import {ImageAsset} from '~/lib/sanity/types'
+import {ImageAsset, ArticleDocument} from '~/lib/sanity/types'
 
 interface BannerSizeImage {
   scale: number
@@ -117,7 +117,9 @@ const Banner = () => {
 
       if (thisPathData) {
         const image: ImageAsset =
-          pathname === '/' ? thisPathData?.articles[0].image : thisPathData?.initialData[0]?.image
+          pathname === '/'
+            ? thisPathData?.articles.find((article: ArticleDocument) => article.image).image
+            : thisPathData?.initialData[0]?.image
 
         if (image) {
           setBannerImage(image)
