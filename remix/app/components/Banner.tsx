@@ -171,13 +171,13 @@ const Banner = () => {
       onAnimationComplete={() => {
         if (firstAnimation) firstAnimation = false
       }}
-      className={`pointer-events-none h-32 md:h-screen opacity-0 w-screen z-10 origin-top-left ${
+      className={`pointer-events-none z-10 h-32 w-screen origin-top-left opacity-0 md:h-screen ${
         isHome ? `fixed` : `absolute md:fixed`
       }`}
     >
       {bannerImage && (
         <motion.div
-          className="absolute inset-0 h-32 md:h-screen md:right-auto md:w-4/12 lg:w-6/16 bg-blue-500"
+          className="lg:w-6/16 absolute inset-0 h-32 bg-blue-500 md:right-auto md:h-screen md:w-4/12"
           initial={{opacity: 0, ...bannerSize.image}}
           animate={{opacity: 1, ...bannerSize.image}}
           exit={{opacity: 0, ...bannerSize.image}}
@@ -189,7 +189,7 @@ const Banner = () => {
                 <React.Fragment key={banner.key}>
                   {bannerImage?.asset?.metadata?.blurHash && (
                     <div
-                      className={`${banner.className} absolute inset-0 object-cover max-w-screen overflow-hidden`}
+                      className={`${banner.className} max-w-screen absolute inset-0 overflow-hidden object-cover`}
                     >
                       <Blurhash
                         hash={bannerImage.asset.metadata.blurHash}
@@ -206,7 +206,7 @@ const Banner = () => {
                     key={[banner.key, bannerImage?.asset?._id].join('-')}
                     src={urlFor(bannerImage).height(banner.height).width(banner.width).toString()}
                     alt={bannerImage?.altText ?? ``}
-                    className={`${banner.className} absolute inset-0 object-cover min-h-screen`}
+                    className={`${banner.className} absolute inset-0 min-h-screen object-cover`}
                     height={banner.height}
                     width={banner.width}
                     initial={{opacity: 0}}

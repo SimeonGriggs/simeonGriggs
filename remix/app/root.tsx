@@ -107,7 +107,7 @@ function Document({children, title}: {children: React.ReactNode; title?: string}
       <body
         className={[
           `transition-colors duration-100 ease-out`,
-          isDarkMode ? `dark text-white bg-blue-900` : `bg-white`,
+          isDarkMode ? `dark bg-blue-900 text-white` : `bg-white`,
         ]
           .join(' ')
           .trim()}
@@ -146,7 +146,7 @@ export default function App() {
     <Document>
       {shouldShowHeader ? <Header siteMeta={siteMeta} /> : null}
       {shouldShowBanner ? <Banner /> : null}
-      <main className="px-4 md:px-0 grid grid-cols-6 md:grid-cols-12 lg:grid-cols-16 min-h-screen w-screen">
+      <main className="lg:grid-cols-16 grid min-h-screen w-screen grid-cols-6 px-4 md:grid-cols-12 md:px-0">
         <Outlet />
       </main>
     </Document>
@@ -161,10 +161,10 @@ export function CatchBoundary() {
     case 404:
       return (
         <Document title={`${caught.status} ${caught.statusText}`}>
-          <div className="w-screen min-h-screen flex items-center justify-center">
+          <div className="flex min-h-screen w-screen items-center justify-center">
             <article className="prose prose-lg prose-blue w-full">
               <h1>
-                <span className="font-mono pr-5">{caught.status}</span> {caught.statusText}
+                <span className="pr-5 font-mono">{caught.status}</span> {caught.statusText}
               </h1>
               <p>
                 Report a broken link to <a href="mailto:simeon@hey.com">simeon@hey.com</a>

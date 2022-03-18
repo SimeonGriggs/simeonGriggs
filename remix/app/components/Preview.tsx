@@ -21,14 +21,14 @@ export default function Preview({data, setData}: {data: any; setData: any}) {
   useEffect(() => setData(previewData), [previewData])
 
   return (
-    <div className="fixed inset-0 flex justify-end md:justify-start items-end p-6 pointer-events-none z-50">
-      <div className="bg-pink-500 text-white p-1 font-bold rounded shadow-lg flex items-center gap-x-2">
+    <div className="pointer-events-none fixed inset-0 z-50 flex items-end justify-end p-6 md:justify-start">
+      <div className="flex items-center gap-x-2 rounded bg-pink-500 p-1 font-bold text-white shadow-lg">
         <span className="inline-block p-2">Preview Mode</span>
         <a
           href={pathname}
-          className="flex p-2 px-3 items-center gap-x-1 hover:bg-pink-600 rounded pointer-events-auto"
+          className="pointer-events-auto flex items-center gap-x-1 rounded p-2 px-3 hover:bg-pink-600"
         >
-          <LogoutIcon className="w-4 h-auto" /> Exit
+          <LogoutIcon className="h-auto w-4" /> Exit
         </a>
       </div>
     </div>

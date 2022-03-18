@@ -12,18 +12,18 @@ export default function CommentForm({_key, closeDialog}: {_key: string; closeDia
   const {_id} = matches.find((match) => match.handle === `article`)?.data.initialData[0]
 
   return (
-    <Dialog open onClose={() => closeDialog()} className="fixed z-30 inset-0 overflow-y-auto">
-      <div className="flex items-center justify-center min-h-screen z-50">
-        <Dialog.Overlay className="fixed inset-0 bg-blue-500/90 dark:bg-blue-900/90 z-10" />
+    <Dialog open onClose={() => closeDialog()} className="fixed inset-0 z-30 overflow-y-auto">
+      <div className="z-50 flex min-h-screen items-center justify-center">
+        <Dialog.Overlay className="fixed inset-0 z-10 bg-blue-500/90 dark:bg-blue-900/90" />
 
-        <div className="relative bg-white dark:bg-blue-800 z-20 rounded shadow max-w-sm p-6 md:p-12 mx-auto">
+        <div className="relative z-20 mx-auto max-w-sm rounded bg-white p-6 shadow dark:bg-blue-800 md:p-12">
           <button
             type="button"
             onClick={() => closeDialog()}
-            className="float-right text-blue-500 dark:text-white focus:bg-white focus:text-blue-500 dark:focus:bg-blue-500 p-2 rounded-full"
+            className="float-right rounded-full p-2 text-blue-500 focus:bg-white focus:text-blue-500 dark:text-white dark:focus:bg-blue-500"
             title="Close"
           >
-            <XIcon className="w-8 h-auto" />
+            <XIcon className="h-auto w-8" />
             <span className="sr-only">Close</span>
           </button>
           <p className="mb-4">

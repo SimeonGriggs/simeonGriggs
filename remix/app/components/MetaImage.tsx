@@ -18,24 +18,24 @@ export default function MetaImage({article}: {article: ArticleDocument}) {
           width={400}
         />
       ) : null}
-      <div className="flex w-full h-full items-center">
-        <div className="flex flex-col w-full h-full">
-          <header className="p-12 pr-24 w-full origin-top-left block">
+      <div className="flex h-full w-full items-center">
+        <div className="flex h-full w-full flex-col">
+          <header className="block w-full origin-top-left p-12 pr-24">
             {title ? (
-              <h1 className="font-black mb-8 tracking-tighter text-7xl leading-tight text-blue-500">
+              <h1 className="mb-8 text-7xl font-black leading-tight tracking-tighter text-blue-500">
                 {title}
               </h1>
             ) : null}
           </header>
 
-          <section className="bg-blue-500 w-full text-white p-12 mb-0 leading-none mt-auto flex justify-between items-center">
+          <section className="mb-0 mt-auto flex w-full items-center justify-between bg-blue-500 p-12 leading-none text-white">
             {published && !updated ? (
-              <span className="font-mono text-2xl flex-shrink-0">{published}</span>
+              <span className="flex-shrink-0 font-mono text-2xl">{published}</span>
             ) : null}
             {updated ? (
-              <span className="font-mono text-2xl flex-shrink-0">Updated: {updated}</span>
+              <span className="flex-shrink-0 font-mono text-2xl">Updated: {updated}</span>
             ) : null}
-            <span className="font-black text-2xl">simeonGriggs.dev</span>
+            <span className="text-2xl font-black">simeonGriggs.dev</span>
           </section>
         </div>
       </div>

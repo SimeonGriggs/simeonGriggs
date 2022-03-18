@@ -15,7 +15,7 @@ export default function TypeCodeSandbox(props: TypeCodeSandboxProps) {
     <iframe
       loading="lazy"
       src={value.url}
-      className="w-full h-[400px] border-0 rounded overflow-hidden"
+      className="h-[400px] w-full overflow-hidden rounded border-0"
       allow="accelerometer; ambient-light-sensor; camera; encrypted-media; geolocation; gyroscope; hid; microphone; midi; payment; usb; vr; xr-spatial-tracking"
       sandbox="allow-forms allow-modals allow-popups allow-presentation allow-same-origin allow-scripts"
     />

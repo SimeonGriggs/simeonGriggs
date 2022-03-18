@@ -46,12 +46,12 @@ const Header = ({siteMeta}: {siteMeta: SiteMeta}) => {
 
   return (
     <header className={menuClasses}>
-      <div className="md:w-full bg-blue-500 py-2 px-3 md:py-8 text-white font-mono flex md:flex-col justify-center items-center">
+      <div className="flex items-center justify-center border-l-2 border-r-2 border-blue-500 bg-blue-500 py-2 px-3 font-mono text-white md:w-full md:flex-col md:border-none md:py-8">
         <Link to="/" className="text-vertical flex items-center justify-center hover:bg-blue-900">
           {title}
         </Link>
 
-        <div className="w-12 md:h-16 lg:h-24 md:w-auto border-t md:border-t-none md:border-l border-white mx-3 md:mx-0 md:my-4" />
+        <div className="md:border-t-none mx-3 w-12 border-t border-white md:mx-0 md:my-4 md:h-16 md:w-auto md:border-l lg:h-24" />
 
         <div className="flex space-x-3 md:flex-col md:space-x-0 md:space-y-3">
           <a
@@ -74,9 +74,9 @@ const Header = ({siteMeta}: {siteMeta: SiteMeta}) => {
           </a>
           <button type="button" onClick={() => handleToggle()} className={buttonClasses}>
             {isDarkMode ? (
-              <SunIcon className="w-full h-auto md:w-5" />
+              <SunIcon className="h-auto w-full md:w-5" />
             ) : (
-              <MoonIcon className="w-full h-auto md:w-5" />
+              <MoonIcon className="h-auto w-full md:w-5" />
             )}
             <div className="sr-only">{isDarkMode ? `Light` : `Dark`} Mode</div>
           </button>

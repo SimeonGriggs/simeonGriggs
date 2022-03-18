@@ -24,10 +24,10 @@ export default function TypeVideo(props: TypeVideoProps) {
     const loomEmbedUrl = `https://www.loom.com/embed/${loomId}`
 
     return (
-      <div className="-mx-4 block aspect-w-16 aspect-h-9 relative group">
+      <div className="aspect-w-16 aspect-h-9 group relative -mx-4 block">
         <iframe
           loading="lazy"
-          className="absolute top-0 left-0 w-full h-full"
+          className="absolute top-0 left-0 h-full w-full"
           src={loomEmbedUrl}
           frameBorder="0"
           webkitallowfullscreen="true"
@@ -45,21 +45,21 @@ export default function TypeVideo(props: TypeVideoProps) {
       href={value.url}
       target="_blank"
       rel="noopener noreferrer"
-      className="-mx-4 block aspect-w-16 aspect-h-9 relative group"
+      className="aspect-w-16 aspect-h-9 group relative -mx-4 block"
     >
-      <div className="absolute z-10 inset-0 flex items-center justify-center text-white bg-blue-500/50 group-hover:bg-blue-500/20 transition-colors duration-1000">
-        <PlayIcon className="w-1/6 h-auto group-hover:scale-125 transition-transform duration-250" />
+      <div className="absolute inset-0 z-10 flex items-center justify-center bg-blue-500/50 text-white transition-colors duration-1000 group-hover:bg-blue-500/20">
+        <PlayIcon className="duration-250 h-auto w-1/6 transition-transform group-hover:scale-125" />
       </div>
       {value?.title ? (
-        <div className="absolute z-10 inset-0 p-4">
-          <span className="text-xl md:text-2xl font-black text-white">{value.title}</span>
+        <div className="absolute inset-0 z-10 p-4">
+          <span className="text-xl font-black text-white md:text-2xl">{value.title}</span>
         </div>
       ) : null}
       <img
         src={`https://i.ytimg.com/vi/${id}/maxresdefault.jpg`}
         loading="lazy"
         alt={value?.title ?? ``}
-        className="w-full h-full object-cover"
+        className="h-full w-full object-cover"
       />
     </a>
   )

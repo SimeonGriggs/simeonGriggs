@@ -15,12 +15,12 @@ export default function TypeImage(props: TypeImageProps) {
   const {width, height} = getImageDimensions(value)
 
   return (
-    <p className="-mx-4 border-t border-b md:border border-gray-100">
+    <p className="-mx-4 border-t border-b border-gray-100 md:border">
       <img
         loading="lazy"
         src={urlFor(value).width(800).toString()}
         alt={value?.asset?.altText}
-        className="w-full h-auto"
+        className="h-auto w-full"
         width={800}
         height={800 * (width / height)}
       />

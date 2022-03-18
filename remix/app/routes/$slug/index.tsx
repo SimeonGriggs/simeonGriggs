@@ -70,15 +70,20 @@ export const meta: MetaFunction = ({
       }
     : {}
 
+  const pageTitle = `${title} | ${siteMeta?.title}`
+
   return {
-    title: `${title} | ${siteMeta?.title}`,
+    title: pageTitle,
     description: summary,
     canonical,
     'twitter:card': 'summary_large_image',
     'twitter:creator': siteMeta?.author,
-    'twitter:title': title,
+    'twitter:title': pageTitle,
     'twitter:description': summary,
     'og:url': canonical,
+    'og:title': pageTitle,
+    'og:description': summary,
+    'og:type': 'website',
     ...imageMeta,
   }
 }
@@ -157,34 +162,34 @@ export default function Article() {
   return (
     <>
       {preview && <Preview data={data} setData={setData} />}
-      <header className="mt-32 md:mt-0 row-start-1 col-span-6 md:col-start-3 md:col-span-10 lg:col-start-5 lg:col-span-11">
-        <div className="py-12 md:py-24 max-w-xl">
+      <header className="col-span-6 row-start-1 mt-32 md:col-span-10 md:col-start-3 md:mt-0 lg:col-span-11 lg:col-start-5">
+        <div className="max-w-xl py-12 md:py-24">
           {title ? (
-            <h1 className="leading-none font-black mb-8 tracking-tighter text-4xl md:text-6xl text-blue-500">
+            <h1 className="mb-8 text-4xl font-black leading-none tracking-tighter text-blue-500 md:text-6xl">
               {title}
             </h1>
           ) : null}
           {summary ? (
-            <p className="text-lg dark:text-blue-100 md:leading-8 font-mono">{summary}</p>
+            <p className="font-mono text-lg dark:text-blue-100 md:leading-8">{summary}</p>
           ) : null}
         </div>
       </header>
-      <aside className="mb-4 md:mb-0 row-start-2 md:row-start-2 col-span-6 md:col-start-3 md:col-span-3 lg:col-start-5 lg:col-span-3 relative">
+      <aside className="relative col-span-6 row-start-2 mb-4 md:col-span-3 md:col-start-3 md:row-start-2 md:mb-0 lg:col-span-3 lg:col-start-5">
         {content?.length > 0 ? (
-          <div className="grid grid-cols-1 gap-y-4 md:pr-12 sticky top-6">
+          <div className="sticky top-6 grid grid-cols-1 gap-y-4 md:pr-12">
             <Label>Table of Contents</Label>
             <TableOfContents blocks={content} />
           </div>
         ) : null}
       </aside>
-      <section className="row-start-3 md:row-start-2 col-span-6 lg:col-start-8 lg:col-span-8 mt-6 md:mt-0 pb-24">
+      <section className="col-span-6 row-start-3 mt-6 pb-24 md:row-start-2 md:mt-0 lg:col-span-8 lg:col-start-8">
         {published ? <Published updated={updated} published={published} /> : null}
         {content?.length > 0 ? <ProseableText blocks={content} comments={comments} /> : null}
-        <aside className="mt-12 p-6 bg-blue-500 text-white">
-          <h3 className="border-b border-white text-2xl font-black mb-3 pb-3 leading-none">
+        <aside className="mt-12 bg-blue-500 p-6 text-white">
+          <h3 className="mb-3 border-b border-white pb-3 text-2xl font-black leading-none">
             There's more where this came from
           </h3>
-          <p className="text-lg mb-6">Subscribe for updates. Not spam.</p>
+          <p className="mb-6 text-lg">Subscribe for updates. Not spam.</p>
           <Subscribe />
         </aside>
       </section>

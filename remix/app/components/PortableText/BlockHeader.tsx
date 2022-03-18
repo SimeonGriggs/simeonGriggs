@@ -16,8 +16,8 @@ function createCanonicalWithId(hash: string) {
 function BlockHeaderChildren({children}: {children: React.ReactNode | string}) {
   return (
     <>
-      <span className="pointer-events-none absolute inset-0 flex items-center justify-end transition-opacity duration-200 opacity-0 group-hover:opacity-100">
-        <LinkIcon className="w-5 h-auto" />
+      <span className="pointer-events-none absolute inset-0 flex items-center justify-end opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+        <LinkIcon className="h-auto w-5" />
       </span>
       {children}
     </>

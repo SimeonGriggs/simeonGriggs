@@ -21,7 +21,7 @@ const Subscribe = () => (
             </div> */}
         <div className="formkit-field flex-1">
           <input
-            className="w-full h-full p-3 border border-blue-500 focus:outline-none focus:bg-blue-900 focus:border-white focus:text-white text-lg text-blue-900 transition-colors duration-200 ease-out"
+            className="h-full w-full border border-blue-500 p-3 text-lg text-blue-900 transition-colors duration-200 ease-out focus:border-white focus:bg-blue-900 focus:text-white focus:outline-none"
             name="email_address"
             placeholder="Your email address"
             required

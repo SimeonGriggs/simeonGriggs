@@ -39,15 +39,15 @@ export default function CommentableBlock(props: BlockItem) {
         type="button"
         ref={button}
         onClick={() => setOpen(open ? `` : _key)}
-        className="hidden md:flex md:w-1/6 lg:w-1/8 h-full translate-x-full text-blue-200 dark:text-blue-600 group-hover:text-blue-500 rounded absolute right-0 top-0 items-center justify-center opacity-50 group-hover:opacity-100 transition-all duration-75 ease-in-out"
+        className="lg:w-1/8 absolute right-0 top-0 hidden h-full translate-x-full items-center justify-center rounded text-blue-200 opacity-50 transition-all duration-75 ease-in-out group-hover:text-blue-500 group-hover:opacity-100 dark:text-blue-600 md:flex md:w-1/6"
       >
         {commentsCount > 0 ? (
-          <div className="w-5 h-5 flex items-center justify-center rounded-full bg-blue-200 group-hover:bg-blue-500 text-white font-bold text-xs leading-none absolute -translate-y-0 group-hover:-translate-y-2 transition-transform duration-75 ease-in-out">
+          <div className="absolute flex h-5 w-5 -translate-y-0 items-center justify-center rounded-full bg-blue-200 text-xs font-bold leading-none text-white transition-transform duration-75 ease-in-out group-hover:-translate-y-2 group-hover:bg-blue-500">
             {commentsCount} <span className="sr-only">comments</span>
           </div>
         ) : null}
         <span className="sr-only">Comment on this paragraph</span>
-        <AnnotationIcon className="w-1/3 h-auto" />
+        <AnnotationIcon className="h-auto w-1/3" />
       </button>
       {open === _key ? <CommentForm _key={_key} closeDialog={closeDialog} /> : null}
     </p>

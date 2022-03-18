@@ -23,9 +23,9 @@ const Button = ({children, to, className, href, disabled, target, type}: Props) 
   if (type === 'submit') {
     return (
       <button disabled={disabled} className={buttonClasses(className)} type="submit">
-        <span className="hidden md:block w-6 border-t border-white" />
+        <span className="hidden w-6 border-t border-white md:block" />
         <span className="px-3">{children}</span>
-        <span className="hidden md:block w-6 border-t border-white" />
+        <span className="hidden w-6 border-t border-white md:block" />
       </button>
     )
   }
@@ -40,9 +40,9 @@ const Button = ({children, to, className, href, disabled, target, type}: Props) 
   if (href) {
     return (
       <a {...attributes} className={buttonClasses(className)} href={href}>
-        <span className="hidden md:block w-6 border-t border-white" />
+        <span className="hidden w-6 border-t border-white md:block" />
         <span className="px-3">{children}</span>
-        <span className="hidden md:block w-6 border-t border-white" />
+        <span className="hidden w-6 border-t border-white md:block" />
       </a>
     )
   }

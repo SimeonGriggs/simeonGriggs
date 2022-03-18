@@ -7,7 +7,7 @@ import Published from '~/components/Published'
 export default function HomeBlog({article}: {article: ArticleDocument}) {
   return (
     <article className="grid grid-cols-1 gap-y-4">
-      <h2 className="md:leading-none font-black tracking-tighter text-3xl md:text-4xl text-blue-500">
+      <h2 className="text-3xl font-black tracking-tighter text-blue-500 md:text-4xl md:leading-none">
         {article?.slug?.current ? (
           <Link
             to={`/${article.slug.current}`}
