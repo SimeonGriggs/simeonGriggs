@@ -25,7 +25,11 @@ export const portableTextComponents = (comments: boolean) => ({
   types: {
     break: () => <hr />,
     video: TypeVideo,
-    image: TypeImage,
+    image: ({value}) => (
+      <p className="-mx-4 border-gray-200 dark:border-blue-700 md:border">
+        <TypeImage value={value} />
+      </p>
+    ),
     code: TypeCode,
     codeSandbox: TypeCodeSandbox,
     button: TypeButton,

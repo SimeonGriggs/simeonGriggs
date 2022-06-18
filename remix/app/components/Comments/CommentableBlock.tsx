@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useRef} from 'react'
-import {useTransition} from 'remix'
-import {AnnotationIcon} from '@heroicons/react/outline'
+import {useTransition} from '@remix-run/react'
+// import {AnnotationIcon} from '@heroicons/react/outline'
 
 import CommentForm from './CommentForm'
 import {BlockItem} from '~/lib/sanity/types'
@@ -47,7 +47,7 @@ export default function CommentableBlock(props: BlockItem) {
           </div>
         ) : null}
         <span className="sr-only">Comment on this paragraph</span>
-        <AnnotationIcon className="h-auto w-1/3" />
+        {/* <AnnotationIcon className="h-auto w-1/3" /> */}
       </button>
       {open === _key ? <CommentForm _key={_key} closeDialog={closeDialog} /> : null}
     </p>

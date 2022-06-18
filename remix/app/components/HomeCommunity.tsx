@@ -1,5 +1,5 @@
 import React from 'react'
-import {ExternalLinkIcon} from '@heroicons/react/solid'
+// import {ExternalLinkIcon} from '@heroicons/react/solid'
 
 import {ArticleDocument} from '~/lib/sanity/types'
 import Published from '~/components/Published'
@@ -10,7 +10,7 @@ export default function HomeCommunity({article}: {article: ArticleDocument}) {
     <article className="-mx-4 grid grid-cols-1 gap-y-4 border-gray-100 px-4 dark:border-blue-800 md:mx-0 md:border-l-4">
       {article?.slug?.current ? (
         <h3 className="text-2xl font-black tracking-tighter text-blue-500 hover:text-white md:text-2xl md:leading-none">
-          <ExternalLinkIcon className="float-right h-auto w-5" />
+          {/* <ExternalLinkIcon className="float-right h-auto w-5" /> */}
           <a
             href={`https://www.sanity.io/guides/${article.slug.current}`}
             className="block hover:bg-[#f03e2f] hover:text-white"

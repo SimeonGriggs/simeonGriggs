@@ -4,7 +4,7 @@ import Iframe from 'sanity-plugin-iframe-pane'
 import {resolveProductionUrl} from '../lib/resolveProductionUrl'
 
 export const getDefaultDocumentNode = ({schemaType}) => {
-  if (schemaType === `article`) {
+  if ([`article`, `talk`].includes(schemaType)) {
     return S.document().views([
       S.view.form(),
       S.view
@@ -25,6 +25,8 @@ export const getDefaultDocumentNode = ({schemaType}) => {
 const items = [
   S.documentTypeListItem('article').title('Articles'),
   S.documentTypeListItem('comment').title('Comments'),
+  S.divider(),
+  S.documentTypeListItem('talk').title('Talks'),
   S.divider(),
   S.documentListItem().schemaType(`siteMeta`).id(`siteMeta`).title(`Site Meta`),
   S.divider(),

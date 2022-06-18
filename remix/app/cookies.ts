@@ -1,7 +1,5 @@
-import {createCookie} from 'remix'
+import {createCookie} from '@remix-run/node'
 
-export const cookieNames = {
-  THEME_PREFERENCE: `theme-preference`,
-}
-
-export const themePreference = createCookie(cookieNames.THEME_PREFERENCE)
+export const themePreferenceCookie = createCookie(`themePreference`, {
+  path: '/',
+})

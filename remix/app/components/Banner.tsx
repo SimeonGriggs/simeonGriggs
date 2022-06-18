@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'
-import {useMatches} from 'remix'
+import {useMatches} from '@remix-run/react'
 import {useLocation} from 'react-router-dom'
 import {AnimatePresence, motion} from 'framer-motion'
 import {useWindowSize} from 'usehooks-ts'
@@ -24,13 +24,13 @@ interface BannerSize {
 }
 
 function getNewBannerSize(useHomeSize = false, windowWidth = 0) {
-  if (!windowWidth && typeof window === 'undefined') return null
+  if (!windowWidth && typeof document === 'undefined') return null
 
   const width = windowWidth ?? window.innerWidth
 
   // Double check, if no prop was given we should double check
   const checkHomeSize =
-    typeof window !== 'undefined' && typeof useHomeSize === 'undefined'
+    typeof document !== 'undefined' && typeof useHomeSize === 'undefined'
       ? window.location.pathname === '/'
       : useHomeSize
 
@@ -108,6 +108,21 @@ const Banner = () => {
   const [showBanner, setShowBanner] = useState({desktop: false, mobile: false})
   const {width: windowWidth} = useWindowSize()
 
+  function updateBannerSize() {
+    if (!windowWidth) return
+
+    const newSize = getNewBannerSize(isHome, windowWidth)
+
+    if (newSize) {
+      setBannerSize(newSize)
+    }
+  }
+
+  if (firstRender) {
+    updateBannerSize()
+    firstRender = false
+  }
+
   // Set initial banner
   useEffect(() => {
     if (matches.length) {
@@ -128,28 +143,13 @@ const Banner = () => {
     }
   }, [matches, pathname])
 
-  function updateBannerSize() {
-    if (!windowWidth) return
-
-    const newSize = getNewBannerSize(isHome, windowWidth)
-
-    if (newSize) {
-      setBannerSize(newSize)
-    }
-  }
-
-  if (firstRender) {
-    updateBannerSize()
-    firstRender = false
-  }
-
   // Update banner size on resize
   useEffect(() => {
-    if (typeof window !== 'undefined') {
+    if (typeof document !== 'undefined') {
       window.addEventListener('resize', () => updateBannerSize())
     }
 
-    // return typeof window === 'undefined'
+    // return typeof document === 'undefined'
     //   ? null
     //   : window.removeEventListener('resize', updateBannerSize())
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -161,7 +161,7 @@ const Banner = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname, windowWidth])
 
-  if (!windowWidth) return null
+  // if (!windowWidth) return null
 
   return (
     <motion.div
@@ -171,7 +171,7 @@ const Banner = () => {
       onAnimationComplete={() => {
         if (firstAnimation) firstAnimation = false
       }}
-      className={`pointer-events-none z-10 h-32 w-screen origin-top-left opacity-0 md:h-screen ${
+      className={`pointer-events-none z-10 h-32 w-screen origin-top-left bg-red-500 opacity-0 md:h-screen ${
         isHome ? `fixed` : `absolute md:fixed`
       }`}
     >

@@ -1,8 +1,5 @@
 import {
-  LinksFunction,
-  LoaderFunction,
   useMatches,
-  MetaFunction,
   Meta,
   Links,
   Scripts,
@@ -11,20 +8,21 @@ import {
   useCatch,
   ScrollRestoration,
   Link,
-} from 'remix'
+} from '@remix-run/react'
+import {LinksFunction, LoaderFunction, MetaFunction} from '@remix-run/node'
 
 import {Outlet, useLocation} from 'react-router-dom'
 import {useDarkMode} from 'usehooks-ts'
 
 import {removeTrailingSlash} from './lib/utils/helpers'
 import {getEnv} from './lib/utils/getEnv'
-import {cookieNames} from '~/cookies'
 import {getClient} from '~/lib/sanity/getClient'
 import {siteMetaQuery} from '~/lib/sanity/queries'
 import Banner from '~/components/Banner'
 import Grid from '~/components/Grid'
 import Header from '~/components/Header'
 import stylesUrl from '~/styles/global.css'
+import {themePreferenceCookie} from '~/cookies'
 
 export const handle = `root`
 
@@ -66,14 +64,18 @@ export const links: LinksFunction = () => {
 
 export const loader: LoaderFunction = async ({request}) => {
   const ENV = getEnv()
-  const siteMeta = await getClient().fetch(siteMetaQuery)
-  // const siteMeta = {}
 
-  const requestCookies = request.headers.get('Cookie')?.split(';')
-  const themePreference = requestCookies
-    ?.find((row: string) => row.includes(`${cookieNames.THEME_PREFERENCE}=`))
-    ?.split(`=`)
-    .pop()
+  const cookieHeader = request.headers.get('Cookie')
+  // Scrap for now, ain't working
+  // const themePreference = (await themePreferenceCookie.parse(cookieHeader)) || {}
+
+  // welldoitlive.gif
+  const cookieFind = cookieHeader
+    ?.split(';')
+    .find((cookie) => cookie.includes(themePreferenceCookie.name))
+  const themePreference = cookieFind ? cookieFind.trim().split(`=`).pop() : ``
+
+  const siteMeta = await getClient().fetch(siteMetaQuery)
 
   return {siteMeta, ENV, themePreference}
 }
@@ -82,9 +84,11 @@ function Document({children, title}: {children: React.ReactNode; title?: string}
   const loaderData = useLoaderData()
   const {siteMeta, ENV, themePreference} = loaderData ?? {}
 
-  const {isDarkMode} = useDarkMode(
-    [`dark`, `light`].includes(themePreference) ? themePreference === 'dark' : false
-  )
+  // If not known server-side, use browser preference
+  const isDarkMode =
+    !themePreference && typeof document !== 'undefined'
+      ? window.matchMedia('(prefers-color-scheme: dark)').matches
+      : themePreference === `dark`
 
   const {pathname} = useLocation()
   const matches = useMatches()
@@ -138,9 +142,12 @@ export default function App() {
   const data = useLoaderData()
   const {siteMeta} = data ?? {}
 
+  // Note: Simeon does not endorse this code
   const matches = useMatches()
-  const shouldShowHeader = !matches.some((match) => match.handle === 'meta-image')
-  const shouldShowBanner = typeof window !== 'undefined' && shouldShowHeader
+  const shouldShowHeader = !matches.some((match: any) => [`meta-image`].includes(match.handle))
+  const shouldShowBanner =
+    typeof document !== 'undefined' &&
+    !matches.some((match: any) => [`meta-image`, `talk-index`].includes(match.handle))
 
   return (
     <Document>

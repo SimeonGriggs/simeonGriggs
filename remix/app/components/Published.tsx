@@ -1,4 +1,5 @@
 import React from 'react'
+import {LocationMarkerIcon} from '@heroicons/react/solid'
 
 import Label from './Label'
 
@@ -6,7 +7,15 @@ function dateDisplay(dateString: string) {
   return dateString.split('T')[0]
 }
 
-export default function Published({updated, published}: {updated?: string; published: string}) {
+type PublishedProps = {
+  updated?: string
+  location?: string
+  published: string
+}
+
+export default function Published(props: PublishedProps) {
+  const {updated, location, published} = props
+
   return (
     <Label>
       <span className="flex flex-col md:flex-row md:items-center">
@@ -18,6 +27,13 @@ export default function Published({updated, published}: {updated?: string; publi
         ) : (
           <span>{dateDisplay(published)}</span>
         )}
+
+        {location ? (
+          <span className="ml-auto inline-flex items-center gap-2">
+            <LocationMarkerIcon className="w-6" />
+            {location}
+          </span>
+        ) : null}
       </span>
     </Label>
   )

@@ -1,7 +1,7 @@
 import React from 'react'
 import getYouTubeID from 'get-youtube-id'
 
-import {PlayIcon} from '@heroicons/react/solid'
+// import {PlayIcon} from '@heroicons/react/solid'
 
 interface TypeVideoProps {
   value: {
@@ -48,7 +48,7 @@ export default function TypeVideo(props: TypeVideoProps) {
       className="aspect-w-16 aspect-h-9 group relative -mx-4 block"
     >
       <div className="absolute inset-0 z-10 flex items-center justify-center bg-blue-500/50 text-white transition-colors duration-1000 group-hover:bg-blue-500/20">
-        <PlayIcon className="duration-250 h-auto w-1/6 transition-transform group-hover:scale-125" />
+        {/* <PlayIcon className="duration-250 h-auto w-1/6 transition-transform group-hover:scale-125" /> */}
       </div>
       {value?.title ? (
         <div className="absolute inset-0 z-10 p-4">

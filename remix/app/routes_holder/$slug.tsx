@@ -1,10 +1,9 @@
 import {useState} from 'react'
-import type {MetaFunction, LoaderFunction, ActionFunction} from '@remix-run/node'
-import {redirect} from '@remix-run/node'
+import type {MetaFunction, LoaderFunction} from '@remix-run/node'
 import {useLoaderData} from '@remix-run/react'
 
 import {filterDataToSingleItem} from '~/lib/sanity/helpers'
-import {articleQuery} from '~/lib/sanity/queries'
+import {talkQuery} from '~/lib/sanity/queries'
 import {getClient} from '~/lib/sanity/getClient'
 import {removeTrailingSlash} from '~/lib/utils/helpers'
 
@@ -13,11 +12,10 @@ import Label from '~/components/Label'
 import Preview from '~/components/Preview'
 import ProseableText from '~/components/ProseableText'
 import TableOfContents from '~/components/TableOfContents'
-import {ArticleDocument, CommentDocument} from '~/lib/sanity/types'
-import {createComment} from '~/lib/sanity/createComment'
+import {ArticleDocument} from '~/lib/sanity/types'
 import Subscribe from '~/components/Subscribe'
 
-export const handle = `article`
+export const handle = `talk`
 
 export const meta: MetaFunction = ({
   data,
@@ -37,7 +35,7 @@ export const meta: MetaFunction = ({
   const article = filterDataToSingleItem(initialData, preview)
 
   if (!article?.title) {
-    return {title: `Article not found`}
+    return {title: `Talk not found`}
   }
 
   const {title, summary, image, _updatedAt} = article
@@ -89,39 +87,6 @@ export const meta: MetaFunction = ({
   }
 }
 
-// export const links: LinksFunction = () => {
-//   return [{rel: 'canonical', href: `hmm`}]
-// }
-
-export const action: ActionFunction = async ({request}) => {
-  const body = await request.formData()
-
-  // Basic honeypot check
-  if (body?.get(`validation`)) {
-    return null
-  }
-
-  const {pathname} = new URL(request.url)
-
-  const comment: CommentDocument = {
-    _type: 'comment',
-    content: body?.get(`content`) ? String(body.get(`content`)) : null,
-    name: body?.get(`name`) ? String(body.get(`name`)) : null,
-    commentKey: body?.get(`_key`) ? String(body.get(`_key`)) : null,
-    email: body?.get(`email`) ? String(body.get(`email`)) : null,
-    commentOn: {
-      _type: `reference`,
-      _ref: body?.get(`_id`) ? String(body.get(`_id`)) : null,
-    },
-  }
-
-  const data = await createComment(comment)
-  const {transactionId} = data
-  const redirectPath = `${pathname}?transactionId=${transactionId}`
-
-  return redirect(redirectPath)
-}
-
 // Runs server side
 export const loader: LoaderFunction = async (props) => {
   const {request, params} = props
@@ -130,10 +95,7 @@ export const loader: LoaderFunction = async (props) => {
   const requestUrl = new URL(request.url)
   const preview = requestUrl.searchParams.get(`preview`) === process.env.SANITY_PREVIEW_SECRET
 
-  // Or if a new comment has been posted, query the API for fresh data
-  const newComment = Boolean(requestUrl.searchParams.get(`transactionId`))
-
-  const initialData = await getClient(preview || newComment).fetch(articleQuery, params)
+  const initialData = await getClient(preview).fetch(talkQuery, params)
 
   if (!initialData || !initialData.length) {
     throw new Response(`Not Found`, {
@@ -144,7 +106,7 @@ export const loader: LoaderFunction = async (props) => {
   return {
     initialData,
     preview,
-    query: preview ? articleQuery : ``,
+    query: preview ? talkQuery : ``,
     params: preview ? params : {},
   }
 }

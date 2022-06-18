@@ -1,4 +1,5 @@
-import {LoaderFunction, useLoaderData} from 'remix'
+import {LoaderFunction} from '@remix-run/node'
+import {useLoaderData} from '@remix-run/react'
 
 import {filterDataToSingleItem} from '~/lib/sanity/helpers'
 import {articleQuery} from '~/lib/sanity/queries'

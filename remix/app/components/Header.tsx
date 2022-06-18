@@ -1,13 +1,10 @@
 /* eslint-disable react/jsx-filename-extension */
-import {useMemo} from 'react'
-import {MoonIcon, SunIcon} from '@heroicons/react/solid'
-import {Link, useMatches} from 'remix'
-import {useDarkMode} from 'usehooks-ts'
-import useCookie from 'react-use-cookie'
 
-import Twitter from './Twitter'
-import GitHub from './GitHub'
-import {cookieNames} from '~/cookies'
+import {Link} from '@remix-run/react'
+
+import Twitter from '~/components/Twitter'
+import GitHub from '~/components/GitHub'
+import ThemeToggle from '~/components/ThemeToggle'
 
 interface SiteMeta {
   title: string
@@ -15,34 +12,11 @@ interface SiteMeta {
 
 const menuClasses =
   'fixed text-sm z-30 inset-0 bottom-auto md:bottom-0 md:right-auto md:w-1/12 lg:w-1/16 flex items-center justify-center'
-const buttonClasses =
+export const buttonClasses =
   'flex items-center justify-center p-1 w-7 h-7 md:w-10 md:h-10 text-blue-500 rounded-full bg-white hover:bg-blue-900 hover:text-white'
 
 const Header = ({siteMeta}: {siteMeta: SiteMeta}) => {
   const {title} = siteMeta ?? {}
-  const matches = useMatches()
-
-  const currentThemePreference = useMemo(() => {
-    return matches.find((match) => match.handle === 'root')?.data?.themePreference ?? `light`
-  }, [matches])
-
-  const [, setThemePreferenceCookie] = useCookie(
-    cookieNames.THEME_PREFERENCE,
-    currentThemePreference
-  )
-
-  const {isDarkMode, toggle} = useDarkMode(
-    [`dark`, `light`].includes(currentThemePreference) ? currentThemePreference === 'dark' : false
-  )
-
-  function handleToggle() {
-    toggle()
-    const newPreference = isDarkMode ? `light` : `dark`
-    setThemePreferenceCookie(newPreference)
-    document
-      .querySelector('meta[name="color-scheme"]')
-      ?.setAttribute(`content`, `only ${newPreference}`)
-  }
 
   return (
     <header className={menuClasses}>
@@ -72,14 +46,7 @@ const Header = ({siteMeta}: {siteMeta: SiteMeta}) => {
             <GitHub className="w-full" />
             <div className="sr-only">GitHub</div>
           </a>
-          <button type="button" onClick={() => handleToggle()} className={buttonClasses}>
-            {isDarkMode ? (
-              <SunIcon className="h-auto w-full md:w-5" />
-            ) : (
-              <MoonIcon className="h-auto w-full md:w-5" />
-            )}
-            <div className="sr-only">{isDarkMode ? `Light` : `Dark`} Mode</div>
-          </button>
+          <ThemeToggle />
         </div>
       </div>
     </header>

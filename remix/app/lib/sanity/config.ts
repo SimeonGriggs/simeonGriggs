@@ -9,7 +9,7 @@ interface ClientConfig {
 type EnvKey = 'NODE_ENV' | 'SANITY_DATASET' | 'SANITY_PROJECT_ID'
 
 function getEnvByKey(key: EnvKey) {
-  return typeof window === 'undefined' ? process.env[key] : window?.ENV[key]
+  return typeof document === 'undefined' ? process.env[key] : window?.ENV[key]
 }
 
 export const config: ClientConfig = {

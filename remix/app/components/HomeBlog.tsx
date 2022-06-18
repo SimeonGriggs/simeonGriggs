@@ -1,5 +1,5 @@
 import React from 'react'
-import {Link} from 'remix'
+import {Link} from '@remix-run/react'
 
 import {ArticleDocument} from '~/lib/sanity/types'
 import Published from '~/components/Published'

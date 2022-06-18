@@ -1,8 +1,8 @@
 import {useEffect} from 'react'
 import {useLocation} from 'react-router-dom'
-import {LogoutIcon} from '@heroicons/react/solid'
+// import {LogoutIcon} from '@heroicons/react/solid'
 
-import {useMatches} from 'remix'
+import {useMatches} from '@remix-run/react'
 import {usePreviewSubscription} from '~/lib/sanity/usePreviewSubscription'
 
 export default function Preview({data, setData}: {data: any; setData: any}) {
@@ -28,7 +28,7 @@ export default function Preview({data, setData}: {data: any; setData: any}) {
           href={pathname}
           className="pointer-events-auto flex items-center gap-x-1 rounded p-2 px-3 hover:bg-pink-600"
         >
-          <LogoutIcon className="h-auto w-4" /> Exit
+          {/* <LogoutIcon className="h-auto w-4" /> Exit */}
         </a>
       </div>
     </div>

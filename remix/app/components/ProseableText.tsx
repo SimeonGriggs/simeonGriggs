@@ -2,19 +2,20 @@ import React from 'react'
 import {PortableText} from '~/lib/sanity/helpers'
 import {Block, CommentDocument} from '~/lib/sanity/types'
 
+type ProseableTextProps = {
+  blocks: Block[]
+  comments?: CommentDocument[]
+}
+
 /**
  * Use Tailwind CSS's `prose` classes with Portable Text markup (blocks)
  * Without inheriting styles for custom components (types)
  * https://www.sanity.io/guides/tailwindcss-typography-prose-portable-text
  */
-export default function ProseableText({
-  blocks,
-  comments,
-}: {
-  blocks: Block[]
-  comments?: CommentDocument[]
-}) {
-  if (!blocks?.length) return []
+export default function ProseableText(props: ProseableTextProps) {
+  const {blocks, comments} = props
+
+  if (!blocks?.length) return null
 
   // Group together standard `_type === "block"`  blocks
   // eg <p>, <li>, etc – and separate out everyone else

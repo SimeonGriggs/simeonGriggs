@@ -1,12 +1,12 @@
 import React from 'react'
-import {LinkIcon} from '@heroicons/react/solid'
+// import {LinkIcon} from '@heroicons/react/solid'
 import {useCopyToClipboard} from 'usehooks-ts'
 
 import {BlockItem} from '~/lib/sanity/types'
 import {scrollableKey} from '~/lib/utils/scrollableId'
 
 function createCanonicalWithId(hash: string) {
-  if (typeof window === 'undefined') {
+  if (typeof document === 'undefined') {
     return null
   }
 
@@ -17,7 +17,7 @@ function BlockHeaderChildren({children}: {children: React.ReactNode | string}) {
   return (
     <>
       <span className="pointer-events-none absolute inset-0 flex items-center justify-end opacity-0 transition-opacity duration-200 group-hover:opacity-100">
-        <LinkIcon className="h-auto w-5" />
+        {/* <LinkIcon className="h-auto w-5" /> */}
       </span>
       {children}
     </>

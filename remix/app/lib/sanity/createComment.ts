@@ -22,7 +22,5 @@ export async function createComment(comment: CommentDocument) {
       console.error(res)
     })
 
-  // console.log(data)
-
   return data
 }

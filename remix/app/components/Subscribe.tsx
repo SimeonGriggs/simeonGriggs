@@ -3,7 +3,12 @@ import React from 'react'
 const Subscribe = () => (
   // Things
 
-  <>
+  <aside className="mt-12 bg-blue-500 p-6 text-white">
+    <h3 className="mb-3 border-b border-white pb-3 text-2xl font-black leading-none">
+      There's more where this came from
+    </h3>
+    <p className="mb-6 text-lg">Subscribe for updates. Not spam.</p>
+
     <script defer src="https://f.convertkit.com/ckjs/ck.5.js" />
     <form
       action="https://app.convertkit.com/forms/1465609/subscriptions"
@@ -33,7 +38,7 @@ const Subscribe = () => (
         </button>
       </div>
     </form>
-  </>
+  </aside>
 )
 
 export default Subscribe

@@ -9,7 +9,7 @@ function twoDecimals(num: number) {
 }
 
 export function heightColumnOffset(columns = 16) {
-  if (typeof window === 'undefined') {
+  if (typeof document === 'undefined') {
     return 0
   }
 
@@ -37,4 +37,4 @@ export function clipPathInset(columns: number, left: number, right: number, y: n
 }
 
 // eslint-disable-next-line no-empty-function
-export const useSSRLayoutEffect = typeof window === 'undefined' ? () => {} : useLayoutEffect
+export const useSSRLayoutEffect = typeof document === 'undefined' ? () => {} : useLayoutEffect

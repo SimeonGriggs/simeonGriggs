@@ -1,29 +1,24 @@
-import type {SanityImageSource} from '@sanity/asset-utils'
 import {getImageDimensions} from '@sanity/asset-utils'
 import {urlFor} from '~/lib/sanity/helpers'
+import {ExtendedImageAsset} from '~/lib/sanity/types'
 
 interface TypeImageProps {
-  value: SanityImageSource & {
-    asset: {
-      altText: string
-    }
-  }
+  value: ExtendedImageAsset
+  width?: number
 }
 
 export default function TypeImage(props: TypeImageProps) {
-  const {value} = props
-  const {width, height} = getImageDimensions(value)
+  const {value, width = 800} = props
+  const {width: originalWidth, height: originalHeight} = getImageDimensions(value)
 
   return (
-    <p className="-mx-4 border-t border-b border-gray-100 md:border">
-      <img
-        loading="lazy"
-        src={urlFor(value).width(800).toString()}
-        alt={value?.asset?.altText}
-        className="h-auto w-full"
-        width={800}
-        height={800 * (width / height)}
-      />
-    </p>
+    <img
+      loading="lazy"
+      src={urlFor(value).width(width).dpr(2).toString()}
+      alt={value?.asset?.altText}
+      className="h-auto max-w-full"
+      width={width}
+      height={Math.floor(width * (originalWidth / originalHeight))}
+    />
   )
 }

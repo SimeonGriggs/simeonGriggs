@@ -1,7 +1,7 @@
-import {Form, useMatches} from 'remix'
+import {Form, useMatches} from '@remix-run/react'
 import {Dialog} from '@headlessui/react'
 
-import {XIcon} from '@heroicons/react/solid'
+// import {XIcon} from '@heroicons/react/solid'
 import Button from '../Button'
 import Label from '../Label'
 
@@ -23,7 +23,7 @@ export default function CommentForm({_key, closeDialog}: {_key: string; closeDia
             className="float-right rounded-full p-2 text-blue-500 focus:bg-white focus:text-blue-500 dark:text-white dark:focus:bg-blue-500"
             title="Close"
           >
-            <XIcon className="h-auto w-8" />
+            {/* <XIcon className="h-auto w-8" /> */}
             <span className="sr-only">Close</span>
           </button>
           <p className="mb-4">

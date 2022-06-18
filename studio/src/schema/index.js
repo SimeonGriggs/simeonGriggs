@@ -13,6 +13,7 @@ import link from './objects/link'
 import _break from './objects/break'
 import codeSandbox from './objects/codeSandbox'
 import tailwind from './documents/tailwind'
+import talk from './documents/talk'
 
 export default createSchema({
   name: 'default',
@@ -22,6 +23,7 @@ export default createSchema({
     siteMeta,
     comment,
     tailwind,
+    talk,
 
     // objects
     seo,
