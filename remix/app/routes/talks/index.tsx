@@ -1,5 +1,5 @@
 import type {LoaderFunction} from '@remix-run/node'
-import {useLoaderData, Link} from '@remix-run/react'
+import {useLoaderData} from '@remix-run/react'
 
 import React from 'react'
 import {talksIndexQuery} from '~/lib/sanity/queries'
@@ -46,7 +46,14 @@ export default function TalksIndex() {
           <HomeTitle wave title="Simeon can talk" />
         </div>
       </section>
-      <section className="col-span-5 col-start-2">
+      <section className="col-span-6 md:col-span-6 md:col-start-6 md:row-start-2 lg:col-span-8 lg:col-start-8">
+        <div className="grid grid-cols-1 gap-y-12 pb-12 md:gap-y-24 md:pb-48">
+          {talks?.length > 0
+            ? talks.map((talk: TalkDocument) => <Talk key={talk._id} {...talk} />)
+            : null}
+        </div>
+      </section>
+      <section className="col-span-6 md:col-span-3 md:col-start-2 md:row-start-2 lg:col-span-5 lg:col-start-2">
         <div className="grid grid-cols-1 gap-y-12 md:gap-y-24 md:pb-48">
           {profilePhotos?.length > 0
             ? profilePhotos.map((photo: ExtendedImageAsset) => (
@@ -66,13 +73,6 @@ export default function TalksIndex() {
                   ) : null}
                 </div>
               ))
-            : null}
-        </div>
-      </section>
-      <section className="col-span-8 col-start-8">
-        <div className="grid grid-cols-1 gap-y-12 md:gap-y-24 md:pb-48">
-          {talks?.length > 0
-            ? talks.map((talk: TalkDocument) => <Talk key={talk._id} {...talk} />)
             : null}
         </div>
       </section>
