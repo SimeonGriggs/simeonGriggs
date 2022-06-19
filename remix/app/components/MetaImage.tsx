@@ -11,8 +11,8 @@ export default function MetaImage({article}: {article: ArticleDocument}) {
     >
       {image ? (
         <img
-          src={urlFor(image).height(630).width(400).toString()}
-          alt=""
+          src={urlFor(image).height(630).width(400).dpr(2).toString()}
+          alt={image?.asset?.altText ?? ``}
           className="object-cover"
           height={630}
           width={400}

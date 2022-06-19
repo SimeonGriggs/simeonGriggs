@@ -12,6 +12,7 @@ import TypeCode from '~/components/PortableText/TypeCode'
 import TypeCodeSandbox from '~/components/PortableText/TypeCodeSandbox'
 import TypeGallery from '~/components/PortableText/TypeGallery'
 import TypeTalks from '~/components/PortableText/TypeTalks'
+import MarkLink from '~/components/PortableText/MarkLink'
 
 export const portableTextComponents = (comments: boolean) => ({
   container: ({children}: {children: ReactNode}) => children,
@@ -25,6 +26,9 @@ export const portableTextComponents = (comments: boolean) => ({
       <Prism code={children?.length > 0 ? children.join(' ') : ``} />
     ),
     ...(comments ? {normal: CommentableBlock} : {}),
+  },
+  marks: {
+    link: MarkLink,
   },
   types: {
     break: () => <hr />,
