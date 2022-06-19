@@ -14,48 +14,63 @@ export default {
   ],
   fields: [
     {
+      name: `unlisted`,
+      type: `boolean`,
+      initialValue: false,
+    },
+    {
       name: 'title',
-      title: 'Title',
       type: 'string',
       validation: (Rule) => Rule.required(),
     },
     {
       name: 'slug',
-      title: 'Slug',
       type: 'slug',
       options: {source: 'title'},
       validation: (Rule) => Rule.required(),
     },
     {
       name: 'published',
-      title: 'Published',
       type: 'date',
-      validation: (Rule) => Rule.required(),
+      hidden: ({document}) => document?.unlisted,
+      validation: (Rule) =>
+        Rule.custom((value, {document}) => {
+          if (document?.unlisted) {
+            return true
+          }
+
+          return value ? true : 'Published date is required'
+        }),
     },
     {
       name: 'updated',
-      title: 'Updated',
       type: 'date',
+      hidden: ({document}) => document?.unlisted,
     },
     {
       name: 'summary',
-      title: 'Summary',
       type: 'text',
       rows: 2,
-      validation: (Rule) => Rule.required(),
+      validation: (Rule) =>
+        Rule.custom((value, {document}) => {
+          if (document?.unlisted) {
+            return true
+          }
+
+          return value ? true : 'Summary is required'
+        }),
     },
     {
       name: 'content',
-      title: 'Content',
       type: 'portableText',
     },
     {
       name: 'image',
-      title: 'Image',
       type: 'image',
       validation: (Rule) => Rule.required(),
+      options: {hotspot: true},
     },
-    {type: 'seo', name: 'seo'},
+    {type: 'seo', name: 'seo', title: 'SEO'},
   ],
   preview: {
     select: {

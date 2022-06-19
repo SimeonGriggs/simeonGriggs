@@ -23,7 +23,14 @@ export const getDefaultDocumentNode = ({schemaType}) => {
 }
 
 const items = [
-  S.documentTypeListItem('article').title('Articles'),
+  S.listItem()
+    .title('Articles')
+    .schemaType('article')
+    .child(S.documentList().title('Articles').filter('_type == "article" && unlisted != true')),
+  S.listItem()
+    .title('Unlisted Articles')
+    .schemaType('article')
+    .child(S.documentList().title('Articles').filter('_type == "article" && unlisted')),
   S.documentTypeListItem('comment').title('Comments'),
   S.divider(),
   S.documentTypeListItem('talk').title('Talks'),

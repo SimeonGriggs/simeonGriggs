@@ -12,7 +12,6 @@ import {
 import {LinksFunction, LoaderFunction, MetaFunction} from '@remix-run/node'
 
 import {Outlet, useLocation} from 'react-router-dom'
-import {useDarkMode} from 'usehooks-ts'
 
 import {removeTrailingSlash} from './lib/utils/helpers'
 import {getEnv} from './lib/utils/getEnv'

@@ -6,7 +6,9 @@ const extendedImage = groq`
   description,
   metadata {
     blurHash
-  }
+  },
+  crop,
+  hotspot
 `
 const extendedImageAsset = groq`
   asset->{${extendedImage}}`
@@ -15,10 +17,36 @@ export const siteMetaQuery = groq`*[_id == "siteMeta"][0]`
 
 export const articleQuery = groq`*[_type == "article" && slug.current == $slug]{
     ...,
-    image { ${extendedImageAsset} },
+    image { ${extendedImageAsset}, crop, hotspot },
     content[] {
         ...,
         _type == "image" => {${extendedImageAsset}},
+        _type == "talks" => {
+          "talks": *[_type == "talk" && defined(slug.current)]|order(eventDate desc){
+            _id,
+            title,
+            // slug,
+            event,
+            eventDate,
+            location,
+            link,
+            video {
+              title,
+              url
+            },
+            image { ${extendedImageAsset} },
+            // content
+          }
+        },
+        _type == "gallery" => {
+          "images": *[_type == "sanity.imageAsset" && references(^._ref)] {
+              _id,
+              url,
+              "asset": {
+                ${extendedImage}
+              }
+          }
+        }
     },
     "comments": *[_type == "comment" && references(^._id)]
   }`
@@ -30,35 +58,7 @@ export const talkQuery = groq`*[_type == "talk" && slug.current == $slug]{
     },
   }`
 
-export const talksIndexQuery = groq`{
-  "talks": *[_type == "talk" && defined(slug.current)]|order(eventDate desc){
-    _id,
-    title,
-    // slug,
-    event,
-    eventDate,
-    location,
-    link,
-    video {
-      title,
-      url
-    },
-    image { ${extendedImageAsset} },
-    // content
-  },
-  "profilePhotos": *[_type == "media.tag" && name.current == "Profile"][0]{
-    "images": *[_type == "sanity.imageAsset" && references(^._id)] {
-      _id,
-      url,
-      "asset": {
-        ${extendedImage}
-      }
-    }
-  }.images
-}
-`
-
-export const homeQuery = groq`*[_type == "article" && defined(slug.current)]|order(published desc){
+export const homeQuery = groq`*[_type == "article" && defined(slug.current) && unlisted != true]|order(published desc){
   "source": "blog",
     _id,
     title,

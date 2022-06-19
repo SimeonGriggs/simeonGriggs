@@ -29,9 +29,9 @@ export default function Published(props: PublishedProps) {
         )}
 
         {location ? (
-          <span className="ml-auto inline-flex items-center gap-2">
-            <LocationMarkerIcon className="w-6" />
+          <span className="inline-flex items-center gap-2 md:ml-auto">
             {location}
+            <LocationMarkerIcon className="hidden w-6 md:block" />
           </span>
         ) : null}
       </span>

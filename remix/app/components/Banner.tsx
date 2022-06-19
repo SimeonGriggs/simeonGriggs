@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useCallback} from 'react'
 import {useMatches} from '@remix-run/react'
 import {useLocation} from 'react-router-dom'
 import {AnimatePresence, motion} from 'framer-motion'
@@ -7,7 +7,7 @@ import {Blurhash} from 'react-blurhash'
 
 import {clipPathInset} from '../lib/utils/helpers'
 import {urlFor} from '~/lib/sanity/helpers'
-import {ImageAsset, ArticleDocument} from '~/lib/sanity/types'
+import {ArticleDocument, ExtendedImageAsset} from '~/lib/sanity/types'
 
 interface BannerSizeImage {
   scale: number
@@ -85,7 +85,7 @@ const banners = [
   {
     key: `mobile`,
     width: 1200,
-    height: 600,
+    height: 250,
     className: `block md:hidden`,
   },
   {
@@ -104,11 +104,11 @@ const Banner = () => {
   const isHome = pathname === '/'
   const matches = useMatches()
   const [bannerSize, setBannerSize]: [BannerSize, any] = useState({})
-  const [bannerImage, setBannerImage]: [ImageAsset | null, any] = useState(null)
+  const [bannerImage, setBannerImage]: [ExtendedImageAsset | null, any] = useState(null)
   const [showBanner, setShowBanner] = useState({desktop: false, mobile: false})
   const {width: windowWidth} = useWindowSize()
 
-  function updateBannerSize() {
+  const updateBannerSize = useCallback(() => {
     if (!windowWidth) return
 
     const newSize = getNewBannerSize(isHome, windowWidth)
@@ -116,7 +116,7 @@ const Banner = () => {
     if (newSize) {
       setBannerSize(newSize)
     }
-  }
+  }, [isHome, windowWidth])
 
   if (firstRender) {
     updateBannerSize()
@@ -131,7 +131,7 @@ const Banner = () => {
       )?.data
 
       if (thisPathData) {
-        const image: ImageAsset =
+        const image: ExtendedImageAsset =
           pathname === '/'
             ? thisPathData?.articles.find((article: ArticleDocument) => article.image).image
             : thisPathData?.initialData[0]?.image
@@ -146,12 +146,10 @@ const Banner = () => {
   // Update banner size on resize
   useEffect(() => {
     if (typeof document !== 'undefined') {
-      window.addEventListener('resize', () => updateBannerSize())
+      window.addEventListener('resize', updateBannerSize)
     }
 
-    // return typeof document === 'undefined'
-    //   ? null
-    //   : window.removeEventListener('resize', updateBannerSize())
+    return () => window.removeEventListener('resize', updateBannerSize)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -160,8 +158,6 @@ const Banner = () => {
     updateBannerSize()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname, windowWidth])
-
-  // if (!windowWidth) return null
 
   return (
     <motion.div
@@ -184,9 +180,9 @@ const Banner = () => {
           transition={{duration: firstAnimation ? 0 : 0.33}}
         >
           {bannerImage && (
-            <AnimatePresence>
+            <div>
               {banners.map((banner) => (
-                <React.Fragment key={banner.key}>
+                <div key={banner.key}>
                   {bannerImage?.asset?.metadata?.blurHash && (
                     <div
                       className={`${banner.className} max-w-screen absolute inset-0 overflow-hidden object-cover`}
@@ -206,7 +202,7 @@ const Banner = () => {
                     key={[banner.key, bannerImage?.asset?._id].join('-')}
                     src={urlFor(bannerImage).height(banner.height).width(banner.width).toString()}
                     alt={bannerImage?.altText ?? ``}
-                    className={`${banner.className} absolute inset-0 min-h-screen object-cover`}
+                    className={`${banner.className} absolute inset-0 h-full object-cover md:min-h-screen`}
                     height={banner.height}
                     width={banner.width}
                     initial={{opacity: 0}}
@@ -215,9 +211,9 @@ const Banner = () => {
                     exit={{opacity: 0}}
                     onLoad={() => setShowBanner({...showBanner, [banner.key]: true})}
                   />
-                </React.Fragment>
+                </div>
               ))}
-            </AnimatePresence>
+            </div>
           )}
         </motion.div>
       )}

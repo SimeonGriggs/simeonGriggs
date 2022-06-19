@@ -25,17 +25,19 @@ export const meta: MetaFunction = ({parentsData}) => {
 //   return [{ rel: "stylesheet", href: stylesUrl }];
 // };
 
-export const loader: LoaderFunction = async () => {
-  const blogArticles: ArticleDocument[] = await getClient(false).fetch(homeQuery)
-  // const articles = [{_id: 'yeah'}]
+export const loader: LoaderFunction = async ({request}) => {
+  // Put site in preview mode if the right query param is used
+  const requestUrl = new URL(request.url)
+  const preview = requestUrl.searchParams.get(`preview`) === process.env.SANITY_PREVIEW_SECRET
 
-  const sanityArticles: ArticleDocument[] = await communityClient.fetch(
-    communityQuery,
-    communityParams
-  )
+  const articlesUnsorted = await Promise.all<ArticleDocument[][]>([
+    await getClient(preview).fetch(homeQuery),
+    await communityClient.fetch(communityQuery, communityParams),
+  ])
 
-  const articles = [...blogArticles, ...sanityArticles]
-    .filter((article) => article.published)
+  const articles = articlesUnsorted
+    .flat()
+    .filter((article) => article?.published)
     .sort((a, b) => new Date(b.published) - new Date(a.published))
 
   return {articles}
