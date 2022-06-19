@@ -1,7 +1,7 @@
 import React, {useState, useEffect, useCallback} from 'react'
 import {useMatches} from '@remix-run/react'
 import {useLocation} from 'react-router-dom'
-import {AnimatePresence, motion} from 'framer-motion'
+import {motion} from 'framer-motion'
 import {useWindowSize} from 'usehooks-ts'
 import {Blurhash} from 'react-blurhash'
 
