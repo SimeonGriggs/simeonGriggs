@@ -1,7 +1,7 @@
 import imageUrlBuilder from '@sanity/image-url'
 import {PortableText as SanityPortableText} from '@portabletext/react'
 
-import type {ArticleDocument, Block} from './types'
+import type {ArticleDocument, TalkDocument, Block} from './types'
 import {config} from './config'
 import {portableTextComponents} from './portableTextComponents'
 
@@ -34,7 +34,10 @@ export function PortableText({value, comments}: {value: Block[]; comments: boole
 //   return data
 // }
 
-export function filterDataToSingleItem(data: ArticleDocument[], preview = false) {
+export function filterDataToSingleItem(
+  data: ArticleDocument[] | TalkDocument[],
+  preview = false
+): ArticleDocument | TalkDocument {
   if (!Array.isArray(data)) {
     return data
   }
