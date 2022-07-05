@@ -15,11 +15,15 @@ export default function TypeGallery(props: TypeGalleryProps) {
   }
 
   return (
-    <div className="prose md:prose-lg dark:prose-dark prose-blue my-4 md:my-8">
+    <div className="prose md:prose-lg dark:prose-dark prose-blue my-4 max-w-none md:my-8">
       {images.map((photo: ExtendedImageAsset) => (
         <p key={photo._id} className="-mx-4">
           {photo.url ? (
-            <a href={`${photo.url}?dl=1`} title="Click to Download">
+            <a
+              href={`${photo.url}?dl=1`}
+              title="Click to Download"
+              className="flex items-center justify-center"
+            >
               <TypeImage value={photo} />
             </a>
           ) : (

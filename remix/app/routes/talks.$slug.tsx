@@ -1,21 +1,19 @@
 import {useState} from 'react'
-import type {MetaFunction, LoaderFunction, ActionFunction} from '@remix-run/node'
-import {redirect} from '@remix-run/node'
+import type {MetaFunction, LoaderFunction} from '@remix-run/node'
 import {useLoaderData} from '@remix-run/react'
 
 import {filterDataToSingleItem} from '~/lib/sanity/helpers'
-import {articleQuery} from '~/lib/sanity/queries'
+import {talkQuery} from '~/lib/sanity/queries'
 import {getClient} from '~/lib/sanity/getClient'
 import {removeTrailingSlash} from '~/lib/utils/helpers'
 
 import Published from '~/components/Published'
-import Label from '~/components/Label'
 import Preview from '~/components/Preview'
 import ProseableText from '~/components/ProseableText'
 import TableOfContents from '~/components/TableOfContents'
-import {ArticleDocument, CommentDocument} from '~/lib/sanity/types'
-import {createComment} from '~/lib/sanity/createComment'
+import {TalkDocument} from '~/lib/sanity/types'
 import Subscribe from '~/components/Subscribe'
+import TypeVideo from '~/components/PortableText/TypeVideo'
 
 export const handle = `article`
 
@@ -25,7 +23,7 @@ export const meta: MetaFunction = ({
   location,
 }: {
   data: {
-    initialData: ArticleDocument[]
+    initialData: TalkDocument[]
     preview: boolean
   }
   parentsData: any
@@ -34,13 +32,13 @@ export const meta: MetaFunction = ({
   const {siteMeta} = parentsData?.root ?? {}
 
   const {initialData, preview} = data ?? {}
-  const article = filterDataToSingleItem(initialData, preview)
+  const talk = filterDataToSingleItem(initialData, preview)
 
-  if (!article?.title) {
-    return {title: `Article not found`}
+  if (!talk?.title) {
+    return {title: `Talk not found`}
   }
 
-  const {title, summary, image, _updatedAt} = article
+  const {title, image, summary, _updatedAt} = talk
 
   const canonical = removeTrailingSlash(siteMeta?.siteUrl + location.pathname)
   const canonicalMetaImage = new URL(removeTrailingSlash(`${canonical}/meta-image`))
@@ -89,39 +87,6 @@ export const meta: MetaFunction = ({
   }
 }
 
-// export const links: LinksFunction = () => {
-//   return [{rel: 'canonical', href: `hmm`}]
-// }
-
-export const action: ActionFunction = async ({request}) => {
-  const body = await request.formData()
-
-  // Basic honeypot check
-  if (body?.get(`validation`)) {
-    return null
-  }
-
-  const {pathname} = new URL(request.url)
-
-  const comment: CommentDocument = {
-    _type: 'comment',
-    content: body?.get(`content`) ? String(body.get(`content`)) : null,
-    name: body?.get(`name`) ? String(body.get(`name`)) : null,
-    commentKey: body?.get(`_key`) ? String(body.get(`_key`)) : null,
-    email: body?.get(`email`) ? String(body.get(`email`)) : null,
-    commentOn: {
-      _type: `reference`,
-      _ref: body?.get(`_id`) ? String(body.get(`_id`)) : null,
-    },
-  }
-
-  const data = await createComment(comment)
-  const {transactionId} = data
-  const redirectPath = `${pathname}?transactionId=${transactionId}`
-
-  return redirect(redirectPath)
-}
-
 // Runs server side
 export const loader: LoaderFunction = async (props) => {
   const {request, params} = props
@@ -129,11 +94,7 @@ export const loader: LoaderFunction = async (props) => {
   // Put site in preview mode if the right query param is used
   const requestUrl = new URL(request.url)
   const preview = requestUrl.searchParams.get(`preview`) === process.env.SANITY_PREVIEW_SECRET
-
-  // Or if a new comment has been posted, query the API for fresh data
-  const newComment = Boolean(requestUrl.searchParams.get(`transactionId`))
-
-  const initialData = await getClient(preview || newComment).fetch(articleQuery, params)
+  const initialData = await getClient(preview).fetch(talkQuery, params)
 
   if (!initialData || !initialData.length) {
     throw new Response(`Not Found`, {
@@ -144,21 +105,21 @@ export const loader: LoaderFunction = async (props) => {
   return {
     initialData,
     preview,
-    query: preview ? articleQuery : ``,
+    query: preview ? talkQuery : ``,
     params: preview ? params : {},
   }
 }
 
 // Runs client side
-export default function Article() {
+export default function Talk() {
   const {initialData, preview} = useLoaderData()
   const [data, setData] = useState(initialData)
 
   // The query may return more than one document, eg, a draft and published version
   // If preview is enabled, get the draft, otherwise, get the published
-  const article = filterDataToSingleItem(data, preview)
+  const talk = filterDataToSingleItem(data, preview)
 
-  const {title, summary, content, published, updated, comments} = article ?? {}
+  const {title, content, video, eventDate} = talk ?? {}
 
   return (
     <>
@@ -170,9 +131,6 @@ export default function Article() {
               {title}
             </h1>
           ) : null}
-          {summary ? (
-            <p className="font-mono text-lg dark:text-blue-100 md:leading-8">{summary}</p>
-          ) : null}
         </div>
       </header>
       <aside className="relative col-span-6 row-start-2 mb-4 md:col-span-3 md:col-start-3 md:row-start-2 md:mb-0 lg:col-span-3 lg:col-start-5">
@@ -183,8 +141,9 @@ export default function Article() {
         ) : null}
       </aside>
       <section className="col-span-6 row-start-3 mt-6 flex flex-col gap-y-4 pb-24 md:row-start-2 md:mt-0 md:gap-y-8 lg:col-span-8 lg:col-start-8">
-        {published ? <Published updated={updated} published={published} /> : null}
-        {content?.length > 0 ? <ProseableText blocks={content} comments={comments} /> : null}
+        {eventDate ? <Published published={eventDate} /> : null}
+        {video?.url ? <TypeVideo value={video} /> : null}
+        {content?.length > 0 ? <ProseableText blocks={content} /> : null}
         <Subscribe />
       </section>
     </>

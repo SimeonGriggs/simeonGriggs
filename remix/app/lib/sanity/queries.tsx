@@ -25,7 +25,7 @@ export const articleQuery = groq`*[_type == "article" && slug.current == $slug]{
           "talks": *[_type == "talk" && defined(slug.current)]|order(eventDate desc){
             _id,
             title,
-            // slug,
+            slug,
             event,
             eventDate,
             location,
@@ -53,6 +53,7 @@ export const articleQuery = groq`*[_type == "article" && slug.current == $slug]{
 
 export const talkQuery = groq`*[_type == "talk" && slug.current == $slug]{
     ...,
+    "summary": pt::text(content),
     image {
       ${extendedImageAsset}
     },

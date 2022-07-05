@@ -104,6 +104,7 @@ function Document({children, title}: {children: React.ReactNode; title?: string}
         <link rel="icon" href="/favicon.png" type="image/png" />
         <link rel="canonical" href={canonical} />
         <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+        {typeof document === 'undefined' ? '__STYLES__' : null}
         <Meta />
         <Links />
       </head>
@@ -147,6 +148,17 @@ export default function App() {
   const shouldShowBanner =
     typeof document !== 'undefined' &&
     !matches.some((match: any) => [`meta-image`, `talk-index`].includes(match.handle))
+
+  const {pathname} = useLocation()
+  const isStudio = pathname.startsWith('/studio')
+
+  if (isStudio) {
+    return (
+      <Document>
+        <Outlet />
+      </Document>
+    )
+  }
 
   return (
     <Document>

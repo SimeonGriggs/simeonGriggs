@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import {
   JoystickIcon,
   ImageIcon,
@@ -8,30 +7,26 @@ import {
   RemoveIcon,
   PackageIcon,
 } from '@sanity/icons'
+import {Rule} from 'sanity'
 
-const CodeRender = (props) => {
-  const {children, style: element = 'span'} = props
+// const CodeRender = (props) => {
+//   const {children, style: element = 'span'} = props
 
-  return React.createElement(
-    element,
-    {
-      style: {
-        display: `block`,
-        backgroundColor: `#efefef`,
-        padding: `1rem`,
-        overflowX: element === `pre` ? `scroll` : `auto`,
-        fontFamily:
-          'JetBrains Mono,ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace',
-      },
-    },
-    children ?? element
-  )
-}
-
-CodeRender.propTypes = {
-  children: PropTypes.string.isRequired,
-  style: PropTypes.string.isRequired,
-}
+//   return React.createElement(
+//     element,
+//     {
+//       style: {
+//         display: `block`,
+//         backgroundColor: `#efefef`,
+//         padding: `1rem`,
+//         overflowX: element === `pre` ? `scroll` : `auto`,
+//         fontFamily:
+//           'JetBrains Mono,ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace',
+//       },
+//     },
+//     children ?? element
+//   )
+// }
 
 export default {
   name: 'portableText',
@@ -49,16 +44,16 @@ export default {
         {
           title: 'Pre',
           value: 'pre',
-          blockEditor: {
-            render: CodeRender,
-          },
+          // blockEditor: {
+          //   render: CodeRender,
+          // },
         },
         {
           title: 'Code',
           value: 'code',
-          blockEditor: {
-            render: CodeRender,
-          },
+          // blockEditor: {
+          //   render: CodeRender,
+          // },
         },
       ],
       lists: [
@@ -82,7 +77,7 @@ export default {
                 title: 'URL',
                 name: 'href',
                 type: 'url',
-                validation: (Rule) =>
+                validation: (Rule: Rule) =>
                   Rule.uri({
                     scheme: ['http', 'https', 'mailto', 'tel'],
                   }),
@@ -102,7 +97,6 @@ export default {
     {
       type: 'reference',
       name: 'gallery',
-      title: 'Gallery',
       icon: CreditCardIcon,
       to: [{type: 'media.tag'}],
     },

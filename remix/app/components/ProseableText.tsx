@@ -4,7 +4,7 @@ import {Block, CommentDocument} from '~/lib/sanity/types'
 
 type ProseableTextProps = {
   blocks: Block[]
-  comments?: CommentDocument[]
+  comments?: CommentDocument[] | false
 }
 
 /**
@@ -57,13 +57,15 @@ export default function ProseableText(props: ProseableTextProps) {
         group[0]._type === 'block' ? (
           <div
             key={group[0]._key}
-            className="prose md:prose-lg dark:prose-dark prose-blue my-4 md:my-8"
+            className="prose md:prose-lg dark:prose-dark prose-blue selection:bg-pink-100 selection:text-pink-900 dark:selection:bg-pink-800 dark:selection:text-pink-100"
           >
-            {group.length > 0 ? <PortableText value={group} comments /> : null}
+            {group.length > 0 ? <PortableText value={group} comments={Boolean(comments)} /> : null}
           </div>
         ) : (
           <React.Fragment key={group[0]._key}>
-            {group.length > 0 ? <PortableText key={group[0]._key} value={group} comments /> : null}
+            {group.length > 0 ? (
+              <PortableText key={group[0]._key} value={group} comments={Boolean(comments)} />
+            ) : null}
           </React.Fragment>
         )
       )}

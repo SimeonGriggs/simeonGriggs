@@ -30,9 +30,11 @@ export interface ArticleDocument {
 
 export interface TalkDocument {
   _id: string
+  _updatedAt: string
   slug: {
     current: string
   }
+  summary: string
   event?: string
   title?: string
   eventDate?: string

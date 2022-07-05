@@ -1,0 +1,15 @@
+{
+  "extends": ["@sanity/eslint-config-studio", "prettier"],
+  "plugins": ["prettier"],
+  "rules": {
+    "prettier/prettier": [
+      "error",
+      {
+        "semi": false,
+        "printWidth": 100,
+        "bracketSpacing": false,
+        "singleQuote": true
+      }
+    ]
+  }
+}

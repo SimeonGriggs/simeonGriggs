@@ -1,8 +1,11 @@
-import React from 'react'
+import {defineType, defineField, Rule} from 'sanity'
 
-export default {
+import HeroIcon from '../../components/HeroIcon'
+
+export default defineType({
   name: 'article',
   title: 'Article',
+  icon: HeroIcon,
   type: 'document',
   orderings: [
     {
@@ -12,26 +15,26 @@ export default {
     },
   ],
   fields: [
-    {
+    defineField({
       name: `unlisted`,
       type: `boolean`,
       initialValue: false,
-    },
-    {
+    }),
+    defineField({
       name: 'title',
       type: 'string',
-      validation: (Rule) => Rule.required(),
-    },
-    {
+      validation: (Rule: Rule) => Rule.required(),
+    }),
+    defineField({
       name: 'slug',
       type: 'slug',
       options: {source: 'title'},
-      validation: (Rule) => Rule.required(),
-    },
-    {
+      validation: (Rule: Rule) => Rule.required(),
+    }),
+    defineField({
       name: 'published',
       type: 'date',
-      hidden: ({document}) => document?.unlisted,
+      hidden: (props) => Boolean(props?.document?.unlisted),
       validation: (Rule) =>
         Rule.custom((value, {document}) => {
           if (document?.unlisted) {
@@ -40,13 +43,13 @@ export default {
 
           return value ? true : 'Published date is required'
         }),
-    },
-    {
+    }),
+    defineField({
       name: 'updated',
       type: 'date',
-      hidden: ({document}) => document?.unlisted,
-    },
-    {
+      hidden: (props) => Boolean(props?.document?.unlisted),
+    }),
+    defineField({
       name: 'summary',
       type: 'text',
       rows: 2,
@@ -58,18 +61,18 @@ export default {
 
           return value ? true : 'Summary is required'
         }),
-    },
-    {
+    }),
+    defineField({
       name: 'content',
       type: 'portableText',
-    },
-    {
+    }),
+    defineField({
       name: 'image',
       type: 'image',
       validation: (Rule) => Rule.required(),
       options: {hotspot: true},
-    },
-    {type: 'seo', name: 'seo', title: 'SEO'},
+    }),
+    defineField({type: 'seo', name: 'seo', title: 'SEO'}),
   ],
   preview: {
     select: {
@@ -78,4 +81,4 @@ export default {
       media: 'image',
     },
   },
-}
+})
