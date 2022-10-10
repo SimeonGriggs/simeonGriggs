@@ -4,7 +4,6 @@ import type {PortableTextTypeComponentProps} from '@portabletext/react'
 
 import {sanityImageObjectExtendedZ} from '~/types/image'
 import SanityImage from '~/components/SanityImage'
-import type {SanityImageObjectStub} from '@sanity/asset-utils'
 import {baseTypedObjectZ} from '~/types/block'
 
 export const typedObjectImageZ = baseTypedObjectZ
