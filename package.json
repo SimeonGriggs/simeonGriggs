@@ -1,0 +1,59 @@
+{
+  "private": true,
+  "sideEffects": false,
+  "scripts": {
+    "build": "npm run build:css && remix build",
+    "build:css": "tailwindcss -m -i ./styles/app.css -o app/styles/app.css",
+    "dev": "concurrently \"npm run dev:css\" \"remix dev\"",
+    "dev:css": "tailwindcss -w -i ./styles/app.css -o app/styles/app.css",
+    "lint": "eslint . --fix"
+  },
+  "dependencies": {
+    "@headlessui/react": "^1.7.2",
+    "@heroicons/react": "^2.0.11",
+    "@portabletext/react": "^1.0.6",
+    "@remix-run/node": "^1.7.0",
+    "@remix-run/react": "^1.7.0",
+    "@remix-run/serve": "^1.7.0",
+    "@sanity/asset-utils": "^1.3.0",
+    "@sanity/code-input": "^3.0.0-v3-studio.9",
+    "@sanity/groq-store": "^0.4.1",
+    "@sanity/image-url": "^1.0.1",
+    "@tailwindcss/aspect-ratio": "^0.4.2",
+    "blurhash": "^1.1.5",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "get-youtube-id": "^1.0.1",
+    "groq": "^2.33.2",
+    "prism-react-renderer": "^1.3.5",
+    "react": "^18.2.0",
+    "react-blurhash": "^0.1.3",
+    "react-dom": "^18.2.0",
+    "remix-utils": "^3.3.0",
+    "sanity": "^3.0.0-dev-preview.21",
+    "sanity-plugin-iframe-pane": "^2.0.0",
+    "sanity-plugin-media": "^2.0.0-v3-studio.1",
+    "styled-components": "^5.3.5",
+    "tailwindcss-fraction-widths": "^0.0.3",
+    "zod": "^3.19.1"
+  },
+  "devDependencies": {
+    "@remix-run/dev": "^1.7.0",
+    "@remix-run/eslint-config": "^1.7.0",
+    "@tailwindcss/typography": "^0.5.7",
+    "@types/react": "^18.0.15",
+    "@types/react-dom": "^18.0.6",
+    "@types/styled-components": "^5.1.26",
+    "autoprefixer": "^10.4.11",
+    "concurrently": "^7.4.0",
+    "eslint": "^8.20.0",
+    "postcss": "^8.4.17",
+    "prettier": "^2.7.1",
+    "prettier-plugin-tailwindcss": "^0.1.13",
+    "tailwindcss": "^3.1.8",
+    "typescript": "^4.7.4"
+  },
+  "engines": {
+    "node": ">=16"
+  }
+}
