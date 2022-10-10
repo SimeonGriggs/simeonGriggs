@@ -42,33 +42,9 @@ a {
 }
 
 @font-face {
-  font-family: "Inter";
-  font-weight: theme("fontWeight.normal");
-  font-display: swap;
-  src: url("/fonts/Inter-Regular.woff2");
-}
-
-@font-face {
-  font-family: "Inter";
-  font-weight: theme("fontWeight.normal");
-  font-style: italic;
-  font-display: swap;
-  src: url("/fonts/Inter-Italic.woff2");
-}
-
-@font-face {
-  font-family: "Inter";
-  font-weight: theme("fontWeight.black");
-  font-display: swap;
-  src: url("/fonts/Inter-ExtraBold.woff2");
-}
-
-@font-face {
-  font-family: "Inter";
-  font-weight: theme("fontWeight.black");
-  font-style: italic;
-  font-display: swap;
-  src: url("/fonts/Inter-ExtraBoldItalic.woff2");
+  font-family: "Supreme";
+  font-weight: theme("fontWeight.normal") theme("fontWeight.extrabold");
+  src: url("/fonts/Supreme-Variable.woff2");
 }
 
 .button {
