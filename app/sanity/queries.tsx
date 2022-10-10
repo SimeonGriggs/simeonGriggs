@@ -14,11 +14,21 @@ const sanityImageObjectStub = groq`
   hotspot,
   asset->{${sanityImageObjectStubAsset}}`
 
-export const siteMetaQuery = groq`*[_id == "siteMeta"][0]`
+export const siteMetaQuery = groq`*[_id == "siteMeta"][0]{
+  author,
+  bio,
+  description,
+  siteUrl,
+  title
+}`
 
 export const articleQuery = groq`*[_type == "article" && slug.current == $slug]{
   _id,
   title,
+  slug,
+  published,
+  updated,
+  summary,
   image { ${sanityImageObjectStub} },
   "tableOfContents": content[style in ["h2", "h3"]],
   content[] {

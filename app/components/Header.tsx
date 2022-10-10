@@ -1,22 +1,17 @@
-/* eslint-disable react/jsx-filename-extension */
-
 import {Link} from '@remix-run/react'
 
 import Twitter from '~/components/Twitter'
 import GitHub from '~/components/GitHub'
 import ThemeToggle from '~/components/ThemeToggle'
-
-interface SiteMeta {
-  title: string
-}
+import type {SiteMeta} from '~/types/siteMeta'
 
 const menuClasses =
   'fixed text-sm z-30 inset-0 bottom-auto md:bottom-0 md:right-auto md:w-1/12 lg:w-1/16 flex items-center justify-center'
 export const buttonClasses =
   'flex items-center justify-center p-1 w-7 h-7 md:w-10 md:h-10 text-blue-500 rounded-full bg-white hover:bg-blue-900 hover:text-white'
 
-const Header = ({siteMeta}: {siteMeta: SiteMeta}) => {
-  const {title} = siteMeta ?? {}
+const Header = (props: SiteMeta) => {
+  const {title} = props
 
   return (
     <header className={menuClasses}>

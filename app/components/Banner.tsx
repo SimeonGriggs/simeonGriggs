@@ -1,4 +1,5 @@
 import React, {useState, useEffect, useCallback} from 'react'
+import type {RouteMatch} from '@remix-run/react'
 import {useMatches} from '@remix-run/react'
 import {useLocation} from 'react-router-dom'
 import {motion} from 'framer-motion'
@@ -6,19 +7,21 @@ import {useWindowSize} from 'usehooks-ts'
 import {Blurhash} from 'react-blurhash'
 
 import {clipPathInset} from '../lib/utils/helpers'
-import {urlFor} from '~/lib/sanity/helpers'
-import type {ArticleDocument, ExtendedImageAsset} from '~/lib/sanity/types'
+import {urlFor} from '~/sanity/helpers'
+import type {SanityImageObjectStub} from '@sanity/asset-utils'
+import type {Article} from '~/types/article'
+import type {CombinedStubs} from '~/types/stubs'
 
-interface BannerSizeImage {
+type BannerSizeImage = {
   scale: number
   x: number
 }
 
-interface BannerSizeWrapper {
+type BannerSizeWrapper = {
   clipPath: string
 }
 
-interface BannerSize {
+type BannerSize = {
   image?: BannerSizeImage
   wrapper?: BannerSizeWrapper
 }
@@ -103,8 +106,8 @@ const Banner = () => {
   const {pathname} = useLocation()
   const isHome = pathname === '/'
   const matches = useMatches()
-  const [bannerSize, setBannerSize]: [BannerSize, any] = useState({})
-  const [bannerImage, setBannerImage]: [ExtendedImageAsset | null, any] = useState(null)
+  const [bannerSize, setBannerSize] = useState<BannerSize>({})
+  const [bannerImage, setBannerImage] = useState<SanityImageObjectStub | undefined>(undefined)
   const [showBanner, setShowBanner] = useState({desktop: false, mobile: false})
   const {width: windowWidth} = useWindowSize()
 
@@ -126,19 +129,19 @@ const Banner = () => {
   // Set initial banner
   useEffect(() => {
     if (matches.length) {
-      const thisPathData = matches.find((match: any) =>
-        pathname === '/' ? match.handle === 'home' : match.handle === 'article'
-      )?.data
+      const thisPathData = matches.find((match: RouteMatch) =>
+        pathname === `/` ? match.id === `routes/index` : match.pathname === pathname
+      )
 
-      if (thisPathData) {
-        const image: ExtendedImageAsset =
-          pathname === '/'
-            ? thisPathData?.articles.find((article: ArticleDocument) => article.image).image
-            : thisPathData?.initialData[0]?.image
+      if (thisPathData?.data?.articles) {
+        const articles: CombinedStubs = thisPathData.data.articles
+        const firstBlogPostWithImage = articles.find((b) => b.source === 'blog' && Boolean(b.image))
 
-        if (image) {
-          setBannerImage(image)
+        if (firstBlogPostWithImage?.source === 'blog' && Boolean(firstBlogPostWithImage.image)) {
+          setBannerImage(firstBlogPostWithImage.image)
         }
+      } else if (thisPathData?.data?.article?.image) {
+        setBannerImage(thisPathData.data.article.image)
       }
     }
   }, [matches, pathname])
@@ -161,13 +164,13 @@ const Banner = () => {
 
   return (
     <motion.div
-      initial={{...bannerSize.wrapper, opacity: 0}}
+      initial={{opacity: 0}}
       animate={{...bannerSize.wrapper, opacity: 1}}
       transition={{duration: firstAnimation ? 0 : 0.33}}
       onAnimationComplete={() => {
         if (firstAnimation) firstAnimation = false
       }}
-      className={`pointer-events-none z-10 h-32 w-screen origin-top-left bg-red-500 opacity-0 md:h-screen ${
+      className={`pointer-events-none top-0 z-10 h-32 w-screen origin-top-left bg-red-500 opacity-0 md:h-screen ${
         isHome ? `fixed` : `absolute md:fixed`
       }`}
     >

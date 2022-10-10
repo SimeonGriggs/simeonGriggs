@@ -8,6 +8,11 @@ import styles from '~/styles/app.css'
 import type {CombinedStubs} from '~/types/stubs'
 import {articleStubsZ, exchangeStubsZ} from '~/types/stubs'
 import SanityImage from '~/components/SanityImage'
+import HomeBlog from '~/components/HomeBlog'
+import HomeCommunity from '~/components/HomeCommunity'
+import HomeTitle from '~/components/HomeTitle'
+
+export const handle = `home`
 
 export const links: LinksFunction = () => {
   return [{rel: 'stylesheet', href: styles}]
@@ -44,38 +49,23 @@ export default function Index() {
   const {articles} = useLoaderData<LoaderData>()
 
   return (
-    <div className="grid grid-cols-1 gap-4 p-12">
-      <h1 className="mb-6 text-2xl font-bold">Welcome to Remix with Sanity Studio v3</h1>
-      {articles.length > 0 ? (
-        <>
-          {articles.map((article) => {
-            switch (article.source) {
-              case 'blog':
-                return (
-                  <article className="bg-blue-500 p-4 text-white" key={article._id}>
-                    <SanityImage width={100} height={100} asset={article.image} />
-                    <Link to={article.slug.current}>{article.title}</Link>
-                    <br />
-                  </article>
-                )
-              case 'exchange':
-                return (
-                  <article className="bg-orange-500 p-4 text-white" key={article._id}>
-                    <a
-                      href={`https://www.sanity.io/guides/${article.slug.current}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {article.title}
-                    </a>
-                  </article>
-                )
-              default:
-                return null
-            }
-          })}
-        </>
-      ) : null}
-    </div>
+    <section className="grid grid-cols-1 px-6 md:grid-cols-12 md:px-0 lg:grid-cols-16">
+      <div className="flex flex-col gap-y-12 md:col-span-6 md:col-start-6 md:gap-y-24 md:py-48 lg:col-span-8 lg:col-start-8 ">
+        <HomeTitle title="Hello, internet!" wave />
+
+        {articles.length > 0
+          ? articles.map((article) => {
+              switch (article.source) {
+                case 'blog':
+                  return <HomeBlog key={article._id} {...article} />
+                case 'exchange':
+                  return <HomeCommunity key={article._id} {...article} />
+                default:
+                  return null
+              }
+            })
+          : null}
+      </div>
+    </section>
   )
 }

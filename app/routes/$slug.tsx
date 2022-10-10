@@ -13,6 +13,8 @@ import TableOfContents from '~/components/TableOfContents'
 import {filterDataToSingleItem} from '~/sanity/helpers'
 // import SanityImage from '~/components/SanityImage'
 
+export const handle = `article`
+
 export const links: LinksFunction = () => {
   return [{rel: 'stylesheet', href: styles}]
 }
@@ -41,19 +43,30 @@ export default function Index() {
 
   const {
     title,
+    summary,
     tableOfContents,
     content,
     // image
   } = article
 
   return (
-    <div className="flex flex-col md:flex-row">
-      <div className="w-full p-12 md:w-1/3">
+    <div className="mt-32 grid grid-cols-1 gap-12 px-6 md:mt-0 md:grid-cols-12 md:gap-0 md:px-0 lg:grid-cols-16">
+      <div className="grid-col-1 grid gap-12 pt-12 md:col-span-8 md:col-start-3 md:py-24 lg:col-span-8 lg:col-start-5">
+        {title ? (
+          <h1 className="text-4xl font-black leading-none tracking-tighter text-blue-500 md:text-6xl">
+            {title}
+          </h1>
+        ) : null}
+        {summary ? (
+          <p className="font-mono leading-relaxed md:text-lg md:leading-loose">{summary}</p>
+        ) : null}
+      </div>
+      <div className="md:col-span-2 md:col-start-3 md:row-start-2 lg:col-span-3 lg:col-start-5">
         {tableOfContents && tableOfContents?.length > 0 ? (
           <TableOfContents value={tableOfContents} />
         ) : null}
       </div>
-      <div className="w-full p-12 md:w-2/3">
+      <div className="md:col-span-6 md:col-start-6 md:row-start-2 lg:col-span-7 lg:col-start-9">
         {/* <p>Only width, 100</p>
         <SanityImage asset={image} width={100} />
         <br />
@@ -67,7 +80,6 @@ export default function Index() {
         <SanityImage asset={image} /> */}
         {content && content?.length > 0 ? (
           <div className="prose prose-xl prose-blue">
-            <h1>{title}</h1>
             <PortableText value={content} />
           </div>
         ) : null}

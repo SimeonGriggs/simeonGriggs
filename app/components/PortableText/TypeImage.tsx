@@ -18,7 +18,7 @@ export default function TypeImage(props: PortableTextTypeComponentProps<TypedObj
   const value = useMemo(() => typedObjectImageZ.parse(props.value), [props.value])
 
   return (
-    <p className="not-prose relative -mx-4 border-gray-200 dark:border-blue-700 md:border">
+    <p className="not-prose relative -mx-4 border-t border-b border-gray-200 dark:border-blue-700 md:border">
       {value?.asset ? (
         <SanityImage asset={value.asset} width={800} alt={value?.asset?.altText || ''} />
       ) : null}

@@ -11,7 +11,7 @@ export default function TableOfContents(props: TableOfContentsProps) {
 
   return (
     <>
-      <ul className="sticky top-12 grid grid-cols-1 gap-y-4 font-mono text-xs">
+      <ul className="sticky top-12 grid grid-cols-1 gap-y-4 font-mono text-xs lg:pr-12">
         <Label>Table of Contents</Label>
         {value.map((heading) => (
           <li key={heading._key}>

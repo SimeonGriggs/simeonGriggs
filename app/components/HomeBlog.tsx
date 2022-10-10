@@ -1,31 +1,30 @@
-import React from 'react'
 import {Link} from '@remix-run/react'
 
-import type {ArticleDocument} from '~/lib/sanity/types'
 import Published from '~/components/Published'
+import type {ArticleStub} from '~/types/stubs'
 
-export default function HomeBlog({article}: {article: ArticleDocument}) {
+export default function HomeBlog(props: ArticleStub) {
+  const {slug, title, published, updated, summary} = props
+
   return (
     <article className="grid grid-cols-1 gap-y-4">
       <h2 className="text-3xl font-black tracking-tighter text-blue-500 md:text-4xl md:leading-none">
-        {article?.slug?.current ? (
+        {slug?.current ? (
           <Link
-            to={`/${article.slug.current}`}
+            to={`/${slug.current}`}
             prefetch="intent"
             className="block hover:bg-blue-500 hover:text-white"
           >
-            {article.title}
+            {title}
           </Link>
         ) : (
-          <>{article?.title}</>
+          <>{title}</>
         )}
       </h2>
-      {article?.published ? (
-        <Published updated={article?.updated} published={article.published} />
-      ) : null}
-      {article?.summary ? (
+      {published ? <Published updated={updated ?? undefined} published={published} /> : null}
+      {summary ? (
         <div className="prose prose-lg prose-blue dark:prose-dark">
-          <p>{article.summary}</p>
+          <p>{summary}</p>
         </div>
       ) : null}
     </article>

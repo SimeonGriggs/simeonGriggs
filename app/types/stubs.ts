@@ -12,7 +12,7 @@ export const articleStubZ = z.object({
   summary: z.string().nullable(),
   published: z.string().nullable(),
   updated: z.string().nullable(),
-  image: sanityImageObjectExtendedZ,
+  image: sanityImageObjectExtendedZ.nullable(),
 })
 
 export type ArticleStub = z.infer<typeof articleStubZ>

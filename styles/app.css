@@ -47,6 +47,13 @@ a {
   src: url("/fonts/Supreme-Variable.woff2");
 }
 
+@font-face {
+  font-family: "Supreme";
+  font-weight: theme("fontWeight.normal") theme("fontWeight.extrabold");
+  font-style: italic;
+  src: url("/fonts/Supreme-VariableItalic.woff2");
+}
+
 .button {
   @apply inline-flex scale-100 cursor-pointer
     items-center justify-center whitespace-nowrap
