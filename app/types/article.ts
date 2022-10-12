@@ -6,6 +6,7 @@ import {slugZ} from './slug'
 
 export const articleZ = z.object({
   _id: z.string(),
+  _updatedAt: z.string(),
   slug: slugZ,
   published: z.string().nullable(),
   updated: z.string().nullable(),

@@ -30,6 +30,7 @@ export const loader: LoaderFunction = async ({request}) => {
       .then((result) => exchangeStubsZ.parse(result)),
   ])
 
+  // Sort combined articles by date
   const sortedArticles = allArticles
     .flat()
     .sort((a, b) =>
@@ -37,6 +38,14 @@ export const loader: LoaderFunction = async ({request}) => {
         ? new Date(b.published).getTime() - new Date(a.published).getTime()
         : 0
     )
+
+  // If a `blog` post isn't the first one, move it to the top
+  const firstBlogPostIndex = sortedArticles.findIndex((article) => article.source === `blog`)
+  if (firstBlogPostIndex !== 0) {
+    const firstBlogPost = sortedArticles[firstBlogPostIndex]
+    sortedArticles.splice(firstBlogPostIndex, 1)
+    sortedArticles.unshift(firstBlogPost)
+  }
 
   return json({articles: sortedArticles})
 }

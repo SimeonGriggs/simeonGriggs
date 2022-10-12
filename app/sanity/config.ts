@@ -3,20 +3,28 @@ import {deskTool} from 'sanity/desk'
 import {codeInput} from '@sanity/code-input'
 
 import {schemaTypes} from './schema'
-import {media} from 'sanity-plugin-media'
+import {defaultDocumentNode, structure} from './structure'
+// import {media} from 'sanity-plugin-media'
 
-export const projectDetails = () => ({
-  projectId:
-    typeof document === 'undefined' ? process.env.SANITY_PROJECT_ID : window?.ENV?.projectId,
-  dataset: typeof document === 'undefined' ? process.env.SANITY_DATASET : window?.ENV?.dataset,
-  apiVersion:
-    typeof document === 'undefined' ? process.env.SANITY_API_VERSION : window?.ENV?.apiVersion,
-})
+export const projectDetails = () => {
+  const {SANITY_PROJECT_ID, SANITY_DATASET, SANITY_API_VERSION} =
+    typeof document === 'undefined' ? process.env : window.ENV
+
+  return {
+    projectId: SANITY_PROJECT_ID ?? `az8av6xl`,
+    dataset: SANITY_DATASET ?? `production`,
+    apiVersion: SANITY_API_VERSION ?? `2022-09-23`,
+  }
+}
 
 export const config = createConfig({
+  name: 'simeonGriggs',
   ...projectDetails(),
   plugins: [
-    deskTool(),
+    deskTool({
+      structure,
+      defaultDocumentNode,
+    }),
     codeInput(),
     // media()
   ],

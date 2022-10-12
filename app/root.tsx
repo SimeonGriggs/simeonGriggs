@@ -52,14 +52,20 @@ export default function App() {
         <Links />
         {isStudioRoute && typeof document === 'undefined' ? '__STYLES__' : null}
       </head>
-      <body className="min-h-screen">
-        <Header {...siteMeta} />
-        <Grid />
-        <Banner />
-        <PortableTextComponentsProvider components={components}>
+      <body className="min-h-screen bg-white dark:bg-blue-900">
+        {isStudioRoute ? (
           <Outlet />
-        </PortableTextComponentsProvider>
-        <ScrollRestoration />
+        ) : (
+          <>
+            <Header {...siteMeta} />
+            <Grid />
+            <Banner />
+            <PortableTextComponentsProvider components={components}>
+              <Outlet />
+            </PortableTextComponentsProvider>
+            <ScrollRestoration />
+          </>
+        )}
         <script
           dangerouslySetInnerHTML={{
             __html: `window.ENV = ${JSON.stringify(ENV)}`,

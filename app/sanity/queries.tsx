@@ -23,6 +23,7 @@ export const siteMetaQuery = groq`*[_id == "siteMeta"][0]{
 }`
 
 export const articleQuery = groq`*[_type == "article" && slug.current == $slug]{
+  _updatedAt,
   _id,
   title,
   slug,

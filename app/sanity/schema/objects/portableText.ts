@@ -93,11 +93,11 @@ export default {
     {type: 'break', icon: RemoveIcon},
     {type: 'codeSandbox', icon: PackageIcon},
     {type: 'object', name: 'talks', fields: [{name: 'thing', type: 'string'}], icon: JoystickIcon},
-    {
-      type: 'reference',
-      name: 'gallery',
-      icon: CreditCardIcon,
-      to: [{type: 'media.tag'}],
-    },
+    // {
+    //   type: 'reference',
+    //   name: 'gallery',
+    //   icon: CreditCardIcon,
+    //   to: [{type: 'media.tag'}],
+    // },
   ],
 }

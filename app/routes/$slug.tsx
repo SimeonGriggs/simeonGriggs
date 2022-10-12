@@ -1,4 +1,4 @@
-import type {LinksFunction, LoaderFunction} from '@remix-run/node'
+import type {LinksFunction, LoaderFunction, MetaFunction} from '@remix-run/node'
 import {useLoaderData} from '@remix-run/react'
 import {json} from '@remix-run/node'
 import {PortableText} from '@portabletext/react'
@@ -10,7 +10,9 @@ import styles from '~/styles/app.css'
 import type {Article} from '~/types/article'
 import {articlesZ} from '~/types/article'
 import TableOfContents from '~/components/TableOfContents'
-import {filterDataToSingleItem} from '~/sanity/helpers'
+import {filterDataToSingleItem, urlFor} from '~/sanity/helpers'
+import {removeTrailingSlash} from '~/lib/utils/helpers'
+import type {SiteMeta} from '~/types/siteMeta'
 // import SanityImage from '~/components/SanityImage'
 
 export const handle = `article`
@@ -38,6 +40,73 @@ type LoaderData = {
   article: Awaited<Article>
 }
 
+export const meta: MetaFunction = ({
+  data,
+  parentsData,
+  location,
+}: {
+  data: {
+    article: Article
+    preview: boolean
+  }
+  parentsData: {
+    root: {
+      siteMeta: SiteMeta
+    }
+  }
+  location: any
+}) => {
+  const {siteMeta} = parentsData?.root ?? {}
+
+  const {article, preview} = data ?? {}
+
+  if (!article?.title) {
+    return {title: `Article not found`}
+  }
+
+  // Create meta image
+  const {_updatedAt, title, summary, image, published, updated} = article
+
+  const ogImageUrl = new URL(`https://og-simeongriggs.vercel.app/api/og`)
+  ogImageUrl.searchParams.set(`title`, title ?? ``)
+  ogImageUrl.searchParams.set(`published`, published ?? ``)
+  ogImageUrl.searchParams.set(`updated`, updated ?? ``)
+  ogImageUrl.searchParams.set(`_updatedAt`, _updatedAt)
+  const imageWidth = 400
+  const imageHeight = 630
+  const imageUrl = urlFor(image).width(imageWidth).height(imageHeight).toString()
+  ogImageUrl.searchParams.set(`imageUrl`, imageUrl)
+
+  const imageMeta = image
+    ? {
+        'og:image:width': 1200,
+        'og:image:height': imageHeight,
+        'og:image': ogImageUrl.toString(),
+      }
+    : {}
+
+  // SEO Meta
+  const pageTitle = `${title} | ${siteMeta?.title}`
+  const canonicalUrl = new URL(siteMeta.siteUrl ?? window.location.origin)
+  canonicalUrl.pathname = article.slug.current
+  const canonical = removeTrailingSlash(canonicalUrl.toString())
+
+  return {
+    title: pageTitle,
+    canonical,
+    description: summary,
+    'twitter:card': 'summary_large_image',
+    'twitter:creator': siteMeta?.author,
+    'twitter:title': pageTitle,
+    'twitter:description': summary,
+    'og:url': canonical,
+    'og:title': pageTitle,
+    'og:description': summary,
+    'og:type': 'website',
+    ...imageMeta,
+  }
+}
+
 export default function Index() {
   const {article} = useLoaderData<LoaderData>()
 
@@ -58,7 +127,9 @@ export default function Index() {
           </h1>
         ) : null}
         {summary ? (
-          <p className="font-mono leading-relaxed md:text-lg md:leading-loose">{summary}</p>
+          <p className="max-w-xl font-mono leading-relaxed md:text-lg md:leading-loose">
+            {summary}
+          </p>
         ) : null}
       </div>
       <div className="md:col-span-2 md:col-start-3 md:row-start-2 lg:col-span-3 lg:col-start-5">
@@ -67,17 +138,6 @@ export default function Index() {
         ) : null}
       </div>
       <div className="md:col-span-6 md:col-start-6 md:row-start-2 lg:col-span-7 lg:col-start-9">
-        {/* <p>Only width, 100</p>
-        <SanityImage asset={image} width={100} />
-        <br />
-        <p>Only height, 200</p>
-        <SanityImage asset={image} height={200} />
-        <br />
-        <p>Height + Width, 400x100</p>
-        <SanityImage asset={image} width={400} height={100} />
-        <br />
-        <p>No height or width</p>
-        <SanityImage asset={image} /> */}
         {content && content?.length > 0 ? (
           <div className="prose prose-xl prose-blue">
             <PortableText value={content} />
