@@ -22,17 +22,19 @@ export const sanityImageHotspotZ = schemaForType<SanityImageHotspot>()(
   })
 )
 
+export const sanityImageZ = z.object({
+  _id: z.string(),
+  _type: z.string(),
+  altText: z.string().nullable(),
+  description: z.string().nullable(),
+  metadata: z.object({
+    blurHash: z.string().nullable(),
+  }),
+})
+
 // Reused a lot through queries
 export const sanityImageObjectExtendedZ = z.object({
-  asset: z.object({
-    _id: z.string(),
-    _type: z.string(),
-    altText: z.string().nullable(),
-    description: z.string().nullable(),
-    metadata: z.object({
-      blurHash: z.string().nullable(),
-    }),
-  }),
+  asset: sanityImageZ.nullable(),
   // GROQ may return null for these
   // But our type requires them to be undefined if they don't exist
   crop: sanityImageCropZ.nullable().transform((v) => v ?? undefined),

@@ -15,29 +15,10 @@ import {removeTrailingSlash} from '~/lib/utils/helpers'
 import type {SiteMeta} from '~/types/siteMeta'
 // import SanityImage from '~/components/SanityImage'
 
-export const handle = `article`
+export const handle = {id: `article`}
 
 export const links: LinksFunction = () => {
   return [{rel: 'stylesheet', href: styles}]
-}
-
-export const loader: LoaderFunction = async ({params}) => {
-  // Put site in preview mode if the right query param is used
-  // const requestUrl = new URL(request.url)
-  // const preview = requestUrl.searchParams.get(`preview`) === process.env.SANITY_PREVIEW_SECRET
-
-  const articles = await client
-    .fetch(articleQuery, params)
-    .then((result) => articlesZ.parse(result))
-
-  // TODO: Re-add preview mode
-  const article = filterDataToSingleItem(articles, false)
-
-  return json({article})
-}
-
-type LoaderData = {
-  article: Awaited<Article>
 }
 
 export const meta: MetaFunction = ({
@@ -58,7 +39,7 @@ export const meta: MetaFunction = ({
 }) => {
   const {siteMeta} = parentsData?.root ?? {}
 
-  const {article, preview} = data ?? {}
+  const {article} = data ?? {}
 
   if (!article?.title) {
     return {title: `Article not found`}
@@ -107,19 +88,32 @@ export const meta: MetaFunction = ({
   }
 }
 
+export const loader: LoaderFunction = async ({params}) => {
+  // Put site in preview mode if the right query param is used
+  // const requestUrl = new URL(request.url)
+  // const preview = requestUrl.searchParams.get(`preview`) === process.env.SANITY_PREVIEW_SECRET
+
+  const articles = await client
+    .fetch(articleQuery, params)
+    .then((result) => articlesZ.parse(result))
+
+  // TODO: Re-add preview mode
+  const article = filterDataToSingleItem(articles, false)
+
+  return json({article})
+}
+
+type LoaderData = {
+  article: Awaited<Article>
+}
+
 export default function Index() {
   const {article} = useLoaderData<LoaderData>()
 
-  const {
-    title,
-    summary,
-    tableOfContents,
-    content,
-    // image
-  } = article
+  const {title, summary, tableOfContents, content} = article
 
   return (
-    <div className="mt-32 grid grid-cols-1 gap-12 px-6 md:mt-0 md:grid-cols-12 md:gap-0 md:px-0 lg:grid-cols-16">
+    <div className="my-32 grid grid-cols-1 gap-12 px-4 md:mt-0 md:grid-cols-12 md:gap-0 md:px-0 lg:grid-cols-16">
       <div className="grid-col-1 grid gap-12 pt-12 md:col-span-8 md:col-start-3 md:py-24 lg:col-span-8 lg:col-start-5">
         {title ? (
           <h1 className="text-4xl font-black leading-none tracking-tighter text-blue-500 md:text-6xl">

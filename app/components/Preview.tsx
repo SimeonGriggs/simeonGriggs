@@ -8,7 +8,7 @@ import {usePreviewSubscription} from '~/lib/sanity/usePreviewSubscription'
 export default function Preview({data, setData}: {data: any; setData: any}) {
   const {pathname} = useLocation()
   const matches = useMatches()
-  const {query, params} = matches.find((match) => match.handle === 'article')?.data ?? {}
+  const {query, params} = matches.find((match) => match?.handle?.id === 'article')?.data ?? {}
 
   const {data: previewData} = usePreviewSubscription(query, {
     params,

@@ -49,14 +49,12 @@ export const articleQuery = groq`*[_type == "article" && slug.current == $slug]{
               url
             },
             image { ${sanityImageObjectStub} },
-            // content
           }
         },
         _type == "gallery" => {
-          "images": *[_type == "sanity.imageAsset" && references(^._ref)] {
-              _id,
-              url,
-              "asset": { ${sanityImageObjectStub} }
+          "images": *[_type == "sanity.imageAsset" && references(^._ref)]{
+            url,
+            ${sanityImageObjectStubAsset}
           }
         }
     },
@@ -73,6 +71,7 @@ export const homeQuery = groq`*[_type == "article" && defined(slug.current) && u
   {
     "source": "blog",
     _id,
+    _updatedAt,
     title,
     slug,
     published,

@@ -8,7 +8,7 @@ const inputClasses = `border bg-white dark:bg-blue-800 border-blue-500 dark:bord
 
 export default function CommentForm({_key, closeDialog}: {_key: string; closeDialog: Function}) {
   const matches = useMatches()
-  const {_id} = matches.find((match) => match.handle === `article`)?.data.initialData[0]
+  const {_id} = matches.find((match) => match?.handle?.id === `article`)?.data.initialData[0]
 
   return (
     <Dialog open onClose={() => closeDialog()} className="fixed inset-0 z-30 overflow-y-auto">

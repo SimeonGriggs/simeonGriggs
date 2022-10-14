@@ -22,6 +22,8 @@ import {siteMetaQuery} from '~/sanity/queries'
 import type {SiteMeta} from '~/types/siteMeta'
 import {siteMetaZ} from '~/types/siteMeta'
 
+export const handle = {id: `root`}
+
 export const meta: MetaFunction = () => ({
   charset: 'utf-8',
   title: 'New Remix + Sanity Studio v3 App',

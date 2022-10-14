@@ -2,23 +2,34 @@ import React from 'react'
 import {Link} from '@remix-run/react'
 import {LinkIcon} from '@heroicons/react/24/solid'
 
-import TypeImage from './PortableText/TypeImage'
-import type {TalkDocument} from '~/lib/sanity/types'
+import type {Talk} from '~/types/talk'
 import Published from '~/components/Published'
-import TypeVideo from './PortableText/TypeVideo'
+import SanityImage from './SanityImage'
+import Video from './Video'
 
-export default function Talk(props: TalkDocument) {
+export default function TalkCard(props: Talk) {
   const {slug, image, title, event, eventDate, location, link, video} = props
   const clickableLink = link ?? video?.url
 
   return (
-    <article>
-      {video?.url ? <TypeVideo value={video} /> : null}
+    <article className="not-prose">
+      {video?.url ? <Video url={video.url} title={title ?? ``} /> : null}
       <div className="-mx-4 grid grid-cols-6 gap-y-4 border-b border-blue-100 py-4 dark:border-blue-800 lg:grid-cols-8">
         <div className="col-span-3 -ml-4 md:ml-0 lg:col-span-3">
-          {image ? <TypeImage width={800} value={image} /> : null}
+          {image?.asset && image?.asset?._id ? (
+            <SanityImage
+              width={800}
+              // TODO: Figure out why this type doesn't satisfy
+              // asset={image}
+              asset={{
+                asset: {...image.asset},
+                crop: image.crop,
+                hotspot: image.hotspot,
+              }}
+            />
+          ) : null}
         </div>
-        <div className="col-span-6 flex flex-col gap-y-2 md:col-span-4 md:p-4 lg:col-span-5">
+        <div className="col-span-6 flex flex-col gap-y-2 p-4 md:col-span-4 lg:col-span-5">
           <h3 className="text-2xl font-black tracking-tighter text-blue-500 md:text-2xl md:leading-none">
             {slug?.current ? (
               <Link
