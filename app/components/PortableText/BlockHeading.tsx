@@ -1,9 +1,10 @@
 import React from 'react'
-import type {PortableTextBlockComponent} from '@portabletext/react'
+import type {PortableTextBlockComponent, PortableTextComponentProps} from '@portabletext/react'
 import {useCopyToClipboard} from 'usehooks-ts'
 
 import {scrollableKey} from '~/lib/utils/scrollableId'
 import {LinkIcon} from '@heroicons/react/24/outline'
+import type {TypedObjectBlock} from '~/types/block'
 
 function createCanonicalWithId(hash: string) {
   if (typeof document === 'undefined') {
@@ -33,17 +34,18 @@ function BlockHeadingButton(props: BlockHeadingButtonProps) {
   )
 }
 
-export default function BlockHeading(props: PortableTextBlockComponent) {
+export default function BlockHeading(props: PortableTextComponentProps<TypedObjectBlock>) {
   const {children, value} = props
 
   const id = scrollableKey(value._key)
 
-  switch (props.node.style) {
+  switch (props.value.style) {
     case 'h2':
       return (
         <h2 id={id} className="relative pr-10">
           <BlockHeadingButton id={id} />
           {children}
+          {/* {renderNode(children)} */}
         </h2>
       )
     case 'h3':
@@ -51,10 +53,11 @@ export default function BlockHeading(props: PortableTextBlockComponent) {
         <h3 id={id} className="relative pr-10">
           <BlockHeadingButton id={id} />
           {children}
+          {/* {renderNode(children)} */}
         </h3>
       )
 
     default:
-      return null
+      return undefined
   }
 }

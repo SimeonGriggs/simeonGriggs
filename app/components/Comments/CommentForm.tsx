@@ -1,14 +1,30 @@
-import {Form, useMatches} from '@remix-run/react'
+import {useFetcher, useMatches} from '@remix-run/react'
 import {Dialog} from '@headlessui/react'
+import {XCircleIcon} from '@heroicons/react/24/outline'
 
 import Button from '../Button'
 import Label from '../Label'
+import {useEffect} from 'react'
 
 const inputClasses = `border bg-white dark:bg-blue-800 border-blue-500 dark:border-white focus:border-blue-600 focus:outline-none focus:bg-blue-50 dark:focus:bg-blue-900 p-2 w-full`
 
-export default function CommentForm({_key, closeDialog}: {_key: string; closeDialog: Function}) {
+type CommentFormProps = {
+  _key: string
+  closeDialog: () => void
+}
+
+export default function CommentForm(props: CommentFormProps) {
+  const {_key, closeDialog} = props
   const matches = useMatches()
-  const {_id} = matches.find((match) => match?.handle?.id === `article`)?.data.initialData[0]
+  const {article} = matches.find((match) => match?.handle?.id === `article`)?.data || {}
+  const {_id} = article || {}
+  const fetcher = useFetcher()
+
+  useEffect(() => {
+    if (fetcher.type === 'done') {
+      closeDialog()
+    }
+  }, [closeDialog, fetcher.type])
 
   return (
     <Dialog open onClose={() => closeDialog()} className="fixed inset-0 z-30 overflow-y-auto">
@@ -22,13 +38,13 @@ export default function CommentForm({_key, closeDialog}: {_key: string; closeDia
             className="float-right rounded-full p-2 text-blue-500 focus:bg-white focus:text-blue-500 dark:text-white dark:focus:bg-blue-500"
             title="Close"
           >
-            {/* <XIcon className="h-auto w-8" /> */}
+            <XCircleIcon className="h-auto w-8" />
             <span className="sr-only">Close</span>
           </button>
           <p className="mb-4">
             If you found this post confusing, helpful, neither or both, let me know!
           </p>
-          <Form method="post" className="grid grid-cols-1 gap-4">
+          <fetcher.Form method="post" className="grid grid-cols-1 gap-4">
             <input className="sr-only" type="hidden" name="_id" value={_id} />
             <input className="sr-only" type="hidden" name="_key" value={_key} />
             <input
@@ -64,8 +80,10 @@ export default function CommentForm({_key, closeDialog}: {_key: string; closeDia
                 className={inputClasses}
               />
             </div>
-            <Button type="submit">Post Comment</Button>
-          </Form>
+            <Button disabled={fetcher.state !== 'idle'} type="submit">
+              Post Comment
+            </Button>
+          </fetcher.Form>
         </div>
       </div>
     </Dialog>

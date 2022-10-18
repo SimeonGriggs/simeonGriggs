@@ -58,7 +58,7 @@ export const articleQuery = groq`*[_type == "article" && slug.current == $slug]{
           }
         }
     },
-    "comments": *[_type == "comment" && references(^._id)]
+    "comments": *[_type == "comment" && references(^._id)].commentKey
   }`
 
 export const talkQuery = groq`*[_type == "talk" && slug.current == $slug]{

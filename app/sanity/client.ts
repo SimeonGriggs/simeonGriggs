@@ -7,6 +7,11 @@ export const client = new SanityClient({
   useCdn: process.env.NODE_ENV === 'production',
 })
 
+export const writeClient = new SanityClient({
+  ...projectDetails(),
+  token: process.env.SANITY_API_TOKEN,
+})
+
 export const exchangeClient = new SanityClient({
   ...projectDetails(),
   projectId: `81pocpw8`,

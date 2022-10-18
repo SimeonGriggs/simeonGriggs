@@ -13,7 +13,7 @@ module.exports = {
     // Overrides
     fontFamily: {
       mono: ['JetBrains Mono', ...defaultTheme.fontFamily.mono],
-      sans: ['Supreme', ...defaultTheme.fontFamily.sans],
+      sans: ['Inter var', ...defaultTheme.fontFamily.sans],
     },
     // Extensions
     extend: {

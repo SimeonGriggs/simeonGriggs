@@ -9,7 +9,7 @@ const Subscribe = () => (
     </h3>
     <p className="mb-6 text-lg">Subscribe for updates. Not spam.</p>
 
-    <script defer src="https://f.convertkit.com/ckjs/ck.5.js" />
+    {/* <script defer src="https://f.convertkit.com/ckjs/ck.5.js" /> */}
     <form
       action="https://app.convertkit.com/forms/1465609/subscriptions"
       className=""

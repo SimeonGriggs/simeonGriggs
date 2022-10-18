@@ -9,7 +9,7 @@
     "lint": "eslint . --fix"
   },
   "dependencies": {
-    "@headlessui/react": "^1.7.2",
+    "@headlessui/react": "^1.7.3",
     "@heroicons/react": "^2.0.11",
     "@portabletext/react": "^1.0.6",
     "@remix-run/node": "^1.7.0",

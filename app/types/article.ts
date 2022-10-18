@@ -1,6 +1,7 @@
 import {z} from 'zod'
 
 import {typedObjectZ} from './block'
+import {commentKeyZ} from './comment'
 import {sanityImageObjectExtendedZ} from './image'
 import {slugZ} from './slug'
 
@@ -15,7 +16,7 @@ export const articleZ = z.object({
   image: sanityImageObjectExtendedZ,
   tableOfContents: z.array(typedObjectZ).nullable(),
   content: z.array(typedObjectZ).nullable(),
-  // comments?: CommentDocument[]
+  comments: z.array(commentKeyZ).nullable(),
 })
 
 export const articlesZ = z.array(articleZ)

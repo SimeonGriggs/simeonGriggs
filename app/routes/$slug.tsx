@@ -1,10 +1,11 @@
-import type {LinksFunction, LoaderFunction, MetaFunction} from '@remix-run/node'
+import type {ActionFunction, LinksFunction, LoaderFunction, MetaFunction} from '@remix-run/node'
+import {redirect} from '@remix-run/node'
 import {useLoaderData} from '@remix-run/react'
 import {json} from '@remix-run/node'
 import {PortableText} from '@portabletext/react'
 
 import {articleQuery} from '~/sanity/queries'
-import {client} from '~/sanity/client'
+import {client, writeClient} from '~/sanity/client'
 
 import styles from '~/styles/app.css'
 import type {Article} from '~/types/article'
@@ -13,6 +14,9 @@ import TableOfContents from '~/components/TableOfContents'
 import {filterDataToSingleItem, urlFor} from '~/sanity/helpers'
 import {removeTrailingSlash} from '~/lib/utils/helpers'
 import type {SiteMeta} from '~/types/siteMeta'
+import Subscribe from '~/components/Subscribe'
+import {CommentsProvider} from '~/components/Comments/CommentsContext'
+import {commentZ} from '~/types/comment'
 // import SanityImage from '~/components/SanityImage'
 
 export const handle = {id: `article`}
@@ -88,6 +92,33 @@ export const meta: MetaFunction = ({
   }
 }
 
+export const action: ActionFunction = async ({request}) => {
+  const body = await request.formData()
+
+  // Basic honeypot check
+  if (body?.get(`validation`)) {
+    return null
+  }
+
+  const {pathname} = new URL(request.url)
+
+  const comment = commentZ.parse({
+    _type: 'comment',
+    content: String(body.get(`content`)),
+    name: String(body.get(`name`)),
+    commentKey: String(body.get(`_key`)),
+    email: String(body.get(`email`)),
+    commentOn: {
+      _type: `reference`,
+      _ref: String(body.get(`_id`)),
+    },
+  })
+
+  const data = await writeClient.create(comment).then((res) => res)
+
+  return data
+}
+
 export const loader: LoaderFunction = async ({params}) => {
   // Put site in preview mode if the right query param is used
   // const requestUrl = new URL(request.url)
@@ -110,7 +141,7 @@ type LoaderData = {
 export default function Index() {
   const {article} = useLoaderData<LoaderData>()
 
-  const {title, summary, tableOfContents, content} = article
+  const {title, summary, tableOfContents, content, comments} = article
 
   return (
     <div className="my-32 grid grid-cols-1 gap-12 px-4 md:mt-0 md:grid-cols-12 md:gap-0 md:px-0 lg:grid-cols-16">
@@ -134,9 +165,17 @@ export default function Index() {
       <div className="md:col-span-6 md:col-start-6 md:row-start-2 lg:col-span-7 lg:col-start-9">
         {content && content?.length > 0 ? (
           <div className="prose prose-xl prose-blue">
-            <PortableText value={content} />
+            {comments && comments?.length > 1 ? (
+              <CommentsProvider comments={comments}>
+                <PortableText value={content} />
+              </CommentsProvider>
+            ) : (
+              <PortableText value={content} />
+            )}
           </div>
         ) : null}
+
+        <Subscribe />
       </div>
     </div>
   )
