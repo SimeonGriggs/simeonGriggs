@@ -164,7 +164,7 @@ export default function Index() {
       </div>
       <div className="md:col-span-6 md:col-start-6 md:row-start-2 lg:col-span-7 lg:col-start-9">
         {content && content?.length > 0 ? (
-          <div className="prose prose-xl prose-blue">
+          <div className="prose prose-xl prose-blue dark:prose-invert">
             {comments && comments?.length > 1 ? (
               <CommentsProvider comments={comments}>
                 <PortableText value={content} />

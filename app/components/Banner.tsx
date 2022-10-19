@@ -170,7 +170,7 @@ const Banner = () => {
       onAnimationComplete={() => {
         if (firstAnimation) firstAnimation = false
       }}
-      className={`pointer-events-none top-0 z-10 h-32 w-screen origin-top-left bg-red-500 opacity-0 md:h-screen ${
+      className={`pointer-events-none top-0 z-10 h-32 w-screen origin-top-left opacity-0 md:h-screen ${
         isHome ? `fixed` : `absolute md:fixed`
       }`}
     >

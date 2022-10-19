@@ -11,7 +11,6 @@ export default function ThemeToggle() {
 
   return (
     <cookieToggle.Form method="post" action="/action/toggle-theme">
-      <input type="hidden" name="themePreference" value={isDarkMode ? `light` : `dark`} />
       <button
         type="submit"
         className={buttonClasses}
@@ -22,7 +21,7 @@ export default function ThemeToggle() {
         ) : (
           <MoonIcon className="h-auto w-full md:w-5" />
         )}
-        <div className="sr-only">{isDarkMode ? `Light` : `Dark`} Mode</div>
+        <div className="sr-only select-none">{isDarkMode ? `Light` : `Dark`} Mode</div>
       </button>
     </cookieToggle.Form>
   )

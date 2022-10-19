@@ -2343,6 +2343,11 @@ pre[class*="language-"] {
   background-color: rgb(191 190 254 / var(--tw-bg-opacity));
 }
 
+.bg-blue-900 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(1 0 20 / var(--tw-bg-opacity));
+}
+
 .object-cover {
   -o-object-fit: cover;
      object-fit: cover;
@@ -2604,6 +2609,10 @@ pre[class*="language-"] {
   transition-duration: 75ms;
 }
 
+.duration-100 {
+  transition-duration: 100ms;
+}
+
 .ease-out {
   transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
 }
@@ -2711,6 +2720,25 @@ pre[class*="language-"] {
   opacity: 1;
 }
 
+.dark .dark\:prose-invert {
+  --tw-prose-body: var(--tw-prose-invert-body);
+  --tw-prose-headings: var(--tw-prose-invert-headings);
+  --tw-prose-lead: var(--tw-prose-invert-lead);
+  --tw-prose-links: var(--tw-prose-invert-links);
+  --tw-prose-bold: var(--tw-prose-invert-bold);
+  --tw-prose-counters: var(--tw-prose-invert-counters);
+  --tw-prose-bullets: var(--tw-prose-invert-bullets);
+  --tw-prose-hr: var(--tw-prose-invert-hr);
+  --tw-prose-quotes: var(--tw-prose-invert-quotes);
+  --tw-prose-quote-borders: var(--tw-prose-invert-quote-borders);
+  --tw-prose-captions: var(--tw-prose-invert-captions);
+  --tw-prose-code: var(--tw-prose-invert-code);
+  --tw-prose-pre-code: var(--tw-prose-invert-pre-code);
+  --tw-prose-pre-bg: var(--tw-prose-invert-pre-bg);
+  --tw-prose-th-borders: var(--tw-prose-invert-th-borders);
+  --tw-prose-td-borders: var(--tw-prose-invert-td-borders);
+}
+
 .dark .dark\:prose-dark {
   color: #fafaff;
 }
@@ -2757,6 +2785,11 @@ pre[class*="language-"] {
   background-color: rgb(1 0 20 / 0.9);
 }
 
+.dark .dark\:bg-blue-700 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(5 2 151 / var(--tw-bg-opacity));
+}
+
 .dark .dark\:text-blue-100 {
   --tw-text-opacity: 1;
   color: rgb(240 240 255 / var(--tw-text-opacity));
@@ -2775,6 +2808,11 @@ pre[class*="language-"] {
 .dark .dark\:text-blue-600 {
   --tw-text-opacity: 1;
   color: rgb(7 3 216 / var(--tw-text-opacity));
+}
+
+.dark .dark\:text-blue-500 {
+  --tw-text-opacity: 1;
+  color: rgb(37 34 252 / var(--tw-text-opacity));
 }
 
 .dark .dark\:hover\:text-white:hover {

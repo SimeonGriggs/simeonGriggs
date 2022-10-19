@@ -20,11 +20,11 @@ export default function BlockNormal(props: any) {
         type="button"
         onClick={() => setOpen(open ? `` : _key)}
         className={`absolute right-0 top-0 hidden h-full translate-x-full items-center justify-center rounded transition-all duration-75 ease-in-out group-hover:text-blue-500 dark:text-blue-600 md:flex md:w-1/6 lg:w-1/8 ${
-          commentsCount > 0 ? 'text-blue-400' : 'text-blue-200'
+          commentsCount > 0 ? 'text-blue-400' : 'text-blue-200 dark:text-blue-500'
         }`}
       >
         {commentsCount > 0 ? (
-          <span className="absolute flex h-5 w-5 -translate-y-0 select-none items-center justify-center rounded-full bg-blue-200 text-xs font-bold leading-none text-white transition-transform duration-75 ease-in-out group-hover:-translate-y-2 group-hover:bg-blue-500">
+          <span className="absolute flex h-5 w-5 -translate-y-0 select-none items-center justify-center rounded-full bg-blue-200 text-xs font-bold leading-none text-white transition-transform duration-75 ease-in-out group-hover:-translate-y-2 group-hover:bg-blue-500 dark:bg-blue-700">
             {commentsCount} <span className="sr-only">comments</span>
           </span>
         ) : null}
