@@ -1,10 +1,9 @@
 import type {StructureResolver, DefaultDocumentNodeResolver} from 'sanity/desk'
 import Iframe from 'sanity-plugin-iframe-pane'
 import type {SanityDocumentLike} from 'sanity'
+import type {SanityImageObjectStub} from '@sanity/asset-utils'
+
 import {urlFor} from './helpers'
-import {Article} from '~/types/article'
-import type {SanityImageObjectStub, SanityImageSource} from '@sanity/asset-utils'
-import OGPreview from './components/OGPreview'
 
 export const structure: StructureResolver = (S, context) =>
   S.list()

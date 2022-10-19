@@ -15,6 +15,7 @@ export default defineType({
       by: [{field: 'published', direction: 'desc'}],
     },
   ],
+  fieldsets: [{name: 'dates', title: 'Dates', options: {columns: 2}}],
   fields: [
     defineField({
       name: `unlisted`,
@@ -35,6 +36,7 @@ export default defineType({
     defineField({
       name: 'published',
       type: 'date',
+      fieldset: 'dates',
       hidden: (props) => Boolean(props?.document?.unlisted),
       validation: (Rule) =>
         Rule.custom((value, {document}) => {
@@ -48,6 +50,7 @@ export default defineType({
     defineField({
       name: 'updated',
       type: 'date',
+      fieldset: 'dates',
       hidden: (props) => Boolean(props?.document?.unlisted),
     }),
     defineField({

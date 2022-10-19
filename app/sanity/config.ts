@@ -4,6 +4,7 @@ import {codeInput} from '@sanity/code-input'
 
 import {schemaTypes} from './schema'
 import {defaultDocumentNode, structure} from './structure'
+import {theme} from './theme'
 // import {media} from 'sanity-plugin-media'
 
 export const projectDetails = () => {
@@ -19,6 +20,7 @@ export const projectDetails = () => {
 
 export const config = createConfig({
   name: 'simeonGriggs',
+  theme,
   ...projectDetails(),
   plugins: [
     deskTool({

@@ -64,12 +64,16 @@ export default function HeroIcon({icon = ``}) {
       borderColor: hues[iconData.color][isDarkMode ? 900 : 100].hex,
       borderWidth: 1,
       borderStyle: `solid`,
+      width: `100%`,
+      aspectRatio: `1`,
     }),
     [iconData, isDarkMode]
   )
 
+  console.log(iconData)
+
   return (
-    <Card style={cardStyle} padding={2} radius={2}>
+    <Card style={cardStyle} radius={2} padding={1}>
       {iconData.icon}
     </Card>
   )
