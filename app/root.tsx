@@ -1,5 +1,5 @@
 import {PortableTextComponentsProvider} from '@portabletext/react'
-import type {LoaderFunction, MetaFunction} from '@remix-run/node'
+import type {LinksFunction, LoaderFunction, MetaFunction} from '@remix-run/node'
 import {json} from '@remix-run/node'
 import {
   Links,
@@ -23,13 +23,47 @@ import type {SiteMeta} from '~/types/siteMeta'
 import {siteMetaZ} from '~/types/siteMeta'
 import {themePreferenceCookie} from './cookies'
 
+type LoaderData = {
+  siteMeta: SiteMeta
+  ENV: {[key: string]: string}
+  themePreference?: 'dark' | 'light'
+}
+
 export const handle = {id: `root`}
 
-export const meta: MetaFunction = () => ({
+export const meta: MetaFunction = ({data}: {data: LoaderData}) => ({
   charset: 'utf-8',
   title: 'New Remix + Sanity Studio v3 App',
   viewport: 'width=device-width,initial-scale=1',
+  'theme-color': '#2522fc',
+  'color-scheme': data?.themePreference ?? 'light',
+  type: 'website',
 })
+
+const fonts = [
+  `/fonts/JetBrainsMono-Regular.woff2`,
+  `/fonts/JetBrainsMono-Bold.woff2`,
+  `/fonts/Inter-roman.var.woff2?v=3.19`,
+  `/fonts/Inter-italic.var.woff2?v=3.19`,
+]
+
+export const links: LinksFunction = () => {
+  return [
+    ...fonts.map((href: string) => ({
+      rel: 'preload',
+      as: 'font',
+      href,
+      type: 'font/woff2',
+      // crossOrigin: 'anonymous',
+    })),
+    {
+      rel: 'alternate',
+      type: 'application/rss+xml',
+      href: `/feed.xml`,
+      title: 'XML Feed',
+    },
+  ]
+}
 
 export const loader: LoaderFunction = async ({request}) => {
   // Dark/light mode
@@ -46,12 +80,6 @@ export const loader: LoaderFunction = async ({request}) => {
       NODE_ENV: process.env.NODE_ENV,
     },
   })
-}
-
-type LoaderData = {
-  siteMeta: SiteMeta
-  ENV: {[key: string]: string}
-  themePreference?: 'dark' | 'light'
 }
 
 export default function App() {
