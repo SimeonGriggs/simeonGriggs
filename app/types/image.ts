@@ -4,7 +4,7 @@ import type {SanityImageCrop, SanityImageHotspot} from '@sanity/asset-utils'
 
 export const sanityImageCropZ = schemaForType<SanityImageCrop>()(
   z.object({
-    _type: z.string().optional(),
+    _type: z.literal('sanity.imageCrop'),
     left: z.number(),
     bottom: z.number(),
     right: z.number(),
@@ -14,7 +14,7 @@ export const sanityImageCropZ = schemaForType<SanityImageCrop>()(
 
 export const sanityImageHotspotZ = schemaForType<SanityImageHotspot>()(
   z.object({
-    _type: z.string().optional(),
+    _type: z.literal('sanity.imageHotspot'),
     width: z.number(),
     height: z.number(),
     x: z.number(),

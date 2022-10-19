@@ -1,6 +1,5 @@
-import React, {Fragment, useCallback, useContext, useState} from 'react'
+import React, {useCallback, useContext, useState} from 'react'
 import {ChatBubbleBottomCenterIcon} from '@heroicons/react/24/outline'
-import {Transition} from '@headlessui/react'
 
 import {CommentsContext} from '~/components/Comments/CommentsContext'
 import CommentForm from '~/components/Comments/CommentForm'

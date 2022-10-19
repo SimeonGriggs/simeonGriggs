@@ -48,6 +48,7 @@
     "autoprefixer": "^10.4.11",
     "concurrently": "^7.4.0",
     "eslint": "^8.20.0",
+    "husky": "^8.0.1",
     "postcss": "^8.4.17",
     "prettier": "^2.7.1",
     "prettier-plugin-tailwindcss": "^0.1.13",

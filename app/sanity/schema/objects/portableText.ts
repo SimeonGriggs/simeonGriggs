@@ -1,7 +1,7 @@
 import {
   JoystickIcon,
   ImageIcon,
-  CreditCardIcon,
+  // CreditCardIcon,
   CodeIcon,
   RemoveIcon,
   PackageIcon,

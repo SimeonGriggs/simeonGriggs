@@ -6,10 +6,9 @@ import {motion} from 'framer-motion'
 import {useWindowSize} from 'usehooks-ts'
 import {Blurhash} from 'react-blurhash'
 
-import {clipPathInset} from '../lib/utils/helpers'
+import {clipPathInset} from '~/lib/utils/helpers'
 import {urlFor} from '~/sanity/helpers'
 import type {SanityImageObjectStub} from '@sanity/asset-utils'
-import type {Article} from '~/types/article'
 import type {CombinedStubs} from '~/types/stubs'
 
 type BannerSizeImage = {

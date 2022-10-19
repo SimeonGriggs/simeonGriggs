@@ -1,9 +1,9 @@
 import React from 'react'
-import type {PortableTextBlockComponent, PortableTextComponentProps} from '@portabletext/react'
+import type {PortableTextComponentProps} from '@portabletext/react'
 import {useCopyToClipboard} from 'usehooks-ts'
+import {LinkIcon} from '@heroicons/react/24/outline'
 
 import {scrollableKey} from '~/lib/utils/scrollableId'
-import {LinkIcon} from '@heroicons/react/24/outline'
 import type {TypedObjectBlock} from '~/types/block'
 
 function createCanonicalWithId(hash: string) {

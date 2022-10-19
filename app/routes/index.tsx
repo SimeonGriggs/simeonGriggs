@@ -1,4 +1,4 @@
-import type {LinksFunction, LoaderFunction, MetaFunction} from '@remix-run/node'
+import type {LinksFunction, MetaFunction} from '@remix-run/node'
 import {useLoaderData, useMatches} from '@remix-run/react'
 import {json} from '@remix-run/node'
 
@@ -85,7 +85,7 @@ export const meta: MetaFunction = ({
   }
 }
 
-export const loader: LoaderFunction = async ({request}) => {
+export const loader = async () => {
   // Put site in preview mode if the right query param is used
   // const requestUrl = new URL(request.url)
   // const preview = requestUrl.searchParams.get(`preview`) === process.env.SANITY_PREVIEW_SECRET
@@ -117,12 +117,8 @@ export const loader: LoaderFunction = async ({request}) => {
   return json({articles: sortedArticles})
 }
 
-type LoaderData = {
-  articles: Awaited<CombinedStubs>
-}
-
 export default function Index() {
-  const {articles} = useLoaderData<LoaderData>()
+  const {articles} = useLoaderData<typeof loader>()
   const matches = useMatches()
   const siteMeta: SiteMeta = matches?.find((match) => match?.handle?.id === 'root')?.data?.siteMeta
 

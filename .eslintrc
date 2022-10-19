@@ -4,7 +4,7 @@
     "@remix-run/eslint-config/node",
     "prettier"
   ],
-  "ignorePatterns": ["node_modules", "build", ".cache"],
+  "ignorePatterns": ["node_modules", "build", ".cache", "app/sanity/theme.ts"],
   "plugins": ["prettier"],
   "rules": {
     "prettier/prettier": [

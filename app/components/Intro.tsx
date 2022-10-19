@@ -1,14 +1,16 @@
 import {PortableText} from '@portabletext/react'
 import type {TypedObject} from '@sanity/types'
 
-import {components} from `~/components/PortableText/components`
+import {components} from '~/components/PortableText/components'
 
 type IntroProps = {
   value: TypedObject[]
 }
 
 const componentsWithoutComments = components
-delete componentsWithoutComments.block.normal
+if (componentsWithoutComments?.block?.normal) {
+  delete componentsWithoutComments.block.normal
+}
 
 export default function Intro(props: IntroProps) {
   const {value} = props

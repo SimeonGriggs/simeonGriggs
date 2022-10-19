@@ -1,5 +1,5 @@
-import type {ActionFunction, LinksFunction, LoaderFunction, MetaFunction} from '@remix-run/node'
-import {redirect} from '@remix-run/node'
+import type {ActionFunction, LinksFunction, LoaderArgs, MetaFunction} from '@remix-run/node'
+
 import {useLoaderData} from '@remix-run/react'
 import {json} from '@remix-run/node'
 import {PortableText} from '@portabletext/react'
@@ -17,7 +17,6 @@ import type {SiteMeta} from '~/types/siteMeta'
 import Subscribe from '~/components/Subscribe'
 import {CommentsProvider} from '~/components/Comments/CommentsContext'
 import {commentZ} from '~/types/comment'
-// import SanityImage from '~/components/SanityImage'
 
 export const handle = {id: `article`}
 
@@ -100,8 +99,6 @@ export const action: ActionFunction = async ({request}) => {
     return null
   }
 
-  const {pathname} = new URL(request.url)
-
   const comment = commentZ.parse({
     _type: 'comment',
     content: String(body.get(`content`)),
@@ -119,7 +116,7 @@ export const action: ActionFunction = async ({request}) => {
   return data
 }
 
-export const loader: LoaderFunction = async ({params}) => {
+export const loader = async ({params}: LoaderArgs) => {
   // Put site in preview mode if the right query param is used
   // const requestUrl = new URL(request.url)
   // const preview = requestUrl.searchParams.get(`preview`) === process.env.SANITY_PREVIEW_SECRET
@@ -134,12 +131,8 @@ export const loader: LoaderFunction = async ({params}) => {
   return json({article})
 }
 
-type LoaderData = {
-  article: Awaited<Article>
-}
-
 export default function Index() {
-  const {article} = useLoaderData<LoaderData>()
+  const {article} = useLoaderData<typeof loader>()
 
   const {title, summary, tableOfContents, content, comments} = article
 
