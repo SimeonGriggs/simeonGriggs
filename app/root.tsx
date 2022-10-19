@@ -66,7 +66,7 @@ export default function App() {
       ? window.matchMedia('(prefers-color-scheme: dark)').matches
       : themePreference === `dark`
   const bodyClassNames = [
-    `transition-colors duration-100 ease-out min-h-screen`,
+    `transition-colors duration-1000 ease-in-out min-h-screen`,
     isDarkMode ? `dark bg-blue-900 text-white` : `bg-white`,
   ]
     .join(' ')

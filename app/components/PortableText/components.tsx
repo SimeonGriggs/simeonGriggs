@@ -2,7 +2,9 @@ import type {PortableTextComponents} from '@portabletext/react'
 import BlockHeading from './BlockHeading'
 import BlockNormal from './BlockNormal'
 import MarkLink from './MarkLink'
+import TypeButton from './TypeButton'
 import TypeCode from './TypeCode'
+import TypeCodeSandbox from './TypeCodeSandbox'
 import TypeGallery from './TypeGallery'
 import TypeImage from './TypeImage'
 import TypeTalks from './TypeTalks'
@@ -24,5 +26,7 @@ export const components: PortableTextComponents = {
     talks: TypeTalks,
     video: TypeVideo,
     gallery: TypeGallery,
+    codeSandbox: TypeCodeSandbox,
+    button: TypeButton,
   },
 }
