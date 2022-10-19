@@ -1,5 +1,6 @@
-import React, {useCallback, useContext, useState} from 'react'
+import React, {Fragment, useCallback, useContext, useState} from 'react'
 import {ChatBubbleBottomCenterIcon} from '@heroicons/react/24/outline'
+import {Transition} from '@headlessui/react'
 
 import {CommentsContext} from '~/components/Comments/CommentsContext'
 import CommentForm from '~/components/Comments/CommentForm'
@@ -18,8 +19,8 @@ export default function BlockNormal(props: any) {
       <button
         type="button"
         onClick={() => setOpen(open ? `` : _key)}
-        className={`absolute right-0 top-0 hidden h-full translate-x-full items-center justify-center rounded text-blue-200 transition-all duration-75 ease-in-out group-hover:text-blue-500 group-hover:opacity-100 dark:text-blue-600 md:flex md:w-1/6 lg:w-1/8 ${
-          commentsCount > 0 ? 'opacity-50' : 'opacity-100'
+        className={`absolute right-0 top-0 hidden h-full translate-x-full items-center justify-center rounded transition-all duration-75 ease-in-out group-hover:text-blue-500 dark:text-blue-600 md:flex md:w-1/6 lg:w-1/8 ${
+          commentsCount > 0 ? 'text-blue-400' : 'text-blue-200'
         }`}
       >
         {commentsCount > 0 ? (

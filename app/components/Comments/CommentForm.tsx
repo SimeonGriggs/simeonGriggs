@@ -1,10 +1,10 @@
+import {useEffect} from 'react'
 import {useFetcher, useMatches} from '@remix-run/react'
 import {Dialog} from '@headlessui/react'
 import {XCircleIcon} from '@heroicons/react/24/outline'
 
 import Button from '../Button'
 import Label from '../Label'
-import {useEffect} from 'react'
 
 const inputClasses = `border bg-white dark:bg-blue-800 border-blue-500 dark:border-white focus:border-blue-600 focus:outline-none focus:bg-blue-50 dark:focus:bg-blue-900 p-2 w-full`
 
