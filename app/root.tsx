@@ -127,7 +127,7 @@ export default function App() {
           }}
         />
         <Scripts />
-        {/* <LiveReload /> */}
+        <LiveReload />
       </body>
     </html>
   )
