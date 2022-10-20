@@ -20,6 +20,7 @@ export const projectDetails = () => {
 
 export const config = createConfig({
   name: 'simeonGriggs',
+  title: 'simeonGriggs.dev',
   theme,
   ...projectDetails(),
   plugins: [
