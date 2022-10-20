@@ -15,7 +15,7 @@ export default function BlockNormal(props: PortableTextComponentProps<TypedObjec
   const closeDialog = useCallback(() => setOpen(``), [])
 
   return (
-    <p className="group">
+    <p className="group relative">
       {children}
       <button
         type="button"
