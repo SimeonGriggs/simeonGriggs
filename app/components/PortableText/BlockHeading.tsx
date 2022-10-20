@@ -1,4 +1,3 @@
-import React from 'react'
 import type {PortableTextComponentProps} from '@portabletext/react'
 import {useCopyToClipboard} from 'usehooks-ts'
 import {LinkIcon} from '@heroicons/react/24/outline'
@@ -35,29 +34,31 @@ function BlockHeadingButton(props: BlockHeadingButtonProps) {
 }
 
 export default function BlockHeading(props: PortableTextComponentProps<TypedObjectBlock>) {
-  const {children, value} = props
+  const {value, children} = props
 
-  const id = scrollableKey(value._key)
+  const id = value._key ? scrollableKey(value._key) : undefined
 
   switch (props.value.style) {
     case 'h2':
       return (
         <h2 id={id} className="relative pr-10">
-          <BlockHeadingButton id={id} />
-          {children}
-          {/* {renderNode(children)} */}
+          {id ? <BlockHeadingButton id={id} /> : null}
+          <>{children}</>
         </h2>
       )
     case 'h3':
       return (
         <h3 id={id} className="relative pr-10">
-          <BlockHeadingButton id={id} />
-          {children}
-          {/* {renderNode(children)} */}
+          {id ? <BlockHeadingButton id={id} /> : null}
+          <>{children}</>
         </h3>
       )
 
     default:
-      return undefined
+      return (
+        <p>
+          <>{children}</>
+        </p>
+      )
   }
 }

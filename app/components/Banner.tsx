@@ -5,11 +5,13 @@ import {useLocation} from 'react-router-dom'
 import {motion} from 'framer-motion'
 import {useWindowSize} from 'usehooks-ts'
 import {Blurhash} from 'react-blurhash'
+import type {SanityImageSource} from '@sanity/asset-utils'
 
 import {clipPathInset} from '~/lib/utils/helpers'
 import {urlFor} from '~/sanity/helpers'
-import type {SanityImageObjectStub} from '@sanity/asset-utils'
-import type {CombinedStubs} from '~/types/stubs'
+import type {ArticleStub, ExchangeStub} from '~/types/stubs'
+import {articleStubZ} from '~/types/stubs'
+import {z} from 'zod'
 
 type BannerSizeImage = {
   scale: number
@@ -83,7 +85,7 @@ function getNewBannerSize(useHomeSize = false, windowWidth = 0) {
   return newBannerSize
 }
 
-const banners = [
+const bannerConfigs: BannerConfig[] = [
   {
     key: `mobile`,
     width: 1200,
@@ -98,16 +100,31 @@ const banners = [
   },
 ]
 
-let firstRender = true
-let firstAnimation = true
+const bannerConfigZ = z.object({
+  key: z.union([z.literal(`mobile`), z.literal(`desktop`)]),
+  width: z.number(),
+  height: z.number(),
+  className: z.string(),
+})
+
+type BannerConfig = z.infer<typeof bannerConfigZ>
+
+// const showBannerZ = z.object({
+//   mobile: z.boolean(),
+//   desktop: z.boolean(),
+// })
+
+// type ShowBanner = z.infer<typeof showBannerZ>
 
 const Banner = () => {
   const {pathname} = useLocation()
   const isHome = pathname === '/'
   const matches = useMatches()
   const [bannerSize, setBannerSize] = useState<BannerSize>({})
-  const [bannerImage, setBannerImage] = useState<SanityImageObjectStub | undefined>(undefined)
-  const [showBanner, setShowBanner] = useState({desktop: false, mobile: false})
+  // const [showBanner, setShowBanner] = useState<ShowBanner>({
+  //   desktop: false,
+  //   mobile: false,
+  // })
   const {width: windowWidth} = useWindowSize()
 
   const updateBannerSize = useCallback(() => {
@@ -120,29 +137,26 @@ const Banner = () => {
     }
   }, [isHome, windowWidth])
 
-  if (firstRender) {
-    updateBannerSize()
-    firstRender = false
-  }
+  const bannerImage = React.useMemo<SanityImageSource | null>(() => {
+    const thisPathData = matches.find((match: RouteMatch) =>
+      pathname === `/` ? match.id === `routes/index` : match.pathname === pathname
+    )
 
-  // Set initial banner
-  useEffect(() => {
-    if (matches.length) {
-      const thisPathData = matches.find((match: RouteMatch) =>
-        pathname === `/` ? match.id === `routes/index` : match.pathname === pathname
-      )
-
-      if (thisPathData?.data?.articles) {
-        const articles: CombinedStubs = thisPathData.data.articles
-        const firstBlogPostWithImage = articles.find((b) => b.source === 'blog' && Boolean(b.image))
-
-        if (firstBlogPostWithImage?.source === 'blog' && Boolean(firstBlogPostWithImage.image)) {
-          setBannerImage(firstBlogPostWithImage.image)
-        }
-      } else if (thisPathData?.data?.article?.image) {
-        setBannerImage(thisPathData.data.article.image)
-      }
+    if (!thisPathData?.data) {
+      return null
     }
+
+    if (thisPathData?.data?.article?.image) {
+      return thisPathData.data.article.image
+    }
+
+    const firstBlogPostWithImage = articleStubZ.parse(
+      thisPathData.data.articles.find(
+        (b: ExchangeStub | ArticleStub) => b.source === 'blog' && b.image
+      )
+    )
+
+    return firstBlogPostWithImage?.image ? firstBlogPostWithImage.image : null
   }, [matches, pathname])
 
   // Update banner size on resize
@@ -158,17 +172,16 @@ const Banner = () => {
   // Update banner size when path changes
   useEffect(() => {
     updateBannerSize()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pathname, windowWidth])
+  }, [pathname, windowWidth, updateBannerSize])
 
   return (
     <motion.div
       initial={{opacity: 0}}
       animate={{...bannerSize.wrapper, opacity: 1}}
-      transition={{duration: firstAnimation ? 0 : 0.33}}
-      onAnimationComplete={() => {
-        if (firstAnimation) firstAnimation = false
-      }}
+      transition={{duration: 0.33}}
+      // onAnimationComplete={() => {
+      //   if (firstAnimation) firstAnimation = false
+      // }}
       className={`pointer-events-none top-0 z-10 h-32 w-screen origin-top-left opacity-0 md:h-screen ${
         isHome ? `fixed` : `absolute md:fixed`
       }`}
@@ -179,40 +192,51 @@ const Banner = () => {
           initial={{opacity: 0, ...bannerSize.image}}
           animate={{opacity: 1, ...bannerSize.image}}
           exit={{opacity: 0, ...bannerSize.image}}
-          transition={{duration: firstAnimation ? 0 : 0.33}}
+          transition={{duration: 0.33}}
         >
           {bannerImage && (
             <div>
-              {banners.map((banner) => (
+              {bannerConfigs.map((banner) => (
                 <div key={banner.key}>
-                  {bannerImage?.asset?.metadata?.blurHash && (
-                    <div
-                      className={`${banner.className} max-w-screen absolute inset-0 overflow-hidden object-cover`}
-                    >
-                      <Blurhash
-                        hash={bannerImage.asset.metadata.blurHash}
-                        width={banner.width}
+                  {/* TypeScript????!!! */}
+                  {typeof bannerImage !== 'string' &&
+                    'asset' in bannerImage &&
+                    'metadata' in bannerImage.asset &&
+                    bannerImage?.asset?.metadata?.blurHash && (
+                      <div
+                        className={`${banner.className} max-w-screen absolute inset-0 overflow-hidden object-cover`}
+                      >
+                        <Blurhash
+                          hash={bannerImage.asset.metadata.blurHash}
+                          width={banner.width}
+                          height={banner.height}
+                          resolutionX={32}
+                          resolutionY={32}
+                          punch={1}
+                        />
+                      </div>
+                    )}
+                  {typeof bannerImage !== 'string' && 'asset' in bannerImage && (
+                    <>
+                      <motion.img
+                        loading="lazy"
+                        key={[banner.key, JSON.stringify(bannerImage.asset)].join('-')}
+                        src={urlFor(bannerImage)
+                          .height(banner.height)
+                          .width(banner.width)
+                          .toString()}
+                        alt={bannerImage?.altText ? String(bannerImage.altText) : ``}
+                        className={`${banner.className} absolute inset-0 h-full object-cover md:min-h-screen`}
                         height={banner.height}
-                        resolutionX={32}
-                        resolutionY={32}
-                        punch={1}
+                        width={banner.width}
+                        initial={{opacity: 0}}
+                        animate={{opacity: 1}}
+                        transition={{duration: 0.33}}
+                        exit={{opacity: 0}}
+                        // onLoad={() => setShowBanner({...showBanner, [banner.key]: true})}
                       />
-                    </div>
+                    </>
                   )}
-                  <motion.img
-                    loading="lazy"
-                    key={[banner.key, bannerImage?.asset?._id].join('-')}
-                    src={urlFor(bannerImage).height(banner.height).width(banner.width).toString()}
-                    alt={bannerImage?.altText ?? ``}
-                    className={`${banner.className} absolute inset-0 h-full object-cover md:min-h-screen`}
-                    height={banner.height}
-                    width={banner.width}
-                    initial={{opacity: 0}}
-                    animate={{opacity: showBanner?.[banner.key] ? 1 : 0}}
-                    transition={{duration: firstAnimation ? 0 : 0.33}}
-                    exit={{opacity: 0}}
-                    onLoad={() => setShowBanner({...showBanner, [banner.key]: true})}
-                  />
                 </div>
               ))}
             </div>

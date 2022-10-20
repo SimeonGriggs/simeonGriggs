@@ -1,5 +1,6 @@
 import type {PortableTextComponents} from '@portabletext/react'
 import BlockHeading from './BlockHeading'
+import BlockHeadingTOC from './BlockHeadingTOC'
 import BlockNormal from './BlockNormal'
 import MarkLink from './MarkLink'
 import TypeButton from './TypeButton'
@@ -10,12 +11,22 @@ import TypeImage from './TypeImage'
 import TypeTalks from './TypeTalks'
 import TypeVideo from './TypeVideo'
 
-export const components: PortableTextComponents = {
+export const commentComponents: PortableTextComponents = {
   block: {
+    normal: BlockNormal,
     h2: BlockHeading,
     h3: BlockHeading,
-    normal: BlockNormal,
   },
+}
+
+export const tocComponents: PortableTextComponents = {
+  block: {
+    h2: BlockHeadingTOC,
+    h3: BlockHeadingTOC,
+  },
+}
+
+export const components: PortableTextComponents = {
   marks: {
     link: MarkLink,
   },

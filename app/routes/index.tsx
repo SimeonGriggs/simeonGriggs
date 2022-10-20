@@ -5,7 +5,7 @@ import {json} from '@remix-run/node'
 import {exchangeParams, exchangeQuery, homeQuery} from '~/sanity/queries'
 import {client, exchangeClient} from '~/sanity/client'
 import styles from '~/styles/app.css'
-import type {CombinedStubs} from '~/types/stubs'
+import {articleStubZ} from '~/types/stubs'
 import {articleStubsZ, exchangeStubsZ} from '~/types/stubs'
 import HomeBlog from '~/components/HomeBlog'
 import HomeCommunity from '~/components/HomeCommunity'
@@ -21,50 +21,38 @@ export const links: LinksFunction = () => {
   return [{rel: 'stylesheet', href: styles}]
 }
 
-export const meta: MetaFunction = ({
-  data,
-  parentsData,
-  location,
-}: {
-  data: {
-    articles: CombinedStubs
-    preview: boolean
-  }
-  parentsData: {
-    root: {
-      siteMeta: SiteMeta
-    }
-  }
-  location: any
-}) => {
+export const meta: MetaFunction<typeof loader> = (props) => {
+  const {data, parentsData} = props
   const {siteMeta} = parentsData?.root ?? {}
 
-  const article = data?.articles.find((a) => a.source === 'blog')
+  const article = data.articles.find((a) => a.source === 'blog' && a.image)
 
   if (!article) {
     return {title: `Article not found`}
   }
 
   // Create meta image
-  const {title, summary, image} = article
+  const {image} = articleStubZ.parse(article)
+  let imageMeta = {}
 
-  const ogImageUrl = new URL(`https://og-simeongriggs.vercel.app/api/og`)
-  ogImageUrl.searchParams.set(`title`, `Hello, internet!`)
-  const imageWidth = 400
-  const imageHeight = 630
-  const imageUrl = image ? urlFor(image).width(imageWidth).height(imageHeight).toString() : ``
-  ogImageUrl.searchParams.set(`imageUrl`, imageUrl)
+  if (image?.asset) {
+    const ogImageUrl = new URL(`https://og-simeongriggs.vercel.app/api/og`)
+    ogImageUrl.searchParams.set(`title`, `Hello, internet!`)
+    const imageWidth = 400
+    const imageHeight = 630
+    const imageUrl = urlFor(image).width(imageWidth).height(imageHeight).toString()
 
-  const imageMeta = image
-    ? {
-        'og:image:width': 1200,
-        'og:image:height': imageHeight,
-        'og:image': ogImageUrl.toString(),
-      }
-    : {}
+    ogImageUrl.searchParams.set(`imageUrl`, imageUrl)
+
+    imageMeta = {
+      'og:image:width': 1200,
+      'og:image:height': imageHeight,
+      'og:image': ogImageUrl.toString(),
+    }
+  }
 
   // SEO Meta
-  const pageTitle = `${title} | ${siteMeta?.description}`
+  const pageTitle = `${siteMeta.title} | ${siteMeta?.description}`
   const canonical = siteMeta.siteUrl
     ? removeTrailingSlash(new URL(siteMeta.siteUrl).toString())
     : ``
@@ -72,14 +60,14 @@ export const meta: MetaFunction = ({
   return {
     title: pageTitle,
     canonical,
-    description: summary,
+    description: String(siteMeta.description),
     'twitter:card': 'summary_large_image',
-    'twitter:creator': siteMeta?.author,
+    'twitter:creator': String(siteMeta?.author),
     'twitter:title': pageTitle,
-    'twitter:description': summary,
+    'twitter:description': String(siteMeta.description),
     'og:url': canonical,
     'og:title': pageTitle,
-    'og:description': summary,
+    'og:description': String(siteMeta.description),
     'og:type': 'website',
     ...imageMeta,
   }

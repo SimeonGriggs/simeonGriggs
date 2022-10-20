@@ -1,4 +1,4 @@
-import type {PreviewProps, Rule} from 'sanity'
+import type {Rule} from 'sanity'
 
 export default {
   name: 'link',
@@ -32,7 +32,7 @@ export default {
       url: 'link',
       ref: 'reference.slug.current',
     },
-    prepare(selection: PreviewProps) {
+    prepare: (selection: {[key: string]: any}) => {
       const {title, url, ref} = selection
 
       const subtitle = !url && !ref ? `Empty Link` : ref ?? url

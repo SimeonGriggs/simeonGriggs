@@ -13,7 +13,9 @@ export default defineType({
       url: 'link.link',
       ref: 'link.reference.slug.current',
     },
-    prepare({title, url, ref}) {
+    prepare: (selection: {[key: string]: any}) => {
+      const {title, url, ref} = selection
+
       return {
         title,
         subtitle: ref ?? url,

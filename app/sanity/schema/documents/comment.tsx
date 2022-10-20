@@ -87,7 +87,9 @@ export default {
       title: 'content',
       slug: 'commentOn.slug.current',
     },
-    prepare({title, slug}) {
+    prepare: (selection: {[key: string]: any}) => {
+      const {title, slug} = selection
+
       return {
         title,
         subtitle: `/${slug}`,

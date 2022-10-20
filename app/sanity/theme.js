@@ -1,3 +1,4 @@
+/* eslint-ignore */
 // Generated 2022-10-19T06:52:32.781Z
 // Minified build, append `?min=0` for easier debugging
 

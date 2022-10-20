@@ -1,23 +1,25 @@
 import React, {useCallback, useContext, useState} from 'react'
 import {ChatBubbleBottomCenterIcon} from '@heroicons/react/24/outline'
+import type {PortableTextComponentProps} from '@portabletext/react'
 
 import {CommentsContext} from '~/components/Comments/CommentsContext'
 import CommentForm from '~/components/Comments/CommentForm'
+import type {TypedObjectBlock} from '~/types/block'
 
-export default function BlockNormal(props: any) {
+export default function BlockNormal(props: PortableTextComponentProps<TypedObjectBlock>) {
   const {children} = props
-  const {_key} = props.node
+  const {_key} = props.value
   const comments = useContext(CommentsContext)
   const commentsCount = comments.filter((commentKey) => commentKey === _key).length
   const [open, setOpen] = useState(``)
   const closeDialog = useCallback(() => setOpen(``), [])
 
   return (
-    <p block-key={_key} className="group">
+    <p className="group">
       {children}
       <button
         type="button"
-        onClick={() => setOpen(open ? `` : _key)}
+        onClick={() => setOpen(open ? `` : String(_key))}
         className={`absolute right-0 top-0 hidden h-full translate-x-full items-center justify-center rounded transition-all duration-75 ease-in-out group-hover:text-blue-500 dark:text-blue-600 md:flex md:w-1/6 lg:w-1/8 ${
           commentsCount > 0 ? 'text-blue-400' : 'text-blue-200 dark:text-blue-500'
         }`}

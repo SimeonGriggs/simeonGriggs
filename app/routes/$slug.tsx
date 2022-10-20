@@ -8,15 +8,14 @@ import {articleQuery} from '~/sanity/queries'
 import {client, writeClient} from '~/sanity/client'
 
 import styles from '~/styles/app.css'
-import type {Article} from '~/types/article'
 import {articlesZ} from '~/types/article'
 import TableOfContents from '~/components/TableOfContents'
 import {filterDataToSingleItem, urlFor} from '~/sanity/helpers'
 import {removeTrailingSlash} from '~/lib/utils/helpers'
-import type {SiteMeta} from '~/types/siteMeta'
 import Subscribe from '~/components/Subscribe'
 import {CommentsProvider} from '~/components/Comments/CommentsContext'
 import {commentZ} from '~/types/comment'
+import {commentComponents} from '~/components/PortableText/components'
 
 export const handle = {id: `article`}
 
@@ -24,22 +23,8 @@ export const links: LinksFunction = () => {
   return [{rel: 'stylesheet', href: styles}]
 }
 
-export const meta: MetaFunction = ({
-  data,
-  parentsData,
-  location,
-}: {
-  data: {
-    article: Article
-    preview: boolean
-  }
-  parentsData: {
-    root: {
-      siteMeta: SiteMeta
-    }
-  }
-  location: any
-}) => {
+export const meta: MetaFunction<typeof loader> = (props) => {
+  const {data, parentsData} = props
   const {siteMeta} = parentsData?.root ?? {}
 
   const {article} = data ?? {}
@@ -50,24 +35,25 @@ export const meta: MetaFunction = ({
 
   // Create meta image
   const {_updatedAt, title, summary, image, published, updated} = article
+  let imageMeta = {}
 
-  const ogImageUrl = new URL(`https://og-simeongriggs.vercel.app/api/og`)
-  ogImageUrl.searchParams.set(`title`, title ?? ``)
-  ogImageUrl.searchParams.set(`published`, published ?? ``)
-  ogImageUrl.searchParams.set(`updated`, updated ?? ``)
-  ogImageUrl.searchParams.set(`_updatedAt`, _updatedAt)
-  const imageWidth = 400
-  const imageHeight = 630
-  const imageUrl = urlFor(image).width(imageWidth).height(imageHeight).toString()
-  ogImageUrl.searchParams.set(`imageUrl`, imageUrl)
+  if (image?.asset) {
+    const ogImageUrl = new URL(`https://og-simeongriggs.vercel.app/api/og`)
+    ogImageUrl.searchParams.set(`title`, title ?? ``)
+    ogImageUrl.searchParams.set(`published`, published ?? ``)
+    ogImageUrl.searchParams.set(`updated`, updated ?? ``)
+    ogImageUrl.searchParams.set(`_updatedAt`, _updatedAt)
+    const imageWidth = 400
+    const imageHeight = 630
+    const imageUrl = urlFor(image).width(imageWidth).height(imageHeight).toString()
+    ogImageUrl.searchParams.set(`imageUrl`, imageUrl)
 
-  const imageMeta = image
-    ? {
-        'og:image:width': 1200,
-        'og:image:height': imageHeight,
-        'og:image': ogImageUrl.toString(),
-      }
-    : {}
+    imageMeta = {
+      'og:image:width': 1200,
+      'og:image:height': imageHeight,
+      'og:image': ogImageUrl.toString(),
+    }
+  }
 
   // SEO Meta
   const pageTitle = `${title} | ${siteMeta?.title}`
@@ -80,7 +66,7 @@ export const meta: MetaFunction = ({
     canonical,
     description: summary,
     'twitter:card': 'summary_large_image',
-    'twitter:creator': siteMeta?.author,
+    'twitter:creator': String(siteMeta.author),
     'twitter:title': pageTitle,
     'twitter:description': summary,
     'og:url': canonical,
@@ -137,7 +123,7 @@ export default function Index() {
   const {title, summary, tableOfContents, content, comments} = article
 
   return (
-    <div className="my-32 grid grid-cols-1 gap-12 px-4 md:mt-0 md:grid-cols-12 md:gap-0 md:px-0 lg:grid-cols-16">
+    <div className="grid grid-cols-1 gap-12 py-32 px-4 md:mt-0 md:grid-cols-12 md:gap-0 md:px-0 lg:grid-cols-16">
       <div className="grid-col-1 grid gap-12 pt-12 md:col-span-8 md:col-start-3 md:py-24 lg:col-span-8 lg:col-start-5">
         {title ? (
           <h1 className="text-4xl font-black leading-none tracking-tighter text-blue-500 md:text-6xl">
@@ -160,10 +146,10 @@ export default function Index() {
           <div className="prose prose-xl prose-blue dark:prose-invert">
             {comments && comments?.length > 1 ? (
               <CommentsProvider comments={comments}>
-                <PortableText value={content} />
+                <PortableText value={content} components={commentComponents} />
               </CommentsProvider>
             ) : (
-              <PortableText value={content} />
+              <PortableText value={content} components={commentComponents} />
             )}
           </div>
         ) : null}
