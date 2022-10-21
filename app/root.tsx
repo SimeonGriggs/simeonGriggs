@@ -13,7 +13,7 @@ import {
 } from '@remix-run/react'
 import {z} from 'zod'
 
-import {projectDetails} from '~/sanity/config'
+import {projectDetails} from '~/sanity/projectDetails'
 import Banner from '~/components/Banner'
 import Grid from '~/components/Grid'
 import Header from '~/components/Header'
