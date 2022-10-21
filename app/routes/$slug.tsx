@@ -110,6 +110,10 @@ export const loader = async ({params}: LoaderArgs) => {
     .fetch(articleQuery, params)
     .then((result) => articlesZ.parse(result))
 
+  if (!articles) {
+    throw new Response(`Article not found`, {status: 404})
+  }
+
   // TODO: Re-add preview mode
   const article = filterDataToSingleItem(articles, false)
 
