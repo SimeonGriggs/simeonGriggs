@@ -110,7 +110,7 @@ export const loader = async ({params}: LoaderArgs) => {
     .fetch(articleQuery, params)
     .then((result) => articlesZ.parse(result))
 
-  if (!articles) {
+  if (!articles.length) {
     throw new Response(`Article not found`, {status: 404})
   }
 

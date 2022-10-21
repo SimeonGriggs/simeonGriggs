@@ -8,6 +8,7 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
+  useCatch,
   useLoaderData,
 } from '@remix-run/react'
 import {z} from 'zod'
@@ -128,6 +129,51 @@ export default function App() {
         />
         <Scripts />
         <LiveReload />
+      </body>
+    </html>
+  )
+}
+
+export function ErrorBoundary({error}: {error: Error}) {
+  return (
+    <html>
+      <head>
+        <title>{error.message}</title>
+        <Meta />
+        <Links />
+      </head>
+      <body className="p-12">
+        <div className="container prose mx-auto lg:prose-xl">
+          <h1>Yikes</h1>
+          <p>{error.message}</p>
+          <pre>{error.stack}</pre>
+        </div>
+        <Scripts />
+      </body>
+    </html>
+  )
+}
+
+export function CatchBoundary() {
+  const caught = useCatch()
+
+  return (
+    <html>
+      <head>
+        <title>Oh no</title>
+        <Meta />
+        <Links />
+      </head>
+      <body className="p-12">
+        <div className="container prose mx-auto lg:prose-xl">
+          <h1>
+            {caught.status} {caught.statusText}
+          </h1>
+          <p>
+            <a href="/">Go home</a>
+          </p>
+        </div>
+        <Scripts />
       </body>
     </html>
   )
