@@ -51,7 +51,10 @@ function createOgUrl(doc: DocProps) {
   urlBase.searchParams.set('published', updated ?? ``)
 
   if (image?.asset) {
-    urlBase.searchParams.set('imageUrl', urlFor(image.asset).width(400).height(630).toString())
+    urlBase.searchParams.set(
+      'imageUrl',
+      urlFor(image.asset).width(400).height(630).auto('format').toString()
+    )
   }
 
   return urlBase.toString()

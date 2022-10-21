@@ -23,7 +23,10 @@ function createSrcsetString(config: CreateSrcsetStringConfig) {
     .map((width) => {
       const height = Number((width / aspectRatio).toFixed(0))
 
-      return [urlFor(asset).width(width).height(height).dpr(2).toString(), `${width}px`].join(` `)
+      return [
+        urlFor(asset).width(width).height(height).dpr(2).auto('format').toString(),
+        `${width}px`,
+      ].join(` `)
     })
 
   return sizes.join(`, `)
@@ -68,7 +71,7 @@ export default function SanityImage(props: SanityImageProps) {
     return {
       width,
       height,
-      url: urlFor(asset).width(width).height(height).dpr(2).toString(),
+      url: urlFor(asset).width(width).height(height).dpr(2).auto('format').toString(),
       srcset: createSrcsetString({asset, width, height, aspectRatio}),
     }
   }, [asset, props.width, props.height])

@@ -223,6 +223,7 @@ const Banner = () => {
                         src={urlFor(bannerImage)
                           .height(banner.height)
                           .width(banner.width)
+                          .auto('format')
                           .toString()}
                         alt={bannerImage?.altText ? String(bannerImage.altText) : ``}
                         className={`${banner.className} absolute inset-0 h-full object-cover md:min-h-screen`}

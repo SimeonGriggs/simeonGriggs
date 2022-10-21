@@ -40,7 +40,7 @@ export const meta: MetaFunction<typeof loader> = (props) => {
     ogImageUrl.searchParams.set(`title`, `Hello, internet!`)
     const imageWidth = 400
     const imageHeight = 630
-    const imageUrl = urlFor(image).width(imageWidth).height(imageHeight).toString()
+    const imageUrl = urlFor(image).width(imageWidth).height(imageHeight).auto('format').toString()
 
     ogImageUrl.searchParams.set(`imageUrl`, imageUrl)
 
