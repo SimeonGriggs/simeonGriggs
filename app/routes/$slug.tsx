@@ -4,10 +4,9 @@ import {useLoaderData} from '@remix-run/react'
 import {json} from '@remix-run/node'
 import {PortableText} from '@portabletext/react'
 
+import styles from '~/styles/app.css'
 import {articleQuery} from '~/sanity/queries'
 import {client, writeClient} from '~/sanity/client'
-
-import styles from '~/styles/app.css'
 import {articlesZ} from '~/types/article'
 import TableOfContents from '~/components/TableOfContents'
 import {filterDataToSingleItem, urlFor} from '~/sanity/helpers'

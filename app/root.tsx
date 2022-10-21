@@ -1,5 +1,5 @@
 import {PortableTextComponentsProvider} from '@portabletext/react'
-import type {LinksFunction, LoaderFunction, MetaFunction} from '@remix-run/node'
+import type {LinksFunction, LoaderArgs, MetaFunction} from '@remix-run/node'
 import {json} from '@remix-run/node'
 import {
   Links,
@@ -9,8 +9,8 @@ import {
   Scripts,
   ScrollRestoration,
   useLoaderData,
-  useLocation,
 } from '@remix-run/react'
+import {z} from 'zod'
 
 import {projectDetails} from '~/sanity/config'
 import Banner from '~/components/Banner'
@@ -19,19 +19,12 @@ import Header from '~/components/Header'
 import {components} from '~/components/PortableText/components'
 import {client} from '~/sanity/client'
 import {siteMetaQuery} from '~/sanity/queries'
-import type {SiteMeta} from '~/types/siteMeta'
 import {siteMetaZ} from '~/types/siteMeta'
-import {themePreferenceCookie} from './cookies'
-
-type LoaderData = {
-  siteMeta: SiteMeta
-  ENV: {[key: string]: string}
-  themePreference?: 'dark' | 'light'
-}
+import {themePreferenceCookie} from '~/cookies'
 
 export const handle = {id: `root`}
 
-export const meta: MetaFunction = ({data}: {data: LoaderData}) => ({
+export const meta: MetaFunction = ({data}) => ({
   charset: 'utf-8',
   title: 'New Remix + Sanity Studio v3 App',
   viewport: 'width=device-width,initial-scale=1',
@@ -65,16 +58,26 @@ export const links: LinksFunction = () => {
   ]
 }
 
-export const loader: LoaderFunction = async ({request}) => {
+export const loader = async ({request}: LoaderArgs) => {
+  const {pathname} = new URL(request.url)
+  const isStudioRoute = pathname.startsWith('/studio')
+
   // Dark/light mode
   const cookieHeader = request.headers.get('Cookie')
   const cookie = (await themePreferenceCookie.parse(cookieHeader)) || {}
+  const themePreference = z
+    .union([z.literal('dark'), z.literal('light')])
+    .optional()
+    .parse(cookie.themePreference)
 
-  const siteMeta = await client.fetch(siteMetaQuery).then((res) => siteMetaZ.parse(res))
+  const siteMeta = isStudioRoute
+    ? null
+    : await client.fetch(siteMetaQuery).then((res) => siteMetaZ.parse(res))
 
   return json({
     siteMeta,
-    themePreference: cookie.themePreference,
+    isStudioRoute,
+    themePreference,
     ENV: {
       ...projectDetails(),
       NODE_ENV: process.env.NODE_ENV,
@@ -83,10 +86,7 @@ export const loader: LoaderFunction = async ({request}) => {
 }
 
 export default function App() {
-  const {siteMeta, themePreference, ENV} = useLoaderData<LoaderData>()
-
-  const {pathname} = useLocation()
-  const isStudioRoute = pathname.startsWith('/studio')
+  const {siteMeta, isStudioRoute, themePreference, ENV} = useLoaderData<typeof loader>()
 
   // Use browser default if cookie is not set
   const isDarkMode =
@@ -112,7 +112,7 @@ export default function App() {
           <Outlet />
         ) : (
           <>
-            <Header {...siteMeta} />
+            {siteMeta ? <Header {...siteMeta} /> : null}
             <Banner />
             <PortableTextComponentsProvider components={components}>
               <Outlet />

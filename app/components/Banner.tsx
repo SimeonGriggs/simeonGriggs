@@ -1,7 +1,6 @@
 import React, {useState, useEffect, useCallback} from 'react'
 import type {RouteMatch} from '@remix-run/react'
-import {useMatches} from '@remix-run/react'
-import {useLocation} from 'react-router-dom'
+import {useLocation, useMatches} from '@remix-run/react'
 import {motion} from 'framer-motion'
 import {useWindowSize} from 'usehooks-ts'
 import {Blurhash} from 'react-blurhash'
