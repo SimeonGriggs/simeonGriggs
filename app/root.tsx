@@ -48,7 +48,7 @@ export const links: LinksFunction = () => {
       as: 'font',
       href,
       type: 'font/woff2',
-      // crossOrigin: 'anonymous',
+      crossOrigin: 'anonymous' as const,
     })),
     {
       rel: 'alternate',
