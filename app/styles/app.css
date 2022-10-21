@@ -2376,6 +2376,14 @@ pre[class*="language-"] {
   padding-left: 0.75rem;
 }
 
+.pt-24 {
+  padding-top: 6rem;
+}
+
+.pt-32 {
+  padding-top: 8rem;
+}
+
 .text-center {
   text-align: center;
 }
