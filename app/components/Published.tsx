@@ -21,8 +21,7 @@ export default function Published(props: PublishedProps) {
       <span className="flex flex-col md:flex-row md:items-center">
         {updated ? (
           <span>
-            Updated {dateDisplay(updated)}{' '}
-            <span className="opacity-50">| Published {dateDisplay(published)}</span>
+            Updated {dateDisplay(updated)} <span>| Published {dateDisplay(published)}</span>
           </span>
         ) : (
           <span>{dateDisplay(published)}</span>

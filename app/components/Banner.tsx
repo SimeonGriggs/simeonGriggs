@@ -218,7 +218,7 @@ const Banner = () => {
                   {typeof bannerImage !== 'string' && 'asset' in bannerImage && (
                     <>
                       <motion.img
-                        loading="lazy"
+                        loading="eager"
                         key={[banner.key, JSON.stringify(bannerImage.asset)].join('-')}
                         src={urlFor(bannerImage)
                           .height(banner.height)
