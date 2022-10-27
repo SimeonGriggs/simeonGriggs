@@ -1,6 +1,20 @@
 /** @type {import('tailwindcss').Config} */
+const {colors} = require('@carbon/colors')
 const defaultTheme = require('tailwindcss/defaultTheme')
-const colors = require('tailwindcss/colors')
+
+const carbonColors = Object.keys(colors).reduce((acc, color) => {
+  if (Object.keys(colors[color]).length === 1) {
+    return {...acc, [color]: colors[color][0]}
+  }
+
+  const palette = Object.keys(colors[color]).reduce((paletteAcc, stop) => {
+    const stopNumber = Number(stop + '0')
+    paletteAcc[stopNumber] = colors[color][stop]
+    return paletteAcc
+  }, {})
+
+  return {...acc, [color]: palette}
+}, {})
 
 module.exports = {
   content: ['./app/**/*.{js,jsx,ts,tsx}', './remix.config.js'],
@@ -24,6 +38,7 @@ module.exports = {
         'span-16': 'span 16 / span 16',
       },
       colors: {
+        ...carbonColors,
         blue: {
           50: '#fafaff',
           100: '#f0f0ff',
@@ -36,7 +51,6 @@ module.exports = {
           800: '#030156',
           900: '#010014',
         },
-        pink: colors.pink,
       },
       typography: (theme) => ({
         DEFAULT: {

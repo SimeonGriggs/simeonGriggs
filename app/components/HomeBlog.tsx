@@ -23,7 +23,7 @@ export default function HomeBlog(props: ArticleStub) {
       </h2>
       {published ? <Published updated={updated ?? undefined} published={published} /> : null}
       {summary ? (
-        <div className="prose prose-lg prose-blue dark:prose-dark">
+        <div className="prose-lg prose prose-blue dark:prose-dark">
           <p>{summary}</p>
         </div>
       ) : null}

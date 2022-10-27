@@ -25,13 +25,15 @@ export default defineType({
     defineField({
       name: 'title',
       type: 'string',
-      validation: (Rule: Rule) => Rule.required(),
+      // @ts-ignore
+      validation: (rule: Rule) => rule.required(),
     }),
     defineField({
       name: 'slug',
       type: 'slug',
       options: {source: 'title'},
-      validation: (Rule: Rule) => Rule.required(),
+      // @ts-ignore
+      validation: (rule: Rule) => rule.required(),
     }),
     defineField({
       name: 'published',

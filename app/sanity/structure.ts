@@ -21,7 +21,7 @@ export const structure: StructureResolver = (S, context) =>
 
 function createPreviewUrl(doc: {[key: string]: any}) {
   const localUrl = `http://localhost:4000`
-  const remoteUrl = `https://www.simeongrigs.dev`
+  const remoteUrl = `https://www.simeongriggs.dev`
   const baseUrl = window?.location?.hostname === 'localhost' ? localUrl : remoteUrl
   const urlBase = new URL(baseUrl)
 

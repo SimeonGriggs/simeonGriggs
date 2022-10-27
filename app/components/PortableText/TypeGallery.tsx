@@ -28,7 +28,7 @@ export default function TypeGallery(props: PortableTextTypeComponentProps<TypedO
   }
 
   return (
-    <div className="prose prose-blue my-4 dark:prose-dark md:prose-lg md:my-8">
+    <div className="prose prose-blue my-4 dark:prose-dark md:my-8 md:prose-lg">
       {images.map((photo) => (
         <p key={photo._id} className="-mx-4">
           {photo.url ? (

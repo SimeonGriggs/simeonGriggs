@@ -86,20 +86,24 @@ export const loader = async ({request}: LoaderArgs) => {
   })
 }
 
-export default function App() {
-  const {siteMeta, isStudioRoute, themePreference, ENV} = useLoaderData<typeof loader>()
-
+function getBodyClassNames(themePreference: string | undefined): string {
   // Use browser default if cookie is not set
   const isDarkMode =
     !themePreference && typeof document !== 'undefined'
       ? window.matchMedia('(prefers-color-scheme: dark)').matches
       : themePreference === `dark`
-  const bodyClassNames = [
+  return [
     `transition-colors duration-1000 ease-in-out min-h-screen`,
     isDarkMode ? `dark bg-blue-900 text-white` : `bg-white`,
   ]
     .join(' ')
     .trim()
+}
+
+export default function App() {
+  const {siteMeta, isStudioRoute, themePreference, ENV} = useLoaderData<typeof loader>()
+
+  const bodyClassNames = getBodyClassNames(themePreference)
 
   return (
     <html lang="en">
@@ -135,6 +139,10 @@ export default function App() {
 }
 
 export function ErrorBoundary({error}: {error: Error}) {
+  const {themePreference} = useLoaderData<typeof loader>()
+
+  const bodyClassNames = getBodyClassNames(themePreference)
+
   return (
     <html>
       <head>
@@ -142,7 +150,7 @@ export function ErrorBoundary({error}: {error: Error}) {
         <Meta />
         <Links />
       </head>
-      <body className="p-12">
+      <body className={`p-12 ${bodyClassNames}`}>
         <div className="container prose mx-auto lg:prose-xl">
           <h1>Yikes</h1>
           <p>{error.message}</p>
@@ -157,6 +165,9 @@ export function ErrorBoundary({error}: {error: Error}) {
 export function CatchBoundary() {
   const caught = useCatch()
 
+  const {themePreference} = useLoaderData<typeof loader>()
+  const bodyClassNames = getBodyClassNames(themePreference)
+
   return (
     <html>
       <head>
@@ -164,7 +175,7 @@ export function CatchBoundary() {
         <Meta />
         <Links />
       </head>
-      <body className="p-12">
+      <body className={`p-12 ${bodyClassNames}`}>
         <div className="container prose mx-auto lg:prose-xl">
           <h1>
             {caught.status} {caught.statusText}

@@ -51,7 +51,8 @@ export default defineType({
       name: 'image',
       title: 'Image',
       type: 'image',
-      validation: (Rule: Rule) => Rule.required(),
+      // @ts-ignore
+      validation: (rule: Rule) => rule.required(),
     }),
     defineField({type: 'seo', name: 'seo', title: 'SEO'}),
   ],
