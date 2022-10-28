@@ -86,7 +86,7 @@ export const loader = async ({request}: LoaderArgs) => {
   })
 }
 
-function getBodyClassNames(themePreference: string | undefined): string {
+function getBodyClassNames(themePreference?: string): string {
   // Use browser default if cookie is not set
   const isDarkMode =
     !themePreference && typeof document !== 'undefined'
@@ -139,9 +139,7 @@ export default function App() {
 }
 
 export function ErrorBoundary({error}: {error: Error}) {
-  const {themePreference} = useLoaderData<typeof loader>()
-
-  const bodyClassNames = getBodyClassNames(themePreference)
+  const bodyClassNames = getBodyClassNames()
 
   return (
     <html>

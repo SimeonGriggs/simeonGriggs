@@ -39,6 +39,7 @@
     "react-dom": "^18.2.0",
     "remix-utils": "^3.3.0",
     "sanity": "^3.0.0-dev-preview.22",
+    "sanity-plugin-asset-source-unsplash": "^3.0.0-v3-studio.10",
     "sanity-plugin-iframe-pane": "^2.0.0",
     "sanity-plugin-media": "^2.0.0-v3-studio.2",
     "styled-components": "^5.3.5",

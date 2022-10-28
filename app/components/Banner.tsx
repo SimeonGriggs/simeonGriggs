@@ -175,7 +175,7 @@ const Banner = () => {
 
   return (
     <motion.div
-      initial={{opacity: 0}}
+      initial={{...bannerSize.wrapper, opacity: 0}}
       animate={{...bannerSize.wrapper, opacity: 1}}
       transition={{duration: 0.33}}
       // onAnimationComplete={() => {

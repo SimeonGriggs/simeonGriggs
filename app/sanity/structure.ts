@@ -25,7 +25,10 @@ function createPreviewUrl(doc: {[key: string]: any}) {
   const baseUrl = window?.location?.hostname === 'localhost' ? localUrl : remoteUrl
   const urlBase = new URL(baseUrl)
 
-  if (doc?.slug?.current) {
+  if (doc._id.startsWith(`drafts.`) && doc.slug.current) {
+    urlBase.pathname = doc._id
+    urlBase.searchParams.set('_rev', doc._rev)
+  } else if (doc.slug.current) {
     urlBase.pathname = doc.slug.current
   }
 

@@ -35,6 +35,13 @@ export const articleQuery = groq`*[_type == "article" && slug.current == $slug]{
   content[] {
         ...,
         _type == "image" => {${sanityImageObjectStub}},
+        _type == "button" => {
+          link {
+            text,
+            reference->{slug},
+            link
+          },
+        },
         _type == "talks" => {
           "talks": *[_type == "talk" && defined(slug.current)]|order(eventDate desc){
             _id,

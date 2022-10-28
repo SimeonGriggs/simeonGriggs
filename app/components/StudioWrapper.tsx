@@ -2,6 +2,7 @@ import {Studio, createConfig} from 'sanity'
 import {ClientOnly} from 'remix-utils'
 import {deskTool} from 'sanity/desk'
 import {codeInput} from '@sanity/code-input'
+import {unsplashImageAsset} from 'sanity-plugin-asset-source-unsplash'
 // import {media} from 'sanity-plugin-media'
 
 import {schemaTypes} from '~/sanity/schema'
@@ -20,6 +21,7 @@ const config = createConfig({
       defaultDocumentNode,
     }),
     codeInput(),
+    unsplashImageAsset(),
     // media()
   ],
   basePath: `/studio`,
@@ -29,6 +31,5 @@ const config = createConfig({
 })
 
 export default function StudioWrapper() {
-  // return <Studio config={config} />
   return <ClientOnly>{() => <Studio config={config} />}</ClientOnly>
 }

@@ -6,7 +6,7 @@ import {PortableText} from '@portabletext/react'
 
 import styles from '~/styles/app.css'
 import {articleQuery} from '~/sanity/queries'
-import {client, writeClient} from '~/sanity/client'
+import {client, getClient, writeClient} from '~/sanity/client'
 import {articlesZ} from '~/types/article'
 import TableOfContents from '~/components/TableOfContents'
 import {filterDataToSingleItem, urlFor} from '~/sanity/helpers'
@@ -101,13 +101,20 @@ export const action: ActionFunction = async ({request}) => {
   return data
 }
 
-export const loader = async ({params}: LoaderArgs) => {
-  // Put site in preview mode if the right query param is used
-  // const requestUrl = new URL(request.url)
-  // const preview = requestUrl.searchParams.get(`preview`) === process.env.SANITY_PREVIEW_SECRET
+export const loader = async ({request, params}: LoaderArgs) => {
+  // Rendering drafts is enabled by using the _id as the slug
+  // And passing in a matching _rev query param
+  const requestUrl = new URL(request.url)
+  const previewRev = requestUrl.searchParams.get(`_rev`)
+  const previewSlug = previewRev
+    ? await getClient(true).fetch(`*[_id == $id && _rev == $rev][0].slug.current`, {
+        id: params.slug,
+        rev: previewRev,
+      })
+    : null
 
-  const articles = await client
-    .fetch(articleQuery, params)
+  const articles = await getClient(previewSlug)
+    .fetch(articleQuery, {slug: previewSlug ?? params.slug})
     .then((result) => articlesZ.parse(result))
 
   if (!articles.length) {
