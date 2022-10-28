@@ -12,9 +12,11 @@ export const typedObjectButtonZ = baseTypedObjectZ.extend({
     .object({
       link: z.string().url().nullable().optional(),
       text: z.string().nullable().optional(),
-      reference: z.object({
-        slug: slugZ,
-      }),
+      reference: z
+        .object({
+          slug: slugZ,
+        })
+        .nullable(),
     })
     .nullable(),
 })
