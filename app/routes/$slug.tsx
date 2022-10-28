@@ -6,7 +6,7 @@ import {PortableText} from '@portabletext/react'
 
 import styles from '~/styles/app.css'
 import {articleQuery} from '~/sanity/queries'
-import {client, getClient, writeClient} from '~/sanity/client'
+import {getClient, writeClient} from '~/sanity/client'
 import {articlesZ} from '~/types/article'
 import TableOfContents from '~/components/TableOfContents'
 import {filterDataToSingleItem, urlFor} from '~/sanity/helpers'
