@@ -70,8 +70,6 @@ export default function HeroIcon({icon = ``}) {
     [iconData, isDarkMode]
   )
 
-  console.log(iconData)
-
   return (
     <Card style={cardStyle} radius={2} padding={1}>
       {iconData.icon}

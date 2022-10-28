@@ -116,14 +116,14 @@ a {
 
 /* Code blocks */
 pre[class*="language-"] {
-  @apply -mx-4 p-3 text-xs;
+  @apply -mx-4 p-4 text-xs;
 
   overflow: auto;
 }
 
 @screen md {
   pre[class*="language-"] {
-    @apply text-base;
+    @apply p-8 text-base;
   }
 }
 
@@ -132,7 +132,11 @@ pre[class*="language-"] {
 }
 
 .prose code {
-  @apply whitespace-nowrap rounded border border-cyan-100 bg-cyan-50 p-1 text-xs text-cyan-700;
+  @apply whitespace-nowrap rounded border border-blue-100 bg-blue-50 p-1 text-blue-500;
+}
+
+.dark .prose code {
+  @apply border-blue-800 bg-blue-800 p-1 text-blue-50;
 }
 
 .prose code {
