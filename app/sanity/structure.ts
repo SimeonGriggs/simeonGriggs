@@ -5,24 +5,26 @@ import type {SanityImageObjectStub} from '@sanity/asset-utils'
 
 import {urlFor} from './helpers'
 
-export const structure: StructureResolver = (S, context) =>
-  S.list()
-    .id('root')
-    .title('Content')
-    .items([
-      S.documentTypeListItem('article').title('Articles'),
-      S.documentTypeListItem('comment').title('Comments'),
-      S.documentTypeListItem('talk').title('Talks'),
-      S.divider(),
-      S.documentTypeListItem('siteMeta').title('Site Meta'),
-      S.divider(),
-      S.documentTypeListItem('tailwind').title('Tailwind'),
-    ])
+export const structure: StructureResolver = (S, {currentUser}) => {
+  const items = [
+    S.documentTypeListItem('article').title('Articles'),
+    S.documentTypeListItem('talk').title('Talks'),
+    S.divider(),
+    S.documentTypeListItem('siteMeta').title('Site Meta'),
+    S.divider(),
+    S.documentTypeListItem('tailwind').title('Tailwind'),
+  ]
+
+  if (currentUser?.id) {
+    items.splice(1, 0, S.documentTypeListItem('comment').title('Comments'))
+  }
+
+  return S.list().id('root').title('Content').items(items)
+}
 
 function createPreviewUrl(doc: {[key: string]: any}) {
-  const localUrl = `http://localhost:4000`
   const remoteUrl = `https://www.simeongriggs.dev`
-  const baseUrl = window?.location?.hostname === 'localhost' ? localUrl : remoteUrl
+  const baseUrl = window?.location?.hostname === 'localhost' ? window.origin : remoteUrl
   const urlBase = new URL(baseUrl)
 
   if (doc._id.startsWith(`drafts.`) && doc.slug.current) {

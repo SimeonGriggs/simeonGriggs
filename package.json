@@ -27,6 +27,7 @@
     "@sanity/image-url": "^1.0.1",
     "@sanity/types": "^2.35.0",
     "@sanity/ui": "^0.37.22",
+    "@sanity/vision": "3.0.0-dev-preview.22",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "blurhash": "^2.0.3",
     "eslint-config-prettier": "^8.5.0",
