@@ -2,6 +2,8 @@ import type {ActionFunction, LinksFunction, LoaderArgs, MetaFunction} from '@rem
 import {useLoaderData} from '@remix-run/react'
 import {json} from '@remix-run/node'
 import {PortableText} from '@portabletext/react'
+import groq from 'groq'
+import {PencilSquareIcon} from '@heroicons/react/24/outline'
 
 import styles from '~/styles/app.css'
 import {articleQuery} from '~/sanity/queries'
@@ -14,9 +16,6 @@ import Subscribe from '~/components/Subscribe'
 import {CommentsProvider} from '~/components/Comments/CommentsContext'
 import {commentZ} from '~/types/comment'
 import {commentComponents} from '~/components/PortableText/components'
-import groq from 'groq'
-import Label from '~/components/Label'
-import {PencilSquareIcon} from '@heroicons/react/24/outline'
 import Published from '~/components/Published'
 
 export const handle = {id: `article`}
