@@ -5,6 +5,7 @@ import styles from '~/styles/studio.css'
 
 export const meta: MetaFunction = () => ({
   title: 'Sanity Studio',
+  robots: 'noindex',
 })
 
 export const links: LinksFunction = () => {
