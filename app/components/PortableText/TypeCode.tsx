@@ -20,10 +20,11 @@ export type TypedObjectCode = z.infer<typeof typedObjectCodeZ>
 export default function TypeCode(props: PortableTextTypeComponentProps<TypedObjectCode>) {
   // Now we still get Zod's strict parsing on this specific TypedObject
   const value = React.useMemo(() => typedObjectCodeZ.parse(props.value), [props.value])
+  const language = value?.language === 'groq' ? 'json' : value.language
 
   return value.code ? (
     <div className="not-prose">
-      <Prism code={value.code} language={value.language as Language} />
+      <Prism code={value.code} language={language as Language} />
     </div>
   ) : null
 }
