@@ -25,7 +25,7 @@ function createSrcsetString(config: CreateSrcsetStringConfig) {
 
       return [
         urlFor(asset).width(width).height(height).dpr(2).auto('format').toString(),
-        `${width}px`,
+        `${width}w`,
       ].join(` `)
     })
 
