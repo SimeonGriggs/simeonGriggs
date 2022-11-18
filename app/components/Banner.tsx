@@ -9,7 +9,6 @@ import type {SanityImageSource} from '@sanity/asset-utils'
 import {z} from 'zod'
 
 import {clipPathInset} from '~/lib/utils/helpers'
-import {urlFor} from '~/sanity/helpers'
 import type {ArticleStub, ExchangeStub} from '~/types/stubs'
 import {articleStubZ} from '~/types/stubs'
 import {projectDetails} from '~/sanity/projectDetails'

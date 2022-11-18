@@ -1,9 +1,8 @@
 import type {ActionFunction, LoaderArgs, LoaderFunction} from '@remix-run/node'
 import {json, redirect} from '@remix-run/node' // or cloudflare/deno
-import {useLoaderData} from '@remix-run/react'
 import groq from 'groq'
 import {SECRET_ID} from '~/constants'
-import {client, previewClient} from '~/sanity/client'
+import {previewClient} from '~/sanity/client'
 import {getSecret} from '~/sanity/structure/getSecret'
 
 import {getSession, commitSession, destroySession} from '~/sessions'
