@@ -50,6 +50,7 @@ export const links: LinksFunction = () => {
       type: 'font/woff2',
       crossOrigin: 'anonymous' as const,
     })),
+    {rel: 'preconnect', href: 'https://cdn.sanity.io'},
     {
       rel: 'alternate',
       type: 'application/rss+xml',

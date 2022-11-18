@@ -5,12 +5,12 @@ import {motion} from 'framer-motion'
 import {useWindowSize} from 'usehooks-ts'
 import {Blurhash} from 'react-blurhash'
 import type {SanityImageSource} from '@sanity/asset-utils'
+import {z} from 'zod'
 
 import {clipPathInset} from '~/lib/utils/helpers'
 import {urlFor} from '~/sanity/helpers'
 import type {ArticleStub, ExchangeStub} from '~/types/stubs'
 import {articleStubZ} from '~/types/stubs'
-import {z} from 'zod'
 
 type BannerSizeImage = {
   scale: number
@@ -108,22 +108,12 @@ const bannerConfigZ = z.object({
 
 type BannerConfig = z.infer<typeof bannerConfigZ>
 
-// const showBannerZ = z.object({
-//   mobile: z.boolean(),
-//   desktop: z.boolean(),
-// })
-
-// type ShowBanner = z.infer<typeof showBannerZ>
-
 const Banner = () => {
   const {pathname} = useLocation()
   const isHome = pathname === '/'
   const matches = useMatches()
   const [bannerSize, setBannerSize] = useState<BannerSize>({})
-  // const [showBanner, setShowBanner] = useState<ShowBanner>({
-  //   desktop: false,
-  //   mobile: false,
-  // })
+
   const {width: windowWidth} = useWindowSize()
 
   const updateBannerSize = useCallback(() => {
@@ -173,14 +163,11 @@ const Banner = () => {
     updateBannerSize()
   }, [pathname, windowWidth, updateBannerSize])
 
-  return (
+  return bannerSize.wrapper ? (
     <motion.div
       initial={{...bannerSize.wrapper, opacity: 0}}
       animate={{...bannerSize.wrapper, opacity: 1}}
       transition={{duration: 0.33}}
-      // onAnimationComplete={() => {
-      //   if (firstAnimation) firstAnimation = false
-      // }}
       className={`pointer-events-none top-0 z-10 h-32 w-screen origin-top-left opacity-0 md:h-screen ${
         isHome ? `fixed` : `absolute md:fixed`
       }`}
@@ -188,7 +175,7 @@ const Banner = () => {
       {bannerImage && (
         <motion.div
           className="absolute inset-0 h-32 bg-blue-500 md:right-auto md:h-screen md:w-4/12 lg:w-6/16"
-          initial={{opacity: 0, ...bannerSize.image}}
+          initial={{opacity: 1, ...bannerSize.image}}
           animate={{opacity: 1, ...bannerSize.image}}
           exit={{opacity: 0, ...bannerSize.image}}
           transition={{duration: 0.33}}
@@ -233,7 +220,6 @@ const Banner = () => {
                         animate={{opacity: 1}}
                         transition={{duration: 0.33}}
                         exit={{opacity: 0}}
-                        // onLoad={() => setShowBanner({...showBanner, [banner.key]: true})}
                       />
                     </>
                   )}
@@ -244,7 +230,7 @@ const Banner = () => {
         </motion.div>
       )}
     </motion.div>
-  )
+  ) : null
 }
 
 export default Banner

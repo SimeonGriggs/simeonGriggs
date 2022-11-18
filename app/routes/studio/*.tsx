@@ -9,7 +9,10 @@ export const meta: MetaFunction = () => ({
 })
 
 export const links: LinksFunction = () => {
-  return [{rel: 'stylesheet', href: styles}]
+  return [
+    {rel: 'preload', href: styles, as: 'style'},
+    {rel: 'stylesheet', href: styles},
+  ]
 }
 
 const StudioWrapper = lazy(() => import('~/components/StudioWrapper'))

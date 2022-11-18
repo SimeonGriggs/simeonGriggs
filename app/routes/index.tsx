@@ -18,7 +18,10 @@ import Intro from '~/components/Intro'
 export const handle = {id: `home`}
 
 export const links: LinksFunction = () => {
-  return [{rel: 'stylesheet', href: styles}]
+  return [
+    {rel: 'preload', href: styles, as: 'style'},
+    {rel: 'stylesheet', href: styles},
+  ]
 }
 
 export const meta: MetaFunction<typeof loader> = (props) => {
