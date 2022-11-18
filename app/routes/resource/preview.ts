@@ -1,5 +1,5 @@
-import type {ActionFunction, LoaderArgs, LoaderFunction} from '@remix-run/node'
-import {json, redirect} from '@remix-run/node' // or cloudflare/deno
+import type {ActionFunction, LoaderArgs} from '@remix-run/node'
+import {json, redirect} from '@remix-run/node'
 import groq from 'groq'
 import {SECRET_ID} from '~/constants'
 import {previewClient} from '~/sanity/client'
