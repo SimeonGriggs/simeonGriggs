@@ -1,22 +1,17 @@
-// process.env reads from .env because it is configured inside `entry.server.tsx`
-
 export function getEnv() {
   return {
-    FLY: process.env.FLY,
     NODE_ENV: process.env.NODE_ENV,
-    SANITY_DATASET: process.env.SANITY_DATASET,
-    SANITY_API_VERSION: process.env.SANITY_API_VERSION,
-    SANITY_PROJECT_ID: process.env.SANITY_PROJECT_ID,
+    SANITY_PUBLIC_PROJECT_ID: process.env.SANITY_PUBLIC_PROJECT_ID,
+    SANITY_PUBLIC_DATASET: process.env.SANITY_PUBLIC_DATASET,
+    SANITY_PUBLIC_API_VERSION: process.env.SANITY_PUBLIC_API_VERSION,
   }
 }
 
 type ENV = ReturnType<typeof getEnv>
 
-// App puts these on
 declare global {
-  // eslint-disable-next-line
   var ENV: ENV
-  // interface Window {
-  //   ENV: ENV
-  // }
+  interface Window {
+    ENV: ENV
+  }
 }

@@ -1,4 +1,3 @@
-import {PortableTextComponentsProvider} from '@portabletext/react'
 import type {LinksFunction, LoaderArgs, MetaFunction} from '@remix-run/node'
 import {json} from '@remix-run/node'
 import {
@@ -17,11 +16,11 @@ import {projectDetails} from '~/sanity/projectDetails'
 import Banner from '~/components/Banner'
 import Grid from '~/components/Grid'
 import Header from '~/components/Header'
-import {components} from '~/components/PortableText/components'
 import {client} from '~/sanity/client'
 import {siteMetaQuery} from '~/sanity/queries'
 import {siteMetaZ} from '~/types/siteMeta'
 import {themePreferenceCookie} from '~/cookies'
+import {getEnv} from './lib/utils/getEnv'
 
 export const handle = {id: `root`}
 
@@ -80,10 +79,7 @@ export const loader = async ({request}: LoaderArgs) => {
     siteMeta,
     isStudioRoute,
     themePreference,
-    ENV: {
-      ...projectDetails(),
-      NODE_ENV: process.env.NODE_ENV,
-    },
+    ENV: getEnv(),
   })
 }
 
@@ -120,9 +116,7 @@ export default function App() {
           <>
             {siteMeta ? <Header {...siteMeta} /> : null}
             <Banner />
-            <PortableTextComponentsProvider components={components}>
-              <Outlet />
-            </PortableTextComponentsProvider>
+            <Outlet />
             {ENV.NODE_ENV !== 'production' ? <Grid /> : null}
             <ScrollRestoration />
           </>

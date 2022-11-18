@@ -10,7 +10,7 @@ export default function ThemeToggle() {
   const isDarkMode = themePreference === `dark`
 
   return (
-    <cookieToggle.Form method="post" action="/action/toggle-theme">
+    <cookieToggle.Form method="post" action="/resource/toggle-theme">
       <button
         type="submit"
         className={buttonClasses}

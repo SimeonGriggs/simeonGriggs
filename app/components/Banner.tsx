@@ -1,3 +1,4 @@
+import imageUrlBuilder from '@sanity/image-url'
 import React, {useState, useEffect, useCallback} from 'react'
 import type {RouteMatch} from '@remix-run/react'
 import {useLocation, useMatches} from '@remix-run/react'
@@ -11,6 +12,7 @@ import {clipPathInset} from '~/lib/utils/helpers'
 import {urlFor} from '~/sanity/helpers'
 import type {ArticleStub, ExchangeStub} from '~/types/stubs'
 import {articleStubZ} from '~/types/stubs'
+import {projectDetails} from '~/sanity/projectDetails'
 
 type BannerSizeImage = {
   scale: number
@@ -207,10 +209,12 @@ const Banner = () => {
                       <motion.img
                         loading="eager"
                         key={[banner.key, JSON.stringify(bannerImage.asset)].join('-')}
-                        src={urlFor(bannerImage)
+                        src={imageUrlBuilder(projectDetails())
+                          .image(bannerImage)
                           .height(banner.height)
                           .width(banner.width)
                           .auto('format')
+                          .quality(80)
                           .toString()}
                         alt={bannerImage?.altText ? String(bannerImage.altText) : ``}
                         className={`${banner.className} absolute inset-0 h-full object-cover md:min-h-screen`}

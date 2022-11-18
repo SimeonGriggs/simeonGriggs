@@ -10,14 +10,14 @@ export const client = new SanityClient({
 export const previewClient = new SanityClient({
   ...projectDetails(),
   useCdn: false,
-  token: process.env.SANITY_API_TOKEN,
+  token: process.env.SANITY_READ_TOKEN,
 })
 
 export const getClient = (previewMode = false) => (previewMode ? previewClient : client)
 
 export const writeClient = new SanityClient({
   ...projectDetails(),
-  token: process.env.SANITY_API_TOKEN,
+  token: process.env.SANITY_WRITE_TOKEN,
 })
 
 export const exchangeClient = new SanityClient({

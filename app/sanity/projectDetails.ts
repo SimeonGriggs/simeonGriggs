@@ -1,10 +1,16 @@
-export const projectDetails = () => {
-  const {SANITY_PROJECT_ID, SANITY_DATASET, SANITY_API_VERSION} =
+type ProjectDetails = {
+  projectId: string
+  dataset: string
+  apiVersion: string
+}
+
+export const projectDetails = (): ProjectDetails => {
+  const {SANITY_PUBLIC_PROJECT_ID, SANITY_PUBLIC_DATASET, SANITY_PUBLIC_API_VERSION} =
     typeof document === 'undefined' ? process.env : window.ENV
 
   return {
-    projectId: SANITY_PROJECT_ID ?? `az8av6xl`,
-    dataset: SANITY_DATASET ?? `production`,
-    apiVersion: SANITY_API_VERSION ?? `2022-09-23`,
+    projectId: String(SANITY_PUBLIC_PROJECT_ID),
+    dataset: String(SANITY_PUBLIC_DATASET),
+    apiVersion: String(SANITY_PUBLIC_API_VERSION),
   }
 }

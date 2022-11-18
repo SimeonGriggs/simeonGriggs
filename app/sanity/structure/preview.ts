@@ -1,31 +1,34 @@
 import Iframe from 'sanity-plugin-iframe-pane'
-import type {SanityDocumentLike} from 'sanity'
+import type {SanityClient, SanityDocumentLike} from 'sanity'
 import type {StructureBuilder} from 'sanity/desk'
+import {getSecret} from './getSecret'
+import {SECRET_ID} from '~/constants'
 
-function createPreviewUrl(doc: {[key: string]: any}) {
+async function createPreviewUrl(doc: {[key: string]: any}, client: SanityClient) {
   const remoteUrl = `https://www.simeongriggs.dev`
   const baseUrl = window?.location?.hostname === 'localhost' ? window.origin : remoteUrl
-  const urlBase = new URL(baseUrl)
+  const previewUrl = new URL('/resource/preview', baseUrl)
 
-  if (doc._id.startsWith(`drafts.`) && doc.slug.current) {
-    urlBase.pathname = doc._id
-    urlBase.searchParams.set('_rev', doc._rev)
-  } else if (doc.slug.current) {
-    urlBase.pathname = doc.slug.current
+  if (!doc?.slug?.current) {
+    return previewUrl.toString()
   }
 
-  return urlBase.toString()
+  previewUrl.searchParams.set('slug', doc.slug.current)
+  const secret = await getSecret(client, SECRET_ID, true)
+
+  if (secret) {
+    previewUrl.searchParams.set('secret', secret)
+  }
+
+  return previewUrl.toString()
 }
 
-export const preview = (S: StructureBuilder) =>
+export const preview = (S: StructureBuilder, client: SanityClient) =>
   S.view
     .component(Iframe)
     .title('Preview')
     .options({
       id: 'preview',
-      url: (doc: SanityDocumentLike) => createPreviewUrl(doc),
-      reload: {
-        revision: true,
-        button: true,
-      },
+      url: (doc: SanityDocumentLike) => createPreviewUrl(doc, client),
+      reload: {button: true},
     })
