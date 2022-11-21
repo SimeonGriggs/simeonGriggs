@@ -1,9 +1,8 @@
 import type {ActionFunction, LoaderArgs} from '@remix-run/node'
 import {json, redirect} from '@remix-run/node'
 import groq from 'groq'
-import {SECRET_ID} from '~/constants'
 import {previewClient} from '~/sanity/client'
-import {getSecret} from '~/sanity/structure/getSecret'
+import {getSecret, SECRET_ID} from '~/sanity/structure/getSecret'
 
 import {getSession, commitSession, destroySession} from '~/sessions'
 

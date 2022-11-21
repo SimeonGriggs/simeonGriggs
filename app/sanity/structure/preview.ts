@@ -1,8 +1,7 @@
 import Iframe from 'sanity-plugin-iframe-pane'
 import type {SanityClient, SanityDocumentLike} from 'sanity'
 import type {StructureBuilder} from 'sanity/desk'
-import {getSecret} from './getSecret'
-import {SECRET_ID} from '~/constants'
+import {getSecret, SECRET_ID} from './getSecret'
 
 async function createPreviewUrl(doc: {[key: string]: any}, client: SanityClient) {
   const remoteUrl = `https://www.simeongriggs.dev`

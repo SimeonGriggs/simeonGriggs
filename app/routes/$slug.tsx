@@ -108,13 +108,7 @@ export const loader = async ({request, params}: LoaderArgs) => {
 
   const article = await getClient(preview)
     .fetch(articleQuery, params)
-    .then((result) => {
-      try {
-        return articleZ.parse(result)
-      } catch (error) {
-        new Response(`Article not found`, {status: 404})
-      }
-    })
+    .then((result) => (result ? articleZ.parse(result) : null))
 
   if (!article) {
     throw new Response(`Article not found`, {status: 404})

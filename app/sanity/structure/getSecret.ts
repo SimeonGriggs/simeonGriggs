@@ -7,6 +7,8 @@ const query = (ttl: number) =>
 
 const tag = 'preview.secret'
 
+export const SECRET_ID = `sanity.preview.secret`
+
 export async function getSecret(
   client: SanityClient,
   id: `${string}.${string}`,
