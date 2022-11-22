@@ -13,13 +13,7 @@ import {articleStubZ} from '~/types/stubs'
 import {projectDetails} from '~/sanity/projectDetails'
 import type {BannerSize} from './getNewBannerSize'
 import {getNewBannerSize} from './getNewBannerSize'
-
-const bannerConfigMobile: BannerConfig = {
-  key: `mobile`,
-  width: 1200,
-  height: 250,
-  className: `block md:hidden`,
-}
+import SanityImage from '../SanityImage'
 
 const bannerConfigDesktop: BannerConfig = {
   key: `desktop`,
@@ -93,29 +87,24 @@ const Banner = () => {
 
   return (
     <>
+      {/* No-nonsense mobile image */}
       {bannerImage ? (
         <div
-          data-banner="mobile"
           className={`pointer-events-none top-0 z-10 h-32 w-screen origin-top-left md:hidden ${
             isHome ? `fixed` : `absolute`
           }`}
         >
-          <img
+          <SanityImage
+            asset={bannerImage}
+            width={800}
+            height={260}
             loading="eager"
-            src={imageUrlBuilder(projectDetails())
-              .image(bannerImage)
-              .height(bannerConfigMobile.height)
-              .width(bannerConfigMobile.width)
-              .auto('format')
-              .quality(80)
-              .toString()}
+            className="absolute inset-0 block h-full object-cover md:hidden md:min-h-screen"
             alt={bannerImage?.altText ? String(bannerImage.altText) : ``}
-            className={`${bannerConfigMobile.className} absolute inset-0 block h-full object-cover md:min-h-screen`}
-            height={bannerConfigMobile.height}
-            width={bannerConfigMobile.width}
           />
         </div>
       ) : null}
+      {/* All-nonsense image on desktop */}
       {bannerSize.size !== 'mobile' ? (
         <motion.div
           initial={{...bannerSize.wrapper, opacity: 0}}
@@ -125,7 +114,6 @@ const Banner = () => {
             isHome ? `fixed` : `absolute md:fixed`
           }`}
         >
-          {/* All-nonsense image on desktop */}
           {bannerImage && (
             <motion.div
               className="absolute inset-0 h-32 bg-blue-500 md:right-auto md:h-screen md:w-4/12 lg:w-6/16"

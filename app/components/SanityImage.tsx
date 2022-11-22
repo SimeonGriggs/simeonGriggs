@@ -8,13 +8,13 @@ type CreateSrcsetStringConfig = {
   asset: SanityImageSource
   width: number
   height: number
-  aspectRatio: number
 }
 
 const WIDTHS = [300, 768, 1024, 1536, 2048]
 
 function createSrcsetString(config: CreateSrcsetStringConfig) {
-  const {asset, aspectRatio} = config
+  const {asset} = config
+  const aspectRatio = config.width / config.height
 
   const sizes = WIDTHS
     // for every preset width larger than the supplied width
@@ -34,13 +34,15 @@ function createSrcsetString(config: CreateSrcsetStringConfig) {
 
 type SanityImageProps = {
   asset: SanityImageSource
+  loading?: 'eager' | 'lazy'
+  className?: string
   alt?: string
   width?: number
   height?: number
 }
 
 export default function SanityImage(props: SanityImageProps) {
-  const {asset} = props
+  const {asset, className, loading = 'lazy'} = props
 
   // This is a mess :/
   // It's designed to set a width and height, even if only one are supplied
@@ -72,14 +74,16 @@ export default function SanityImage(props: SanityImageProps) {
       width,
       height,
       url: urlFor(asset).width(width).height(height).dpr(2).auto('format').toString(),
-      srcset: createSrcsetString({asset, width, height, aspectRatio}),
+      srcset: createSrcsetString({asset, width, height}),
     }
   }, [asset, props.width, props.height])
+  console.log(width, height)
 
   return (
     <img
+      className={className}
       src={url}
-      loading="lazy"
+      loading={loading}
       alt={props.alt ?? ``}
       width={width}
       height={height}
