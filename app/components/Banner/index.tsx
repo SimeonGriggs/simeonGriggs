@@ -116,10 +116,10 @@ const Banner = () => {
           />
         </div>
       ) : null}
-      {bannerSize.wrapper ? (
+      {bannerSize.size !== 'mobile' ? (
         <motion.div
           initial={{...bannerSize.wrapper, opacity: 0}}
-          animate={{...bannerSize.wrapper, opacity: bannerSize.size === 'mobile' ? 0 : 1}}
+          animate={{...bannerSize.wrapper, opacity: 1}}
           transition={{duration: 0.33}}
           className={`pointer-events-none top-0 z-10 h-32 w-screen origin-top-left opacity-0 md:h-screen ${
             isHome ? `fixed` : `absolute md:fixed`
