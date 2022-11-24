@@ -1,9 +1,9 @@
+import type {PortableTextTypeComponentProps} from '@portabletext/react'
 import React from 'react'
 import {z} from 'zod'
-import type {PortableTextTypeComponentProps} from '@portabletext/react'
 
-import {baseTypedObjectZ} from '~/types/block'
 import Button from '~/components/Button'
+import {baseTypedObjectZ} from '~/types/block'
 import {slugZ} from '~/types/slug'
 
 export const typedObjectButtonZ = baseTypedObjectZ.extend({

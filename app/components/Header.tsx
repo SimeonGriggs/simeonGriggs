@@ -1,8 +1,8 @@
 import {Link} from '@remix-run/react'
 
-import Twitter from '~/components/Twitter'
 import GitHub from '~/components/GitHub'
 import ThemeToggle from '~/components/ThemeToggle'
+import Twitter from '~/components/Twitter'
 import type {SiteMeta} from '~/types/siteMeta'
 
 const menuClasses =

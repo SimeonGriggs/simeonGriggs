@@ -1,6 +1,7 @@
 import {PortableText} from '@portabletext/react'
 
 import type {TypedObjectBlock} from '~/types/block'
+
 import Label from './Label'
 import {tocComponents} from './PortableText/components'
 

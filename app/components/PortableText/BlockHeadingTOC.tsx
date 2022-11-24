@@ -10,9 +10,8 @@
 //       </a>
 //     </li>
 //   ))}
-
-import React from 'react'
 import type {PortableTextComponentProps} from '@portabletext/react'
+import React from 'react'
 
 import {scrollableKey} from '~/lib/utils/scrollableId'
 import type {TypedObjectBlock} from '~/types/block'

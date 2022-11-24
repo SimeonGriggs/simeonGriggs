@@ -1,8 +1,8 @@
-import React from 'react'
 import {LinkIcon} from '@heroicons/react/24/solid'
+import React from 'react'
 
-import Published from '~/components/Published'
 import Label from '~/components/Label'
+import Published from '~/components/Published'
 import type {ExchangeStub} from '~/types/stubs'
 
 export default function HomeCommunity(props: ExchangeStub) {

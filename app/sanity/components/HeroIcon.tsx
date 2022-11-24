@@ -1,15 +1,15 @@
-import {useMemo} from 'react'
-import {Card, useTheme} from '@sanity/ui'
-import type {ColorHueKey} from '@sanity/color'
-import {hues} from '@sanity/color'
 import {
+  ChatBubbleBottomCenterIcon,
+  CogIcon,
   DocumentTextIcon,
   NoSymbolIcon,
-  ChatBubbleBottomCenterIcon,
   PhoneIcon,
-  CogIcon,
   SwatchIcon,
 } from '@heroicons/react/24/outline'
+import type {ColorHueKey} from '@sanity/color'
+import {hues} from '@sanity/color'
+import {Card, useTheme} from '@sanity/ui'
+import {useMemo} from 'react'
 
 type IconName = 'article' | 'unlisted' | 'comment' | 'talk' | 'siteMeta' | 'tailwind'
 

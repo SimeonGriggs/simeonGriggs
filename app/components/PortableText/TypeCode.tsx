@@ -1,7 +1,7 @@
-import React from 'react'
-import {z} from 'zod'
 import type {PortableTextTypeComponentProps} from '@portabletext/react'
 import type {Language} from 'prism-react-renderer'
+import React from 'react'
+import {z} from 'zod'
 
 import Prism from '~/components/Prism'
 import {baseTypedObjectZ} from '~/types/block'

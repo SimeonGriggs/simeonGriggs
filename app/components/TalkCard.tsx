@@ -1,9 +1,10 @@
-import React from 'react'
-import {Link} from '@remix-run/react'
 import {LinkIcon} from '@heroicons/react/24/solid'
+import {Link} from '@remix-run/react'
+import React from 'react'
 
-import type {Talk} from '~/types/talk'
 import Published from '~/components/Published'
+import type {Talk} from '~/types/talk'
+
 import SanityImage from './SanityImage'
 import Video from './Video'
 

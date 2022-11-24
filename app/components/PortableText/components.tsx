@@ -1,4 +1,5 @@
 import type {PortableTextComponents} from '@portabletext/react'
+
 import BlockHeading from './BlockHeading'
 import BlockHeadingTOC from './BlockHeadingTOC'
 import BlockNormal from './BlockNormal'

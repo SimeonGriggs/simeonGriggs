@@ -1,15 +1,11 @@
 // import React, {useState, useEffect} from 'react'
 // import {Stack, Text} from '@sanity/ui'
-
 // import {blocksToText} from '../../lib/portableTextToPlainText'
-
 // const client = sanityClient.withConfig({
 //   apiVersion: `2021-03-25`,
 // })
-
 // const Content = React.forwardRef((props, ref) => {
 //   const {value} = props
-
 //   const [data, setData] = useState(null)
 //   useEffect(() => {
 //     function getData() {
@@ -22,14 +18,11 @@
 //         })
 //         .catch((err) => console.error(err))
 //     }
-
 //     if (!data) {
 //       getData()
 //     }
 //   }, [])
-
 //   if (!data) return null
-
 //   return (
 //     <Stack space={3}>
 //       <Text size={1} weight="bold">
@@ -39,7 +32,6 @@
 //     </Stack>
 //   )
 // })
-
 import HeroIcon from '../../components/HeroIcon'
 
 export default {

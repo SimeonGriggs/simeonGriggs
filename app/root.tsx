@@ -15,11 +15,11 @@ import {z} from 'zod'
 import Banner from '~/components/Banner'
 import Grid from '~/components/Grid'
 import Header from '~/components/Header'
+import {themePreferenceCookie} from '~/cookies'
+import {getEnv} from '~/lib/utils/getEnv'
 import {client} from '~/sanity/client'
 import {siteMetaQuery} from '~/sanity/queries'
 import {siteMetaZ} from '~/types/siteMeta'
-import {themePreferenceCookie} from '~/cookies'
-import {getEnv} from './lib/utils/getEnv'
 
 export const handle = {id: `root`}
 

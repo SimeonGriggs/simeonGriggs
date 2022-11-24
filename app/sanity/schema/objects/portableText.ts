@@ -1,10 +1,10 @@
 import {
-  JoystickIcon,
-  ImageIcon,
-  CreditCardIcon,
   CodeIcon,
-  RemoveIcon,
+  CreditCardIcon,
+  ImageIcon,
+  JoystickIcon,
   PackageIcon,
+  RemoveIcon,
 } from '@sanity/icons'
 import type {Rule} from 'sanity'
 

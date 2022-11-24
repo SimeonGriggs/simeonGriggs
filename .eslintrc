@@ -13,7 +13,10 @@
         "semi": false,
         "printWidth": 100,
         "bracketSpacing": false,
-        "singleQuote": true
+        "singleQuote": true,
+        "importOrder": ["^~/(.*)$", "^[./]"],
+        "importOrderSeparation": true,
+        "importOrderSortSpecifiers": true
       }
     ]
   }

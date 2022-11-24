@@ -1,5 +1,5 @@
-import type {PrismTheme} from 'prism-react-renderer'
 import {colors} from '@carbon/colors'
+import type {PrismTheme} from 'prism-react-renderer'
 
 var theme: PrismTheme = {
   plain: {

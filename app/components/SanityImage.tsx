@@ -1,6 +1,6 @@
-import React, {useMemo} from 'react'
 import type {SanityImageSource} from '@sanity/asset-utils'
 import {getImageDimensions} from '@sanity/asset-utils'
+import React, {useMemo} from 'react'
 
 import {urlFor} from '~/sanity/helpers'
 
@@ -77,7 +77,6 @@ export default function SanityImage(props: SanityImageProps) {
       srcset: createSrcsetString({asset, width, height}),
     }
   }, [asset, props.width, props.height])
-  console.log(width, height)
 
   return (
     <img

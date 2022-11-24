@@ -1,16 +1,15 @@
 import article from './documents/article'
-import siteMeta from './documents/siteMeta'
 import comment from './documents/comment'
-
-import seo from './objects/seo'
-import portableText from './objects/portableText'
-import button from './objects/button'
-import video from './objects/video'
-import link from './objects/link'
-import _break from './objects/break'
-import codeSandbox from './objects/codeSandbox'
+import siteMeta from './documents/siteMeta'
 import tailwind from './documents/tailwind'
 import talk from './documents/talk'
+import _break from './objects/break'
+import button from './objects/button'
+import codeSandbox from './objects/codeSandbox'
+import link from './objects/link'
+import portableText from './objects/portableText'
+import seo from './objects/seo'
+import video from './objects/video'
 
 export const schemaTypes = [
   // documents

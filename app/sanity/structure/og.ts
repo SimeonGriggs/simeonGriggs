@@ -1,6 +1,6 @@
+import type {SanityImageObjectStub} from '@sanity/asset-utils'
 import Iframe from 'sanity-plugin-iframe-pane'
 import type {StructureBuilder} from 'sanity/desk'
-import type {SanityImageObjectStub} from '@sanity/asset-utils'
 
 import {urlFor} from '../helpers'
 

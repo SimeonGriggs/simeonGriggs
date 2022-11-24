@@ -1,8 +1,8 @@
-import type {StructureResolver, DefaultDocumentNodeResolver} from 'sanity/desk'
+import type {DefaultDocumentNodeResolver, StructureResolver} from 'sanity/desk'
 
-import {preview} from './preview'
-import {og} from './og'
 import {projectDetails} from '../projectDetails'
+import {og} from './og'
+import {preview} from './preview'
 
 export const structure: StructureResolver = (S, {currentUser}) => {
   const items = [

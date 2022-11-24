@@ -1,10 +1,10 @@
+import type {PortableTextTypeComponentProps} from '@portabletext/react'
 import React, {useMemo} from 'react'
 import {z} from 'zod'
-import type {PortableTextTypeComponentProps} from '@portabletext/react'
 
-import {sanityImageObjectExtendedZ} from '~/types/image'
 import SanityImage from '~/components/SanityImage'
 import {baseTypedObjectZ} from '~/types/block'
+import {sanityImageObjectExtendedZ} from '~/types/image'
 
 export const typedObjectImageZ = baseTypedObjectZ
   .extend({

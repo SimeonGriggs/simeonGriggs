@@ -1,6 +1,6 @@
-import React from 'react'
-import getYouTubeID from 'get-youtube-id'
 import {PlayIcon} from '@heroicons/react/24/outline'
+import getYouTubeID from 'get-youtube-id'
+import React from 'react'
 
 type VideoProps = {
   url: string

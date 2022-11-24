@@ -1,6 +1,6 @@
+import {LinkIcon} from '@heroicons/react/24/outline'
 import type {PortableTextComponentProps} from '@portabletext/react'
 import {useCopyToClipboard} from 'usehooks-ts'
-import {LinkIcon} from '@heroicons/react/24/outline'
 
 import {scrollableKey} from '~/lib/utils/scrollableId'
 import type {TypedObjectBlock} from '~/types/block'

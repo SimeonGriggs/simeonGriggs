@@ -1,8 +1,9 @@
+import type {PortableTextTypeComponentProps} from '@portabletext/react'
 import React from 'react'
 import {z} from 'zod'
-import type {PortableTextTypeComponentProps} from '@portabletext/react'
 
 import {baseTypedObjectZ} from '~/types/block'
+
 import Video from '../Video'
 
 export const typedObjectVideoZ = baseTypedObjectZ.extend({

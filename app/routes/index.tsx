@@ -1,19 +1,19 @@
 import type {LinksFunction, MetaFunction} from '@remix-run/node'
-import {useLoaderData, useMatches} from '@remix-run/react'
 import {json} from '@remix-run/node'
+import {useLoaderData, useMatches} from '@remix-run/react'
 
-import {exchangeParams, exchangeQuery, homeQuery} from '~/sanity/queries'
-import {client, exchangeClient} from '~/sanity/client'
-import styles from '~/styles/app.css'
-import {articleStubZ} from '~/types/stubs'
-import {articleStubsZ, exchangeStubsZ} from '~/types/stubs'
 import HomeBlog from '~/components/HomeBlog'
 import HomeCommunity from '~/components/HomeCommunity'
 import HomeTitle from '~/components/HomeTitle'
-import {removeTrailingSlash} from '~/lib/utils/helpers'
-import {urlFor} from '~/sanity/helpers'
-import type {SiteMeta} from '~/types/siteMeta'
 import Intro from '~/components/Intro'
+import {removeTrailingSlash} from '~/lib/utils/helpers'
+import {client, exchangeClient} from '~/sanity/client'
+import {urlFor} from '~/sanity/helpers'
+import {exchangeParams, exchangeQuery, homeQuery} from '~/sanity/queries'
+import styles from '~/styles/app.css'
+import type {SiteMeta} from '~/types/siteMeta'
+import {articleStubZ} from '~/types/stubs'
+import {articleStubsZ, exchangeStubsZ} from '~/types/stubs'
 
 export const handle = {id: `home`}
 

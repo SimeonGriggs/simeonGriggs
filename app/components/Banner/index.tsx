@@ -1,19 +1,20 @@
-import imageUrlBuilder from '@sanity/image-url'
-import React, {useState, useEffect, useCallback} from 'react'
 import type {RouteMatch} from '@remix-run/react'
 import {useLocation, useMatches} from '@remix-run/react'
-import {motion} from 'framer-motion'
-import {useWindowSize} from 'usehooks-ts'
-import {Blurhash} from 'react-blurhash'
 import type {SanityImageSource} from '@sanity/asset-utils'
+import imageUrlBuilder from '@sanity/image-url'
+import {motion} from 'framer-motion'
+import React, {useCallback, useEffect, useState} from 'react'
+import {Blurhash} from 'react-blurhash'
+import {useWindowSize} from 'usehooks-ts'
 import {z} from 'zod'
 
+import {projectDetails} from '~/sanity/projectDetails'
 import type {ArticleStub, ExchangeStub} from '~/types/stubs'
 import {articleStubZ} from '~/types/stubs'
-import {projectDetails} from '~/sanity/projectDetails'
+
+import SanityImage from '../SanityImage'
 import type {BannerSize} from './getNewBannerSize'
 import {getNewBannerSize} from './getNewBannerSize'
-import SanityImage from '../SanityImage'
 
 const bannerConfigDesktop: BannerConfig = {
   key: `desktop`,

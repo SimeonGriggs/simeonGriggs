@@ -1,16 +1,16 @@
-import React from 'react'
-import {PortableText} from '@portabletext/react'
 import {PencilSquareIcon} from '@heroicons/react/24/outline'
+import {PortableText} from '@portabletext/react'
 import {definePreview} from '@sanity/preview-kit'
+import React from 'react'
 
-import {components} from '~/components/PortableText/components'
-import TableOfContents from '~/components/TableOfContents'
-import Subscribe from '~/components/Subscribe'
 import {CommentsProvider} from '~/components/Comments/CommentsContext'
+import {components} from '~/components/PortableText/components'
 import {commentComponents} from '~/components/PortableText/components'
 import Published from '~/components/Published'
-import type {Article as ArticleType} from '~/types/article'
+import Subscribe from '~/components/Subscribe'
+import TableOfContents from '~/components/TableOfContents'
 import {projectDetails} from '~/sanity/projectDetails'
+import type {Article as ArticleType} from '~/types/article'
 
 export default function Article(props: ArticleType) {
   const {_id, title, summary, tableOfContents, content, comments, updated, published} = props

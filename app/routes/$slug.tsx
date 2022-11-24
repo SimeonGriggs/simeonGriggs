@@ -1,17 +1,17 @@
 import type {ActionFunction, LinksFunction, LoaderArgs, MetaFunction} from '@remix-run/node'
-import {useLoaderData} from '@remix-run/react'
 import {json} from '@remix-run/node'
+import {useLoaderData} from '@remix-run/react'
 import {PreviewSuspense} from '@sanity/preview-kit'
 
-import styles from '~/styles/app.css'
-import {articleQuery} from '~/sanity/queries'
-import {getClient, writeClient} from '~/sanity/client'
-import {articleZ} from '~/types/article'
-import {urlFor} from '~/sanity/helpers'
-import {removeTrailingSlash} from '~/lib/utils/helpers'
-import {commentZ} from '~/types/comment'
-import {getSession} from '~/sessions'
 import Article, {PreviewArticle} from '~/components/Article'
+import {removeTrailingSlash} from '~/lib/utils/helpers'
+import {getClient, writeClient} from '~/sanity/client'
+import {urlFor} from '~/sanity/helpers'
+import {articleQuery} from '~/sanity/queries'
+import {getSession} from '~/sessions'
+import styles from '~/styles/app.css'
+import {articleZ} from '~/types/article'
+import {commentZ} from '~/types/comment'
 
 export const handle = {id: `article`}
 

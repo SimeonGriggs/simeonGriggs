@@ -1,5 +1,5 @@
-import imageUrlBuilder from '@sanity/image-url'
 import type {SanityImageSource} from '@sanity/asset-utils'
+import imageUrlBuilder from '@sanity/image-url'
 
 import {projectDetails} from './projectDetails'
 
