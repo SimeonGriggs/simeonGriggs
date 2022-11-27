@@ -20,7 +20,7 @@ const Subscribe = () => (
       data-version="5"
       data-options='{"settings":{"after_subscribe":{"action":"message","success_message":"Success! Now check your email to confirm your subscription.","redirect_url":""},"analytics":{"google":null,"facebook":null,"segment":null,"pinterest":null},"modal":{"trigger":"timer","scroll_percentage":null,"timer":5,"devices":"all","show_once_every":15},"powered_by":{"show":true,"url":"https://convertkit.com?utm_source=dynamic&amp;utm_medium=referral&amp;utm_campaign=poweredby&amp;utm_content=form"},"recaptcha":{"enabled":false},"return_visitor":{"action":"hide","custom_content":""},"slide_in":{"display_in":"bottom_right","trigger":"timer","scroll_percentage":null,"timer":5,"devices":"all","show_once_every":15},"sticky_bar":{"display_in":"top","trigger":"timer","scroll_percentage":null,"timer":5,"devices":"all","show_once_every":15}},"version":"5"}'
     >
-      <div data-element="fields" data-stacked="true" className="flex">
+      <div data-element="fields" data-stacked="true" className="flex flex-col md:flex-row">
         {/* <div className='formkit-field'>
               <input className='formkit-input' aria-label='Your first name' name='fields[first_name]' placeholder='Your first name' type='text' />
             </div> */}

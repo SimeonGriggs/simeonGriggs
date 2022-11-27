@@ -55,7 +55,7 @@ export default function Article(props: ArticleType) {
         ) : null}
 
         {content && content?.length > 0 ? (
-          <div className="prose-xl prose prose-blue dark:prose-invert">
+          <div className="md:prose-xl prose prose-blue dark:prose-invert prose-strong:font-bold marker:text-blue-500">
             {comments && comments?.length > 1 ? (
               <CommentsProvider comments={comments}>
                 <PortableText value={content} components={{...components, ...commentComponents}} />
