@@ -4,6 +4,7 @@ import BlockHeading from './BlockHeading'
 import BlockHeadingTOC from './BlockHeadingTOC'
 import BlockNormal from './BlockNormal'
 import MarkLink from './MarkLink'
+import MarkReference from './MarkReference'
 import TypeButton from './TypeButton'
 import TypeCode from './TypeCode'
 import TypeCodeSandbox from './TypeCodeSandbox'
@@ -30,6 +31,7 @@ export const tocComponents: PortableTextComponents = {
 export const components: PortableTextComponents = {
   marks: {
     link: MarkLink,
+    reference: MarkReference,
   },
   types: {
     break: () => <hr />,

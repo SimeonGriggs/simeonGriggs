@@ -12,6 +12,8 @@ import TableOfContents from '~/components/TableOfContents'
 import {projectDetails} from '~/sanity/projectDetails'
 import type {Article as ArticleType} from '~/types/article'
 
+import ExitPreview from './ExitPreview'
+
 export default function Article(props: ArticleType) {
   const {_id, title, summary, tableOfContents, content, comments, updated, published} = props
 
@@ -55,7 +57,7 @@ export default function Article(props: ArticleType) {
         ) : null}
 
         {content && content?.length > 0 ? (
-          <div className="md:prose-xl prose prose-blue dark:prose-invert prose-strong:font-bold marker:text-blue-500">
+          <div className="md:prose-lg lg:prose-xl prose prose-blue dark:prose-invert prose-strong:font-bold marker:text-blue-500">
             {comments && comments?.length > 1 ? (
               <CommentsProvider comments={comments}>
                 <PortableText value={content} components={{...components, ...commentComponents}} />
@@ -88,13 +90,7 @@ export function PreviewArticle(props: PreviewArticleProps) {
 
   return (
     <>
-      <div className="pointer-events-none fixed inset-0 flex h-screen w-screen items-end justify-center">
-        <form className="pointer-events-auto" action="/resource/preview" method="POST">
-          <button className="bg-black p-4 font-bold text-white" type="submit">
-            Exit Preview Mode
-          </button>
-        </form>
-      </div>
+      <ExitPreview />
       <Article {...data} />
     </>
   )

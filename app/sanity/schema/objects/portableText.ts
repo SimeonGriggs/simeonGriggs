@@ -83,6 +83,12 @@ export default {
               },
             ],
           },
+          {
+            name: 'reference',
+            type: 'reference',
+            to: [{type: 'article'}],
+            options: {modal: {width: 'large'}},
+          },
         ],
       },
     },

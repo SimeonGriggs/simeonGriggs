@@ -34,6 +34,16 @@ export const articleQuery = groq`*[_type == "article" && slug.current == $slug][
   "tableOfContents": content[style in ["h2", "h3"]],
   content[] {
         ...,
+        _type == "block" => {
+          ...,
+          markDefs[]{
+            ...,
+            _type == "reference" => {
+              "slug": @->slug.current,
+              "title": @->title,
+            },
+          },
+        },
         _type == "image" => {${sanityImageObjectStub}},
         _type == "button" => {
           link {
