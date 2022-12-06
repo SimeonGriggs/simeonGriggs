@@ -42,7 +42,7 @@ export default function TypeButton(props: PortableTextTypeComponentProps<TypedOb
   } else if (link) {
     return (
       <p className="text-center">
-        <Button to={link}>{text}</Button>
+        <Button href={link}>{text}</Button>
       </p>
     )
   } else {
