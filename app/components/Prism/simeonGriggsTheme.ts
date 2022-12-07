@@ -56,7 +56,7 @@ var theme: PrismTheme = {
     {
       types: ['builtin', 'char', 'constant', 'function'],
       style: {
-        color: colors.cyan['40'],
+        color: colors.cyan['20'],
       },
     },
     {
@@ -68,32 +68,32 @@ var theme: PrismTheme = {
     {
       types: ['selector', 'doctype'],
       style: {
-        color: colors.magenta['40'],
+        color: colors.magenta['20'],
         fontStyle: 'italic',
       },
     },
     {
       types: ['class-name'],
       style: {
-        color: colors.cyan['40'],
+        color: colors.cyan['20'],
       },
     },
     {
       types: ['tag', 'operator', 'keyword'],
       style: {
-        color: colors.teal['40'],
+        color: colors.teal['20'],
       },
     },
     {
       types: ['boolean'],
       style: {
-        color: colors.red['30'],
+        color: colors.red['20'],
       },
     },
     {
       types: ['property'],
       style: {
-        color: colors.purple['40'],
+        color: colors.purple['20'],
       },
     },
     {

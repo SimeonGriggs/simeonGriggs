@@ -1,6 +1,6 @@
 import {Link} from '@remix-run/react'
 
-interface Props {
+type ButtonProps = {
   children: string
   to?: string
   className?: string
@@ -8,6 +8,7 @@ interface Props {
   disabled?: boolean
   target?: string
   type?: string
+  onClick?: () => void
 }
 
 interface Attributes {
@@ -19,7 +20,7 @@ const buttonClasses = (className = ``) => {
   return className ? [`button`, className].join(` `) : `button`
 }
 
-const Button = ({children, to, className, href, disabled, target, type}: Props) => {
+const Button = ({children, to, className, href, disabled, target, type}: ButtonProps) => {
   if (type === 'submit') {
     return (
       <button disabled={disabled} className={buttonClasses(className)} type="submit">
