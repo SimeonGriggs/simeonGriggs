@@ -13,6 +13,7 @@ export const typedObjectCodeZ = baseTypedObjectZ.extend({
   _type: z.literal('code'),
   code: z.string().optional(),
   language: z.string().optional(),
+  highlightedLines: z.array(z.number()).optional(),
 })
 
 export type TypedObjectCode = z.infer<typeof typedObjectCodeZ>
@@ -24,7 +25,11 @@ export default function TypeCode(props: PortableTextTypeComponentProps<TypedObje
 
   return value.code ? (
     <div className="not-prose">
-      <Prism code={value.code} language={language as Language} />
+      <Prism
+        code={value.code}
+        language={language as Language}
+        highlightedLines={value?.highlightedLines ? value?.highlightedLines : []}
+      />
     </div>
   ) : null
 }

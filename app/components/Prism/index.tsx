@@ -1,6 +1,7 @@
 import {ClipboardIcon} from '@heroicons/react/24/outline'
 import Highlight, {defaultProps} from 'prism-react-renderer'
 import type {Language} from 'prism-react-renderer'
+import {useCallback, useRef, useState} from 'react'
 import {useCopyToClipboard} from 'usehooks-ts'
 
 import simeonGriggsTheme from './simeonGriggsTheme'
@@ -8,20 +9,48 @@ import simeonGriggsTheme from './simeonGriggsTheme'
 type PrismProps = {
   code: string
   language?: Language
+  highlightedLines?: number[]
 }
 
 export default function Prism(props: PrismProps) {
-  const {code = ``, language} = props
+  const {code = ``, language, highlightedLines = []} = props
+  const [buttonLabel, setButtonLabel] = useState<`Copy` | `Copied`>(`Copy`)
+  const copyButtonRef = useRef<HTMLButtonElement>(null)
   const [, setCopiedText] = useCopyToClipboard()
+
+  const handleCopy = useCallback(() => {
+    setCopiedText(code.trim())
+
+    setButtonLabel(`Copied`)
+
+    setTimeout(() => {
+      setButtonLabel(`Copy`)
+      if (copyButtonRef.current) {
+        copyButtonRef.current.blur()
+      }
+    }, 3000)
+  }, [code, setCopiedText])
+
+  const augmentLineProps = (lineNum: number) => {
+    const isHighlighted = highlightedLines.includes(Number(lineNum + 1))
+    return {
+      className: isHighlighted ? 'bg-blue-700' : '',
+    }
+  }
+
+  if (!code) {
+    return null
+  }
 
   return (
     <div className="relative">
       <button
-        className="text-white text-xs font-mono flex items-center gap-1 absolute top-1 hover:bg-blue-600 -right-3 px-3 py-2 bg-blue-500 focus:bg-white focus:text-blue-500 transition-colors duration-100 ease-in-out"
-        onClick={() => setCopiedText(code.trim())}
+        className="text-white text-xs font-mono flex items-center gap-1 absolute top-1 hover:bg-blue-600 -right-3 px-3 py-2 bg-blue-500 focus:bg-white focus:text-blue-500 transition-colors duration-500 ease-in-out"
+        onClick={handleCopy}
+        ref={copyButtonRef}
       >
         <ClipboardIcon className="w-4 h-auto" />
-        Copy
+        {buttonLabel}
       </button>
       <Highlight
         {...defaultProps}
@@ -29,12 +58,12 @@ export default function Prism(props: PrismProps) {
         language={language || 'markup'}
         theme={simeonGriggsTheme}
       >
-        {({className, style, tokens, getLineProps, getTokenProps}) => (
+        {({className, style, tokens, getTokenProps}) => (
           <pre className={className} style={style}>
-            {tokens.map((line, tokenI) => (
-              <div key={tokenI} {...getLineProps({line})}>
-                {line.map((token, lineI) => (
-                  <span key={lineI} {...getTokenProps({token})} />
+            {tokens.map((line, lineI) => (
+              <div key={lineI} {...augmentLineProps(lineI)}>
+                {line.map((token, tokenI) => (
+                  <span key={tokenI} {...getTokenProps({token})} />
                 ))}
               </div>
             ))}
