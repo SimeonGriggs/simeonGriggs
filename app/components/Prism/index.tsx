@@ -12,6 +12,13 @@ type PrismProps = {
   highlightedLines?: number[]
 }
 
+const augmentLineProps = (lineNum: number, highlightedLines: number[]) => {
+  const isHighlighted = highlightedLines.includes(Number(lineNum + 1))
+  return {
+    className: isHighlighted ? '-mx-4 px-4 md:-mx-8 md:px-8 bg-blue-700' : undefined,
+  }
+}
+
 export default function Prism(props: PrismProps) {
   const {code = ``, language, highlightedLines = []} = props
   const [buttonLabel, setButtonLabel] = useState<`Copy` | `Copied`>(`Copy`)
@@ -30,13 +37,6 @@ export default function Prism(props: PrismProps) {
       }
     }, 3000)
   }, [code, setCopiedText])
-
-  const augmentLineProps = (lineNum: number) => {
-    const isHighlighted = highlightedLines.includes(Number(lineNum + 1))
-    return {
-      className: isHighlighted ? 'bg-blue-700' : '',
-    }
-  }
 
   if (!code) {
     return null
@@ -61,7 +61,7 @@ export default function Prism(props: PrismProps) {
         {({className, style, tokens, getTokenProps}) => (
           <pre className={className} style={style}>
             {tokens.map((line, lineI) => (
-              <div key={lineI} {...augmentLineProps(lineI)}>
+              <div key={lineI} {...augmentLineProps(lineI, highlightedLines)}>
                 {line.map((token, tokenI) => (
                   <span key={tokenI} {...getTokenProps({token})} />
                 ))}

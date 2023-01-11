@@ -9,6 +9,7 @@ import {
 import type {ColorHueKey} from '@sanity/color'
 import {hues} from '@sanity/color'
 import {Card, useTheme} from '@sanity/ui'
+import type {CSSProperties} from 'react'
 import {useMemo} from 'react'
 
 type IconName = 'article' | 'unlisted' | 'comment' | 'talk' | 'siteMeta' | 'tailwind'
@@ -57,7 +58,7 @@ export default function HeroIcon({icon = ``}) {
 
   const iconData = icons.find(({name}) => name === icon) ?? icons[0]
 
-  const cardStyle = useMemo(
+  const cardStyle: CSSProperties = useMemo(
     () => ({
       backgroundColor: hues[iconData.color][isDarkMode ? 950 : 50].hex,
       color: hues[iconData.color][isDarkMode ? 400 : 600].hex,
@@ -71,6 +72,7 @@ export default function HeroIcon({icon = ``}) {
   )
 
   return (
+    // @ts-ignore
     <Card style={cardStyle} radius={2} padding={1}>
       {iconData.icon}
     </Card>

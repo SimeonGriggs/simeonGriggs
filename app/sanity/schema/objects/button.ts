@@ -5,6 +5,7 @@ export default defineType({
   name: 'button',
   title: 'Button',
   type: 'object',
+  // @ts-ignore
   icon: LinkIcon,
   fields: [{name: 'link', type: 'link'}],
   preview: {

@@ -21,13 +21,16 @@ export const structure: StructureResolver = (S, {currentUser}) => {
   return S.list().id('root').title('Content').items(items)
 }
 
-export const defaultDocumentNode: DefaultDocumentNodeResolver = (S, {schemaType, getClient}) => {
+export const defaultDocumentNode: DefaultDocumentNodeResolver = (
+  S,
+  {schemaType, getClient, currentUser}
+) => {
   const {apiVersion} = projectDetails()
   const client = getClient({apiVersion})
 
   switch (schemaType) {
     case `article`:
-      return S.document().views([S.view.form(), preview(S, client), og(S)])
+      return S.document().views([S.view.form(), preview(S, client, currentUser), og(S)])
     default:
       return S.document().views([S.view.form()])
   }
