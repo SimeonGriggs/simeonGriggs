@@ -2,7 +2,7 @@
   "private": true,
   "sideEffects": false,
   "scripts": {
-    "build": "npm run build:css && remix build",
+    "build": "remix build",
     "dev": "remix dev",
     "lint": "eslint . --fix",
     "typecheck": "tsc --noEmit"
