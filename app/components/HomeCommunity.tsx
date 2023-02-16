@@ -6,7 +6,7 @@ import Published from '~/components/Published'
 import type {ExchangeStub} from '~/types/stubs'
 
 export default function HomeCommunity(props: ExchangeStub) {
-  const {slug, title, published, summary} = props
+  const {slug, title, published, updated, summary} = props
 
   return (
     <article className="-mx-4 grid grid-cols-1 gap-y-4 border-gray-100 px-4 dark:border-blue-800 md:mx-0 md:border-l-4">
@@ -28,7 +28,7 @@ export default function HomeCommunity(props: ExchangeStub) {
 
       {published ? (
         <div className="flex justify-between">
-          <Published published={published} />
+          <Published published={published} updated={updated ?? ``} />
           <Label>Posted on Sanity.io Exchange</Label>
         </div>
       ) : null}

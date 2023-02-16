@@ -26,6 +26,7 @@ export const exchangeStubZ = z.object({
   title: z.string().nullable(),
   slug: slugZ,
   published: z.string().nullable(),
+  updated: z.string().nullable(),
   summary: z.string().nullable(),
 })
 

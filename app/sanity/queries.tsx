@@ -102,12 +102,13 @@ export const exchangeQuery = groq`
     _type == "contribution.guide" 
     && defined(slug.current)
     && $userId in authors[]._ref 
-  ]|order(_createdAt desc) {
+  ]|order(publishedAt desc) {
   "source": "exchange",
   _id,
   title,
   slug,
   "published": publishedAt,
+  "updated": _updatedAt,
   "summary": description
 }`
 
