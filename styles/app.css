@@ -1,12 +1,6 @@
 @tailwind base;
 @tailwind components;
 
-html {
-  scroll-behavior: smooth;
-  scroll-padding-top: theme("spacing.20");
-  overflow: auto;
-}
-
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

@@ -102,7 +102,7 @@ export default function App() {
   const bodyClassNames = getBodyClassNames(themePreference)
 
   return (
-    <html lang="en">
+    <html lang="en" className="scroll-smooth scroll-pt-20 overflow-auto">
       <head>
         <Meta />
         <Links />
