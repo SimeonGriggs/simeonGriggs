@@ -61,6 +61,7 @@ export const links: LinksFunction = () => {
 export const loader = async ({request}: LoaderArgs) => {
   const {pathname} = new URL(request.url)
   const isStudioRoute = pathname.startsWith('/studio')
+  const isResourceRoute = pathname.startsWith('/resource')
 
   // Dark/light mode
   const cookieHeader = request.headers.get('Cookie')
@@ -77,6 +78,7 @@ export const loader = async ({request}: LoaderArgs) => {
   return json({
     siteMeta,
     isStudioRoute,
+    isResourceRoute,
     themePreference,
     ENV: getEnv(),
   })
@@ -97,7 +99,8 @@ function getBodyClassNames(themePreference?: string): string {
 }
 
 export default function App() {
-  const {siteMeta, isStudioRoute, themePreference, ENV} = useLoaderData<typeof loader>()
+  const {siteMeta, isStudioRoute, isResourceRoute, themePreference, ENV} =
+    useLoaderData<typeof loader>()
 
   const bodyClassNames = getBodyClassNames(themePreference)
 
@@ -109,7 +112,7 @@ export default function App() {
         {isStudioRoute && typeof document === 'undefined' ? '__STYLES__' : null}
       </head>
       <body className={bodyClassNames}>
-        {isStudioRoute ? (
+        {isStudioRoute || isResourceRoute ? (
           <Outlet />
         ) : (
           <>
