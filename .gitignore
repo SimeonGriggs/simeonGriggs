@@ -6,5 +6,3 @@ node_modules
 /public/build
 .env
 !.env.template
-
-app/styles/app.css

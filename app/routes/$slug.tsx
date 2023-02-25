@@ -4,9 +4,9 @@ import {useLoaderData} from '@remix-run/react'
 import {PreviewSuspense} from '@sanity/preview-kit'
 
 import Article, {PreviewArticle} from '~/components/Article'
+import {OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH} from '~/constants'
 import {removeTrailingSlash} from '~/lib/utils/helpers'
 import {getClient, writeClient} from '~/sanity/client'
-import {urlFor} from '~/sanity/helpers'
 import {articleQuery} from '~/sanity/queries'
 import {getSession} from '~/sessions'
 import styles from '~/styles/app.css'
@@ -24,6 +24,7 @@ export const links: LinksFunction = () => {
 
 export const meta: MetaFunction<typeof loader> = (props) => {
   const {data, parentsData} = props
+  // console.log(props)
   const {siteMeta} = parentsData?.root ?? {}
 
   const {article} = data ?? {}
@@ -33,25 +34,16 @@ export const meta: MetaFunction<typeof loader> = (props) => {
   }
 
   // Create meta image
-  const {_updatedAt, title, summary, image, published, updated} = article
-  let imageMeta = {}
+  const {_id, title, summary} = article
+  const remoteUrl = `https://www.simeongriggs.dev`
+  const baseUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : remoteUrl
+  const ogImageUrl = new URL(`${baseUrl}/resource/og`)
+  ogImageUrl.searchParams.set(`id`, _id)
 
-  if (image?.asset) {
-    const ogImageUrl = new URL(`https://og-simeongriggs.vercel.app/api/og`)
-    ogImageUrl.searchParams.set(`title`, title ?? ``)
-    ogImageUrl.searchParams.set(`published`, published ?? ``)
-    ogImageUrl.searchParams.set(`updated`, updated ?? ``)
-    ogImageUrl.searchParams.set(`_updatedAt`, _updatedAt)
-    const imageWidth = 400
-    const imageHeight = 630
-    const imageUrl = urlFor(image).width(imageWidth).height(imageHeight).auto('format').toString()
-    ogImageUrl.searchParams.set(`imageUrl`, imageUrl)
-
-    imageMeta = {
-      'og:image:width': 1200,
-      'og:image:height': imageHeight,
-      'og:image': ogImageUrl.toString(),
-    }
+  const imageMeta = {
+    'og:image:width': String(OG_IMAGE_WIDTH),
+    'og:image:height': String(OG_IMAGE_HEIGHT),
+    'og:image': ogImageUrl.toString(),
   }
 
   // SEO Meta

@@ -1,46 +1,25 @@
-import type {SanityImageObjectStub} from '@sanity/asset-utils'
-import Iframe from 'sanity-plugin-iframe-pane'
+import type {SanityDocument} from '@sanity/client'
 import type {StructureBuilder} from 'sanity/desk'
 
-import {urlFor} from '../helpers'
+import OGPreview from '../components/OGPreview'
 
-type DocProps = {
-  title?: string
-  published?: string
-  updated?: string
-  image?: SanityImageObjectStub
-}
+type DocProps = SanityDocument
 
 function createOgUrl(doc: DocProps) {
-  const {title, published, updated, image} = doc
-
-  const localUrl = `http://localhost:3000`
-  const remoteUrl = `https://og-simeongriggs.vercel.app`
-  const baseUrl = window?.location?.hostname === 'localhost' ? localUrl : remoteUrl
+  const remoteUrl = `https://www.simeongriggs.dev`
+  const baseUrl = window?.location?.hostname === 'localhost' ? window.origin : remoteUrl
   const urlBase = new URL(baseUrl)
-  urlBase.searchParams.set('title', title ?? ``)
-  urlBase.searchParams.set('published', published ?? ``)
-  urlBase.searchParams.set('updated', updated ?? ``)
-
-  if (image?.asset) {
-    urlBase.searchParams.set(
-      'imageUrl',
-      urlFor(image.asset).width(400).height(630).auto('format').toString()
-    )
-  }
+  urlBase.pathname = `/resource/og`
+  urlBase.searchParams.set('id', doc._id)
 
   return urlBase.toString()
 }
 
 export const og = (S: StructureBuilder) =>
   S.view
-    .component(Iframe)
+    .component(OGPreview)
     .title('OG Preview')
     .options({
       id: 'og',
       url: (doc: DocProps) => createOgUrl(doc),
-      reload: {
-        revision: true,
-        button: true,
-      },
     })

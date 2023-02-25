@@ -1,13 +1,13 @@
-import SanityClient from '@sanity/client'
+import {createClient} from '@sanity/client'
 
 import {projectDetails} from './projectDetails'
 
-export const client = new SanityClient({
+export const client = createClient({
   ...projectDetails(),
   useCdn: process.env.NODE_ENV === 'production',
 })
 
-export const previewClient = new SanityClient({
+export const previewClient = createClient({
   ...projectDetails(),
   useCdn: false,
   token: process.env.SANITY_READ_TOKEN,
@@ -15,12 +15,12 @@ export const previewClient = new SanityClient({
 
 export const getClient = (previewMode = false) => (previewMode ? previewClient : client)
 
-export const writeClient = new SanityClient({
+export const writeClient = createClient({
   ...projectDetails(),
   token: process.env.SANITY_WRITE_TOKEN,
 })
 
-export const exchangeClient = new SanityClient({
+export const exchangeClient = createClient({
   ...projectDetails(),
   projectId: `81pocpw8`,
   useCdn: process.env.NODE_ENV === 'production',

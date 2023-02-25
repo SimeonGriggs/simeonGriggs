@@ -6,13 +6,12 @@ import HomeBlog from '~/components/HomeBlog'
 import HomeCommunity from '~/components/HomeCommunity'
 import HomeTitle from '~/components/HomeTitle'
 import Intro from '~/components/Intro'
+import {OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH} from '~/constants'
 import {removeTrailingSlash} from '~/lib/utils/helpers'
 import {client, exchangeClient} from '~/sanity/client'
-import {urlFor} from '~/sanity/helpers'
 import {exchangeParams, exchangeQuery, homeQuery} from '~/sanity/queries'
 import styles from '~/styles/app.css'
 import type {SiteMeta} from '~/types/siteMeta'
-import {articleStubZ} from '~/types/stubs'
 import {articleStubsZ, exchangeStubsZ} from '~/types/stubs'
 
 export const handle = {id: `home`}
@@ -34,24 +33,14 @@ export const meta: MetaFunction<typeof loader> = (props) => {
     return {title: `Article not found`}
   }
 
-  // Create meta image
-  const {image} = articleStubZ.parse(article)
-  let imageMeta = {}
+  const remoteUrl = `https://www.simeongriggs.dev`
+  const baseUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : remoteUrl
+  const ogImageUrl = new URL(`${baseUrl}/resource/og`)
 
-  if (image?.asset) {
-    const ogImageUrl = new URL(`https://og-simeongriggs.vercel.app/api/og`)
-    ogImageUrl.searchParams.set(`title`, `Hello, internet!`)
-    const imageWidth = 400
-    const imageHeight = 630
-    const imageUrl = urlFor(image).width(imageWidth).height(imageHeight).auto('format').toString()
-
-    ogImageUrl.searchParams.set(`imageUrl`, imageUrl)
-
-    imageMeta = {
-      'og:image:width': 1200,
-      'og:image:height': imageHeight,
-      'og:image': ogImageUrl.toString(),
-    }
+  const imageMeta = {
+    'og:image:width': String(OG_IMAGE_WIDTH),
+    'og:image:height': String(OG_IMAGE_HEIGHT),
+    'og:image': ogImageUrl.toString(),
   }
 
   // SEO Meta
