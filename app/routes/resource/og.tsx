@@ -1,21 +1,17 @@
 import type {LoaderArgs} from '@remix-run/node'
+import {Resvg} from '@resvg/resvg-js'
 import type {SanityDocument} from '@sanity/client'
 import type {SatoriOptions} from 'satori'
 import satori from 'satori'
-import svg2img from 'svg2img'
 
 import {OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH} from '~/constants'
 import {previewClient} from '~/sanity/client'
 import {urlFor} from '~/sanity/helpers'
 
 const fontMono = (baseUrl: string) =>
-  fetch(new URL(`${baseUrl}/fonts/JetBrainsMono-Regular.ttf`, import.meta.url)).then((res) =>
-    res.arrayBuffer()
-  )
+  fetch(new URL(`${baseUrl}/fonts/JetBrainsMono-Regular.ttf`)).then((res) => res.arrayBuffer())
 const fontSans = (baseUrl: string) =>
-  fetch(new URL(`${baseUrl}/fonts/Inter-ExtraBold.otf`, import.meta.url)).then((res) =>
-    res.arrayBuffer()
-  )
+  fetch(new URL(`${baseUrl}/fonts/Inter-ExtraBold.otf`)).then((res) => res.arrayBuffer())
 
 const BLUE = `#2522fc`
 const BLUE_600 = `#0703d8`
@@ -164,17 +160,11 @@ export const loader = async ({request}: LoaderArgs) => {
     options
   )
 
-  let png
-  svg2img(svg, {format: 'png' as any, quality: 90}, (error, buffer) => {
-    if (error) {
-      console.error(error)
-      return new Response('Error generating PNG', {status: 500})
-    } else {
-      png = buffer
-    }
-  })
+  const resvg = new Resvg(svg)
+  const pngData = resvg.render()
+  const pngBuffer = pngData.asPng()
 
-  return new Response(png, {
+  return new Response(pngBuffer, {
     status: 200,
     headers: {
       'Content-Type': 'image/png',
