@@ -44,7 +44,6 @@
     "sanity-plugin-media": "^2.0.2",
     "satori": "^0.3.2",
     "styled-components": "^5.3.6",
-    "svg2img": "^1.0.0-beta.2",
     "tailwindcss-fraction-widths": "^0.0.3",
     "usehooks-ts": "^2.9.1",
     "zod": "^3.20.2"
