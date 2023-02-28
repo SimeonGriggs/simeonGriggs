@@ -2,7 +2,7 @@ import type {ActionFunction, LoaderArgs} from '@remix-run/node'
 import {json, redirect} from '@remix-run/node'
 import groq from 'groq'
 
-import {previewClient} from '~/sanity/client'
+import {previewClient, writeClient} from '~/sanity/client'
 import {SECRET_ID, getSecret} from '~/sanity/structure/getSecret'
 import {commitSession, destroySession, getSession} from '~/sessions'
 
@@ -49,7 +49,7 @@ export const loader = async ({request}: LoaderArgs) => {
     return new Response('Invalid slug', {status: 401})
   }
 
-  const validSecret = await getSecret(previewClient, SECRET_ID, false)
+  const validSecret = await getSecret(writeClient, SECRET_ID, false)
 
   if (validSecret !== secret) {
     return new Response('Invalid secret', {status: 401})
