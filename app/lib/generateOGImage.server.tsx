@@ -1,5 +1,5 @@
 import {Resvg} from '@resvg/resvg-js'
-import type {SanityDocument, SanityDocumentLike} from 'sanity'
+import type {SanityDocumentLike} from 'sanity'
 import type {SatoriOptions} from 'satori'
 import satori from 'satori'
 import {z} from 'zod'
