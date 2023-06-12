@@ -1,6 +1,5 @@
 import type {PortableTextMarkComponentProps} from '@portabletext/react'
 import {Link} from '@remix-run/react'
-import React from 'react'
 import {z} from 'zod'
 
 import {baseTypedObjectZ} from '~/types/block'

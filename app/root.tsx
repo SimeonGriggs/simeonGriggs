@@ -1,14 +1,15 @@
-import type {LinksFunction, LoaderArgs, MetaFunction} from '@remix-run/node'
+import type {LinksFunction, LoaderArgs} from '@remix-run/node'
 import {json} from '@remix-run/node'
 import {
+  isRouteErrorResponse,
   Links,
   LiveReload,
   Meta,
   Outlet,
   Scripts,
   ScrollRestoration,
-  useCatch,
   useLoaderData,
+  useRouteError,
 } from '@remix-run/react'
 import {z} from 'zod'
 
@@ -16,21 +17,15 @@ import Banner from '~/components/Banner'
 import Grid from '~/components/Grid'
 import Header from '~/components/Header'
 import {themePreferenceCookie} from '~/cookies'
-import {getEnv} from '~/lib/utils/getEnv'
+import {getEnv} from '~/lib/getEnv'
 import {client} from '~/sanity/client'
 import {siteMetaQuery} from '~/sanity/queries'
 import {siteMetaZ} from '~/types/siteMeta'
 
-export const handle = {id: `root`}
+import CanonicalLink from './components/CanonicalLink'
+import {getDomainUrl} from './lib/getDomainUrl'
 
-export const meta: MetaFunction = ({data}) => ({
-  charset: 'utf-8',
-  title: 'New Remix + Sanity Studio v3 App',
-  viewport: 'width=device-width,initial-scale=1',
-  'theme-color': '#2522fc',
-  'color-scheme': data?.themePreference ?? 'light',
-  type: 'website',
-})
+export const handle = {id: `root`}
 
 const fonts = [
   `/fonts/JetBrainsMono-Regular.woff2`,
@@ -81,6 +76,9 @@ export const loader = async ({request}: LoaderArgs) => {
     isResourceRoute,
     themePreference,
     ENV: getEnv(),
+    requestInfo: {
+      origin: getDomainUrl(request),
+    },
   })
 }
 
@@ -99,16 +97,22 @@ function getBodyClassNames(themePreference?: string): string {
 }
 
 export default function App() {
-  const {siteMeta, isStudioRoute, isResourceRoute, themePreference, ENV} =
+  const {siteMeta, isStudioRoute, isResourceRoute, themePreference, ENV, requestInfo} =
     useLoaderData<typeof loader>()
 
   const bodyClassNames = getBodyClassNames(themePreference)
 
   return (
-    <html lang="en" className="scroll-smooth scroll-pt-20 overflow-auto">
+    <html lang="en" className="scroll-pt-20 overflow-auto scroll-smooth">
       <head>
         <Meta />
         <Links />
+        <meta charSet="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="theme-color" content="#2522fc" />
+        <meta name="color-scheme" content={themePreference ?? 'light'} />
+        <meta name="type" content="website" />
+        <CanonicalLink origin={requestInfo.origin} />
         {isStudioRoute && typeof document === 'undefined' ? '__STYLES__' : null}
       </head>
       <body className={bodyClassNames}>
@@ -135,52 +139,28 @@ export default function App() {
   )
 }
 
-export function ErrorBoundary({error}: {error: Error}) {
-  const bodyClassNames = getBodyClassNames()
-
-  return (
-    <html>
-      <head>
-        <title>{error.message}</title>
-        <Meta />
-        <Links />
-      </head>
-      <body className={`p-12 ${bodyClassNames}`}>
-        <div className="container prose mx-auto lg:prose-xl">
-          <h1>Yikes</h1>
-          <p>{error.message}</p>
-          <pre>{error.stack}</pre>
-        </div>
-        <Scripts />
-      </body>
-    </html>
-  )
-}
-
 export function CatchBoundary() {
-  const caught = useCatch()
+  const error = useRouteError()
 
-  const {themePreference} = useLoaderData<typeof loader>()
-  const bodyClassNames = getBodyClassNames(themePreference)
+  if (isRouteErrorResponse(error)) {
+    return (
+      <div className="container prose mx-auto lg:prose-xl">
+        <h1>
+          {error.status} {error.statusText}
+        </h1>
+        <p>
+          <a href="/">Go home</a>
+        </p>
+      </div>
+    )
+  }
 
   return (
-    <html>
-      <head>
-        <title>Oh no</title>
-        <Meta />
-        <Links />
-      </head>
-      <body className={`p-12 ${bodyClassNames}`}>
-        <div className="container prose mx-auto lg:prose-xl">
-          <h1>
-            {caught.status} {caught.statusText}
-          </h1>
-          <p>
-            <a href="/">Go home</a>
-          </p>
-        </div>
-        <Scripts />
-      </body>
-    </html>
+    <div className="container prose mx-auto lg:prose-xl">
+      <h1>Unknown error</h1>
+      <p>
+        <a href="/">Go home</a>
+      </p>
+    </div>
   )
 }

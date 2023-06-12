@@ -1,4 +1,4 @@
-import {clipPathInset} from '~/lib/utils/helpers'
+import {clipPathInset} from '~/lib/helpers'
 
 export type BannerSizeImage = {
   scale: number

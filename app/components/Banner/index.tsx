@@ -50,11 +50,19 @@ const Banner = () => {
   }, [isHome, windowWidth])
 
   const bannerImage = React.useMemo<(SanityImageSource & {altText: string}) | null>(() => {
+    if (!matches?.length) {
+      return null
+    }
+
     const thisPathData = matches.find((match: RouteMatch) =>
-      pathname === `/` ? match.id === `routes/index` : match.pathname === pathname
+      pathname === `/` ? match.id === `routes/_index` : match.pathname === pathname
     )
 
-    if (!thisPathData?.data) {
+    if (pathname !== `/`) {
+      return thisPathData?.data?.article?.image
+    }
+
+    if (!thisPathData?.data?.articles) {
       return null
     }
 

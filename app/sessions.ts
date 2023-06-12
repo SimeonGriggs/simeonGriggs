@@ -12,4 +12,4 @@ const {getSession, commitSession, destroySession} = createCookieSessionStorage({
   },
 })
 
-export {getSession, commitSession, destroySession}
+export {commitSession, destroySession, getSession}

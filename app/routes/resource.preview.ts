@@ -3,7 +3,7 @@ import {json, redirect} from '@remix-run/node'
 import groq from 'groq'
 
 import {previewClient, writeClient} from '~/sanity/client'
-import {SECRET_ID, getSecret} from '~/sanity/structure/getSecret'
+import {getSecret, SECRET_ID} from '~/sanity/structure/getSecret'
 import {commitSession, destroySession, getSession} from '~/sessions'
 
 // A `POST` request to this route will exit preview mode

@@ -1,12 +1,21 @@
-import type {ActionFunction, LinksFunction, LoaderArgs, MetaFunction} from '@remix-run/node'
+import type {
+  ActionFunction,
+  LinksFunction,
+  LoaderArgs,
+  SerializeFrom,
+  V2_MetaFunction,
+} from '@remix-run/node'
 import {json} from '@remix-run/node'
+import type {RouteMatch} from '@remix-run/react'
 import {useLoaderData} from '@remix-run/react'
-import {PreviewSuspense} from '@sanity/preview-kit'
+import {GroqStoreProvider} from '@sanity/preview-kit/groq-store'
 
-import Article, {PreviewArticle} from '~/components/Article'
+import Article from '~/components/Article'
+import ExitPreview from '~/components/ExitPreview'
 import {OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH} from '~/constants'
-import {removeTrailingSlash} from '~/lib/utils/helpers'
+import type {loader as rootLoader} from '~/root'
 import {getClient, writeClient} from '~/sanity/client'
+import {projectDetails} from '~/sanity/projectDetails'
 import {articleQuery} from '~/sanity/queries'
 import {getSession} from '~/sessions'
 import styles from '~/styles/app.css'
@@ -22,15 +31,16 @@ export const links: LinksFunction = () => {
   ]
 }
 
-export const meta: MetaFunction<typeof loader> = (props) => {
-  const {data, parentsData} = props
-  // console.log(props)
-  const {siteMeta} = parentsData?.root ?? {}
-
+export const meta: V2_MetaFunction = (props) => {
+  const {data, matches} = props
+  const rootData = matches.find((match: RouteMatch) => match?.id === `root`) as
+    | {data: SerializeFrom<typeof rootLoader>}
+    | undefined
+  const siteMeta = rootData ? rootData.data.siteMeta : null
   const {article} = data ?? {}
 
   if (!article?.title) {
-    return {title: `Article not found`}
+    return [{title: `Article not found`}]
   }
 
   // Create meta image
@@ -40,32 +50,26 @@ export const meta: MetaFunction<typeof loader> = (props) => {
   const ogImageUrl = new URL(`${baseUrl}/resource/og`)
   ogImageUrl.searchParams.set(`id`, _id)
 
-  const imageMeta = {
-    'og:image:width': String(OG_IMAGE_WIDTH),
-    'og:image:height': String(OG_IMAGE_HEIGHT),
-    'og:image': ogImageUrl.toString(),
-  }
-
   // SEO Meta
-  const pageTitle = `${title} | ${siteMeta?.title}`
-  const canonicalUrl = new URL(siteMeta.siteUrl ?? window.location.origin)
-  canonicalUrl.pathname = article.slug.current
-  const canonical = removeTrailingSlash(canonicalUrl.toString())
+  const pageTitle = siteMeta ? `${title} | ${siteMeta.title}` : title
 
-  return {
-    title: pageTitle,
-    canonical,
-    description: summary,
-    'twitter:card': 'summary_large_image',
-    'twitter:creator': String(siteMeta.author),
-    'twitter:title': pageTitle,
-    'twitter:description': summary,
-    'og:url': canonical,
-    'og:title': pageTitle,
-    'og:description': summary,
-    'og:type': 'website',
-    ...imageMeta,
-  }
+  return [
+    {title: pageTitle},
+    {name: 'description', content: summary},
+    {property: 'twitter:card', content: 'summary_large_image'},
+    {
+      property: 'twitter:creator',
+      content: siteMeta ? String(siteMeta.author) : '',
+    },
+    {property: 'twitter:title', content: pageTitle},
+    {property: 'twitter:description', content: summary},
+    {property: 'og:title', content: pageTitle},
+    {property: 'og:description', content: summary},
+    {property: 'og:type', content: 'website'},
+    {property: 'og:image:width', content: String(OG_IMAGE_WIDTH)},
+    {property: 'og:image:height', content: String(OG_IMAGE_HEIGHT)},
+    {property: 'og:image', content: ogImageUrl.toString()},
+  ]
 }
 
 export const action: ActionFunction = async ({request}) => {
@@ -95,7 +99,7 @@ export const action: ActionFunction = async ({request}) => {
 
 export const loader = async ({request, params}: LoaderArgs) => {
   const session = await getSession(request.headers.get('Cookie'))
-  const token = session.get('token')
+  const token: string = session.get('token')
   const preview = Boolean(token)
 
   const article = await getClient(preview)
@@ -118,16 +122,22 @@ export const loader = async ({request, params}: LoaderArgs) => {
   })
 }
 
+const {projectId, dataset} = projectDetails()
+
 export default function Index() {
   const {article, preview, query, params, token} = useLoaderData<typeof loader>()
+  const children = <Article article={article} query={query ?? ``} params={params ?? {}} />
 
-  if (preview && query && params && token) {
+  if (preview && token) {
     return (
-      <PreviewSuspense fallback={<Article {...article} />}>
-        <PreviewArticle query={query} params={params} token={token} />
-      </PreviewSuspense>
+      <GroqStoreProvider projectId={projectId} dataset={dataset} token={token}>
+        <>
+          {children}
+          <ExitPreview />
+        </>
+      </GroqStoreProvider>
     )
   }
 
-  return <Article {...article} />
+  return children
 }

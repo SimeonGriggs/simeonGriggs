@@ -1,9 +1,9 @@
 import {LinkIcon} from '@heroicons/react/24/outline'
 import type {PortableTextComponentProps} from '@portabletext/react'
+import type {PortableTextBlock} from '@portabletext/types'
 import {useCopyToClipboard} from 'usehooks-ts'
 
-import {scrollableKey} from '~/lib/utils/scrollableId'
-import type {TypedObjectBlock} from '~/types/block'
+import {scrollableKey} from '~/lib/scrollableId'
 
 function createCanonicalWithId(hash: string) {
   if (typeof document === 'undefined') {
@@ -33,7 +33,7 @@ function BlockHeadingButton(props: BlockHeadingButtonProps) {
   )
 }
 
-export default function BlockHeading(props: PortableTextComponentProps<TypedObjectBlock>) {
+export default function BlockHeading(props: PortableTextComponentProps<PortableTextBlock>) {
   const {value, children} = props
 
   const id = value._key ? scrollableKey(value._key) : undefined

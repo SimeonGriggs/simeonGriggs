@@ -1,6 +1,6 @@
 import type {LoaderFunction} from '@remix-run/node'
 
-import {removeTrailingSlash} from '~/lib/utils/helpers'
+import {removeTrailingSlash} from '~/lib/helpers'
 import {client} from '~/sanity/client'
 import {homeQuery, siteMetaQuery} from '~/sanity/queries'
 import {siteMetaZ} from '~/types/siteMeta'

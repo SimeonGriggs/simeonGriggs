@@ -1,9 +1,9 @@
 import {codeInput} from '@sanity/code-input'
 import {visionTool} from '@sanity/vision'
 import {createConfig} from 'sanity'
+import {deskTool} from 'sanity/desk'
 import {unsplashImageAsset} from 'sanity-plugin-asset-source-unsplash'
 import {media} from 'sanity-plugin-media'
-import {deskTool} from 'sanity/desk'
 
 import {projectDetails} from '~/sanity/projectDetails'
 import {schemaTypes} from '~/sanity/schema'

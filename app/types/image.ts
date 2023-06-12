@@ -26,8 +26,8 @@ export const sanityImageHotspotZ = schemaForType<SanityImageHotspot>()(
 export const sanityImageZ = z.object({
   _id: z.string(),
   _type: z.string(),
-  altText: z.string().nullable(),
-  description: z.string().nullable(),
+  altText: z.string().nullable().optional(),
+  description: z.string().nullable().optional(),
   metadata: z
     .object({
       blurHash: z.string().nullable(),

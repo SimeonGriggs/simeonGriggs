@@ -1,12 +1,12 @@
 import {ChatBubbleBottomCenterIcon} from '@heroicons/react/24/outline'
 import type {PortableTextComponentProps} from '@portabletext/react'
+import type {PortableTextBlock} from '@portabletext/types'
 import React, {useCallback, useContext, useState} from 'react'
 
 import CommentForm from '~/components/Comments/CommentForm'
 import {CommentsContext} from '~/components/Comments/CommentsContext'
-import type {TypedObjectBlock} from '~/types/block'
 
-export default function BlockNormal(props: PortableTextComponentProps<TypedObjectBlock>) {
+export default function BlockNormal(props: PortableTextComponentProps<PortableTextBlock>) {
   const {children} = props
   const {_key} = props.value
   const comments = useContext(CommentsContext)

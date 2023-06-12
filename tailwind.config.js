@@ -1,6 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 const {colors} = require('@carbon/colors')
 const defaultTheme = require('tailwindcss/defaultTheme')
+const {fractionWidths} = require('tailwindcss-fraction-widths')
 
 const carbonColors = Object.keys(colors).reduce((acc, color) => {
   if (Object.keys(colors[color]).length === 1) {
@@ -50,6 +51,17 @@ module.exports = {
           700: '#050297',
           800: '#030156',
           900: '#010014',
+          // 50: ['#fafaff', 'color(display-p3 0.863 0.863 1 / <alpha-value>)'],
+          // 100: ['#f0f0ff', 'color(display-p3 0.71 0.706 0.996 / <alpha-value>)'],
+          // 200: ['#bfbefe', 'color(display-p3 0.573 0.565 0.992 / <alpha-value>)'],
+          // 300: ['#8886fd', 'color(display-p3 0.435 0.427 0.992 / <alpha-value>)'],
+          // 400: ['#5754fd', 'color(display-p3 0.282 0.271 0.988 / <alpha-value>)'],
+          // 500: ['#2522fc', 'color(display-p3 0.145 0.133 0.988 / <alpha-value>)'],
+          // 600: ['#0703d8', 'color(display-p3 0.027 0.012 0.925 / <alpha-value>)'],
+          // 700: ['#050297', 'color(display-p3 0.024 0.012 0.729 / <alpha-value>)'],
+          // 800: ['#030156', 'color(display-p3 0.016 0.008 0.553 / <alpha-value>)'],
+          // 900: ['#010014', 'color(display-p3 0.012 0.004 0.376 / <alpha-value>)'],
+          // 950: ['#010014', 'color(display-p3 0.004 0.004 0.176 / <alpha-value>)'],
         },
       },
       typography: (theme) => ({
@@ -112,6 +124,6 @@ module.exports = {
   plugins: [
     require('@tailwindcss/typography'),
     require('@tailwindcss/aspect-ratio'),
-    require('tailwindcss-fraction-widths')([8, 16]),
+    fractionWidths([8, 16]),
   ],
 }

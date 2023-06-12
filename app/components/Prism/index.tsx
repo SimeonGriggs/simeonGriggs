@@ -1,6 +1,6 @@
 import {ClipboardIcon} from '@heroicons/react/24/outline'
-import Highlight, {defaultProps} from 'prism-react-renderer'
 import type {Language} from 'prism-react-renderer'
+import Highlight, {defaultProps} from 'prism-react-renderer'
 import {useCallback, useRef, useState} from 'react'
 import {useCopyToClipboard} from 'usehooks-ts'
 
@@ -45,11 +45,11 @@ export default function Prism(props: PrismProps) {
   return (
     <div className="relative">
       <button
-        className="text-white text-xs font-mono flex items-center gap-1 absolute top-1 hover:bg-blue-600 -right-3 px-3 py-2 bg-blue-500 focus:bg-white focus:text-blue-500 transition-colors duration-500 ease-in-out"
+        className="absolute -right-3 top-1 flex items-center gap-1 bg-blue-500 px-3 py-2 font-mono text-xs text-white transition-colors duration-500 ease-in-out hover:bg-blue-600 focus:bg-white focus:text-blue-500"
         onClick={handleCopy}
         ref={copyButtonRef}
       >
-        <ClipboardIcon className="w-4 h-auto" />
+        <ClipboardIcon className="h-auto w-4" />
         {buttonLabel}
       </button>
       <Highlight

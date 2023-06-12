@@ -1,8 +1,8 @@
 import type {CurrentUser, SanityClient, SanityDocumentLike} from 'sanity'
-import Iframe from 'sanity-plugin-iframe-pane'
 import type {StructureBuilder} from 'sanity/desk'
+import Iframe from 'sanity-plugin-iframe-pane'
 
-import {SECRET_ID, getSecret} from './getSecret'
+import {getSecret, SECRET_ID} from './getSecret'
 
 async function createPreviewUrl(
   doc: {[key: string]: any},

@@ -1,5 +1,6 @@
-import type {LinksFunction, MetaFunction} from '@remix-run/node'
+import type {LinksFunction, SerializeFrom, V2_MetaFunction} from '@remix-run/node'
 import {json} from '@remix-run/node'
+import type {RouteMatch} from '@remix-run/react'
 import {useLoaderData, useMatches} from '@remix-run/react'
 
 import HomeBlog from '~/components/HomeBlog'
@@ -7,7 +8,8 @@ import HomeCommunity from '~/components/HomeCommunity'
 import HomeTitle from '~/components/HomeTitle'
 import Intro from '~/components/Intro'
 import {OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH} from '~/constants'
-import {removeTrailingSlash} from '~/lib/utils/helpers'
+import {removeTrailingSlash} from '~/lib/helpers'
+import type {loader as rootLoader} from '~/root'
 import {client, exchangeClient} from '~/sanity/client'
 import {exchangeParams, exchangeQuery, homeQuery} from '~/sanity/queries'
 import styles from '~/styles/app.css'
@@ -23,25 +25,22 @@ export const links: LinksFunction = () => {
   ]
 }
 
-export const meta: MetaFunction<typeof loader> = (props) => {
-  const {data, parentsData} = props
-  const {siteMeta} = parentsData?.root ?? {}
+export const meta: V2_MetaFunction<typeof loader> = (props) => {
+  const {data, matches} = props
+  const article = data ? data.articles.find((a) => a.source === 'blog' && a.image) : null
 
-  const article = data.articles.find((a) => a.source === 'blog' && a.image)
+  const rootData = matches.find((match: RouteMatch) => match?.id === `root`) as
+    | {data: SerializeFrom<typeof rootLoader>}
+    | undefined
+  const siteMeta = rootData ? rootData.data.siteMeta : null
 
-  if (!article) {
-    return {title: `Article not found`}
+  if (!article || !siteMeta) {
+    return [{title: `Article not found`}]
   }
 
   const remoteUrl = `https://www.simeongriggs.dev`
   const baseUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : remoteUrl
   const ogImageUrl = new URL(`${baseUrl}/resource/og`)
-
-  const imageMeta = {
-    'og:image:width': String(OG_IMAGE_WIDTH),
-    'og:image:height': String(OG_IMAGE_HEIGHT),
-    'og:image': ogImageUrl.toString(),
-  }
 
   // SEO Meta
   const pageTitle = `${siteMeta.title} | ${siteMeta?.description}`
@@ -49,20 +48,21 @@ export const meta: MetaFunction<typeof loader> = (props) => {
     ? removeTrailingSlash(new URL(siteMeta.siteUrl).toString())
     : ``
 
-  return {
-    title: pageTitle,
-    canonical,
-    description: String(siteMeta.description),
-    'twitter:card': 'summary_large_image',
-    'twitter:creator': String(siteMeta?.author),
-    'twitter:title': pageTitle,
-    'twitter:description': String(siteMeta.description),
-    'og:url': canonical,
-    'og:title': pageTitle,
-    'og:description': String(siteMeta.description),
-    'og:type': 'website',
-    ...imageMeta,
-  }
+  return [
+    {title: pageTitle},
+    {name: 'description', content: siteMeta.description},
+    {property: 'twitter:card', content: 'summary_large_image'},
+    {property: 'twitter:creator', content: String(siteMeta?.author)},
+    {property: 'twitter:title', content: pageTitle},
+    {property: 'twitter:description', content: siteMeta.description},
+    {property: 'og:url', content: canonical},
+    {property: 'og:title', content: pageTitle},
+    {property: 'og:description', content: siteMeta.description},
+    {property: 'og:type', content: 'website'},
+    {property: 'og:image:width', content: String(OG_IMAGE_WIDTH)},
+    {property: 'og:image:height', content: String(OG_IMAGE_HEIGHT)},
+    {property: 'og:image', content: ogImageUrl.toString()},
+  ]
 }
 
 export const loader = async () => {
@@ -104,7 +104,7 @@ export default function Index() {
 
   return (
     <section className="grid grid-cols-1 px-4 md:grid-cols-12 md:px-0 lg:grid-cols-16">
-      <div className="flex flex-col gap-y-12 pt-48 pb-12 md:col-span-6 md:col-start-6 md:gap-y-24 md:py-48 lg:col-span-8 lg:col-start-8">
+      <div className="flex flex-col gap-y-12 pb-12 pt-48 md:col-span-6 md:col-start-6 md:gap-y-24 md:py-48 lg:col-span-8 lg:col-start-8">
         <HomeTitle title="Hello, internet!" wave />
 
         {siteMeta?.bio && siteMeta?.bio?.length > 1 ? <Intro value={siteMeta.bio} /> : null}

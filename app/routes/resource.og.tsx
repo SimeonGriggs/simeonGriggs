@@ -1,7 +1,8 @@
 import type {LoaderArgs} from '@remix-run/node'
+import groq from 'groq'
 import type {SanityDocument} from 'sanity'
 
-import {generateOGImage} from '~/lib/utils/generateOGImage.server'
+import {generateOGImage} from '~/lib/generateOGImage.server'
 import {previewClient} from '~/sanity/client'
 
 export const loader = async ({request}: LoaderArgs) => {
@@ -13,7 +14,10 @@ export const loader = async ({request}: LoaderArgs) => {
     return new Response('Bad request', {status: 400})
   }
 
-  const doc: SanityDocument | null = await previewClient.fetch(`*[_id == $id][0]`, {id})
+  const doc: SanityDocument | null = await previewClient.fetch(
+    groq`*[_id == $id][0]{ ..., image { ..., asset-> } }`,
+    {id}
+  )
 
   if (!doc) {
     return new Response('Bad request', {status: 400})

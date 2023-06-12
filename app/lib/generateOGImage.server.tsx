@@ -2,9 +2,11 @@ import {Resvg} from '@resvg/resvg-js'
 import type {SanityDocument, SanityDocumentLike} from 'sanity'
 import type {SatoriOptions} from 'satori'
 import satori from 'satori'
+import {z} from 'zod'
 
-import {OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH} from '~/constants'
+import {OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH, SITE_URL} from '~/constants'
 import {urlFor} from '~/sanity/helpers'
+import {sanityImageZ} from '~/types/image'
 
 const fontMono = (baseUrl: string) =>
   fetch(new URL(`${baseUrl}/fonts/JetBrainsMono-Regular.ttf`)).then((res) => res.arrayBuffer())
@@ -20,10 +22,12 @@ const DEFAULT_CONTENT: SanityDocumentLike = {
   title: `Hello, internet!`,
   published: ``,
   updated: ``,
-  image: ``,
+  image: {
+    asset: {},
+  },
 }
 
-export async function generateOGImage(doc: SanityDocument, origin: string) {
+export async function generateOGImage(doc: SanityDocumentLike, origin: string) {
   const fontMonoData = await fontMono(origin)
   const fontSansData = await fontSans(origin)
   const options: SatoriOptions = {
@@ -43,10 +47,23 @@ export async function generateOGImage(doc: SanityDocument, origin: string) {
     ],
   }
 
-  const {title, published, updated, image} = doc || DEFAULT_CONTENT
+  const document = z.object({
+    _id: z.string(),
+    _type: z.string(),
+    title: z.string(),
+    published: z.string(),
+    updated: z.string(),
+    image: z.object({
+      asset: sanityImageZ,
+    }),
+  })
+  const {title, published, updated, image} = document.parse({
+    ...DEFAULT_CONTENT,
+    ...doc,
+  })
 
   let imageUrl
-  if (image?.asset) {
+  if ('asset' in image && image.asset) {
     imageUrl = urlFor(image.asset).width(400).height(OG_IMAGE_HEIGHT).auto('format').toString()
   }
 
@@ -140,7 +157,7 @@ export async function generateOGImage(doc: SanityDocument, origin: string) {
                 fontSize: 30,
               }}
             >
-              simeonGriggs.dev
+              {SITE_URL.hostname.replace(`www.`, ``)}
             </div>
           </div>
         </div>

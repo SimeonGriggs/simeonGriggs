@@ -1,7 +1,7 @@
 import {PencilSquareIcon} from '@heroicons/react/24/outline'
 import {PortableText} from '@portabletext/react'
-import {definePreview} from '@sanity/preview-kit'
-import React from 'react'
+import type {QueryParams} from '@sanity/client'
+import {useListeningQuery} from '@sanity/preview-kit'
 
 import {CommentsProvider} from '~/components/Comments/CommentsContext'
 import {components} from '~/components/PortableText/components'
@@ -9,13 +9,17 @@ import {commentComponents} from '~/components/PortableText/components'
 import Published from '~/components/Published'
 import Subscribe from '~/components/Subscribe'
 import TableOfContents from '~/components/TableOfContents'
-import {projectDetails} from '~/sanity/projectDetails'
 import type {Article as ArticleType} from '~/types/article'
 
-import ExitPreview from './ExitPreview'
+type ArticleProps = {
+  article: ArticleType
+  query?: string
+  params?: QueryParams
+}
 
-export default function Article(props: ArticleType) {
-  const {_id, title, summary, tableOfContents, content, comments, updated, published} = props
+export default function Article(props: ArticleProps) {
+  const article = useListeningQuery(props.article, props.query ?? ``, props.params)
+  const {_id, title, summary, tableOfContents, content, comments, updated, published} = article
 
   return (
     <div className="grid grid-cols-1 gap-12 px-4 pb-32 md:mt-0 md:grid-cols-12 md:gap-0 md:px-0 lg:grid-cols-16">
@@ -57,7 +61,7 @@ export default function Article(props: ArticleType) {
         ) : null}
 
         {content && content?.length > 0 ? (
-          <div className="md:prose-lg lg:prose-xl prose prose-blue dark:prose-invert prose-strong:font-bold marker:text-blue-500">
+          <div className="prose prose-blue dark:prose-invert md:prose-lg lg:prose-xl marker:text-blue-500 prose-strong:font-bold">
             {comments && comments?.length > 1 ? (
               <CommentsProvider comments={comments}>
                 <PortableText value={content} components={{...components, ...commentComponents}} />
@@ -71,27 +75,5 @@ export default function Article(props: ArticleType) {
         <Subscribe />
       </div>
     </div>
-  )
-}
-
-type PreviewArticleProps = {
-  query: string
-  params: {[key: string]: string}
-  token: string | null
-}
-
-const {projectId, dataset} = projectDetails()
-const usePreview = definePreview({projectId, dataset})
-
-export function PreviewArticle(props: PreviewArticleProps) {
-  const {query, params, token} = props
-
-  const data = usePreview(token ?? null, query, params)
-
-  return (
-    <>
-      <ExitPreview />
-      <Article {...data} />
-    </>
   )
 }
