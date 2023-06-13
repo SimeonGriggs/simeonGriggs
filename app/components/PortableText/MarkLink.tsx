@@ -19,10 +19,11 @@ export default function MarkLink(props: PortableTextMarkComponentProps<TypedObje
     return <>{children}</>
   }
 
+  // Turn absolute links into relative links
   const linkUrl = new URL(href)
 
-  if (linkUrl.host === `www.simeongriggs.dev`) {
-    return <Link to={linkUrl.pathname}>{children}</Link>
+  if (linkUrl.host === `www.simeongriggs.dev` && !linkUrl.pathname.startsWith(`/resource`)) {
+    return <Link to={linkUrl.pathname + linkUrl.search}>{children}</Link>
   }
 
   return <a href={href}>{children}</a>

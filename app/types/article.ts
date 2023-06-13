@@ -13,7 +13,7 @@ export const articleZ = z.object({
   updated: z.string().nullable(),
   title: z.string().nullable(),
   summary: z.string().nullable(),
-  image: sanityImageObjectExtendedZ,
+  image: sanityImageObjectExtendedZ.nullable(),
   tableOfContents: z.array(typedObjectZ).nullable(),
   content: z.array(typedObjectZ).nullable(),
   comments: z.array(commentKeyZ).nullable(),
