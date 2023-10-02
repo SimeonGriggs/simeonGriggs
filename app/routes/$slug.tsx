@@ -1,12 +1,11 @@
 import type {
   ActionFunction,
   LinksFunction,
-  LoaderArgs,
+  LoaderFunctionArgs,
+  MetaFunction,
   SerializeFrom,
-  V2_MetaFunction,
 } from '@remix-run/node'
 import {json} from '@remix-run/node'
-import type {RouteMatch} from '@remix-run/react'
 import {useLoaderData} from '@remix-run/react'
 import {GroqStoreProvider} from '@sanity/preview-kit/groq-store'
 
@@ -31,27 +30,23 @@ export const links: LinksFunction = () => {
   ]
 }
 
-export const meta: V2_MetaFunction = (props) => {
+export const meta: MetaFunction<typeof loader> = (props) => {
   const {data, matches} = props
-  const rootData = matches.find((match: RouteMatch) => match?.id === `root`) as
+  const rootData = matches.find((match) => match?.id === `root`) as
     | {data: SerializeFrom<typeof rootLoader>}
     | undefined
   const siteMeta = rootData ? rootData.data.siteMeta : null
-  const {article} = data ?? {}
 
-  if (!article?.title) {
-    return [{title: `Article not found`}]
-  }
-
-  // Create meta image
-  const {_id, title, summary} = article
+  const {_id, title, summary} = data?.article ?? {}
   const remoteUrl = `https://www.simeongriggs.dev`
   const baseUrl = process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : remoteUrl
   const ogImageUrl = new URL(`${baseUrl}/resource/og`)
-  ogImageUrl.searchParams.set(`id`, _id)
+  if (_id) {
+    ogImageUrl.searchParams.set(`id`, _id)
+  }
 
   // SEO Meta
-  const pageTitle = siteMeta ? `${title} | ${siteMeta.title}` : title
+  const pageTitle = siteMeta ? [title, siteMeta.title].filter(Boolean).join(` | `) : title
 
   return [
     {title: pageTitle},
@@ -97,7 +92,7 @@ export const action: ActionFunction = async ({request}) => {
   return data
 }
 
-export const loader = async ({request, params}: LoaderArgs) => {
+export const loader = async ({request, params}: LoaderFunctionArgs) => {
   const session = await getSession(request.headers.get('Cookie'))
   const token: string = session.get('token')
   const preview = Boolean(token)

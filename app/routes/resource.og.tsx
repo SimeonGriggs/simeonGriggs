@@ -1,11 +1,11 @@
-import type {LoaderArgs} from '@remix-run/node'
+import type {LoaderFunctionArgs} from '@remix-run/node'
 import groq from 'groq'
 import type {SanityDocument} from 'sanity'
 
 import {generateOGImage} from '~/lib/generateOGImage.server'
 import {previewClient} from '~/sanity/client'
 
-export const loader = async ({request}: LoaderArgs) => {
+export const loader = async ({request}: LoaderFunctionArgs) => {
   // Check for valid id in request url search params
   const {origin, searchParams} = new URL(request.url)
   const id = searchParams.get('id')

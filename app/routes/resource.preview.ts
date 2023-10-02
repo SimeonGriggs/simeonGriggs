@@ -1,4 +1,4 @@
-import type {ActionFunction, LoaderArgs} from '@remix-run/node'
+import type {ActionFunction, LoaderFunctionArgs} from '@remix-run/node'
 import {json, redirect} from '@remix-run/node'
 import groq from 'groq'
 
@@ -22,7 +22,7 @@ export const action: ActionFunction = async ({request}) => {
 }
 
 // A `GET` request to this route will enter preview mode
-export const loader = async ({request}: LoaderArgs) => {
+export const loader = async ({request}: LoaderFunctionArgs) => {
   const requestUrl = new URL(request.url)
 
   // Check the URL has a valid ?slug param

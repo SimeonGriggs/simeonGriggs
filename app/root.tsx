@@ -1,4 +1,4 @@
-import type {LinksFunction, LoaderArgs} from '@remix-run/node'
+import type {LinksFunction, LoaderFunctionArgs} from '@remix-run/node'
 import {json} from '@remix-run/node'
 import {
   isRouteErrorResponse,
@@ -53,7 +53,7 @@ export const links: LinksFunction = () => {
   ]
 }
 
-export const loader = async ({request}: LoaderArgs) => {
+export const loader = async ({request}: LoaderFunctionArgs) => {
   const {pathname} = new URL(request.url)
   const isStudioRoute = pathname.startsWith('/studio')
   const isResourceRoute = pathname.startsWith('/resource')
@@ -120,7 +120,7 @@ export default function App() {
           <Outlet />
         ) : (
           <>
-            {siteMeta ? <Header {...siteMeta} /> : null}
+            {siteMeta?.title ? <Header title={siteMeta.title} /> : null}
             <Banner />
             <Outlet />
             {ENV.NODE_ENV !== 'production' ? <Grid /> : null}

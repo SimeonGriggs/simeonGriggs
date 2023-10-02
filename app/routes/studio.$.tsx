@@ -1,9 +1,9 @@
-import type {LinksFunction, V2_MetaFunction} from '@remix-run/node'
+import type {LinksFunction, MetaFunction} from '@remix-run/node'
 import {lazy, Suspense} from 'react'
 
 import styles from '~/styles/studio.css'
 
-export const meta: V2_MetaFunction = () => [
+export const meta: MetaFunction = () => [
   {title: 'Sanity Studio'},
   {name: 'robots', content: 'noindex'},
 ]

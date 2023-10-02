@@ -1,7 +1,9 @@
 import {Dialog} from '@headlessui/react'
 import {XCircleIcon} from '@heroicons/react/24/outline'
-import {useFetcher, useMatches} from '@remix-run/react'
+import {useFetcher, useRouteLoaderData} from '@remix-run/react'
 import {useEffect} from 'react'
+
+import type {loader as pageLoader} from '~/routes/$slug'
 
 import Button from '../Button'
 import Label from '../Label'
@@ -15,16 +17,17 @@ type CommentFormProps = {
 
 export default function CommentForm(props: CommentFormProps) {
   const {_key, closeDialog} = props
-  const matches = useMatches()
-  const {article} = matches.find((match) => match?.handle?.id === `article`)?.data || {}
-  const {_id} = article || {}
+  const pageData = useRouteLoaderData<typeof pageLoader>('routes/$slug')
+  const {_id} = pageData?.article || {}
   const fetcher = useFetcher()
 
   useEffect(() => {
-    if (fetcher.type === 'done') {
+    const isDone = fetcher.state === 'idle' && fetcher.data != null
+
+    if (isDone) {
       closeDialog()
     }
-  }, [closeDialog, fetcher.type])
+  }, [closeDialog, fetcher])
 
   return (
     <Dialog open onClose={() => closeDialog()} className="fixed inset-0 z-30 overflow-y-auto">

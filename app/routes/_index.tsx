@@ -1,19 +1,18 @@
-import type {LinksFunction, SerializeFrom, V2_MetaFunction} from '@remix-run/node'
+import type {LinksFunction, MetaFunction, SerializeFrom} from '@remix-run/node'
 import {json} from '@remix-run/node'
-import type {RouteMatch} from '@remix-run/react'
-import {useLoaderData, useMatches} from '@remix-run/react'
+import {useLoaderData} from '@remix-run/react'
 
 import HomeBlog from '~/components/HomeBlog'
 import HomeCommunity from '~/components/HomeCommunity'
 import HomeTitle from '~/components/HomeTitle'
 import Intro from '~/components/Intro'
 import {OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH} from '~/constants'
+import {useRootLoaderData} from '~/hooks/useRootLoaderData'
 import {removeTrailingSlash} from '~/lib/helpers'
 import type {loader as rootLoader} from '~/root'
 import {client, exchangeClient} from '~/sanity/client'
 import {exchangeParams, exchangeQuery, homeQuery} from '~/sanity/queries'
 import styles from '~/styles/app.css'
-import type {SiteMeta} from '~/types/siteMeta'
 import {articleStubsZ, exchangeStubsZ} from '~/types/stubs'
 
 export const handle = {id: `home`}
@@ -25,11 +24,11 @@ export const links: LinksFunction = () => {
   ]
 }
 
-export const meta: V2_MetaFunction<typeof loader> = (props) => {
+export const meta: MetaFunction<typeof loader> = (props) => {
   const {data, matches} = props
   const article = data ? data.articles.find((a) => a.source === 'blog' && a.image) : null
 
-  const rootData = matches.find((match: RouteMatch) => match?.id === `root`) as
+  const rootData = matches.find((match) => match?.id === `root`) as
     | {data: SerializeFrom<typeof rootLoader>}
     | undefined
   const siteMeta = rootData ? rootData.data.siteMeta : null
@@ -80,6 +79,7 @@ export const loader = async () => {
   // Sort combined articles by date
   const sortedArticles = allArticles
     .flat()
+    .filter((a) => a.published)
     .sort((a, b) =>
       a.published && b.published
         ? new Date(b.published).getTime() - new Date(a.published).getTime()
@@ -99,8 +99,7 @@ export const loader = async () => {
 
 export default function Index() {
   const {articles} = useLoaderData<typeof loader>()
-  const matches = useMatches()
-  const siteMeta: SiteMeta = matches?.find((match) => match?.handle?.id === 'root')?.data?.siteMeta
+  const {siteMeta} = useRootLoaderData()
 
   return (
     <section className="grid grid-cols-1 px-4 md:grid-cols-12 md:px-0 lg:grid-cols-16">

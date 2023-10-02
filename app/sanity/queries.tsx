@@ -101,6 +101,7 @@ export const exchangeQuery = groq`
   *[
     _type == "contribution.guide" 
     && defined(slug.current)
+    && hidden != true
     && $userId in authors[]._ref 
   ]|order(publishedAt desc) {
   "source": "exchange",

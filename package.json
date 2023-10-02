@@ -12,9 +12,9 @@
     "@headlessui/react": "^1.7.3",
     "@heroicons/react": "^2.0.11",
     "@portabletext/react": "^3.0.2",
-    "@remix-run/node": "*",
-    "@remix-run/react": "*",
-    "@remix-run/serve": "*",
+    "@remix-run/node": "^2.0.0",
+    "@remix-run/react": "^2.0.0",
+    "@remix-run/serve": "^2.0.0",
     "@resvg/resvg-js": "^2.4.1",
     "@sanity/asset-utils": "^1.3.0",
     "@sanity/client": "^6.1.3",
@@ -37,7 +37,6 @@
     "react": "^18.2.0",
     "react-blurhash": "^0.3.0",
     "react-dom": "^18.2.0",
-    "remix-utils": "^6.4.0",
     "sanity": "^3.12.0",
     "sanity-plugin-asset-source-unsplash": "^1.0.3",
     "sanity-plugin-iframe-pane": "^2.1.1",
@@ -50,8 +49,8 @@
   },
   "devDependencies": {
     "@csstools/postcss-color-function": "^2.2.0",
-    "@remix-run/dev": "*",
-    "@remix-run/eslint-config": "*",
+    "@remix-run/dev": "^2.0.0",
+    "@remix-run/eslint-config": "^2.0.0",
     "@tailwindcss/typography": "^0.5.7",
     "@types/carbon__colors": "^10.31.0",
     "@types/react": "^18.0.15",
@@ -66,9 +65,9 @@
     "prettier": "^2.8.0",
     "prettier-plugin-tailwindcss": "^0.2.1",
     "tailwindcss": "^3.2.4",
-    "typescript": "^4.9.4"
+    "typescript": "^5.0.0"
   },
   "engines": {
-    "node": "16.x"
+    "node": "18.x"
   }
 }

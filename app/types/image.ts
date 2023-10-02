@@ -1,27 +1,22 @@
-import type {SanityImageCrop, SanityImageHotspot} from '@sanity/asset-utils'
 import {z} from 'zod'
 
-import {schemaForType} from './schemaForType'
+// SanityImageCrop
+export const sanityImageCropZ = z.object({
+  _type: z.literal('sanity.imageCrop'),
+  left: z.number(),
+  bottom: z.number(),
+  right: z.number(),
+  top: z.number(),
+})
 
-export const sanityImageCropZ = schemaForType<SanityImageCrop>()(
-  z.object({
-    _type: z.literal('sanity.imageCrop'),
-    left: z.number(),
-    bottom: z.number(),
-    right: z.number(),
-    top: z.number(),
-  })
-)
-
-export const sanityImageHotspotZ = schemaForType<SanityImageHotspot>()(
-  z.object({
-    _type: z.literal('sanity.imageHotspot'),
-    width: z.number(),
-    height: z.number(),
-    x: z.number(),
-    y: z.number(),
-  })
-)
+// SanityImageHotspot
+export const sanityImageHotspotZ = z.object({
+  _type: z.literal('sanity.imageHotspot'),
+  width: z.number(),
+  height: z.number(),
+  x: z.number(),
+  y: z.number(),
+})
 
 export const sanityImageZ = z.object({
   _id: z.string(),

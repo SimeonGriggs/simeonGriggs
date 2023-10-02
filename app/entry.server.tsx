@@ -1,5 +1,5 @@
 import type {EntryContext} from '@remix-run/node'
-import {Response} from '@remix-run/node'
+import {createReadableStreamFromReadable} from '@remix-run/node' // or cloudflare/deno
 import {RemixServer} from '@remix-run/react'
 import {renderToPipeableStream, renderToString} from 'react-dom/server'
 import {PassThrough} from 'stream'
@@ -15,7 +15,7 @@ export default function handleRequest(
 ) {
   return new Promise((resolve, reject) => {
     let didError = false
-    let isStudioRoute = new URL(request.url).pathname.startsWith(`/studio`)
+    const isStudioRoute = new URL(request.url).pathname.startsWith(`/studio`)
 
     // We're only using Styled Components in the /studio route
     // Couldn't find any docs on renderToPipeableStream + Styled Components
@@ -46,7 +46,7 @@ export default function handleRequest(
           responseHeaders.set('Content-Type', 'text/html')
 
           resolve(
-            new Response(body, {
+            new Response(createReadableStreamFromReadable(body), {
               headers: responseHeaders,
               status: didError ? 500 : responseStatusCode,
             })

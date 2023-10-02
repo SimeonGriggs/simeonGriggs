@@ -1,13 +1,13 @@
-import type {RouteMatch} from '@remix-run/react'
-import {useLocation, useMatches} from '@remix-run/react'
-import type {SanityImageSource} from '@sanity/asset-utils'
+import {useLocation, useRouteLoaderData} from '@remix-run/react'
 import imageUrlBuilder from '@sanity/image-url'
 import {motion} from 'framer-motion'
-import React, {useCallback, useEffect, useState} from 'react'
+import {useCallback, useEffect, useMemo, useState} from 'react'
 import {Blurhash} from 'react-blurhash'
 import {useWindowSize} from 'usehooks-ts'
 import {z} from 'zod'
 
+import type {loader as homeLoader} from '~/routes/_index'
+import type {loader as pageLoader} from '~/routes/$slug'
 import {projectDetails} from '~/sanity/projectDetails'
 import type {ArticleStub, ExchangeStub} from '~/types/stubs'
 import {articleStubZ} from '~/types/stubs'
@@ -35,7 +35,9 @@ type BannerConfig = z.infer<typeof bannerConfigZ>
 const Banner = () => {
   const {pathname} = useLocation()
   const isHome = pathname === '/'
-  const matches = useMatches()
+  const homeData = useRouteLoaderData<typeof homeLoader>('routes/_index')
+  const pageData = useRouteLoaderData<typeof pageLoader>('routes/$slug')
+
   const {width: windowWidth} = useWindowSize()
   const [bannerSize, setBannerSize] = useState<BannerSize>(getNewBannerSize(isHome, windowWidth))
 
@@ -49,35 +51,17 @@ const Banner = () => {
     }
   }, [isHome, windowWidth])
 
-  const bannerImage = React.useMemo<(SanityImageSource & {altText: string}) | null>(() => {
-    if (!matches?.length) {
-      return null
-    }
-
-    const thisPathData = matches.find((match: RouteMatch) =>
-      pathname === `/` ? match.id === `routes/_index` : match.pathname === pathname
-    )
-
-    if (pathname !== `/`) {
-      return thisPathData?.data?.article?.image
-    }
-
-    if (!thisPathData?.data?.articles) {
-      return null
-    }
-
-    if (thisPathData?.data?.article?.image) {
-      return thisPathData.data.article.image
-    }
-
-    const firstBlogPostWithImage = articleStubZ.parse(
-      thisPathData.data.articles.find(
-        (b: ExchangeStub | ArticleStub) => b.source === 'blog' && b.image
+  const bannerImage = useMemo(() => {
+    if (isHome && homeData) {
+      const firstBlogPostWithImage = articleStubZ.parse(
+        homeData.articles.find((b: ExchangeStub | ArticleStub) => b.source === 'blog' && b.image)
       )
-    )
 
-    return firstBlogPostWithImage?.image ? firstBlogPostWithImage.image : null
-  }, [matches, pathname])
+      return firstBlogPostWithImage?.image ? firstBlogPostWithImage.image : null
+    }
+
+    return pageData?.article.image ? pageData.article.image : null
+  }, [isHome, homeData, pageData])
 
   // Update banner size on resize
   useEffect(() => {
@@ -94,6 +78,8 @@ const Banner = () => {
     updateBannerSize()
   }, [pathname, windowWidth, updateBannerSize])
 
+  const alt = bannerImage?.asset?.altText ? bannerImage.asset.altText : ``
+
   return (
     <>
       {/* No-nonsense mobile image */}
@@ -109,7 +95,7 @@ const Banner = () => {
             height={260}
             loading="eager"
             className="absolute inset-0 block h-full object-cover md:hidden md:min-h-screen"
-            alt={bannerImage?.altText ? String(bannerImage.altText) : ``}
+            alt={alt}
           />
         </div>
       ) : null}
@@ -162,7 +148,7 @@ const Banner = () => {
                         .auto('format')
                         .quality(80)
                         .toString()}
-                      alt={bannerImage?.altText ? String(bannerImage.altText) : ``}
+                      alt={alt}
                       className={`${bannerConfigDesktop.className} absolute inset-0 h-full object-cover md:min-h-screen`}
                       height={bannerConfigDesktop.height}
                       width={bannerConfigDesktop.width}
