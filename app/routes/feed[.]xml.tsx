@@ -1,4 +1,4 @@
-import type {LoaderFunction} from '@remix-run/node'
+import type {LoaderFunction} from '@vercel/remix'
 
 import {removeTrailingSlash} from '~/lib/helpers'
 import {client} from '~/sanity/client'
