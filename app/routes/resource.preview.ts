@@ -1,5 +1,5 @@
-import type {ActionFunction, LoaderFunctionArgs} from '@vercel/remix'
-import {json, redirect} from '@vercel/remix'
+import type {ActionFunction, LoaderFunctionArgs} from '@remix-run/node'
+import {json, redirect} from '@remix-run/node'
 import groq from 'groq'
 
 import {previewClient, writeClient} from '~/sanity/client'

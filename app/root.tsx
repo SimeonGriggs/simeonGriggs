@@ -1,3 +1,5 @@
+import type {LinksFunction, LoaderFunctionArgs} from '@remix-run/node'
+import {json} from '@remix-run/node'
 import {
   isRouteErrorResponse,
   Links,
@@ -9,8 +11,6 @@ import {
   useLoaderData,
   useRouteError,
 } from '@remix-run/react'
-import type {LinksFunction, LoaderFunctionArgs} from '@vercel/remix'
-import {json} from '@vercel/remix'
 import {z} from 'zod'
 
 import Banner from '~/components/Banner'

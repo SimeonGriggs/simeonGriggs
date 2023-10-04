@@ -1,4 +1,4 @@
-import type {LinksFunction, MetaFunction} from '@vercel/remix'
+import type {LinksFunction, MetaFunction} from '@remix-run/node'
 import {lazy, Suspense} from 'react'
 
 import styles from '~/styles/studio.css'

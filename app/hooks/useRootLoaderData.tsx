@@ -1,4 +1,4 @@
-import type {SerializeFrom} from '@vercel/remix'
+import type {SerializeFrom} from '@remix-run/node'
 import {useRouteLoaderData} from '@remix-run/react'
 
 import type {loader as rootLoader} from '~/root'

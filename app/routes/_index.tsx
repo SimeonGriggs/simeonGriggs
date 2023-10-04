@@ -1,6 +1,6 @@
-import type {LinksFunction, MetaFunction, SerializeFrom} from '@vercel/remix'
-import {json} from '@vercel/remix'
 import {useLoaderData} from '@remix-run/react'
+import type {LinksFunction, MetaFunction, SerializeFrom} from '@remix-run/node'
+import {json} from '@remix-run/node'
 
 import HomeBlog from '~/components/HomeBlog'
 import HomeCommunity from '~/components/HomeCommunity'

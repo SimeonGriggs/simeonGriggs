@@ -1,4 +1,4 @@
-import {createCookieSessionStorage} from '@vercel/remix'
+import {createCookieSessionStorage} from '@remix-run/node'
 
 const {getSession, commitSession, destroySession} = createCookieSessionStorage({
   cookie: {

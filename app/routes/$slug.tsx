@@ -1,13 +1,13 @@
+import {useLoaderData} from '@remix-run/react'
+import {GroqStoreProvider} from '@sanity/preview-kit/groq-store'
 import type {
   ActionFunction,
   LinksFunction,
   LoaderFunctionArgs,
   MetaFunction,
   SerializeFrom,
-} from '@vercel/remix'
-import {json} from '@vercel/remix'
-import {useLoaderData} from '@remix-run/react'
-import {GroqStoreProvider} from '@sanity/preview-kit/groq-store'
+} from '@remix-run/node'
+import {json} from '@remix-run/node'
 
 import Article from '~/components/Article'
 import ExitPreview from '~/components/ExitPreview'
