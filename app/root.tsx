@@ -14,16 +14,16 @@ import {
 import {z} from 'zod'
 
 import Banner from '~/components/Banner'
+import CanonicalLink from '~/components/CanonicalLink'
 import Grid from '~/components/Grid'
 import Header from '~/components/Header'
 import {themePreferenceCookie} from '~/cookies'
-import {getEnv} from '~/lib/getEnv'
+import {getBodyClassNames} from '~/lib/getBodyClassNames'
+import {getDomainUrl} from '~/lib/getDomainUrl'
+import {getEnv} from '~/lib/getEnv.server'
 import {client} from '~/sanity/client'
 import {siteMetaQuery} from '~/sanity/queries'
 import {siteMetaZ} from '~/types/siteMeta'
-
-import CanonicalLink from './components/CanonicalLink'
-import {getDomainUrl} from './lib/getDomainUrl'
 
 export const handle = {id: `root`}
 
@@ -80,20 +80,6 @@ export const loader = async ({request}: LoaderFunctionArgs) => {
       origin: getDomainUrl(request),
     },
   })
-}
-
-function getBodyClassNames(themePreference?: string): string {
-  // Use browser default if cookie is not set
-  const isDarkMode =
-    !themePreference && typeof document !== 'undefined'
-      ? window.matchMedia('(prefers-color-scheme: dark)').matches
-      : themePreference === `dark`
-  return [
-    `transition-colors duration-1000 ease-in-out min-h-screen`,
-    isDarkMode ? `dark bg-blue-900 text-white` : `bg-white`,
-  ]
-    .join(' ')
-    .trim()
 }
 
 export default function App() {
