@@ -11,20 +11,19 @@ import {
   useLoaderData,
   useRouteError,
 } from '@remix-run/react'
-import type {TypedObject} from 'sanity'
+import {z} from 'zod'
 
-// import {z} from 'zod'
 import Banner from '~/components/Banner'
 import CanonicalLink from '~/components/CanonicalLink'
 import Grid from '~/components/Grid'
 import Header from '~/components/Header'
-// import {themePreferenceCookie} from '~/cookies'
+import {themePreferenceCookie} from '~/cookies'
 import {getBodyClassNames} from '~/lib/getBodyClassNames'
 import {getDomainUrl} from '~/lib/getDomainUrl'
-// import {getEnv} from '~/lib/getEnv.server'
-// import {client} from '~/sanity/client'
-// import {siteMetaQuery} from '~/sanity/queries'
-// import {siteMetaZ} from '~/types/siteMeta'
+import {getEnv} from '~/lib/getEnv.server'
+import {client} from '~/sanity/client'
+import {siteMetaQuery} from '~/sanity/queries'
+import {siteMetaZ} from '~/types/siteMeta'
 
 export const handle = {id: `root`}
 
@@ -60,38 +59,23 @@ export const loader = async ({request}: LoaderFunctionArgs) => {
   const isResourceRoute = pathname.startsWith('/resource')
 
   // Dark/light mode
-  // const cookieHeader = request.headers.get('Cookie')
-  // const cookie = (await themePreferenceCookie.parse(cookieHeader)) || {}
-  // const themePreference = z
-  //   .union([z.literal('dark'), z.literal('light')])
-  //   .optional()
-  //   .parse(cookie.themePreference)
+  const cookieHeader = request.headers.get('Cookie')
+  const cookie = (await themePreferenceCookie.parse(cookieHeader)) || {}
+  const themePreference = z
+    .union([z.literal('dark'), z.literal('light')])
+    .optional()
+    .parse(cookie.themePreference)
 
-  // const siteMeta = isStudioRoute
-  //   ? null
-  //   : await client.fetch(siteMetaQuery).then((res) => siteMetaZ.parse(res))
-
-  const bio: TypedObject[] = [{_type: 'block'}]
+  const siteMeta = isStudioRoute
+    ? null
+    : await client.fetch(siteMetaQuery).then((res) => siteMetaZ.parse(res))
 
   return json({
-    siteMeta: {
-      author: 'Simeon Griggs',
-      bio,
-      description:
-        'I’m a software engineer, writer, and creator. I write about software, productivity, and life.',
-      siteUrl: 'https://www.simeongriggs.dev',
-      title: 'Simeon Griggs',
-    },
+    siteMeta,
     isStudioRoute,
     isResourceRoute,
-    themePreference: 'light',
-    // ENV: getEnv(),
-    ENV: {
-      NODE_ENV: 'production',
-      SANITY_PUBLIC_PROJECT_ID: 'az8av6xl',
-      SANITY_PUBLIC_DATASET: 'production',
-      SANITY_PUBLIC_API_VERSION: '2023-10-01',
-    },
+    themePreference,
+    ENV: getEnv(),
     requestInfo: {
       origin: getDomainUrl(request),
     },
