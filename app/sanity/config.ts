@@ -1,6 +1,6 @@
 import {codeInput} from '@sanity/code-input'
 import {visionTool} from '@sanity/vision'
-import {createConfig} from 'sanity'
+import {defineConfig} from 'sanity'
 import {deskTool} from 'sanity/desk'
 import {unsplashImageAsset} from 'sanity-plugin-asset-source-unsplash'
 import {media} from 'sanity-plugin-media'
@@ -10,7 +10,7 @@ import {schemaTypes} from '~/sanity/schema'
 import {defaultDocumentNode, structure} from '~/sanity/structure'
 import {theme} from '~/sanity/theme'
 
-export const config = createConfig({
+export const config = defineConfig({
   name: 'simeonGriggs',
   title: 'simeonGriggs.dev',
   theme,

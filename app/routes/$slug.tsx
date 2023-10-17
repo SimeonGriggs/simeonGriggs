@@ -1,5 +1,3 @@
-import {useLoaderData} from '@remix-run/react'
-import {GroqStoreProvider} from '@sanity/preview-kit/groq-store'
 import type {
   ActionFunction,
   LinksFunction,
@@ -8,6 +6,8 @@ import type {
   SerializeFrom,
 } from '@remix-run/node'
 import {json} from '@remix-run/node'
+import {useLoaderData} from '@remix-run/react'
+import {GroqStoreProvider} from '@sanity/preview-kit/groq-store'
 
 import Article from '~/components/Article'
 import ExitPreview from '~/components/ExitPreview'

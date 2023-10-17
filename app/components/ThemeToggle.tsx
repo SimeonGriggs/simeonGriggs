@@ -1,11 +1,12 @@
 import {MoonIcon, SunIcon} from '@heroicons/react/24/solid'
-import {useFetcher, useLoaderData} from '@remix-run/react'
+import {useFetcher} from '@remix-run/react'
 
 import {buttonClasses} from '~/components/Header'
+import {useRootLoaderData} from '~/hooks/useRootLoaderData'
 
 export default function ThemeToggle() {
   const cookieToggle = useFetcher()
-  const {themePreference} = useLoaderData()
+  const {themePreference} = useRootLoaderData()
 
   const isDarkMode = themePreference === `dark`
 
