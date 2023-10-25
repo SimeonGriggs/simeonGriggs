@@ -3,6 +3,7 @@ import React from 'react'
 
 export default function OGPreview({document, options}: any) {
   const {displayed} = document
+  // @ts-expect-error
   const url = React.useMemo(() => options.url(displayed), [displayed, options])
 
   return (
