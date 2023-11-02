@@ -11,7 +11,7 @@ import {GroqStoreProvider} from '@sanity/preview-kit/groq-store'
 
 import Article from '~/components/Article'
 import ExitPreview from '~/components/ExitPreview'
-import {OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH} from '~/constants'
+import {OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH, PREVIEW_SESSION_NAME} from '~/constants'
 import type {loader as rootLoader} from '~/root'
 import {getClient, writeClient} from '~/sanity/client'
 import {projectDetails} from '~/sanity/projectDetails'
@@ -94,8 +94,9 @@ export const action: ActionFunction = async ({request}) => {
 
 export const loader = async ({request, params}: LoaderFunctionArgs) => {
   const session = await getSession(request.headers.get('Cookie'))
-  const token: string = session.get('token')
+  const token: string = session.get(PREVIEW_SESSION_NAME)
   const preview = Boolean(token)
+  console.log({preview, token})
 
   const article = await getClient(preview)
     .fetch(articleQuery, params)

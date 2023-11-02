@@ -2,6 +2,7 @@ import type {ActionFunction, LoaderFunctionArgs} from '@remix-run/node'
 import {json, redirect} from '@remix-run/node'
 import groq from 'groq'
 
+import {PREVIEW_SESSION_NAME} from '~/constants'
 import {previewClient, writeClient} from '~/sanity/client'
 import {getSecret, SECRET_ID} from '~/sanity/structure/getSecret'
 import {commitSession, destroySession, getSession} from '~/sessions'
@@ -26,10 +27,10 @@ export const loader = async ({request}: LoaderFunctionArgs) => {
   const requestUrl = new URL(request.url)
 
   // Check the URL has a valid ?slug param
-  const slug = requestUrl.searchParams.get('slug')
+  const _id = requestUrl.searchParams.get('_id')
 
-  if (!slug) {
-    return new Response('No slug in URL', {status: 401})
+  if (!_id) {
+    return new Response('No "_id" in URL', {status: 401})
   }
 
   // Check the URL has a ?secret param
@@ -41,8 +42,8 @@ export const loader = async ({request}: LoaderFunctionArgs) => {
 
   // Confirm the passed-in slug actually exists
   const validSlug = await previewClient.fetch(
-    groq`*[_type == "article" && slug.current == $slug][0].slug.current`,
-    {slug}
+    groq`*[_type == "article" && _id == $_id][0].slug.current`,
+    {_id}
   )
 
   if (!validSlug) {
@@ -57,7 +58,7 @@ export const loader = async ({request}: LoaderFunctionArgs) => {
 
   // Write viewer token to session so that every route can authenticate by it
   const session = await getSession(request.headers.get('Cookie'))
-  session.set(`token`, process.env.SANITY_READ_TOKEN)
+  session.set(PREVIEW_SESSION_NAME, process.env.SANITY_READ_TOKEN)
 
   return redirect(`/${validSlug}`, {
     headers: {

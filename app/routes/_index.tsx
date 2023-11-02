@@ -67,7 +67,7 @@ export const meta: MetaFunction<typeof loader> = (props) => {
 export const loader = async () => {
   // Put site in preview mode if the right query param is used
   // const requestUrl = new URL(request.url)
-  // const preview = requestUrl.searchParams.get(`preview`) === process.env.SANITY_PREVIEW_SECRET
+  // const preview = requestUrl.searchParams.get(`preview`) === process.env.SANITY_READ_TOKEN
 
   const allArticles = await Promise.all([
     await client.fetch(homeQuery).then((result) => articleStubsZ.parse(result)),

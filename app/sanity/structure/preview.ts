@@ -9,26 +9,11 @@ async function createPreviewUrl(
   client: SanityClient,
   user: CurrentUser | null
 ) {
-  const remoteUrl = `https://www.simeongriggs.dev`
-  const baseUrl = window?.location?.hostname === 'localhost' ? window.origin : remoteUrl
-
-  // If no user, we're not logged in, so we can't preview a draft
-  if (!user) {
-    return doc?.slug?.current ? new URL(doc.slug.current, baseUrl).toString() : baseUrl
-  }
-
-  const previewUrl = new URL('/resource/preview', baseUrl)
-
-  if (!doc?.slug?.current) {
-    return previewUrl.toString()
-  }
-
-  previewUrl.searchParams.set('slug', doc.slug.current)
+  const previewUrl = new URL('/resource/preview', window.origin)
   const secret = await getSecret(client, SECRET_ID, true)
 
-  if (secret) {
-    previewUrl.searchParams.set('secret', secret)
-  }
+  previewUrl.searchParams.set('_id', doc._id.replace(`drafts.`, ``))
+  previewUrl.searchParams.set('secret', secret ?? ``)
 
   return previewUrl.toString()
 }

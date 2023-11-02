@@ -11,6 +11,7 @@ export const previewClient = createClient({
   ...projectDetails(),
   useCdn: false,
   token: process.env.SANITY_READ_TOKEN,
+  perspective: 'previewDrafts',
 })
 
 export const getClient = (previewMode = false) => (previewMode ? previewClient : client)
