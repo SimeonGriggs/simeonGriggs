@@ -96,7 +96,6 @@ export const loader = async ({request, params}: LoaderFunctionArgs) => {
   const session = await getSession(request.headers.get('Cookie'))
   const token: string = session.get(PREVIEW_SESSION_NAME)
   const preview = Boolean(token)
-  console.log({preview, token})
 
   const article = await getClient(preview)
     .fetch(articleQuery, params)
