@@ -18,6 +18,7 @@ export const getClient = (previewMode = false) => (previewMode ? previewClient :
 
 export const writeClient = createClient({
   ...projectDetails(),
+  useCdn: false,
   token: process.env.SANITY_WRITE_TOKEN,
 })
 

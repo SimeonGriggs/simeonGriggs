@@ -1,38 +1,7 @@
-// import React, {useState, useEffect} from 'react'
-// import {Stack, Text} from '@sanity/ui'
-// import {blocksToText} from '../../lib/portableTextToPlainText'
-// const client = sanityClient.withConfig({
-//   apiVersion: `2021-03-25`,
-// })
-// const Content = React.forwardRef((props, ref) => {
-//   const {value} = props
-//   const [data, setData] = useState(null)
-//   useEffect(() => {
-//     function getData() {
-//       const query = `*[_type == "article" && $key in content[]._key][0].content[_key == $key]`
-//       const params = {key: value}
-//       client
-//         .fetch(query, params)
-//         .then((res) => {
-//           setData(res)
-//         })
-//         .catch((err) => console.error(err))
-//     }
-//     if (!data) {
-//       getData()
-//     }
-//   }, [])
-//   if (!data) return null
-//   return (
-//     <Stack space={3}>
-//       <Text size={1} weight="bold">
-//         Comment on:
-//       </Text>
-//       <Text size={1}>{blocksToText(data)}</Text>
-//     </Stack>
-//   )
-// })
-import HeroIcon from '../../components/HeroIcon'
+import {defineField} from 'sanity'
+
+import CommentPreview from '~/sanity/components/CommentPreview'
+import HeroIcon from '~/sanity/components/HeroIcon'
 
 export default {
   name: 'comment',
@@ -41,36 +10,33 @@ export default {
   type: 'document',
   fields: [
     {
+      name: 'commentOn',
+      type: 'reference',
+      to: [{type: 'article'}],
+      readOnly: true,
+    },
+    defineField({
       name: 'commentKey',
-      title: 'Comment key',
       type: 'string',
       readOnly: true,
-      // inputComponent: Content,
-    },
+      components: {
+        input: CommentPreview,
+      },
+    }),
     {
       name: 'content',
-      title: 'Content',
       type: 'text',
-      rows: 3,
-      readOnly: true,
-    },
-    {
-      name: 'email',
-      title: 'Email',
-      type: 'string',
+      rows: 10,
       readOnly: true,
     },
     {
       name: 'name',
-      title: 'Name',
       type: 'string',
       readOnly: true,
     },
     {
-      name: 'commentOn',
-      title: 'Comment on',
-      type: 'reference',
-      to: [{type: 'article'}],
+      name: 'email',
+      type: 'string',
       readOnly: true,
     },
   ],
@@ -83,7 +49,7 @@ export default {
       const {title, slug} = selection
 
       return {
-        title,
+        title: title?.length > 50 ? `${title.slice(0, 30)}...` : title,
         subtitle: `/${slug}`,
         media: () => <HeroIcon icon="comment" />,
       }

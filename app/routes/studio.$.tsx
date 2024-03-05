@@ -22,8 +22,8 @@ const Fallback = (
 
 export default function StudioPage() {
   return (
-    <Suspense fallback={Fallback}>
-      <StudioWrapper />
-    </Suspense>
+    <StudioWrapper />
+    // <Suspense fallback={Fallback}>
+    // </Suspense>
   )
 }
