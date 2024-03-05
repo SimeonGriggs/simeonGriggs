@@ -5,12 +5,24 @@ type ProjectDetails = {
 }
 
 export const projectDetails = (): ProjectDetails => {
-  const {SANITY_PUBLIC_PROJECT_ID, SANITY_PUBLIC_DATASET, SANITY_PUBLIC_API_VERSION} =
-    typeof document === 'undefined' ? process.env : window.ENV
+  const {
+    VITE_SANITY_PUBLIC_PROJECT_ID,
+    VITE_SANITY_PUBLIC_DATASET,
+    VITE_SANITY_PUBLIC_API_VERSION,
+  } = typeof document === 'undefined' ? process.env : window.ENV
+
+  // Check values
+  if (!VITE_SANITY_PUBLIC_PROJECT_ID) {
+    throw new Error(`Undefined environment variable: VITE_SANITY_PUBLIC_PROJECT_ID`)
+  } else if (!VITE_SANITY_PUBLIC_DATASET) {
+    throw new Error(`Undefined environment variable: VITE_SANITY_PUBLIC_DATASET`)
+  } else if (!VITE_SANITY_PUBLIC_API_VERSION) {
+    throw new Error(`Undefined environment variable: VITE_SANITY_PUBLIC_API_VERSION`)
+  }
 
   return {
-    projectId: String(SANITY_PUBLIC_PROJECT_ID),
-    dataset: String(SANITY_PUBLIC_DATASET),
-    apiVersion: String(SANITY_PUBLIC_API_VERSION),
+    projectId: VITE_SANITY_PUBLIC_PROJECT_ID,
+    dataset: VITE_SANITY_PUBLIC_DATASET,
+    apiVersion: VITE_SANITY_PUBLIC_API_VERSION,
   }
 }

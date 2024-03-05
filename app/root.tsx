@@ -3,7 +3,6 @@ import {json} from '@remix-run/node'
 import {
   isRouteErrorResponse,
   Links,
-  LiveReload,
   Meta,
   Outlet,
   Scripts,
@@ -119,7 +118,6 @@ export default function App() {
           }}
         />
         <Scripts />
-        <LiveReload />
       </body>
     </html>
   )
