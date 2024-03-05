@@ -3,7 +3,7 @@ import {defineField, defineType} from 'sanity'
 
 import HeroIcon from '../../components/HeroIcon'
 
-export default defineType({
+export const talkType = defineType({
   name: 'talk',
   title: 'Talk',
   icon: () => <HeroIcon icon="talk" />,
@@ -51,7 +51,7 @@ export default defineType({
       name: 'image',
       title: 'Image',
       type: 'image',
-      // @ts-ignore
+      // @ts-expect-error
       validation: (rule: Rule) => rule.required(),
     }),
     defineField({type: 'seo', name: 'seo', title: 'SEO'}),

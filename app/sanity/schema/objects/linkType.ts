@@ -1,30 +1,30 @@
-import type {Rule} from 'sanity'
+import {defineField, defineType} from 'sanity'
 
-export default {
+export const linkType = defineType({
   name: 'link',
   title: 'Link',
   type: 'object',
   fields: [
-    {
+    defineField({
       name: `text`,
       type: `string`,
-      validation: (Rule: Rule) => Rule.required(),
-    },
-    {
+      validation: (Rule) => Rule.required(),
+    }),
+    defineField({
       name: `reference`,
       type: `reference`,
       description: `If this link has a reference and a URL, the reference will be used`,
       to: [{type: 'article'}],
-    },
-    {
+    }),
+    defineField({
       name: `link`,
       type: `url`,
       description: `Must be a full URL`,
-      validation: (Rule: Rule) =>
-        Rule.custom((url: string | null) =>
+      validation: (Rule) =>
+        Rule.custom((url) =>
           url && url.startsWith('http://') ? 'Please start links with https://' : true
         ),
-    },
+    }),
   ],
   preview: {
     select: {
@@ -43,4 +43,4 @@ export default {
       }
     },
   },
-}
+})

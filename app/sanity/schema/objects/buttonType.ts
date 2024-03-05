@@ -1,13 +1,12 @@
 import {LinkIcon} from '@sanity/icons'
-import {defineType} from 'sanity'
+import {defineField, defineType} from 'sanity'
 
-export default defineType({
+export const buttonType = defineType({
   name: 'button',
   title: 'Button',
   type: 'object',
-  // @ts-ignore
   icon: LinkIcon,
-  fields: [{name: 'link', type: 'link'}],
+  fields: [defineField({name: 'link', type: 'link'})],
   preview: {
     select: {
       title: 'link.text',

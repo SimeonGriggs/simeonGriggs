@@ -1,6 +1,6 @@
 import {defineType} from 'sanity'
 
-export default defineType({
+export const codeSandboxType = defineType({
   name: 'codeSandbox',
   type: 'object',
   title: 'Code Sandbox',

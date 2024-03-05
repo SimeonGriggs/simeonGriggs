@@ -3,41 +3,43 @@ import {defineField, defineType} from 'sanity'
 import CommentPreview from '~/sanity/components/CommentPreview'
 import HeroIcon from '~/sanity/components/HeroIcon'
 
-export default defineType({
+export const commentType = defineType({
   name: 'comment',
   title: 'Comment',
   type: 'document',
   fields: [
     defineField({
       name: 'commentKey',
+      title: 'Comment on block',
       type: 'string',
       readOnly: true,
       components: {
         input: CommentPreview,
       },
     }),
-    {
+    defineField({
       name: 'commentOn',
+      title: 'Comment on article',
       type: 'reference',
       to: [{type: 'article'}],
       readOnly: true,
-    },
-    {
+    }),
+    defineField({
       name: 'content',
       type: 'text',
       rows: 10,
       readOnly: true,
-    },
-    {
+    }),
+    defineField({
       name: 'name',
       type: 'string',
       readOnly: true,
-    },
-    {
+    }),
+    defineField({
       name: 'email',
       type: 'string',
       readOnly: true,
-    },
+    }),
   ],
   icon: () => <HeroIcon icon="comment" />,
   preview: {

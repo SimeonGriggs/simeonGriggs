@@ -2,7 +2,7 @@ import {defineField, defineType} from 'sanity'
 
 import HeroIcon from '../../components/HeroIcon'
 
-export default defineType({
+export const siteMetaType = defineType({
   name: 'siteMeta',
   title: 'Site meta',
   icon: () => <HeroIcon icon="siteMeta" />,

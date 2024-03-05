@@ -107,6 +107,9 @@ dependencies:
   sanity-plugin-media:
     specifier: ^2.2.5
     version: 2.2.5(@sanity/ui@1.9.3)(@types/react@18.2.62)(react-dom@18.2.0)(react@18.2.0)(sanity@3.30.1)(styled-components@5.3.11)
+  sanity-plugin-utils:
+    specifier: ^1.6.4
+    version: 1.6.4(@sanity/ui@1.9.3)(react-dom@18.2.0)(react-fast-compare@3.2.2)(react@18.2.0)(rxjs@7.8.1)(sanity@3.30.1)(styled-components@5.3.11)
   satori:
     specifier: ^0.10.13
     version: 0.10.13
@@ -9674,6 +9677,29 @@ packages:
     transitivePeerDependencies:
       - '@types/react'
       - react-native
+    dev: false
+
+  /sanity-plugin-utils@1.6.4(@sanity/ui@1.9.3)(react-dom@18.2.0)(react-fast-compare@3.2.2)(react@18.2.0)(rxjs@7.8.1)(sanity@3.30.1)(styled-components@5.3.11):
+    resolution: {integrity: sha512-j4LdOlvvM/Utyrl8RWE4VbBwOUx8m+GUoel4CjsBl5h8K1Tgjvpw8J7ftULwCwpcl/yzVGwQutgNw3FXxFbYYg==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      '@sanity/ui': ^1.0 || ^2.0
+      react: ^18
+      react-dom: ^18
+      react-fast-compare: ^3.2.0
+      rxjs: ^7.0.0
+      sanity: ^3.0.0
+      styled-components: ^5.0 || ^6.0
+    dependencies:
+      '@sanity/icons': 2.10.3(react@18.2.0)
+      '@sanity/incompatible-plugin': 1.0.4(react-dom@18.2.0)(react@18.2.0)
+      '@sanity/ui': 1.9.3(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)(styled-components@5.3.11)
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+      react-fast-compare: 3.2.2
+      rxjs: 7.8.1
+      sanity: 3.30.1(@types/react@18.2.62)(react-dom@18.2.0)(react@18.2.0)(styled-components@5.3.11)
+      styled-components: 5.3.11(@babel/core@7.24.0)(react-dom@18.2.0)(react-is@18.2.0)(react@18.2.0)
     dev: false
 
   /sanity@3.30.1(@types/react@18.2.62)(react-dom@18.2.0)(react@18.2.0)(styled-components@5.3.11):

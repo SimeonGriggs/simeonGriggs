@@ -43,6 +43,7 @@
     "sanity-plugin-asset-source-unsplash": "^1.1.2",
     "sanity-plugin-iframe-pane": "^2.6.1",
     "sanity-plugin-media": "^2.2.5",
+    "sanity-plugin-utils": "^1.6.4",
     "satori": "^0.10.13",
     "styled-components": "^5.3.11",
     "tailwindcss-fraction-widths": "^1.0.2",
