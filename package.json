@@ -50,6 +50,7 @@
   },
   "devDependencies": {
     "@csstools/postcss-color-function": "^2.2.3",
+    "@portabletext/types": "^2.0.8",
     "@remix-run/dev": "^2.8.0",
     "@remix-run/eslint-config": "^2.8.0",
     "@tailwindcss/typography": "^0.5.10",

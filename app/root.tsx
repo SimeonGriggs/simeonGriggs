@@ -98,7 +98,6 @@ export default function App() {
         <meta name="color-scheme" content={themePreference ?? 'light'} />
         <meta name="type" content="website" />
         <CanonicalLink origin={requestInfo.origin} />
-        {isStudioRoute && typeof document === 'undefined' ? '__STYLES__' : null}
       </head>
       <body className={bodyClassNames}>
         {isStudioRoute || isResourceRoute ? (

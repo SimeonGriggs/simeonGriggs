@@ -127,6 +127,9 @@ devDependencies:
   '@csstools/postcss-color-function':
     specifier: ^2.2.3
     version: 2.2.3(postcss@8.4.35)
+  '@portabletext/types':
+    specifier: ^2.0.8
+    version: 2.0.8
   '@remix-run/dev':
     specifier: ^2.8.0
     version: 2.8.0(@remix-run/serve@2.8.0)(typescript@5.3.3)(vite@5.1.5)
@@ -1959,7 +1962,6 @@ packages:
   /@portabletext/types@2.0.8:
     resolution: {integrity: sha512-eiq9/kMX2bYezS4/kLFk3xNnruCFjCDdw6aYEv5ECHVKkYROiuLd3/AsP5d7tWF3+kPPy6tB0Wq8aqDG/URHGA==}
     engines: {node: ^14.13.1 || >=16.0.0 || >=18.0.0}
-    dev: false
 
   /@reduxjs/toolkit@1.9.7(react-redux@7.2.9)(react@18.2.0):
     resolution: {integrity: sha512-t7v8ZPxhhKgOKtU+uyJT13lu4vL7az5aFi4IdoDs/eS548edn2M8Ik9h8fxgvMjGoAUVFSt6ZC1P5cWmQ014QQ==}

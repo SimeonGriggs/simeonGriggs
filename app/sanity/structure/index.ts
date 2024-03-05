@@ -1,4 +1,4 @@
-import type {DefaultDocumentNodeResolver, StructureResolver} from 'sanity/desk'
+import type {DefaultDocumentNodeResolver, StructureResolver} from 'sanity/structure'
 
 import {projectDetails} from '../projectDetails'
 import {og} from './og'
