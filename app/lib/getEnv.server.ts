@@ -1,10 +1,19 @@
 export function getEnv() {
-  return {
+  const values: Record<string, string | undefined> = {
     NODE_ENV: process.env.NODE_ENV,
-    SANITY_PUBLIC_PROJECT_ID: process.env.SANITY_PUBLIC_PROJECT_ID,
-    SANITY_PUBLIC_DATASET: process.env.SANITY_PUBLIC_DATASET,
-    SANITY_PUBLIC_API_VERSION: process.env.SANITY_PUBLIC_API_VERSION,
+    VITE_SANITY_PUBLIC_PROJECT_ID: process.env.VITE_SANITY_PUBLIC_PROJECT_ID,
+    VITE_SANITY_PUBLIC_DATASET: process.env.VITE_SANITY_PUBLIC_DATASET,
+    VITE_SANITY_PUBLIC_API_VERSION: process.env.VITE_SANITY_PUBLIC_API_VERSION,
   }
+
+  // Check values aren't undefined
+  for (const key in values) {
+    if (!values[key]) {
+      throw new Error(`Undefined environment variable: ${key}`)
+    }
+  }
+
+  return values
 }
 
 type ENV = ReturnType<typeof getEnv>
