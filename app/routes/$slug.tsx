@@ -17,7 +17,7 @@ import {getClient, writeClient} from '~/sanity/client'
 import {projectDetails} from '~/sanity/projectDetails'
 import {articleQuery} from '~/sanity/queries'
 import {getSession} from '~/sessions'
-import styles from '~/styles/app.css'
+import styles from '~/styles/app.css?url'
 import {articleZ} from '~/types/article'
 import {commentZ} from '~/types/comment'
 

@@ -12,7 +12,7 @@ import {removeTrailingSlash} from '~/lib/helpers'
 import type {loader as rootLoader} from '~/root'
 import {client, exchangeClient} from '~/sanity/client'
 import {exchangeParams, exchangeQuery, homeQuery} from '~/sanity/queries'
-import styles from '~/styles/app.css'
+import styles from '~/styles/app.css?url'
 import {articleStubsZ, exchangeStubsZ} from '~/types/stubs'
 
 export const handle = {id: `home`}

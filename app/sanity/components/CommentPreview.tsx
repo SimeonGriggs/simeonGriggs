@@ -1,11 +1,13 @@
-import {Stack} from '@sanity/ui'
+import {Card, Stack, Text} from '@sanity/ui'
 import type {StringInputProps} from 'sanity'
 
 export default function CommentPreview(props: StringInputProps) {
   return (
-    <Stack space={2}>
-      <div>CommentPreview</div>
-      {props.renderDefault(props)}
-    </Stack>
+    <Card tone="primary" padding={3} border radius={2}>
+      <Stack space={2}>
+        <Text>CommentPreview</Text>
+        {props.renderDefault(props)}
+      </Stack>
+    </Card>
   )
 }

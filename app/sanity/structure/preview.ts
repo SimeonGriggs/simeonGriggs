@@ -1,5 +1,5 @@
 import type {CurrentUser, SanityClient, SanityDocumentLike} from 'sanity'
-import type {StructureBuilder} from 'sanity/desk'
+import type {StructureBuilder} from 'sanity/structure'
 import Iframe from 'sanity-plugin-iframe-pane'
 
 import {getSecret, SECRET_ID} from './getSecret'

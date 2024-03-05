@@ -24,21 +24,13 @@ export default function Article(props: ArticleProps) {
     <div className="grid grid-cols-1 gap-12 px-4 pb-32 md:mt-0 md:grid-cols-12 md:gap-0 md:px-0 lg:grid-cols-16">
       <div className="grid-col-1 grid gap-6 pt-48 md:col-span-8 md:col-start-3 md:py-24 lg:col-span-8 lg:col-start-5">
         {title ? (
-          <h1
-            // @ts-expect-error
-            style={{textWrap: 'balance'}}
-            className="text-4xl font-black leading-none tracking-tighter text-blue-500 md:text-6xl lg:text-7xl"
-          >
+          <h1 className="text-4xl font-black leading-none tracking-tighter text-blue-500 md:text-6xl lg:text-7xl text-balance">
             {title}
           </h1>
         ) : null}
 
         {summary ? (
-          <p
-            className="max-w-xl font-mono leading-relaxed md:text-lg md:leading-loose"
-            // @ts-expect-error
-            style={{textWrap: 'pretty'}}
-          >
+          <p className="max-w-xl font-mono leading-relaxed md:text-lg md:leading-loose text-pretty">
             {summary}
           </p>
         ) : null}
@@ -47,7 +39,7 @@ export default function Article(props: ArticleProps) {
           className="flex items-center gap-2 font-mono text-xs text-blue-500 hover:bg-blue-500 hover:text-white dark:text-blue-200 dark:hover:text-white"
           target="_blank"
           rel="noopener noreferrer"
-          href={`/studio/desk/article;${_id}`}
+          href={`/studio/structure/article;${_id}`}
         >
           <PencilSquareIcon className="w-5" />
           View in Sanity Studio

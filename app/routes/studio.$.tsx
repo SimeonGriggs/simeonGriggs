@@ -1,7 +1,7 @@
 import type {LinksFunction, MetaFunction} from '@remix-run/node'
 import {lazy, Suspense} from 'react'
 
-import styles from '~/styles/studio.css'
+import styles from '~/styles/studio.css?url'
 
 export const meta: MetaFunction = () => [
   {title: 'Sanity Studio'},
@@ -22,8 +22,8 @@ const Fallback = (
 
 export default function StudioPage() {
   return (
-    <StudioWrapper />
-    // <Suspense fallback={Fallback}>
-    // </Suspense>
+    <Suspense fallback={Fallback}>
+      <StudioWrapper />
+    </Suspense>
   )
 }

@@ -1,20 +1,13 @@
-import {defineField} from 'sanity'
+import {defineField, defineType} from 'sanity'
 
 import CommentPreview from '~/sanity/components/CommentPreview'
 import HeroIcon from '~/sanity/components/HeroIcon'
 
-export default {
+export default defineType({
   name: 'comment',
   title: 'Comment',
-  icon: () => <HeroIcon icon="comment" />,
   type: 'document',
   fields: [
-    {
-      name: 'commentOn',
-      type: 'reference',
-      to: [{type: 'article'}],
-      readOnly: true,
-    },
     defineField({
       name: 'commentKey',
       type: 'string',
@@ -23,6 +16,12 @@ export default {
         input: CommentPreview,
       },
     }),
+    {
+      name: 'commentOn',
+      type: 'reference',
+      to: [{type: 'article'}],
+      readOnly: true,
+    },
     {
       name: 'content',
       type: 'text',
@@ -40,6 +39,7 @@ export default {
       readOnly: true,
     },
   ],
+  icon: () => <HeroIcon icon="comment" />,
   preview: {
     select: {
       title: 'content',
@@ -55,4 +55,4 @@ export default {
       }
     },
   },
-}
+})

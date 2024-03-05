@@ -1,9 +1,10 @@
 {
   "private": true,
   "sideEffects": false,
+  "type": "module",
   "scripts": {
-    "build": "remix build",
-    "dev": "remix dev",
+    "dev": "remix vite:dev",
+    "build": "remix vite:build",
     "lint": "eslint . --fix",
     "typecheck": "tsc --noEmit"
   },
