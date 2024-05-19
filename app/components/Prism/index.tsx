@@ -1,6 +1,7 @@
 import {ClipboardIcon} from '@heroicons/react/24/outline'
-import type {Language} from 'prism-react-renderer'
-import Highlight, {defaultProps} from 'prism-react-renderer'
+import clsx from 'clsx'
+import type {Language, RenderProps} from 'prism-react-renderer'
+import {Highlight} from 'prism-react-renderer'
 import {useCallback, useRef, useState} from 'react'
 import {useCopyToClipboard} from 'usehooks-ts'
 
@@ -21,6 +22,7 @@ const augmentLineProps = (lineNum: number, highlightedLines: number[]) => {
 
 export default function Prism(props: PrismProps) {
   const {code = ``, language, highlightedLines = []} = props
+
   const [buttonLabel, setButtonLabel] = useState<`Copy` | `Copied`>(`Copy`)
   const copyButtonRef = useRef<HTMLButtonElement>(null)
   const [, setCopiedText] = useCopyToClipboard()
@@ -52,21 +54,30 @@ export default function Prism(props: PrismProps) {
         <ClipboardIcon className="h-auto w-4" />
         {buttonLabel}
       </button>
-      <Highlight
-        {...defaultProps}
-        code={code.trim()}
-        language={language || 'markup'}
-        theme={simeonGriggsTheme}
-      >
-        {({className, style, tokens, getTokenProps}) => (
+      <Highlight code={code.trim()} language={language || 'markup'} theme={simeonGriggsTheme}>
+        {({className, style, tokens, getLineProps, getTokenProps}: RenderProps) => (
           <pre className={className} style={style}>
-            {tokens.map((line, lineI) => (
-              <div key={lineI} {...augmentLineProps(lineI, highlightedLines)}>
-                {line.map((token, tokenI) => (
-                  <span key={tokenI} {...getTokenProps({token})} />
-                ))}
-              </div>
-            ))}
+            <code translate="no">
+              {tokens.map((line, tokenI) => {
+                const lineProps = getLineProps({line})
+                const isHighlighted = highlightedLines && highlightedLines.includes(tokenI + 1)
+
+                return (
+                  <div
+                    key={tokenI}
+                    {...lineProps}
+                    className={clsx(
+                      lineProps.className,
+                      isHighlighted && `bg-white dark:bg-blue-500/10`,
+                    )}
+                  >
+                    {line.map((token, lineI) => (
+                      <span key={lineI} {...getTokenProps({token})} />
+                    ))}
+                  </div>
+                )
+              })}
+            </code>
           </pre>
         )}
       </Highlight>

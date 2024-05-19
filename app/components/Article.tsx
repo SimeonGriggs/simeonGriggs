@@ -1,7 +1,5 @@
 import {PencilSquareIcon} from '@heroicons/react/24/outline'
 import {PortableText} from '@portabletext/react'
-import type {QueryParams} from '@sanity/client'
-import {useListeningQuery} from '@sanity/preview-kit'
 
 import {CommentsProvider} from '~/components/Comments/CommentsContext'
 import {commentComponents, components} from '~/components/PortableText/components'
@@ -12,13 +10,11 @@ import type {Article as ArticleType} from '~/types/article'
 
 type ArticleProps = {
   article: ArticleType
-  query?: string
-  params?: QueryParams
 }
 
 export default function Article(props: ArticleProps) {
-  const article = useListeningQuery(props.article, props.query ?? ``, props.params)
-  const {_id, title, summary, tableOfContents, content, comments, updated, published} = article
+  const {_id, title, summary, tableOfContents, content, comments, updated, published} =
+    props.article
 
   return (
     <div className="grid grid-cols-1 gap-12 px-4 pb-32 md:mt-0 md:grid-cols-12 md:gap-0 md:px-0 lg:grid-cols-16">

@@ -1,8 +1,6 @@
 import type {DefaultDocumentNodeResolver, StructureResolver} from 'sanity/structure'
 
-import {projectDetails} from '../projectDetails'
 import {og} from './og'
-import {preview} from './preview'
 
 export const structure: StructureResolver = (S, {currentUser}) => {
   const items = [
@@ -21,16 +19,10 @@ export const structure: StructureResolver = (S, {currentUser}) => {
   return S.list().id('root').title('Content').items(items)
 }
 
-export const defaultDocumentNode: DefaultDocumentNodeResolver = (
-  S,
-  {schemaType, getClient, currentUser}
-) => {
-  const {apiVersion} = projectDetails()
-  const client = getClient({apiVersion})
-
+export const defaultDocumentNode: DefaultDocumentNodeResolver = (S, {schemaType}) => {
   switch (schemaType) {
     case `article`:
-      return S.document().views([S.view.form(), preview(S, client, currentUser), og(S)])
+      return S.document().views([S.view.form(), og(S)])
     default:
       return S.document().views([S.view.form()])
   }

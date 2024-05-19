@@ -12,17 +12,13 @@ import {
 } from '@remix-run/react'
 import {z} from 'zod'
 
-import Banner from '~/components/Banner'
 import CanonicalLink from '~/components/CanonicalLink'
-import Grid from '~/components/Grid'
-import Header from '~/components/Header'
 import {themePreferenceCookie} from '~/cookies'
 import {getBodyClassNames} from '~/lib/getBodyClassNames'
 import {getDomainUrl} from '~/lib/getDomainUrl'
-import {getEnv} from '~/lib/getEnv.server'
-import {client} from '~/sanity/client'
-import {siteMetaQuery} from '~/sanity/queries'
-import {siteMetaZ} from '~/types/siteMeta'
+
+import LiveVisualEditing from './components/LiveVisualEditing'
+import {loadQueryOptions} from './sanity/loadQueryOptions'
 
 export const handle = {id: `root`}
 
@@ -53,10 +49,6 @@ export const links: LinksFunction = () => {
 }
 
 export const loader = async ({request}: LoaderFunctionArgs) => {
-  const {pathname} = new URL(request.url)
-  const isStudioRoute = pathname.startsWith('/studio')
-  const isResourceRoute = pathname.startsWith('/resource')
-
   // Dark/light mode
   const cookieHeader = request.headers.get('Cookie')
   const cookie = (await themePreferenceCookie.parse(cookieHeader)) || {}
@@ -65,25 +57,24 @@ export const loader = async ({request}: LoaderFunctionArgs) => {
     .optional()
     .parse(cookie.themePreference)
 
-  const siteMeta = isStudioRoute
-    ? null
-    : await client.fetch(siteMetaQuery).then((res) => siteMetaZ.parse(res))
+  const {preview} = await loadQueryOptions(request.headers)
 
   return json({
-    siteMeta,
-    isStudioRoute,
-    isResourceRoute,
-    themePreference,
-    ENV: getEnv(),
+    themePreference: themePreference || 'light',
+    ENV: {
+      VITE_SANITY_PROJECT_ID: import.meta.env.VITE_SANITY_PROJECT_ID!,
+      VITE_SANITY_DATASET: import.meta.env.VITE_SANITY_DATASET!,
+      VITE_SANITY_API_VERSION: import.meta.env.VITE_SANITY_API_VERSION!,
+    },
     requestInfo: {
       origin: getDomainUrl(request),
     },
+    preview,
   })
 }
 
 export default function App() {
-  const {siteMeta, isStudioRoute, isResourceRoute, themePreference, ENV, requestInfo} =
-    useLoaderData<typeof loader>()
+  const {themePreference, ENV, requestInfo, preview} = useLoaderData<typeof loader>()
 
   const bodyClassNames = getBodyClassNames(themePreference)
 
@@ -95,22 +86,14 @@ export default function App() {
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta name="theme-color" content="#2522fc" />
-        <meta name="color-scheme" content={themePreference ?? 'light'} />
+        <meta name="color-scheme" content={themePreference} />
         <meta name="type" content="website" />
         <CanonicalLink origin={requestInfo.origin} />
       </head>
       <body className={bodyClassNames}>
-        {isStudioRoute || isResourceRoute ? (
-          <Outlet />
-        ) : (
-          <>
-            {siteMeta?.title ? <Header title={siteMeta.title} /> : null}
-            <Banner />
-            <Outlet />
-            {ENV.NODE_ENV !== 'production' ? <Grid /> : null}
-            <ScrollRestoration />
-          </>
-        )}
+        <Outlet />
+        {preview ? <LiveVisualEditing /> : null}
+        <ScrollRestoration />
         <script
           dangerouslySetInnerHTML={{
             __html: `window.ENV = ${JSON.stringify(ENV)}`,

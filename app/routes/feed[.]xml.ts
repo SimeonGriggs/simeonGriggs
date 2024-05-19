@@ -2,13 +2,13 @@ import type {LoaderFunction} from '@remix-run/node'
 
 import {removeTrailingSlash} from '~/lib/helpers'
 import {client} from '~/sanity/client'
-import {homeQuery, siteMetaQuery} from '~/sanity/queries'
+import {HOME_QUERY, SITE_META_QUERY} from '~/sanity/queries'
 import {siteMetaZ} from '~/types/siteMeta'
 import {articleStubsZ} from '~/types/stubs'
 
 export const loader: LoaderFunction = async () => {
-  const articles = await client.fetch(homeQuery).then((result) => articleStubsZ.parse(result))
-  const siteMeta = await client.fetch(siteMetaQuery).then((res) => siteMetaZ.parse(res))
+  const articles = await client.fetch(HOME_QUERY).then((result) => articleStubsZ.parse(result))
+  const siteMeta = await client.fetch(SITE_META_QUERY).then((res) => siteMetaZ.parse(res))
 
   const articleMarkup = articles.map((article) => {
     const {title, published, summary} = article

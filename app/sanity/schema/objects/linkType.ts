@@ -22,7 +22,7 @@ export const linkType = defineType({
       description: `Must be a full URL`,
       validation: (Rule) =>
         Rule.custom((url) =>
-          url && url.startsWith('http://') ? 'Please start links with https://' : true
+          url && url.startsWith('http://') ? 'Please start links with https://' : true,
         ),
     }),
   ],

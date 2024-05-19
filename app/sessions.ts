@@ -1,21 +1,17 @@
 import {createCookieSessionStorage} from '@remix-run/node'
 
-import {PREVIEW_SESSION_NAME} from './constants'
+export const PREVIEW_SESSION_NAME = '__preview'
 
-function prepareSession() {
-  if (!process.env.SESSION_SECRET) {
-    throw new Error('SESSION_SECRET environment variable is required to use sessions.')
-  }
-
-  return createCookieSessionStorage({
-    cookie: {
-      name: PREVIEW_SESSION_NAME,
-      sameSite: 'lax',
-      secrets: [process.env.SESSION_SECRET],
-    },
-  })
+if (!process.env.SANITY_SESSION_SECRET) {
+  throw new Error(`Missing SANITY_SESSION_SECRET in .env`)
 }
 
-const {getSession, commitSession, destroySession} = prepareSession()
+const {getSession, commitSession, destroySession} = createCookieSessionStorage({
+  cookie: {
+    name: PREVIEW_SESSION_NAME,
+    secrets: [process.env.SANITY_SESSION_SECRET],
+    sameSite: 'lax',
+  },
+})
 
 export {commitSession, destroySession, getSession}

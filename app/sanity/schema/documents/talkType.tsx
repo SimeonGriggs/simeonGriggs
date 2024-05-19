@@ -1,4 +1,3 @@
-import type {Rule} from 'sanity'
 import {defineField, defineType} from 'sanity'
 
 import HeroIcon from '../../components/HeroIcon'
@@ -44,15 +43,12 @@ export const talkType = defineType({
     }),
     defineField({
       name: 'content',
-      title: 'Content',
       type: 'portableText',
     }),
     defineField({
       name: 'image',
-      title: 'Image',
       type: 'image',
-      // @ts-expect-error
-      validation: (rule: Rule) => rule.required(),
+      validation: (rule) => rule.required(),
     }),
     defineField({type: 'seo', name: 'seo', title: 'SEO'}),
   ],
