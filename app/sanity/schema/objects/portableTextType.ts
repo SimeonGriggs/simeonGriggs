@@ -7,27 +7,9 @@ import {
   RemoveIcon,
 } from '@sanity/icons'
 import type {Rule} from 'sanity'
+import {defineType} from 'sanity'
 
-// const CodeRender = (props) => {
-//   const {children, style: element = 'span'} = props
-
-//   return React.createElement(
-//     element,
-//     {
-//       style: {
-//         display: `block`,
-//         backgroundColor: `#efefef`,
-//         padding: `1rem`,
-//         overflowX: element === `pre` ? `scroll` : `auto`,
-//         fontFamily:
-//           'JetBrains Mono,ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace',
-//       },
-//     },
-//     children ?? element
-//   )
-// }
-
-export default {
+export const portableTextType = defineType({
   name: 'portableText',
   type: 'array',
   title: 'Content',
@@ -43,16 +25,10 @@ export default {
         {
           title: 'Pre',
           value: 'pre',
-          // blockEditor: {
-          //   render: CodeRender,
-          // },
         },
         {
           title: 'Code',
           value: 'code',
-          // blockEditor: {
-          //   render: CodeRender,
-          // },
         },
       ],
       lists: [
@@ -106,4 +82,4 @@ export default {
       to: [{type: 'media.tag'}],
     },
   ],
-}
+})

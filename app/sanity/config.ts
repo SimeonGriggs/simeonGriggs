@@ -1,28 +1,37 @@
 import {codeInput} from '@sanity/code-input'
 import {visionTool} from '@sanity/vision'
 import {defineConfig} from 'sanity'
-import {deskTool} from 'sanity/desk'
-import {unsplashImageAsset} from 'sanity-plugin-asset-source-unsplash'
+import {presentationTool} from 'sanity/presentation'
+import {structureTool} from 'sanity/structure'
+// import {unsplashImageAsset} from 'sanity-plugin-asset-source-unsplash'
 import {media} from 'sanity-plugin-media'
 
+import {locate} from '~/sanity/presentation/locate'
 import {projectDetails} from '~/sanity/projectDetails'
 import {schemaTypes} from '~/sanity/schema'
 import {defaultDocumentNode, structure} from '~/sanity/structure'
-import {theme} from '~/sanity/theme'
 
 export const config = defineConfig({
   name: 'simeonGriggs',
   title: 'simeonGriggs.dev',
-  theme,
+
   ...projectDetails(),
   plugins: [
-    deskTool({
+    structureTool({
       structure,
       defaultDocumentNode,
     }),
+    presentationTool({
+      locate,
+      previewUrl: {
+        draftMode: {
+          enable: `/resource/preview`,
+        },
+      },
+    }),
     visionTool(),
     codeInput(),
-    unsplashImageAsset(),
+    // unsplashImageAsset(),
     media(),
   ],
   basePath: `/studio`,

@@ -8,7 +8,7 @@ import {
 } from '@heroicons/react/24/outline'
 import type {ColorHueKey} from '@sanity/color'
 import {hues} from '@sanity/color'
-import {Card, useTheme} from '@sanity/ui'
+import {Card, Flex, useTheme} from '@sanity/ui'
 import type {CSSProperties} from 'react'
 import {useMemo} from 'react'
 
@@ -72,9 +72,10 @@ export default function HeroIcon({icon = ``}) {
   )
 
   return (
-    // @ts-ignore
-    <Card style={cardStyle} radius={2} padding={1}>
-      {iconData.icon}
+    <Card style={cardStyle} radius={2}>
+      <Flex height="fill" align="center" justify="center" padding={0}>
+        <span style={{transform: `translateY(-1px)`}}>{iconData.icon}</span>
+      </Flex>
     </Card>
   )
 }

@@ -1,6 +1,7 @@
-import {groq} from '@sanity/groq-store'
+import groq from "groq"
 
-const sanityImageObjectStubAsset = groq`
+
+const SANITY_IMAGE_OBJECT_STUB_ASSET = groq`
   _id,
   _type,
   altText,
@@ -9,12 +10,12 @@ const sanityImageObjectStubAsset = groq`
     blurHash
   },
 `
-const sanityImageObjectStub = groq`
+const SANITY_IMAGE_OBJECT_STUB = groq`
   crop,
   hotspot,
-  asset->{${sanityImageObjectStubAsset}}`
+  asset->{${SANITY_IMAGE_OBJECT_STUB_ASSET}}`
 
-export const siteMetaQuery = groq`*[_id == "siteMeta"][0]{
+export const SITE_META_QUERY = groq`*[_id == "siteMeta"][0]{
   author,
   bio,
   description,
@@ -22,7 +23,7 @@ export const siteMetaQuery = groq`*[_id == "siteMeta"][0]{
   title
 }`
 
-export const articleQuery = groq`*[_type == "article" && slug.current == $slug][0]{
+export const ARTICLE_QUERY = groq`*[_type == "article" && slug.current == $slug][0]{
   _updatedAt,
   _id,
   title,
@@ -30,7 +31,7 @@ export const articleQuery = groq`*[_type == "article" && slug.current == $slug][
   published,
   updated,
   summary,
-  image { ${sanityImageObjectStub} },
+  image { ${SANITY_IMAGE_OBJECT_STUB} },
   "tableOfContents": content[style in ["h2", "h3"]],
   content[] {
         ...,
@@ -44,7 +45,7 @@ export const articleQuery = groq`*[_type == "article" && slug.current == $slug][
             },
           },
         },
-        _type == "image" => {${sanityImageObjectStub}},
+        _type == "image" => {${SANITY_IMAGE_OBJECT_STUB}},
         _type == "button" => {
           link {
             text,
@@ -65,26 +66,26 @@ export const articleQuery = groq`*[_type == "article" && slug.current == $slug][
               title,
               url
             },
-            image { ${sanityImageObjectStub} },
+            image { ${SANITY_IMAGE_OBJECT_STUB} },
           }
         },
         _type == "gallery" => {
           "images": *[_type == "sanity.imageAsset" && references(^._ref)]{
             url,
-            ${sanityImageObjectStubAsset}
+            ${SANITY_IMAGE_OBJECT_STUB_ASSET}
           }
         }
     },
     "comments": *[_type == "comment" && references(^._id)].commentKey
   }`
 
-export const talkQuery = groq`*[_type == "talk" && slug.current == $slug]{
+export const TALK_QUERY = groq`*[_type == "talk" && slug.current == $slug]{
     ...,
     "summary": pt::text(content),
-    image { ${sanityImageObjectStub} },
+    image { ${SANITY_IMAGE_OBJECT_STUB} },
   }`
 
-export const homeQuery = groq`*[_type == "article" && defined(slug.current) && unlisted != true]|order(published desc)
+export const HOME_QUERY = groq`*[_type == "article" && defined(slug.current) && unlisted != true]|order(published desc)
   {
     "source": "blog",
     _id,
@@ -94,10 +95,10 @@ export const homeQuery = groq`*[_type == "article" && defined(slug.current) && u
     published,
     updated,
     summary,
-    image { ${sanityImageObjectStub} }
+    image { ${SANITY_IMAGE_OBJECT_STUB} }
   }`
 
-export const exchangeQuery = groq`
+export const EXCHANGE_QUERY = groq`
   *[
     _type == "contribution.guide" 
     && defined(slug.current)

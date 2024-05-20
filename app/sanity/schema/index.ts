@@ -1,30 +1,30 @@
-import article from './documents/article'
-import comment from './documents/comment'
-import siteMeta from './documents/siteMeta'
-import tailwind from './documents/tailwind'
-import talk from './documents/talk'
-import _break from './objects/break'
-import button from './objects/button'
-import codeSandbox from './objects/codeSandbox'
-import link from './objects/link'
-import portableText from './objects/portableText'
-import seo from './objects/seo'
-import video from './objects/video'
+import {articleType} from './documents/articleType'
+import {commentType} from './documents/commentType'
+import {siteMetaType} from './documents/siteMetaType'
+import {tailwindType} from './documents/tailwindType'
+import {talkType} from './documents/talkType'
+import {breakType} from './objects/breakType'
+import {buttonType} from './objects/buttonType'
+import {codeSandboxType} from './objects/codeSandboxType'
+import {linkType} from './objects/linkType'
+import {portableTextType} from './objects/portableTextType'
+import {seoType} from './objects/seoType'
+import {videoType} from './objects/videoType'
 
 export const schemaTypes = [
   // documents
-  article,
-  siteMeta,
-  comment,
-  tailwind,
-  talk,
+  articleType,
+  siteMetaType,
+  commentType,
+  tailwindType,
+  talkType,
 
   // objects
-  seo,
-  portableText,
-  button,
-  video,
-  link,
-  _break,
-  codeSandbox,
+  seoType,
+  portableTextType,
+  buttonType,
+  videoType,
+  linkType,
+  breakType,
+  codeSandboxType,
 ]

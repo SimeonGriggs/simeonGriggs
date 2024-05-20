@@ -35,6 +35,12 @@ export const sanityImageObjectExtendedZ = z.object({
   asset: sanityImageZ,
   // GROQ may return null for these
   // But our type requires them to be undefined if they don't exist
-  crop: sanityImageCropZ.nullable().transform((v) => v ?? undefined),
-  hotspot: sanityImageHotspotZ.nullable().transform((v) => v ?? undefined),
+  crop: sanityImageCropZ
+    .nullable()
+    .optional()
+    .transform((v) => v ?? undefined),
+  hotspot: sanityImageHotspotZ
+    .nullable()
+    .optional()
+    .transform((v) => v ?? undefined),
 })

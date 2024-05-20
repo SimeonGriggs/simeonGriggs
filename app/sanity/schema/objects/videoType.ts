@@ -1,7 +1,7 @@
 import {PlayIcon} from '@heroicons/react/24/outline'
 import {defineField, defineType} from 'sanity'
 
-export default defineType({
+export const videoType = defineType({
   name: 'video',
   type: 'object',
   title: 'Video',

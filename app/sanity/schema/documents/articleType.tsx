@@ -3,7 +3,7 @@ import {defineField, defineType} from 'sanity'
 
 import HeroIcon from '../../components/HeroIcon'
 
-export default defineType({
+export const articleType = defineType({
   name: 'article',
   title: 'Article',
   icon: HeroIcon,
@@ -25,14 +25,14 @@ export default defineType({
     defineField({
       name: 'title',
       type: 'string',
-      // @ts-ignore
+      // @ts-expect-error
       validation: (rule: Rule) => rule.required(),
     }),
     defineField({
       name: 'slug',
       type: 'slug',
       options: {source: 'title'},
-      // @ts-ignore
+      // @ts-expect-error
       validation: (rule: Rule) => rule.required(),
     }),
     defineField({

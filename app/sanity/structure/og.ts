@@ -1,5 +1,5 @@
 import type {SanityDocument} from '@sanity/client'
-import type {StructureBuilder} from 'sanity/desk'
+import type {StructureBuilder} from 'sanity/structure'
 
 import OGPreview from '../components/OGPreview'
 

@@ -3,7 +3,7 @@ import groq from 'groq'
 import type {SanityDocument} from 'sanity'
 
 import {generateOGImage} from '~/lib/generateOGImage.server'
-import {previewClient} from '~/sanity/client'
+import {client} from '~/sanity/client'
 
 export const loader = async ({request}: LoaderFunctionArgs) => {
   // Check for valid id in request url search params
@@ -14,9 +14,13 @@ export const loader = async ({request}: LoaderFunctionArgs) => {
     return new Response('Bad request', {status: 400})
   }
 
-  const doc: SanityDocument | null = await previewClient.fetch(
+  const clientWithToken = client.withConfig({
+    token: process.env.SANITY_READ_TOKEN,
+  })
+
+  const doc: SanityDocument | null = await clientWithToken.fetch(
     groq`*[_id == $id][0]{ ..., image { ..., asset-> } }`,
-    {id}
+    {id},
   )
 
   if (!doc) {

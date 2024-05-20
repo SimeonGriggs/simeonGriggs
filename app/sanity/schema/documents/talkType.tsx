@@ -1,9 +1,8 @@
-import type {Rule} from 'sanity'
 import {defineField, defineType} from 'sanity'
 
 import HeroIcon from '../../components/HeroIcon'
 
-export default defineType({
+export const talkType = defineType({
   name: 'talk',
   title: 'Talk',
   icon: () => <HeroIcon icon="talk" />,
@@ -44,15 +43,12 @@ export default defineType({
     }),
     defineField({
       name: 'content',
-      title: 'Content',
       type: 'portableText',
     }),
     defineField({
       name: 'image',
-      title: 'Image',
       type: 'image',
-      // @ts-ignore
-      validation: (rule: Rule) => rule.required(),
+      validation: (rule) => rule.required(),
     }),
     defineField({type: 'seo', name: 'seo', title: 'SEO'}),
   ],
