@@ -13,13 +13,6 @@ type PrismProps = {
   highlightedLines?: number[]
 }
 
-const augmentLineProps = (lineNum: number, highlightedLines: number[]) => {
-  const isHighlighted = highlightedLines.includes(Number(lineNum + 1))
-  return {
-    className: isHighlighted ? '-mx-4 px-4 md:-mx-8 md:px-8 bg-blue-700' : undefined,
-  }
-}
-
 export default function Prism(props: PrismProps) {
   const {code = ``, language, highlightedLines = []} = props
 
@@ -68,7 +61,7 @@ export default function Prism(props: PrismProps) {
                     {...lineProps}
                     className={clsx(
                       lineProps.className,
-                      isHighlighted && `bg-white dark:bg-blue-500/10`,
+                      isHighlighted && `-mx-4 px-4 md:-mx-8 md:px-8 bg-blue-700`,
                     )}
                   >
                     {line.map((token, lineI) => (

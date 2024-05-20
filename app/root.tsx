@@ -17,6 +17,7 @@ import {themePreferenceCookie} from '~/cookies'
 import {getBodyClassNames} from '~/lib/getBodyClassNames'
 import {getDomainUrl} from '~/lib/getDomainUrl'
 
+import Grid from './components/Grid'
 import LiveVisualEditing from './components/LiveVisualEditing'
 import {loadQueryOptions} from './sanity/loadQueryOptions'
 
@@ -65,6 +66,7 @@ export const loader = async ({request}: LoaderFunctionArgs) => {
       VITE_SANITY_PROJECT_ID: import.meta.env.VITE_SANITY_PROJECT_ID!,
       VITE_SANITY_DATASET: import.meta.env.VITE_SANITY_DATASET!,
       VITE_SANITY_API_VERSION: import.meta.env.VITE_SANITY_API_VERSION!,
+      NODE_ENV: process.env.NODE_ENV,
     },
     requestInfo: {
       origin: getDomainUrl(request),
@@ -92,6 +94,7 @@ export default function App() {
       </head>
       <body className={bodyClassNames}>
         <Outlet />
+        {ENV.NODE_ENV === 'development' ? <Grid /> : null}
         {preview ? <LiveVisualEditing /> : null}
         <ScrollRestoration />
         <script

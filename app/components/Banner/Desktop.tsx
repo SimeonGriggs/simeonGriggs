@@ -37,7 +37,7 @@ export function Desktop(props: DesktopProps) {
 
   return (
     <motion.div
-      initial={{opacity: 1, ...bannerSize.wrapper}}
+      initial={{opacity: 0, ...bannerSize.wrapper}}
       animate={{opacity: 1, ...bannerSize.wrapper}}
       exit={{opacity: 0, ...bannerSize.wrapper}}
       transition={{duration: 0.33}}
@@ -48,7 +48,7 @@ export function Desktop(props: DesktopProps) {
     >
       <motion.div
         className="absolute inset-0 h-32 bg-blue-500 md:right-auto md:h-screen md:w-4/12 lg:w-6/16"
-        initial={{opacity: 1, ...bannerSize.image}}
+        initial={{opacity: 0, ...bannerSize.image}}
         animate={{opacity: 1, ...bannerSize.image}}
         exit={{opacity: 0, ...bannerSize.image}}
         transition={{duration: 0.33}}
