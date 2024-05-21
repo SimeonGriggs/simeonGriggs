@@ -1,5 +1,6 @@
 import {PencilSquareIcon} from '@heroicons/react/24/outline'
 import {PortableText} from '@portabletext/react'
+import clsx from 'clsx'
 
 import {CommentsProvider} from '~/components/Comments/CommentsContext'
 import {commentComponents, components} from '~/components/PortableText/components'
@@ -56,7 +57,14 @@ export default function Article(props: ArticleProps) {
         ) : null}
 
         {content && content?.length > 0 ? (
-          <div className="prose prose-blue dark:prose-invert md:prose-lg lg:prose-xl marker:text-blue-500 prose-strong:font-bold">
+          <div
+            className={clsx(
+              `prose prose-blue dark:prose-invert md:prose-lg lg:prose-xl marker:text-blue-500`,
+              `prose-strong:font-bold`,
+              `prose-code:whitespace-nowrap prose-code:rounded prose-code:border prose-code:border-blue-100 prose-code:bg-blue-50 prose-code:p-1 prose-code:text-blue-500 prose-code:text-sm`,
+              `dark:prose-code:border-blue-800 dark:prose-code:bg-blue-800 dark:prose-code:text-blue-50`,
+            )}
+          >
             {comments && comments?.length > 1 ? (
               <CommentsProvider comments={comments}>
                 <PortableText value={content} components={{...components, ...commentComponents}} />

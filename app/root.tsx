@@ -13,13 +13,12 @@ import {
 import {z} from 'zod'
 
 import CanonicalLink from '~/components/CanonicalLink'
+import Grid from '~/components/Grid'
+import LiveVisualEditing from '~/components/LiveVisualEditing'
 import {themePreferenceCookie} from '~/cookies'
 import {getBodyClassNames} from '~/lib/getBodyClassNames'
 import {getDomainUrl} from '~/lib/getDomainUrl'
-
-import Grid from './components/Grid'
-import LiveVisualEditing from './components/LiveVisualEditing'
-import {loadQueryOptions} from './sanity/loadQueryOptions'
+import {loadQueryOptions} from '~/sanity/loadQueryOptions'
 
 export const handle = {id: `root`}
 

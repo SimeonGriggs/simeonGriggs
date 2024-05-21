@@ -125,18 +125,6 @@ pre[class*="language-"] {
   @apply relative;
 }
 
-.prose code {
-  @apply whitespace-nowrap rounded border border-blue-100 bg-blue-50 p-1 text-blue-500;
-}
-
-.dark .prose code {
-  @apply border-blue-800 bg-blue-800 p-1 text-blue-50;
-}
-
-.prose code {
-  @apply text-sm;
-}
-
 .prose canvas {
   @apply h-auto max-w-full;
 }

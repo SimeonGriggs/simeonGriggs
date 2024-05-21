@@ -1,4 +1,5 @@
 import {ClipboardIcon} from '@heroicons/react/24/outline'
+import {stegaClean, vercelStegaCleanAll} from '@sanity/client/stega'
 import clsx from 'clsx'
 import type {Language, RenderProps} from 'prism-react-renderer'
 import {Highlight} from 'prism-react-renderer'
@@ -14,7 +15,9 @@ type PrismProps = {
 }
 
 export default function Prism(props: PrismProps) {
-  const {code = ``, language, highlightedLines = []} = props
+  const {language, highlightedLines = []} = props
+  // Clean and prevent re-render
+  const [code] = useState(stegaClean(props.code))
 
   const [buttonLabel, setButtonLabel] = useState<`Copy` | `Copied`>(`Copy`)
   const copyButtonRef = useRef<HTMLButtonElement>(null)
