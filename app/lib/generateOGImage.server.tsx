@@ -6,7 +6,7 @@ import {z} from 'zod'
 
 import {OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH, SITE_URL} from '~/constants'
 import {urlFor} from '~/sanity/helpers'
-import {sanityImageZ} from '~/types/image'
+import {sanityImageObjectExtendedZ, sanityImageZ} from '~/types/image'
 
 const fontMono = (baseUrl: string) =>
   fetch(new URL(`${baseUrl}/fonts/JetBrainsMono-Regular.ttf`)).then((res) => res.arrayBuffer())
@@ -53,9 +53,7 @@ export async function generateOGImage(doc: SanityDocumentLike, origin: string) {
     title: z.string(),
     published: z.string(),
     updated: z.string(),
-    image: z.object({
-      asset: sanityImageZ,
-    }),
+    image: sanityImageObjectExtendedZ,
   })
   const {title, published, updated, image} = document.parse({
     ...DEFAULT_CONTENT,
@@ -63,8 +61,13 @@ export async function generateOGImage(doc: SanityDocumentLike, origin: string) {
   })
 
   let imageUrl
+
   if ('asset' in image && image.asset) {
-    imageUrl = urlFor(image.asset).width(400).height(OG_IMAGE_HEIGHT).auto('format').toString()
+    imageUrl = urlFor({asset: image.asset, crop: image.crop, hotspot: image.hotspot})
+      .width(400)
+      .height(OG_IMAGE_HEIGHT)
+      .auto('format')
+      .url()
   }
 
   const svg = await satori(
@@ -163,7 +166,7 @@ export async function generateOGImage(doc: SanityDocumentLike, origin: string) {
         </div>
       </div>
     </div>,
-    options
+    options,
   )
 
   const resvg = new Resvg(svg)

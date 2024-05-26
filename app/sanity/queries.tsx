@@ -1,7 +1,6 @@
-import groq from "groq"
+import groq from 'groq'
 
-
-const SANITY_IMAGE_OBJECT_STUB_ASSET = groq`
+export const SANITY_IMAGE_OBJECT_STUB_ASSET = groq`
   _id,
   _type,
   altText,
