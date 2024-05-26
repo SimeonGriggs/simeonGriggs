@@ -24,12 +24,10 @@ export const loader = async ({request}: LoaderFunctionArgs) => {
       ..., 
       image { 
         ..., 
-        crop,
-        hotspot,
         asset->{ 
           ${SANITY_IMAGE_OBJECT_STUB_ASSET}
         } 
-      }
+      } 
     }`,
     {id},
   )
