@@ -13,7 +13,7 @@ import {
 import {z} from 'zod'
 
 import CanonicalLink from '~/components/CanonicalLink'
-import Grid from '~/components/Grid'
+// import Grid from '~/components/Grid'
 import LiveVisualEditing from '~/components/LiveVisualEditing'
 import {themePreferenceCookie} from '~/cookies'
 import {getBodyClassNames} from '~/lib/getBodyClassNames'
@@ -93,7 +93,7 @@ export default function App() {
       </head>
       <body className={bodyClassNames}>
         <Outlet />
-        {ENV.NODE_ENV === 'development' ? <Grid /> : null}
+        {/* {ENV.NODE_ENV === 'development' ? <Grid /> : null} */}
         {preview ? <LiveVisualEditing /> : null}
         <ScrollRestoration />
         <script

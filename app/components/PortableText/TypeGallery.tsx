@@ -13,7 +13,7 @@ export const typedObjectGalleryZ = baseTypedObjectZ.extend({
     .array(
       sanityImageZ.extend({
         url: z.string().url(),
-      })
+      }),
     )
     .nullable(),
 })

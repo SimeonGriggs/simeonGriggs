@@ -32,16 +32,17 @@ export default function TalkCard(props: Talk) {
         </div>
         <div className="col-span-6 flex flex-col gap-y-2 p-4 md:col-span-4 lg:col-span-5">
           <h3 className="text-2xl font-black tracking-tighter text-blue-500 md:text-2xl md:leading-none">
-            {slug?.current ? (
+            {video?.url ? (
               <Link
-                to={`/talks/${slug.current}`}
+                to={video.url}
                 prefetch="intent"
                 className="block hover:bg-blue-500 hover:text-white"
+                target="_blank"
               >
                 {title}
               </Link>
             ) : (
-              <>{title ?? null}</>
+              <>{title}</>
             )}
           </h3>
           {event ? (

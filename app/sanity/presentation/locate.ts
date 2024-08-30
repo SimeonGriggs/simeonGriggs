@@ -15,7 +15,7 @@ export const locate: DocumentLocationResolver = (params, context) => {
         "href": slug.current,
     }`,
       params,
-      listenOptions
+      listenOptions,
     )
 
     return doc$.pipe(map((doc) => (doc?.href ? {locations: [doc]} : null)))

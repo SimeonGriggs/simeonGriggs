@@ -6,8 +6,8 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   -webkit-text-size-adjust: 100%;
-  -ms-font-feature-settings: "kern" 1;
-  font-feature-settings: "kern";
+  -ms-font-feature-settings: 'kern' 1;
+  font-feature-settings: 'kern';
 }
 
 a {
@@ -22,34 +22,34 @@ a {
 }
 
 @font-face {
-  font-family: "JetBrains Mono";
-  font-weight: theme("fontWeight.normal");
+  font-family: 'JetBrains Mono';
+  font-weight: theme('fontWeight.normal');
   font-display: swap;
-  src: url("/fonts/JetBrainsMono-Regular.woff2");
+  src: url('/fonts/JetBrainsMono-Regular.woff2');
 }
 
 @font-face {
-  font-family: "JetBrains Mono";
-  font-weight: theme("fontWeight.bold");
+  font-family: 'JetBrains Mono';
+  font-weight: theme('fontWeight.bold');
   font-display: swap;
-  src: url("/fonts/JetBrainsMono-Bold.woff2");
+  src: url('/fonts/JetBrainsMono-Bold.woff2');
 }
 
 @font-face {
-  font-family: "Inter var";
-  font-weight: theme("fontWeight.normal") theme("fontWeight.extrabold");
+  font-family: 'Inter var';
+  font-weight: theme('fontWeight.normal') theme('fontWeight.extrabold');
   font-display: swap;
   font-style: normal;
-  font-named-instance: "Regular";
-  src: url("/fonts/Inter-roman.var.woff2?v=3.19") format("woff2");
+  font-named-instance: 'Regular';
+  src: url('/fonts/Inter-roman.var.woff2?v=3.19') format('woff2');
 }
 @font-face {
-  font-family: "Inter var";
-  font-weight: theme("fontWeight.normal") theme("fontWeight.extrabold");
+  font-family: 'Inter var';
+  font-weight: theme('fontWeight.normal') theme('fontWeight.extrabold');
   font-display: swap;
   font-style: italic;
-  font-named-instance: "Italic";
-  src: url("/fonts/Inter-italic.var.woff2?v=3.19") format("woff2");
+  font-named-instance: 'Italic';
+  src: url('/fonts/Inter-italic.var.woff2?v=3.19') format('woff2');
 }
 
 .button {
@@ -109,14 +109,14 @@ a {
 }
 
 /* Code blocks */
-pre[class*="language-"] {
+pre[class*='language-'] {
   @apply -mx-4 p-4 text-xs leading-5;
 
   overflow: auto;
 }
 
 @screen md {
-  pre[class*="language-"] {
+  pre[class*='language-'] {
     @apply p-8 text-sm leading-6;
   }
 }

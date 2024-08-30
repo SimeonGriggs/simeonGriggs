@@ -35,7 +35,7 @@ export const linkType = defineType({
     prepare: (selection: {[key: string]: any}) => {
       const {title, url, ref} = selection
 
-      const subtitle = !url && !ref ? `Empty Link` : ref ?? url
+      const subtitle = !url && !ref ? `Empty Link` : (ref ?? url)
 
       return {
         title: title ?? '',

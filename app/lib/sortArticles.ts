@@ -7,7 +7,7 @@ export function sortArticles(allArticles: (ArticleStub | ExchangeStub)[]) {
     .sort((a, b) =>
       a.published && b.published
         ? new Date(b.published).getTime() - new Date(a.published).getTime()
-        : 0
+        : 0,
     )
 
   // If a `blog` post isn't the first one, move it to the top

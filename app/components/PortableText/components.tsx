@@ -11,6 +11,7 @@ import TypeCodeSandbox from './TypeCodeSandbox'
 import TypeGallery from './TypeGallery'
 import TypeImage from './TypeImage'
 import TypeTalks from './TypeTalks'
+import TypeTldraw from './TypeTldraw'
 import TypeVideo from './TypeVideo'
 
 export const commentComponents: PortableTextComponents = {
@@ -37,6 +38,7 @@ export const components: PortableTextComponents = {
     break: () => <hr />,
     code: TypeCode,
     image: TypeImage,
+    tldraw: TypeTldraw,
     talks: TypeTalks,
     video: TypeVideo,
     gallery: TypeGallery,
