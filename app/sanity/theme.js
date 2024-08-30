@@ -552,7 +552,7 @@ var K = (function (e) {
           this,
           'An error occurred. See https://github.com/styled-components/polished/blob/main/src/internalHelpers/errors.md#' +
             r +
-            ' for more information.'
+            ' for more information.',
         ) || this
     else for (var a, f, d; d < a; d++);
     return ae(n)
@@ -576,14 +576,14 @@ function ze(e, t, r, n) {
   a >= 0 && a < 1
     ? ((w = f), (v = d))
     : a >= 1 && a < 2
-    ? ((w = d), (v = f))
-    : a >= 2 && a < 3
-    ? ((v = f), (z = d))
-    : a >= 3 && a < 4
-    ? ((v = d), (z = f))
-    : a >= 4 && a < 5
-    ? ((w = d), (z = f))
-    : a >= 5 && a < 6 && ((w = f), (z = d))
+      ? ((w = d), (v = f))
+      : a >= 2 && a < 3
+        ? ((v = f), (z = d))
+        : a >= 3 && a < 4
+          ? ((v = d), (z = f))
+          : a >= 4 && a < 5
+            ? ((w = d), (z = f))
+            : a >= 5 && a < 6 && ((w = f), (z = d))
   var R = r - f / 2,
     S = w + R,
     T = v + R,
@@ -1203,8 +1203,8 @@ function Me({
               disabled: {...u.disabled, border: u.disabled.bg},
             }
           : i === 'ghost'
-          ? {...c, enabled: {...u.enabled, border: o.border}, disabled: u.disabled}
-          : c,
+            ? {...c, enabled: {...u.enabled, border: o.border}, disabled: u.disabled}
+            : c,
       card: ({base: o, dark: i, muted: u, name: c, solid: p, state: l}) => {
         if (l === 'hovered') return u[c].hovered
         if (l === 'disabled') return u[c].disabled
@@ -1246,35 +1246,35 @@ function Me({
               placeholder: p(o.bg, H[i ? 600 : 400].hex),
             }
           : c === 'disabled'
-          ? {
-              bg: p(o.bg, H[i ? 950 : 50].hex),
-              fg: p(o.bg, H[i ? 700 : 300].hex),
-              border: p(o.bg, H[i ? 900 : 100].hex),
-              placeholder: p(o.bg, H[i ? 800 : 200].hex),
-            }
-          : c === 'readOnly'
-          ? {
-              bg: p(o.bg, H[i ? 950 : 50].hex),
-              fg: p(o.bg, H[i ? 200 : 800].hex),
-              border: p(o.bg, H[i ? 800 : 200].hex),
-              placeholder: p(o.bg, H[i ? 600 : 400].hex),
-            }
-          : {bg: o.bg, fg: o.fg, border: o.border, placeholder: p(o.bg, H[i ? 600 : 400].hex)}
+            ? {
+                bg: p(o.bg, H[i ? 950 : 50].hex),
+                fg: p(o.bg, H[i ? 700 : 300].hex),
+                border: p(o.bg, H[i ? 900 : 100].hex),
+                placeholder: p(o.bg, H[i ? 800 : 200].hex),
+              }
+            : c === 'readOnly'
+              ? {
+                  bg: p(o.bg, H[i ? 950 : 50].hex),
+                  fg: p(o.bg, H[i ? 200 : 800].hex),
+                  border: p(o.bg, H[i ? 800 : 200].hex),
+                  placeholder: p(o.bg, H[i ? 600 : 400].hex),
+                }
+              : {bg: o.bg, fg: o.fg, border: o.border, placeholder: p(o.bg, H[i ? 600 : 400].hex)}
       },
       selectable: ({base: o, muted: i, tone: u, solid: c, state: p}) =>
         p === 'enabled'
           ? {...i[u].enabled, bg: o.bg}
           : p === 'pressed'
-          ? u === 'default'
-            ? i.primary.pressed
-            : i[u].pressed
-          : p === 'selected'
-          ? u === 'default'
-            ? c.primary.enabled
-            : c[u].enabled
-          : p === 'disabled'
-          ? {...i[u].disabled, bg: o.bg}
-          : i[u][p],
+            ? u === 'default'
+              ? i.primary.pressed
+              : i[u].pressed
+            : p === 'selected'
+              ? u === 'default'
+                ? c.primary.enabled
+                : c[u].enabled
+              : p === 'disabled'
+                ? {...i[u].disabled, bg: o.bg}
+                : i[u][p],
       spot: ({base: o, dark: i, key: u}) => (i ? z : v)(o.bg, St(u)[i ? 400 : 500].hex),
       syntax: ({base: o, dark: i}) => {
         let u = i ? z : v,
@@ -1377,14 +1377,14 @@ function je(e) {
     0 <= e.h && e.h < 60
       ? ((d = n), (w = a), (v = 0))
       : 60 <= e.h && e.h < 120
-      ? ((d = a), (w = n), (v = 0))
-      : 120 <= e.h && e.h < 180
-      ? ((d = 0), (w = n), (v = a))
-      : 180 <= e.h && e.h < 240
-      ? ((d = 0), (w = a), (v = n))
-      : 240 <= e.h && e.h < 300
-      ? ((d = a), (w = 0), (v = n))
-      : 300 <= e.h && e.h < 360 && ((d = n), (w = 0), (v = a)),
+        ? ((d = a), (w = n), (v = 0))
+        : 120 <= e.h && e.h < 180
+          ? ((d = 0), (w = n), (v = a))
+          : 180 <= e.h && e.h < 240
+            ? ((d = 0), (w = a), (v = n))
+            : 240 <= e.h && e.h < 300
+              ? ((d = a), (w = 0), (v = n))
+              : 300 <= e.h && e.h < 360 && ((d = n), (w = 0), (v = a)),
     {r: Math.round((d + f) * 255), g: Math.round((w + f) * 255), b: Math.round((v + f) * 255)}
   )
 }
@@ -1638,8 +1638,8 @@ var s = 'hsl(0, 0%, 0%)',
             },
           }
         : t === 'ghost'
-        ? {...n, enabled: r.enabled}
-        : n,
+          ? {...n, enabled: r.enabled}
+          : n,
     card: ({base: e}) => ({
       bg: s,
       bg2: s,

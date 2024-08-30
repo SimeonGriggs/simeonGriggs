@@ -12,7 +12,7 @@ export const typedObjectCodeSandboxZ = baseTypedObjectZ.extend({
 export type TypedObjectCodeSandbox = z.infer<typeof typedObjectCodeSandboxZ>
 
 export default function TypeCodeSandbox(
-  props: PortableTextTypeComponentProps<TypedObjectCodeSandbox>
+  props: PortableTextTypeComponentProps<TypedObjectCodeSandbox>,
 ) {
   // Now we still get Zod's strict parsing on this specific TypedObject
   const value = React.useMemo(() => typedObjectCodeSandboxZ.parse(props.value), [props.value])

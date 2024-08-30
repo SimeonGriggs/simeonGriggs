@@ -68,7 +68,7 @@ export default function HeroIcon({icon = ``}) {
       width: `100%`,
       aspectRatio: `1`,
     }),
-    [iconData, isDarkMode]
+    [iconData, isDarkMode],
   )
 
   return (

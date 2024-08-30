@@ -1,22 +1,9 @@
 {
-  "extends": [
-    "@remix-run/eslint-config",
-    "@remix-run/eslint-config/node",
-    "prettier"
-  ],
+  "extends": ["@remix-run/eslint-config", "@remix-run/eslint-config/node"],
   "ignorePatterns": ["node_modules", "build", ".cache", "app/sanity/theme.js"],
-  "plugins": ["simple-import-sort", "prettier"],
+  "plugins": ["simple-import-sort"],
   "rules": {
     "simple-import-sort/imports": "error",
     "simple-import-sort/exports": "error",
-    "prettier/prettier": [
-      "error",
-      {
-        "semi": false,
-        "printWidth": 100,
-        "bracketSpacing": false,
-        "singleQuote": true
-      }
-    ]
-  }
+  },
 }
