@@ -1,5 +1,5 @@
 import {ClipboardIcon} from '@heroicons/react/24/outline'
-import {stegaClean, vercelStegaCleanAll} from '@sanity/client/stega'
+import {stegaClean} from '@sanity/client/stega'
 import clsx from 'clsx'
 import type {Language, RenderProps} from 'prism-react-renderer'
 import {Highlight} from 'prism-react-renderer'

@@ -70,7 +70,7 @@ export const portableTextType = defineType({
     },
     {type: 'image', icon: ImageIcon},
     {type: 'code', icon: CodeIcon},
-    {type: 'tldraw'},
+    {type: 'tldraw', title: 'Drawing', options: {height: 400}},
     {type: 'button'},
     {type: 'video'},
     {type: 'break', icon: RemoveIcon},
