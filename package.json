@@ -14,7 +14,7 @@
     "@headlessui/react": "^1.7.19",
     "@heroicons/react": "^2.2.0",
     "@portabletext/react": "^3.2.0",
-    "@react-router/express": "*",
+    "@react-router/express": "^7.0.2",
     "@react-router/fs-routes": "^7.0.2",
     "@react-router/node": "^7.0.0",
     "@react-router/serve": "^7.0.0",
