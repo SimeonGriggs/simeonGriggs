@@ -1,5 +1,5 @@
 import {useLiveMode} from '@sanity/react-loader'
-import {VisualEditing} from '@sanity/visual-editing/remix'
+import {VisualEditing} from '@sanity/visual-editing/react-router'
 
 import {client} from '~/sanity/client'
 

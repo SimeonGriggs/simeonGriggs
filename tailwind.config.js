@@ -18,7 +18,7 @@ const carbonColors = Object.keys(colors).reduce((acc, color) => {
 }, {})
 
 module.exports = {
-  content: ['./app/**/*.{js,jsx,ts,tsx}', './remix.config.js'],
+  content: ['./app/**/*.{js,jsx,ts,tsx}'],
   darkMode: 'class',
   corePlugins: {
     // Disable the default container
