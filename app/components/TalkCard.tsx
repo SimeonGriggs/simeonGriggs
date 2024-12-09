@@ -1,6 +1,5 @@
 import {LinkIcon} from '@heroicons/react/24/solid'
-import {Link} from '@remix-run/react'
-import React from 'react'
+import {Link} from 'react-router'
 
 import Published from '~/components/Published'
 import type {Talk} from '~/types/talk'
@@ -9,7 +8,7 @@ import SanityImage from './SanityImage'
 import Video from './Video'
 
 export default function TalkCard(props: Talk) {
-  const {slug, image, title, event, eventDate, location, link, video} = props
+  const {image, title, event, eventDate, location, link, video} = props
   const clickableLink = link ?? video?.url
 
   return (

@@ -1,7 +1,6 @@
-import type {ActionFunction, LinksFunction, LoaderFunctionArgs, MetaFunction} from '@remix-run/node'
-import {json} from '@remix-run/node'
-import {useLoaderData} from '@remix-run/react'
 import {useQuery} from '@sanity/react-loader'
+import type {ActionFunction, LinksFunction, LoaderFunctionArgs, MetaFunction} from 'react-router'
+import {useLoaderData} from 'react-router'
 
 import Article from '~/components/Article'
 import {LOCAL_URL, OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH, SITE_URL} from '~/constants'
@@ -105,11 +104,11 @@ export const loader = async ({request, params}: LoaderFunctionArgs) => {
     throw new Response(`Article not found`, {status: 404})
   }
 
-  return json({
+  return {
     initial,
     query,
     params,
-  })
+  }
 }
 
 export default function Index() {

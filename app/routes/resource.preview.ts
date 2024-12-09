@@ -1,5 +1,5 @@
-import {type ActionFunction, json, type LoaderFunctionArgs, redirect} from '@remix-run/node'
 import {validatePreviewUrl} from '@sanity/preview-url-secret'
+import {type ActionFunction, type LoaderFunctionArgs, redirect} from 'react-router'
 
 import {client} from '~/sanity/client'
 import {commitSession, destroySession, getSession} from '~/sessions'
@@ -7,7 +7,7 @@ import {commitSession, destroySession, getSession} from '~/sessions'
 // A `POST` request to this route will exit preview mode
 export const action: ActionFunction = async ({request}) => {
   if (request.method !== 'POST') {
-    return json({message: 'Method not allowed'}, 405)
+    return new Response('Method Not Allowed', {status: 405})
   }
 
   const session = await getSession(request.headers.get('Cookie'))

@@ -1,7 +1,6 @@
-import type {LinksFunction, LoaderFunctionArgs} from '@remix-run/node'
-import {json} from '@remix-run/node'
-import {useLoaderData} from '@remix-run/react'
 import {useQuery} from '@sanity/react-loader'
+import type {LinksFunction, LoaderFunctionArgs} from 'react-router'
+import {useLoaderData} from 'react-router'
 
 import HomeBlog from '~/components/HomeBlog'
 import HomeCommunity from '~/components/HomeCommunity'
@@ -43,7 +42,7 @@ export const loader = async ({request}: LoaderFunctionArgs) => {
       .then((result) => exchangeStubsZ.parse(result)),
   ])
 
-  return json({initial, query, params, exchangeArticles, preview})
+  return {initial, query, params, exchangeArticles, preview}
 }
 
 export default function Index() {

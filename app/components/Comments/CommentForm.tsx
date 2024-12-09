@@ -1,7 +1,7 @@
 import {Dialog} from '@headlessui/react'
 import {XCircleIcon} from '@heroicons/react/24/outline'
-import {useFetcher, useRouteLoaderData} from '@remix-run/react'
 import {useEffect} from 'react'
+import {useFetcher, useRouteLoaderData} from 'react-router'
 
 import type {loader as pageLoader} from '~/routes/_website.$slug'
 

@@ -1,19 +1,24 @@
-import {vitePlugin as remix} from '@remix-run/dev'
-import {installGlobals} from '@remix-run/node'
-import {vercelPreset} from '@vercel/remix/vite'
+import {reactRouter} from '@react-router/dev/vite'
+import autoprefixer from 'autoprefixer'
+import tailwindcss from 'tailwindcss'
 import {defineConfig} from 'vite'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
-installGlobals()
-
-export default defineConfig({
-  server: {
-    port: 3000,
+export default defineConfig(({isSsrBuild, command}) => ({
+  build: {
+    rollupOptions: isSsrBuild
+      ? {
+          input: './server/app.ts',
+        }
+      : undefined,
   },
-  plugins: [
-    remix({
-      presets: [vercelPreset()],
-    }),
-    tsconfigPaths(),
-  ],
-})
+  css: {
+    postcss: {
+      plugins: [tailwindcss, autoprefixer],
+    },
+  },
+  ssr: {
+    noExternal: command === 'build' ? true : undefined,
+  },
+  plugins: [reactRouter(), tsconfigPaths()],
+}))

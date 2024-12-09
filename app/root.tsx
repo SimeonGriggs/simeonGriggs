@@ -1,5 +1,4 @@
-import type {LinksFunction, LoaderFunctionArgs} from '@remix-run/node'
-import {json} from '@remix-run/node'
+import type {LinksFunction, LoaderFunctionArgs} from 'react-router'
 import {
   isRouteErrorResponse,
   Links,
@@ -9,7 +8,7 @@ import {
   ScrollRestoration,
   useLoaderData,
   useRouteError,
-} from '@remix-run/react'
+} from 'react-router'
 import {z} from 'zod'
 
 import CanonicalLink from '~/components/CanonicalLink'
@@ -59,7 +58,7 @@ export const loader = async ({request}: LoaderFunctionArgs) => {
 
   const {preview} = await loadQueryOptions(request.headers)
 
-  return json({
+  return {
     themePreference: themePreference || 'light',
     ENV: {
       VITE_SANITY_PROJECT_ID: import.meta.env.VITE_SANITY_PROJECT_ID!,
@@ -71,7 +70,7 @@ export const loader = async ({request}: LoaderFunctionArgs) => {
       origin: getDomainUrl(request),
     },
     preview,
-  })
+  }
 }
 
 export default function App() {

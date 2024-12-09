@@ -1,4 +1,4 @@
-import type {PortableTextBlock} from '@portabletext/types'
+// import type {PortableTextBlock} from '@portabletext/types'
 // import {Text} from '@sanity/ui'
 import type {
   // Reference,
@@ -19,17 +19,17 @@ export default function CommentPreview(props: StringInputProps) {
 }
 
 // https://www.sanity.io/schemas/portable-text-to-plain-text-cc845843
-const defaults = {nonTextBehavior: 'remove'}
+// const defaults = {nonTextBehavior: 'remove'}
 
-function blocksToText(blocks: PortableTextBlock[], opts = {}) {
-  const options = Object.assign({}, defaults, opts)
-  return blocks
-    .map((block) => {
-      if (block._type !== 'block' || !block.children) {
-        return options.nonTextBehavior === 'remove' ? '' : `[${block._type} block]`
-      }
+// function blocksToText(blocks: PortableTextBlock[], opts = {}) {
+//   const options = Object.assign({}, defaults, opts)
+//   return blocks
+//     .map((block) => {
+//       if (block._type !== 'block' || !block.children) {
+//         return options.nonTextBehavior === 'remove' ? '' : `[${block._type} block]`
+//       }
 
-      return block.children.map((child) => child.text).join('')
-    })
-    .join('\n\n')
-}
+//       return block.children.map((child) => child.text).join('')
+//     })
+//     .join('\n\n')
+// }

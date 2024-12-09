@@ -1,4 +1,4 @@
-import {Link} from '@remix-run/react'
+import {Link} from 'react-router'
 
 import Published from '~/components/Published'
 import type {ArticleStub} from '~/types/stubs'

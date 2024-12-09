@@ -6,7 +6,7 @@ import {z} from 'zod'
 
 import {OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH, SITE_URL} from '~/constants'
 import {urlFor} from '~/sanity/helpers'
-import {sanityImageObjectExtendedZ, sanityImageZ} from '~/types/image'
+import {sanityImageObjectExtendedZ} from '~/types/image'
 
 const fontMono = (baseUrl: string) =>
   fetch(new URL(`${baseUrl}/fonts/JetBrainsMono-Regular.ttf`)).then((res) => res.arrayBuffer())

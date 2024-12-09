@@ -1,5 +1,5 @@
-import type {LinksFunction, MetaFunction} from '@remix-run/node'
 import {lazy, Suspense} from 'react'
+import type {LinksFunction, MetaFunction} from 'react-router'
 
 import styles from '~/styles/studio.css?url'
 

@@ -1,4 +1,4 @@
-import {Link} from '@remix-run/react'
+import {Link} from 'react-router'
 
 import GitHub from '~/components/GitHub'
 import ThemeToggle from '~/components/ThemeToggle'

@@ -1,6 +1,6 @@
-import type {LoaderFunctionArgs, MetaFunction} from '@remix-run/node'
-import {json, Outlet, ScrollRestoration, useLoaderData} from '@remix-run/react'
 import {useQuery} from '@sanity/react-loader'
+import type {LoaderFunctionArgs, MetaFunction} from 'react-router'
+import {Outlet, ScrollRestoration, useLoaderData} from 'react-router'
 
 import {Banner} from '~/components/Banner'
 import Header from '~/components/Header'
@@ -57,12 +57,12 @@ export const loader = async ({request}: LoaderFunctionArgs) => {
     data: siteMetaZ.parse(result.data),
   }))
 
-  return json({
+  return {
     initial,
     query,
     params,
     preview,
-  })
+  }
 }
 
 export default function Website() {

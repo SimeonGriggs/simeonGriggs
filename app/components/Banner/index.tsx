@@ -1,5 +1,5 @@
-import {useLocation, useRouteLoaderData} from '@remix-run/react'
 import {useEffect} from 'react'
+import {useLocation, useRouteLoaderData} from 'react-router'
 import {useWindowSize} from 'usehooks-ts'
 
 import type {loader as homeLoader} from '~/routes/_website._index'

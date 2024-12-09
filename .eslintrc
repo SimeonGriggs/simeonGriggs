@@ -1,9 +1,0 @@
-{
-  "extends": ["@remix-run/eslint-config", "@remix-run/eslint-config/node"],
-  "ignorePatterns": ["node_modules", "build", ".cache", "app/sanity/theme.js"],
-  "plugins": ["simple-import-sort"],
-  "rules": {
-    "simple-import-sort/imports": "error",
-    "simple-import-sort/exports": "error",
-  },
-}

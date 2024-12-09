@@ -1,5 +1,5 @@
-import type {LoaderFunctionArgs} from '@remix-run/node'
 import groq from 'groq'
+import type {LoaderFunctionArgs} from 'react-router'
 import type {SanityDocument} from 'sanity'
 
 import {generateOGImage} from '~/lib/generateOGImage.server'

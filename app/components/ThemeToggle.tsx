@@ -1,5 +1,5 @@
 import {MoonIcon, SunIcon} from '@heroicons/react/24/solid'
-import {useFetcher, useRouteLoaderData} from '@remix-run/react'
+import {useFetcher, useRouteLoaderData} from 'react-router'
 
 import {buttonClasses} from '~/components/Header'
 import type {loader as rootLoader} from '~/root'

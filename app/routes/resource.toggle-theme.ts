@@ -1,5 +1,4 @@
-import type {ActionFunction, LoaderFunction} from '@remix-run/node'
-import {json, redirect} from '@remix-run/node'
+import type {ActionFunction} from 'react-router'
 
 import {themePreferenceCookie} from '~/cookies'
 
@@ -8,16 +7,11 @@ export const action: ActionFunction = async ({request}) => {
   const cookie = (await themePreferenceCookie.parse(cookieHeader)) || {}
   const themePreference = cookie.themePreference === `dark` ? `light` : `dark`
 
-  return json(
-    {themePreference},
-    {
-      headers: {
-        'Set-Cookie': await themePreferenceCookie.serialize({
-          themePreference,
-        }),
-      },
+  return new Response(JSON.stringify({themePreference}), {
+    headers: {
+      'Set-Cookie': await themePreferenceCookie.serialize({
+        themePreference,
+      }),
     },
-  )
+  })
 }
-
-export const loader: LoaderFunction = () => redirect('/', {status: 404})
