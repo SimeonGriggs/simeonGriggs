@@ -1,7 +1,15 @@
-import type {Config} from '@react-router/dev/config'
+import {nodePreset, vercelPreset} from '@lazuee/react-router-hono'
 
-export default {
-  // Config options...
-  // Server-side render by default, to enable SPA mode set this to `false`
-  ssr: true,
-} satisfies Config
+// eslint-disable-next-line jsdoc/no-types
+/** @param {import("@react-router/dev/config").Config} config */
+function defineConfig(config) {
+  return config
+}
+
+export default defineConfig({
+  // appDirectory: 'src/client',
+  future: {
+    unstable_optimizeDeps: true,
+  },
+  presets: [nodePreset(), vercelPreset({regions: 'hnd1'})],
+})

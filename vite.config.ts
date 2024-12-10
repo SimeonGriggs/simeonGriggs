@@ -1,3 +1,7 @@
+import {env} from 'node:process'
+
+import {reactRouterHono} from '@lazuee/react-router-hono'
+
 import {reactRouter} from '@react-router/dev/vite'
 import autoprefixer from 'autoprefixer'
 import tailwindcss from 'tailwindcss'
@@ -5,21 +9,16 @@ import {defineConfig} from 'vite'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
 export default defineConfig(({isSsrBuild, command}) => ({
-  build: {
-    rollupOptions: isSsrBuild
-      ? {
-          input: './server/app.ts',
-        }
-      : undefined,
-  },
   css: {
     postcss: {
       plugins: [tailwindcss, autoprefixer],
     },
   },
-  ssr: {
-    external: ['@resvg/resvg-js'],
-    noExternal: command === 'build' ? true : undefined,
-  },
-  plugins: [reactRouter(), tsconfigPaths()],
+  plugins: [
+    reactRouterHono({
+      serverFile: 'src/server/index.ts',
+    }),
+    reactRouter(),
+    tsconfigPaths(),
+  ],
 }))
