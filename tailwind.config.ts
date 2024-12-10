@@ -1,7 +1,9 @@
-/** @type {import('tailwindcss').Config} */
-const {colors} = require('@carbon/colors')
-const defaultTheme = require('tailwindcss/defaultTheme')
-const {fractionWidths} = require('tailwindcss-fraction-widths')
+import type {Config} from 'tailwindcss'
+import {colors} from '@carbon/colors'
+import defaultTheme from 'tailwindcss/defaultTheme'
+import {fractionWidths} from 'tailwindcss-fraction-widths'
+import typography from '@tailwindcss/typography'
+import aspectRatio from '@tailwindcss/aspect-ratio'
 
 const carbonColors = Object.keys(colors).reduce((acc, color) => {
   if (Object.keys(colors[color]).length === 1) {
@@ -17,8 +19,8 @@ const carbonColors = Object.keys(colors).reduce((acc, color) => {
   return {...acc, [color]: palette}
 }, {})
 
-module.exports = {
-  content: ['./app/**/*.{js,jsx,ts,tsx}'],
+export default {
+  content: ['./app/**/{**,.client,.server}/**/*.{js,jsx,ts,tsx}'],
   darkMode: 'class',
   corePlugins: {
     // Disable the default container
@@ -121,9 +123,5 @@ module.exports = {
       }),
     },
   },
-  plugins: [
-    require('@tailwindcss/typography'),
-    require('@tailwindcss/aspect-ratio'),
-    fractionWidths([8, 16]),
-  ],
-}
+  plugins: [typography, aspectRatio, fractionWidths([8, 16])],
+} satisfies Config

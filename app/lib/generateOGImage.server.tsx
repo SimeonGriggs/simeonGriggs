@@ -1,4 +1,4 @@
-import {Resvg} from '@resvg/resvg-js'
+// import {Resvg} from '@resvg/resvg-js'
 import type {SanityDocumentLike} from 'sanity'
 import type {SatoriOptions} from 'satori'
 import satori from 'satori'
@@ -169,9 +169,10 @@ export async function generateOGImage(doc: SanityDocumentLike, origin: string) {
     options,
   )
 
-  const resvg = new Resvg(svg)
-  const pngData = resvg.render()
-  const pngBuffer = pngData.asPng()
+  // const resvg = new Resvg(svg)
+  // const pngData = resvg.render()
+  // const pngBuffer = pngData.asPng()
 
-  return pngBuffer
+  // return pngBuffer
+  return null
 }
