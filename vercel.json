@@ -2,7 +2,7 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "framework": "vite",
   "installCommand": "pnpm install",
-  "buildCommand": "pnpm website:build",
+  "buildCommand": "pnpm build",
   "cleanUrls": true,
   "github": {
     "enabled": true,
