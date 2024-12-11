@@ -1,6 +1,6 @@
 import express from 'express'
 
-const PORT = Number.parseInt(process.env.PORT || '3000')
+const PORT = Number.parseInt(process.env.PORT || '5173')
 
 const app = express()
 app.disable('x-powered-by')

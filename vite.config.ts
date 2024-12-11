@@ -8,17 +8,17 @@ import tailwindcss from 'tailwindcss'
 import {defineConfig} from 'vite'
 import tsconfigPaths from 'vite-tsconfig-paths'
 
-export default defineConfig(({isSsrBuild, command}) => ({
+export default defineConfig({
   css: {
     postcss: {
       plugins: [tailwindcss, autoprefixer],
     },
   },
-  plugins: [
-    reactRouterHono({
-      serverFile: 'src/server/index.ts',
-    }),
-    reactRouter(),
-    tsconfigPaths(),
-  ],
-}))
+  plugins: [reactRouterHono({serverFile: 'src/server/index.ts'}), reactRouter(), tsconfigPaths()],
+  ssr: {
+    external: ['@resvg/resvg-js', '@mapbox/node-pre-gyp'],
+  },
+  optimizeDeps: {
+    exclude: ['@resvg/resvg-js', '@mapbox/node-pre-gyp'],
+  },
+})
