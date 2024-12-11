@@ -18,6 +18,7 @@ export default defineConfig(({isSsrBuild, command}) => ({
       plugins: [tailwindcss, autoprefixer],
     },
   },
+  assetsInclude: ['**/*.node'], // Treat .node files as assets
   ssr: {
     // external: command === 'build' ? ['@resvg/resvg-js'] : undefined,
     noExternal: command === 'build' ? true : undefined,

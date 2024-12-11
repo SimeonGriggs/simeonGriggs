@@ -19,13 +19,19 @@ export function nativeFilesPlugin(): PluginOption {
       const fileName = `${path.basename(id, '.node')}.${hash}.node`
       files.set(id, {fileName, fileContent})
 
-      //   return `export default require('./${fileName}');`
-      return `export default await import('./${fileName}');`
+      // Use `new URL()` with `import.meta.url` to resolve the path dynamically
+      return `export default await import(${new URL('./${fileName}', import.meta.url)});`
     },
 
     generateBundle(_, bundle) {
       for (const [id, {fileName, fileContent}] of files.entries()) {
-        this.emitFile({type: 'asset', fileName, source: fileContent})
+        this.emitFile({
+          type: 'asset',
+          fileName, // This will emit the file in the root of the output directory
+          source: fileContent,
+        })
+
+        // Optional: Delete the original entry if necessary
         delete bundle[id]
       }
     },
