@@ -19,7 +19,8 @@ export function nativeFilesPlugin(): PluginOption {
       const fileName = `${path.basename(id, '.node')}.${hash}.node`
       files.set(id, {fileName, fileContent})
 
-      return `export default require('./${fileName}');`
+      //   return `export default require('./${fileName}');`
+      return `export default await import('./${fileName}');`
     },
 
     generateBundle(_, bundle) {
