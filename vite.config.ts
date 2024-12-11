@@ -3,6 +3,7 @@ import autoprefixer from 'autoprefixer'
 import tailwindcss from 'tailwindcss'
 import {defineConfig} from 'vite'
 import tsconfigPaths from 'vite-tsconfig-paths'
+import {nativeFilesPlugin} from './app/nativeFilesPlugin'
 
 export default defineConfig(({isSsrBuild, command}) => ({
   build: {
@@ -18,8 +19,8 @@ export default defineConfig(({isSsrBuild, command}) => ({
     },
   },
   ssr: {
-    external: command === 'build' ? ['@resvg/resvg-js'] : undefined,
+    // external: command === 'build' ? ['@resvg/resvg-js'] : undefined,
     noExternal: command === 'build' ? true : undefined,
   },
-  plugins: [reactRouter(), tsconfigPaths()],
+  plugins: [reactRouter(), tsconfigPaths(), nativeFilesPlugin()],
 }))
