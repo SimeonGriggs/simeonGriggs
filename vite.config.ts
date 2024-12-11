@@ -10,6 +10,10 @@ export default defineConfig(({isSsrBuild, command}) => ({
     rollupOptions: isSsrBuild
       ? {
           input: './server/app.ts',
+          output: {
+            format: 'cjs', // Set the output format to CommonJS
+            entryFileNames: '[name].cjs', // Use .cjs extension for output files
+          },
         }
       : undefined,
   },
