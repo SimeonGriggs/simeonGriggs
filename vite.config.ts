@@ -18,7 +18,7 @@ export default defineConfig(({isSsrBuild, command}) => ({
     },
   },
   ssr: {
-    external: ['@resvg/resvg-js'],
+    external: command === 'build' ? ['@resvg/resvg-js'] : undefined,
     noExternal: command === 'build' ? true : undefined,
   },
   plugins: [reactRouter(), tsconfigPaths()],
