@@ -1,0 +1,5 @@
+**/node_modules
+**/build
+**/.cache
+**/.sanity
+**/pnpm-lock.yaml
