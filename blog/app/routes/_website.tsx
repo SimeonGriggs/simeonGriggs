@@ -22,6 +22,7 @@ export const meta: MetaFunction<typeof loader> = ({data}) => {
 
   const baseUrl = process.env.NODE_ENV === 'development' ? LOCAL_OG_URL : PROD_OG_URL
   const ogImageUrl = new URL(`/image`, baseUrl)
+  ogImageUrl.searchParams.set(`id`, siteMeta._id)
 
   // SEO Meta
   const pageTitle = `${siteMeta.title} | ${siteMeta?.description}`
