@@ -5,6 +5,7 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
+    "@repo/constants": "workspace:*",
     "@heroicons/react": "^2.2.0",
     "@sanity/code-input": "^5.1.2",
     "@sanity/color": "^3.0.6",

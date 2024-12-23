@@ -13,6 +13,7 @@ const clientWithToken = createClient({
   projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!,
   dataset: process.env.NEXT_PUBLIC_SANITY_DATASET!,
   token: process.env.NEXT_PUBLIC_SANITY_READ_TOKEN!,
+  useCdn: true,
 })
 const urlFor = (source: SanityImageSource) =>
   imageUrlBuilder({
