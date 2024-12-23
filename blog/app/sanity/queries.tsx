@@ -15,6 +15,7 @@ const SANITY_IMAGE_OBJECT_STUB = groq`
   asset->{${SANITY_IMAGE_OBJECT_STUB_ASSET}}`
 
 export const SITE_META_QUERY = groq`*[_id == "siteMeta"][0]{
+  _id,
   author,
   bio,
   description,
