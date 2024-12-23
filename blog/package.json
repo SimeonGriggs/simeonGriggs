@@ -8,6 +8,7 @@
     "typecheck": "react-router typegen && tsc"
   },
   "dependencies": {
+    "@repo/constants": "workspace:*",
     "@repo/sanity": "workspace:*",
     "@carbon/colors": "^11.28.0",
     "@headlessui/react": "^2.2.0",

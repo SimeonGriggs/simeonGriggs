@@ -1,10 +1,10 @@
 import {useQuery} from '@sanity/react-loader'
 import type {LoaderFunctionArgs, MetaFunction} from 'react-router'
 import {Outlet, ScrollRestoration, useLoaderData} from 'react-router'
+import {LOCAL_OG_URL, OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH, PROD_OG_URL} from '@repo/constants'
 
 import {Banner} from '~/components/Banner'
 import Header from '~/components/Header'
-import {LOCAL_URL, OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH, SITE_URL} from '~/constants'
 import {removeTrailingSlash} from '~/lib/helpers'
 import {fixInitialType} from '~/sanity/fixInitialType'
 import {loadQuery} from '~/sanity/loader.server'
@@ -20,8 +20,8 @@ export const meta: MetaFunction<typeof loader> = ({data}) => {
     return [{title: `Home page`}]
   }
 
-  const baseUrl = process.env.NODE_ENV === 'development' ? LOCAL_URL : SITE_URL
-  const ogImageUrl = new URL(`/resource/og`, baseUrl)
+  const baseUrl = process.env.NODE_ENV === 'development' ? LOCAL_OG_URL : PROD_OG_URL
+  const ogImageUrl = new URL(`/image`, baseUrl)
 
   // SEO Meta
   const pageTitle = `${siteMeta.title} | ${siteMeta?.description}`

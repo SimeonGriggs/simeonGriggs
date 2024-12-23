@@ -1,9 +1,9 @@
 import {useQuery} from '@sanity/react-loader'
 import type {ActionFunction, LinksFunction, LoaderFunctionArgs, MetaFunction} from 'react-router'
 import {useLoaderData} from 'react-router'
+import {LOCAL_OG_URL, OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH, PROD_OG_URL} from '@repo/constants'
 
 import Article from '~/components/Article'
-import {LOCAL_URL, OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH, SITE_URL} from '~/constants'
 import type {loader as layoutLoader} from '~/routes/_website'
 import {writeClient} from '~/sanity/client.server'
 import {fixInitialType} from '~/sanity/fixInitialType'
@@ -33,12 +33,15 @@ export const meta: MetaFunction<
   const {data, matches} = props
   const layoutData = matches.find((match) => match.id === `routes/_website`)?.data
 
-  const {_id, title, summary} = data?.initial.data ?? {}
-  const baseUrl = process.env.NODE_ENV === 'development' ? LOCAL_URL : SITE_URL
-  const ogImageUrl = new URL(`/resource/og`, baseUrl)
+  const {_id, _updatedAt, title, summary} = data?.initial.data ?? {}
+  const baseUrl = process.env.NODE_ENV === 'development' ? LOCAL_OG_URL : PROD_OG_URL
+  const ogImageUrl = new URL(`/image`, baseUrl)
 
   if (_id) {
     ogImageUrl.searchParams.set(`id`, _id)
+  }
+  if (_updatedAt) {
+    ogImageUrl.searchParams.set(`updatedAt`, _updatedAt)
   }
 
   // SEO Meta

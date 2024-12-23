@@ -8,6 +8,7 @@ import {structureTool} from 'sanity/structure'
 import {unsplashImageAsset} from 'sanity-plugin-asset-source-unsplash'
 import {media} from 'sanity-plugin-media'
 import {tldraw} from 'sanity-plugin-tldraw'
+import {LOCAL_URL, SITE_URL} from '@repo/constants'
 
 import {resolve} from './presentation/resolve'
 import {schemaTypes} from './schema'
@@ -27,9 +28,7 @@ export default defineConfig({
       resolve,
       previewUrl: {
         previewMode: {
-          enable: isDev
-            ? new URL(`/resource/preview`, `http://localhost:5173`).toString()
-            : new URL(`/resource/preview`, `https://simeongriggs.dev`).toString(),
+          enable: new URL(`/resource/preview`, isDev ? LOCAL_URL : SITE_URL).toString(),
         },
       },
     }),
