@@ -1,0 +1,22 @@
+{
+  "name": "@repo/sanity",
+  "private": true,
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@heroicons/react": "^2.2.0",
+    "@sanity/code-input": "^5.1.2",
+    "@sanity/color": "^3.0.6",
+    "@sanity/icons": "^3.5.3",
+    "@sanity/ui": "^2.10.11",
+    "@sanity/vision": "^3.67.1",
+    "groq": "^3.67.1",
+    "react": "^19.0.0",
+    "sanity": "^3.67.1",
+    "sanity-plugin-asset-source-unsplash": "^3.0.1",
+    "sanity-plugin-media": "^2.3.2",
+    "sanity-plugin-tldraw": "^1.1.0",
+    "tldraw": "^3.6.0"
+  }
+}
