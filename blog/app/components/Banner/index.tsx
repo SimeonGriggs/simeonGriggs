@@ -21,7 +21,9 @@ export function Banner() {
 
   if (isHome && homeData) {
     const firstBlogPostWithImage = articleStubZ.parse(
-      homeData.initial.data.find((b: ArticleStub) => b.image && b.published),
+      homeData.initial.data
+        .filter((a) => a._type === 'article')
+        .find((b: ArticleStub) => b.image && b.published),
     )
 
     bannerImage = firstBlogPostWithImage?.image ? firstBlogPostWithImage.image : null

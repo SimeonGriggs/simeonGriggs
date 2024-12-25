@@ -1,30 +1,31 @@
 import {MapPinIcon} from '@heroicons/react/24/solid'
 import React from 'react'
 
-import Label from './Label'
+import Label, {type LabelTones} from './Label'
 
 function dateDisplay(dateString: string) {
   return dateString.split('T')[0]
 }
 
 type PublishedProps = {
+  published: string
   updated?: string
   location?: string
-  published: string
+  tone?: LabelTones
 }
 
-export default function Published(props: PublishedProps) {
-  const {updated, location, published} = props
-
+export default function Published({updated, location, published, tone}: PublishedProps) {
   return (
-    <Label>
+    <Label tone={tone}>
       <span className="flex flex-col md:flex-row md:items-center">
         {updated ? (
           <span>
-            Updated {dateDisplay(updated)} <span>| Published {dateDisplay(published)}</span>
+            <time dateTime={published}>{dateDisplay(published)}</time>
+            {` `}•{` `}
+            <time dateTime={updated}>Updated {dateDisplay(updated)}</time>
           </span>
         ) : (
-          <span>{dateDisplay(published)}</span>
+          <time dateTime={published}>{dateDisplay(published)}</time>
         )}
 
         {location ? (

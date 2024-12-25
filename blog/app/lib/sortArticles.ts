@@ -1,6 +1,6 @@
-import type {ArticleStub, ExchangeStub} from '~/types/stubs'
+import type {CombinedStubs} from '~/types/stubs'
 
-export function sortArticles(allArticles: (ArticleStub | ExchangeStub)[]) {
+export function sortArticles(allArticles: CombinedStubs) {
   let sortedArticles = allArticles
     .flat()
     .filter((a) => a.published)
@@ -11,7 +11,7 @@ export function sortArticles(allArticles: (ArticleStub | ExchangeStub)[]) {
     )
 
   // If a `blog` post isn't the first one, move it to the top
-  const firstBlogPostIndex = sortedArticles.findIndex((article) => article.source === `blog`)
+  const firstBlogPostIndex = sortedArticles.findIndex((article) => article._type === `article`)
   if (firstBlogPostIndex !== 0) {
     const firstBlogPost = sortedArticles[firstBlogPostIndex]
     sortedArticles.splice(firstBlogPostIndex, 1)

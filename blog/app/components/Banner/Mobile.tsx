@@ -14,7 +14,7 @@ export function Mobile(props: MobileProps) {
   return (
     <div
       className={clsx(
-        `pointer-events-none top-0 z-10 h-32 w-screen origin-top-left md:hidden`,
+        `pointer-events-none top-0 z-20 h-32 w-screen origin-top-left md:hidden`,
         isHome ? `fixed` : `absolute`,
       )}
     >

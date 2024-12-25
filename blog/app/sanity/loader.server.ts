@@ -12,8 +12,7 @@ const clientWithToken = client.withConfig({
   token: process.env.SANITY_READ_TOKEN,
   // You do not want this enabled in production
   // This should be overridden when using loadQuery in a loader
-  stega: process.env.NODE_ENV === 'development' && {
-    enabled: true,
+  stega: {
     studioUrl: STUDIO_BASEPATH,
   },
 })

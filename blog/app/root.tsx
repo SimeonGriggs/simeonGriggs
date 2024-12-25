@@ -12,7 +12,7 @@ import {
 import {z} from 'zod'
 
 import CanonicalLink from '~/components/CanonicalLink'
-// import Grid from '~/components/Grid'
+import Grid from '~/components/Grid'
 import LiveVisualEditing from '~/components/LiveVisualEditing'
 import {themePreferenceCookie} from '~/cookies'
 import {getBodyClassNames} from '~/lib/getBodyClassNames'
