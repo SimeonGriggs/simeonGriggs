@@ -56,7 +56,7 @@ export function Timeline({articles}: TimelineProps) {
               {(() => {
                 switch (article._type) {
                   case 'article':
-                    return <Featured article={article} />
+                    return <BlogPost article={article} />
                   case 'contribution.guide':
                     return <Exchange article={article} />
                   case 'talk':
@@ -76,11 +76,11 @@ export function Timeline({articles}: TimelineProps) {
   )
 }
 
-function Featured({article}: {article: ArticleStub}) {
+function BlogPost({article}: {article: ArticleStub}) {
   return (
     <article className="relative flex justify-end px-4 md:px-[calc(100vw/12)] lg:px-[calc(100vw/16)]">
       <div className="absolute left-0 flex -translate-x-3 size-6 flex-none items-center justify-center">
-        <div className="size-6 flex items-center justify-center bg-blue-500 text-white absolute rounded-full ring-2 ring-white dark:ring-blue-900">
+        <div className="size-6 flex items-center justify-center bg-blue-500 text-white absolute rounded-full ring-1 ring-white dark:ring-blue-900">
           <PencilSquareIcon aria-hidden="true" className="size-4" />
         </div>
       </div>
@@ -89,36 +89,40 @@ function Featured({article}: {article: ArticleStub}) {
           {article.published ? (
             <Published updated={article.updated ?? undefined} published={article.published} />
           ) : null}
-          <span className="relative z-10 rounded-full bg-blue-100 dark:bg-blue-800 px-3 hover:bg-blue-100 py-1.5">
-            <Label>Blog</Label>
-          </span>
+          <Pill>
+            <Label tone="inherit">Blog</Label>
+          </Pill>
         </div>
-        <h2
-          className="text-3xl text-balance font-black tracking-tighter text-blue-500 md:text-4xl md:leading-none hover:text-blue-700
-        dark:hover:text-blue-100
-        "
-        >
-          <Link to={`/${article.slug.current}`}>
+        <H2>
+          <Link
+            className="hover:text-blue-700 dark:hover:text-blue-100"
+            to={`/${article.slug.current}`}
+          >
             {article.title}
+            <span aria-hidden="true">{` `}&rarr;</span>
             <span className="absolute inset-0"></span>
           </Link>
-        </h2>
-        <p className="text-lg/8 text-gray-600 dark:text-blue-100">{article.summary}</p>
+        </H2>
+        <Summary>{article.summary}</Summary>
       </div>
     </article>
   )
+}
+
+function Summary({children, className}: {children: React.ReactNode; className?: string}) {
+  return <p className={clsx(`text-lg/8 text-gray-600 dark:text-blue-100`, className)}>{children}</p>
 }
 
 function Video({article}: {article: YouTubeVideoStub}) {
   return (
     <article className="relative min-w-0">
       <div className="absolute z-10 top-6 left-0 flex -translate-x-3 size-6 flex-none items-center justify-center">
-        <div className="size-6 flex items-center justify-center bg-blue-500 text-white absolute rounded-full ring-2 ring-white dark:ring-blue-900">
+        <div className="size-6 flex items-center justify-center bg-blue-500 text-white absolute rounded-full ring-1 ring-white dark:ring-blue-900">
           <PlayIcon aria-hidden="true" className="size-4" />
         </div>
         <div className="size-1.5 rounded-full bg-gray-100 ring-1 ring-gray-300" />
       </div>
-      <div className="relative isolate flex flex-col justify-end overflow-hidden rounded-r-2xl bg-gray-900 aspect-[16/9] pb-8 w-full shadow-xl">
+      <div className="relative isolate flex flex-col justify-end overflow-hidden rounded-r-2xl bg-gray-900 aspect-[16/9] w-full hover:shadow-xl transition-shadow duration-75 ease-in-out">
         <img
           alt=""
           src={article.thumbnailUrl}
@@ -127,22 +131,31 @@ function Video({article}: {article: YouTubeVideoStub}) {
         <div className="absolute inset-0 -z-10 bg-gradient-to-t from-blue-600 via-blue-600/40" />
         <div className="absolute inset-0 -z-10 rounded-2xl ring-1 ring-inset ring-blue-700/10" />
 
-        <div className="flex flex-col overflow-hidden gap-3 text-gray-300 px-4 md:px-[calc(100vw/12)] lg:px-[calc(100vw/16)]">
+        <div className="flex flex-col overflow-hidden gap-3 text-gray-300 px-4 pb-8 md:px-[calc(100vw/12)] lg:px-[calc(100vw/16)]">
+          {article.link ? (
+            <a
+              className="absolute inset-0 z-10"
+              href={article.link}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span className="sr-only">Watch {article.title}</span>
+            </a>
+          ) : null}
           <div className="flex justify-between items-center gap-3">
             {article.published ? <Published published={article.published} tone="light" /> : null}
-            <span className="relative z-10 rounded-full bg-gray-50 px-3 hover:bg-blue-100 py-1.5">
-              <Label tone="dark">YouTube</Label>
-            </span>
+            <Pill>
+              <Label tone="inherit">YouTube</Label>
+            </Pill>
           </div>
-          <h2 className="text-3xl text-balance font-black tracking-tighter text-white md:text-4xl md:leading-none">
+          <H2 tone="light">
             <span className="absolute inset-0" />
             {article.title}
-          </h2>
-          {/* <h3 className="text-lg/6 font-semibold text-white">{article.event}</h3> */}
+          </H2>
         </div>
       </div>
       <div className="flex flex-col gap-3 pt-8 px-4 md:px-[calc(100vw/12)] lg:px-[calc(100vw/16)]">
-        <p className="text-lg/8 text-gray-600 dark:text-blue-100 line-clamp-3">{article.summary}</p>
+        <Summary className="line-clamp-3">{article.summary}</Summary>
         {article.link ? (
           <p className="text-base/8 text-blue-500 hover:text-blue-700 dark:hover:text-blue-100 font-semibold">
             <a href={article.link} target="_blank" rel="noopener noreferrer">
@@ -159,12 +172,12 @@ function Talk({article}: {article: TalkStub}) {
   return (
     <article className="relative">
       <div className="absolute z-10 top-6 left-0 flex -translate-x-3 size-6 flex-none items-center justify-center">
-        <div className="size-6 flex items-center justify-center bg-blue-500 text-white absolute rounded-full ring-2 ring-white dark:ring-blue-900">
+        <div className="size-6 flex items-center justify-center bg-blue-500 text-white absolute rounded-full ring-1 ring-white dark:ring-blue-900">
           <MegaphoneIcon aria-hidden="true" className="size-4" />
         </div>
         <div className="size-1.5 rounded-full bg-gray-100 ring-1 ring-gray-300" />
       </div>
-      <div className="relative isolate flex flex-col justify-end overflow-hidden rounded-r-2xl bg-gray-900 aspect-[16/9] pb-8 w-full shadow-xl">
+      <div className="relative isolate flex flex-col justify-end overflow-hidden rounded-r-2xl bg-gray-900 aspect-[16/9] w-full hover:shadow-xl transition-shadow duration-75 ease-in-out">
         {article.image ? (
           <img
             alt=""
@@ -175,7 +188,17 @@ function Talk({article}: {article: TalkStub}) {
         <div className="absolute inset-0 -z-10 bg-gradient-to-t from-blue-600 via-blue-600/40" />
         <div className="absolute inset-0 -z-10 rounded-2xl ring-1 ring-inset ring-blue-700/10" />
 
-        <div className="flex flex-col overflow-hidden gap-3 text-gray-300 px-4 md:px-[calc(100vw/12)] lg:px-[calc(100vw/16)]">
+        <div className="flex flex-col overflow-hidden gap-3 text-gray-300 px-4 pb-8 md:px-[calc(100vw/12)] lg:px-[calc(100vw/16)]">
+          {article.link ? (
+            <a
+              className="absolute inset-0 z-10"
+              href={article.link}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span className="sr-only">Watch {article.title}</span>
+            </a>
+          ) : null}
           <div className="flex justify-between items-center gap-3">
             {article.published ? (
               <Published
@@ -184,23 +207,24 @@ function Talk({article}: {article: TalkStub}) {
                 tone="light"
               />
             ) : null}
-            <span className="relative z-10 rounded-full bg-gray-50 px-3 hover:bg-blue-100 py-1.5">
-              <Label tone="dark">{article._type}</Label>
-            </span>
+
+            <Pill>
+              <Label tone="inherit">{article._type}</Label>
+            </Pill>
           </div>
-          <h2 className="text-3xl text-balance font-black tracking-tighter text-white md:text-4xl md:leading-none">
+          <H2 tone="light">
             <span className="absolute inset-0" />
             {article.title}
-          </h2>
+          </H2>
           <h3 className="text-lg/6 font-semibold text-white">{article.event}</h3>
         </div>
       </div>
       <div className="flex flex-col gap-3 pt-8 px-4 md:px-[calc(100vw/12)] lg:px-[calc(100vw/16)]">
-        <p className="text-lg/8 text-gray-600 dark:text-blue-100">{article.summary}</p>
+        <Summary>{article.summary}</Summary>
         {article.link ? (
           <p className="text-base/8 text-blue-500 hover:text-blue-700 font-semibold">
             <a href={article.link} target="_blank" rel="noopener noreferrer">
-              Watch on YouTube <span aria-hidden="true">&rarr;</span>
+              Watch <span aria-hidden="true">&rarr;</span>
             </a>
           </p>
         ) : null}
@@ -214,7 +238,7 @@ function Exchange({article}: {article: ExchangeStub | LearnStub}) {
     <div className="flex justify-between w-full md:px-[calc(100vw/12)] lg:px-[calc(100vw/16)]">
       <div className="absolute left-0 flex -translate-x-3 size-6 flex-none items-center justify-center">
         <div
-          className="size-6 flex items-center justify-center bg-[#f03e2f] text-white absolute rounded-full ring-2 ring-white
+          className="size-6 flex items-center justify-center bg-[#f03e2f] text-white absolute rounded-full ring-1 ring-white
         dark:ring-blue-900"
         >
           <LinkIcon aria-hidden="true" className="size-4" />
@@ -235,7 +259,7 @@ function Exchange({article}: {article: ExchangeStub | LearnStub}) {
           {article.title}
           <span className="absolute inset-0"></span>
         </a>
-        <p className="text-gray-600 dark:text-blue-100">{article.summary}</p>
+        <Summary>{article.summary}</Summary>
 
         <div className="flex justify-between items-center gap-3">
           {article.published ? (
@@ -248,12 +272,22 @@ function Exchange({article}: {article: ExchangeStub | LearnStub}) {
               published={article.published}
             />
           ) : null}
-          <span className="relative z-10 rounded-full bg-gray-50 px-3 hover:bg-blue-100 py-1.5">
-            <Label>{article._type === 'contribution.guide' ? 'Guide' : 'Course'}</Label>
-          </span>
         </div>
       </div>
     </div>
+  )
+}
+
+function Pill({children, className}: {children: React.ReactNode; className?: string}) {
+  return (
+    <span
+      className={clsx(
+        `relative z-10 rounded-full bg-blue-100 px-3 py-1.5 text-blue-500 dark:bg-blue-500 dark:text-blue-50`,
+        className,
+      )}
+    >
+      {children}
+    </span>
   )
 }
 
@@ -268,14 +302,14 @@ const TAB_TITLES: Record<string, string> = {
   article: 'Blog Posts',
   'contribution.guide': 'Guides',
   talk: 'Talks',
-  youTubeVideo: 'Videos',
+  youTubeVideo: 'YouTube',
   course: 'Courses',
 }
 
 function Tabs({tabs, current, onChange}: TabsProps) {
   return (
     <div className="sticky top-0">
-      <div className="grid grid-cols-1 sm:hidden">
+      <div className="grid grid-cols-1 lg:hidden">
         <select
           defaultValue={DEFAULT_TAB}
           aria-label="Select a tab"
@@ -290,10 +324,10 @@ function Tabs({tabs, current, onChange}: TabsProps) {
         </select>
         <ChevronDownIcon
           aria-hidden="true"
-          className="pointer-events-none col-start-1 row-start-1 mr-2 size-5 self-center justify-self-end fill-gray-500"
+          className="pointer-events-none col-start-1 row-start-1 mr-3 size-5 self-center justify-self-end text-blue-500"
         />
       </div>
-      <div className="hidden sm:block">
+      <div className="hidden lg:block">
         <div className="border-b border-gray-200 dark:border-blue-800 md:pl-[calc(100vw/12)] lg:pl-[calc(100vw/16)]">
           <nav aria-label="Tabs" className="-mb-px flex space-x-8">
             {tabs.map((tab) => (
@@ -315,5 +349,26 @@ function Tabs({tabs, current, onChange}: TabsProps) {
         </div>
       </div>
     </div>
+  )
+}
+
+function H2({
+  children,
+  tone = 'auto',
+}: {
+  children: React.ReactNode
+  tone?: 'auto' | 'light' | 'dark'
+}) {
+  return (
+    <h2
+      className={clsx(
+        'text-3xl text-balance font-black tracking-tighter  md:text-4xl md:leading-none',
+        tone === 'auto' && 'text-blue-500',
+        tone === 'light' && 'text-white',
+        tone === 'dark' && 'text-blue-700',
+      )}
+    >
+      {children}
+    </h2>
   )
 }
