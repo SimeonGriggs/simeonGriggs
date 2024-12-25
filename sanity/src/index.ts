@@ -9,6 +9,7 @@ import {unsplashImageAsset} from 'sanity-plugin-asset-source-unsplash'
 import {media} from 'sanity-plugin-media'
 import {tldraw} from 'sanity-plugin-tldraw'
 import {LOCAL_URL, SITE_URL} from '@repo/constants'
+import {youTubeDocuments} from 'sanity-plugin-youtube-documents'
 
 import {resolve} from './presentation/resolve'
 import {schemaTypes} from './schema'
@@ -37,6 +38,7 @@ export default defineConfig({
     codeInput(),
     unsplashImageAsset(),
     media(),
+    youTubeDocuments(),
   ],
   schema: {
     types: schemaTypes,

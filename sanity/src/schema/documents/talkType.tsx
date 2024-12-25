@@ -49,6 +49,7 @@ export const talkType = defineType({
       name: 'image',
       type: 'image',
       validation: (rule) => rule.required(),
+      options: {hotspot: true},
     }),
     defineField({type: 'seo', name: 'seo', title: 'SEO'}),
   ],

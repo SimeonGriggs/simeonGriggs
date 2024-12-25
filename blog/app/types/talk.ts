@@ -5,6 +5,7 @@ import {slugZ} from './slug'
 
 export const talkZ = z.object({
   _id: z.string(),
+  _type: z.literal('talk'),
   title: z.string().nullable(),
   slug: slugZ,
   event: z.string().nullable(),

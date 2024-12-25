@@ -42,7 +42,7 @@ export function Desktop(props: DesktopProps) {
       exit={{opacity: 0, ...bannerSize.wrapper}}
       transition={{duration: 0.33}}
       className={clsx(
-        `pointer-events-none top-0 z-10 w-screen origin-top-left hidden md:block h-screen`,
+        `pointer-events-none top-0 z-20 w-screen origin-top-left hidden md:block h-screen`,
         isHome ? `fixed` : `fixed`,
       )}
     >

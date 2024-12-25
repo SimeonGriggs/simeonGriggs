@@ -8,6 +8,13 @@ export const exchangeClient = createClient({
   useCdn: process.env.NODE_ENV === 'production',
 })
 
+export const adminClient = createClient({
+  ...client.config(),
+  projectId: `3do82whm`,
+  dataset: `next`,
+  useCdn: process.env.NODE_ENV === 'production',
+})
+
 export const writeClient = createClient({
   ...client.config(),
   useCdn: false,

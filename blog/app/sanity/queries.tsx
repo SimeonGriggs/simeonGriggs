@@ -78,24 +78,53 @@ export const ARTICLE_QUERY = groq`*[_type == "article" && slug.current == $slug]
     "comments": *[_type == "comment" && references(^._id)].commentKey
   }`
 
-export const TALK_QUERY = groq`*[_type == "talk" && slug.current == $slug]{
-    ...,
-    "summary": pt::text(content),
-    image { ${SANITY_IMAGE_OBJECT_STUB} },
-  }`
+export const TALK_PROJECTION = groq`
+  _id,
+  _type,
+  title,
+  slug,
+  event,
+  eventDate,
+  location,
+  link,
+  video {
+    title,
+    url
+  },
+  "summary": pt::text(content),
+  image { ${SANITY_IMAGE_OBJECT_STUB} }
+`
 
-export const HOME_QUERY = groq`*[_type == "article" && defined(slug.current) && unlisted != true]|order(published desc)
-  {
-    "source": "blog",
+export const TALK_QUERY = groq`*[_type == "talk" && slug.current == $slug]{ ${TALK_PROJECTION} }`
+
+export const HOME_QUERY = groq`
+  *[_type in ["article", "talk", "youTubeVideo"] && unlisted != true]|order(published desc){
     _id,
+    _type,
     _updatedAt,
     title,
     slug,
-    published,
-    updated,
-    summary,
-    image { ${SANITY_IMAGE_OBJECT_STUB} }
-  }`
+    image { ${SANITY_IMAGE_OBJECT_STUB} },
+    _type == "article" => {
+      published,
+      updated,
+      summary
+    },
+    _type == "talk" => { 
+      "published": eventDate,
+      updated,
+      "summary": pt::text(content),
+      event,
+      link
+    },
+    _type == "youTubeVideo" => {
+      "published": publishedAt,
+      thumbnailUrl,
+      "summary": description,
+      duration,
+      "link": "https://www.youtube.com/watch?v=" + id
+    }
+}`
 
 export const EXCHANGE_QUERY = groq`
   *[
@@ -104,8 +133,8 @@ export const EXCHANGE_QUERY = groq`
     && hidden != true
     && $userId in authors[]._ref 
   ]|order(publishedAt desc) {
-  "source": "exchange",
   _id,
+  _type,
   title,
   slug,
   "published": publishedAt,
@@ -115,4 +144,18 @@ export const EXCHANGE_QUERY = groq`
 
 export const exchangeParams = {
   userId: `e-cfe6c944570e1d29a8a0a8722108c4af`,
+}
+
+export const LEARN_QUERY = groq`
+*[_type == "course" && $userId in authors[]._ref]{
+  _id,
+  _type,
+  title,
+  slug,
+  "summary": description,
+  "published": _createdAt
+}`
+
+export const learnParams = {
+  userId: `ee20547b-3a51-4515-b4d4-dd7461928291`,
 }
