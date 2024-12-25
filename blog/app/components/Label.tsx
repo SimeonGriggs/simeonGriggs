@@ -1,7 +1,7 @@
 import clsx from 'clsx'
 import React from 'react'
 
-export type LabelTones = 'auto' | 'light' | 'dark'
+export type LabelTones = 'auto' | 'light' | 'dark' | 'inherit'
 
 export default function Label({
   children,
@@ -18,7 +18,7 @@ export default function Label({
     <Component
       className={clsx(
         `font-mono text-xs uppercase`,
-        tone === 'auto' && `text-blue-500 dark:text-blue-200`,
+        tone === 'auto' && `text-blue-500`,
         tone === 'light' && `text-white`,
         tone === 'dark' && `text-blue-700`,
       )}
