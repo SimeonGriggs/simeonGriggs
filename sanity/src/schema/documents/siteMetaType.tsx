@@ -29,5 +29,11 @@ export const siteMetaType = defineType({
       name: 'bio',
       type: 'portableText',
     }),
+    defineField({
+      name: 'image',
+      description: 'Shown in OG image for home page',
+      type: 'image',
+      options: {hotspot: true},
+    }),
   ],
 })
