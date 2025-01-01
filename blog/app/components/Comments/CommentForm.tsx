@@ -1,4 +1,4 @@
-import {Dialog} from '@headlessui/react'
+import {Dialog, DialogBackdrop, DialogPanel, DialogTitle} from '@headlessui/react'
 import {XCircleIcon} from '@heroicons/react/24/outline'
 import {useEffect} from 'react'
 import {useFetcher, useRouteLoaderData} from 'react-router'
@@ -17,7 +17,7 @@ type CommentFormProps = {
 
 export default function CommentForm(props: CommentFormProps) {
   const {_key, closeDialog} = props
-  const pageData = useRouteLoaderData<typeof pageLoader>('routes/$slug')
+  const pageData = useRouteLoaderData<typeof pageLoader>('routes/_website.$slug')
   const {_id} = pageData?.initial.data || {}
   const fetcher = useFetcher()
 
@@ -32,7 +32,7 @@ export default function CommentForm(props: CommentFormProps) {
   return (
     <Dialog open onClose={() => closeDialog()} className="fixed inset-0 z-30 overflow-y-auto">
       <div className="z-50 flex min-h-screen items-center justify-center">
-        <Dialog.Overlay className="fixed inset-0 z-10 bg-blue-500/90 dark:bg-blue-900/90" />
+        <DialogBackdrop className="fixed inset-0 bg-blue-500/90 dark:bg-blue-900/90" />
 
         <div className="relative z-20 mx-auto max-w-sm rounded bg-white p-6 shadow dark:bg-blue-800 md:p-12">
           <button
@@ -58,7 +58,9 @@ export default function CommentForm(props: CommentFormProps) {
               defaultValue=""
             />
             <div className="grid grid-cols-1 gap-2">
-              <Label>Comment</Label>
+              <DialogTitle>
+                <Label>Comment</Label>
+              </DialogTitle>
               <textarea
                 required
                 rows={2}
