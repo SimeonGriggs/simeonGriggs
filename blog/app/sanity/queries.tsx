@@ -56,6 +56,7 @@ export const ARTICLE_QUERY = groq`*[_type == "article" && slug.current == $slug]
         _type == "talks" => {
           "talks": *[_type == "talk" && defined(slug.current)]|order(eventDate desc){
             _id,
+            _type,
             title,
             slug,
             event,

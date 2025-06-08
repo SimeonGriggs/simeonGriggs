@@ -4,3 +4,4 @@ packages:
   - 'og'
   - 'studio'
   - 'sanity'
+  - 'functions/update-tints-readme'
