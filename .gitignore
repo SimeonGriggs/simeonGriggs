@@ -1,2 +1,8 @@
 node_modules
 .sanity
+.env*
+
+# Sanity Functions
+functions/**/.env*
+functions/**/.build/
+functions/**/node_modules/
