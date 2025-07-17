@@ -5,3 +5,4 @@ packages:
   - 'studio'
   - 'sanity'
   - 'functions/update-tints-readme'
+  - 'functions/comment-telegram'

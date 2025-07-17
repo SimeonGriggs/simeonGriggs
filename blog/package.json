@@ -43,7 +43,7 @@
     "react-blurhash": "^0.3.0",
     "react-dom": "^19.0.0",
     "react-router": "^7.0.0",
-    "sanity": "^3.91.0",
+    "sanity": "^4.0.0",
     "sanity-plugin-asset-source-unsplash": "^3.0.1",
     "sanity-plugin-media": "^2.3.2",
     "sanity-plugin-tldraw": "^1.1.0",
