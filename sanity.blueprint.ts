@@ -10,11 +10,20 @@ if (!BOT_TOKEN || !CHAT_ID) {
 export default defineBlueprint({
   resources: [
     defineDocumentFunction({
+      name: 'format-code',
+      event: {
+        on: ['publish'],
+        filter:
+          "_type == 'article' && delta::changedAny(content[_type == 'code'])",
+        projection: '{ _id, content }',
+      },
+    }),
+    defineDocumentFunction({
       name: 'update-tints-readme',
       event: {
         on: ['publish'],
         filter: "_type == 'tailwind' && defined(content)",
-        projection: '_rev, _updatedAt, content',
+        projection: '{ _rev, _updatedAt, content }',
       },
     }),
     defineDocumentFunction({
@@ -22,7 +31,7 @@ export default defineBlueprint({
       event: {
         on: ['publish'],
         filter: '_type == "comment" && defined(content)',
-        projection: '_id, content',
+        projection: '{ _id, content }',
       },
       env: {BOT_TOKEN, CHAT_ID},
     }),

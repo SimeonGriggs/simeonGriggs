@@ -4,5 +4,6 @@ packages:
   - 'og'
   - 'studio'
   - 'sanity'
-  - 'functions/update-tints-readme'
+  - 'functions/format-code'
   - 'functions/comment-telegram'
+  - 'functions/update-tints-readme'
