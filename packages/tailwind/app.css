@@ -1,0 +1,292 @@
+@import 'tailwindcss';
+
+/* body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  -webkit-text-size-adjust: 100%;
+  -ms-font-feature-settings: 'kern' 1;
+  font-feature-settings: 'kern';
+} */
+
+@theme {
+  /* @carbon/colors */
+
+  /* Carbon Colors - Blue */
+  /* --color-blue-50: #edf5ff;
+  --color-blue-100: #d0e2ff;
+  --color-blue-200: #a6c8ff;
+  --color-blue-300: #78a9ff;
+  --color-blue-400: #4589ff;
+  --color-blue-500: #0f62fe;
+  --color-blue-600: #0043ce;
+  --color-blue-700: #002d9c;
+  --color-blue-800: #001d6c;
+  --color-blue-900: #001141; */
+
+  /* Simeon's Blue */
+  --color-blue-50: #fafaff;
+  --color-blue-100: #f0f0ff;
+  --color-blue-200: #bfbefe;
+  --color-blue-300: #8886fd;
+  --color-blue-400: #5754fd;
+  --color-blue-500: #2522fc;
+  --color-blue-600: #0703d8;
+  --color-blue-700: #050297;
+  --color-blue-800: #030156;
+  --color-blue-900: #010014;
+
+  /* Carbon Colors - Cool Gray */
+  --color-cool-gray-50: #f2f4f8;
+  --color-cool-gray-100: #dde1e6;
+  --color-cool-gray-200: #c1c7cd;
+  --color-cool-gray-300: #a2a9b0;
+  --color-cool-gray-400: #878d96;
+  --color-cool-gray-500: #697077;
+  --color-cool-gray-600: #4d5358;
+  --color-cool-gray-700: #343a3f;
+  --color-cool-gray-800: #21272a;
+  --color-cool-gray-900: #121619;
+
+  /* Carbon Colors - Cyan */
+  --color-cyan-50: #e5f6ff;
+  --color-cyan-100: #bae6ff;
+  --color-cyan-200: #82cfff;
+  --color-cyan-300: #33b1ff;
+  --color-cyan-400: #1192e8;
+  --color-cyan-500: #0072c3;
+  --color-cyan-600: #00539a;
+  --color-cyan-700: #003a6d;
+  --color-cyan-800: #012749;
+  --color-cyan-900: #061727;
+
+  /* Carbon Colors - Gray */
+  --color-gray-50: #f4f4f4;
+  --color-gray-100: #e0e0e0;
+  --color-gray-200: #c6c6c6;
+  --color-gray-300: #a8a8a8;
+  --color-gray-400: #8d8d8d;
+  --color-gray-500: #6f6f6f;
+  --color-gray-600: #525252;
+  --color-gray-700: #393939;
+  --color-gray-800: #262626;
+  --color-gray-900: #161616;
+
+  /* Carbon Colors - Green */
+  --color-green-50: #defbe6;
+  --color-green-100: #a7f0ba;
+  --color-green-200: #6fdc8c;
+  --color-green-300: #42be65;
+  --color-green-400: #24a148;
+  --color-green-500: #198038;
+  --color-green-600: #0e6027;
+  --color-green-700: #044317;
+  --color-green-800: #022d0d;
+  --color-green-900: #071908;
+
+  /* Carbon Colors - Magenta */
+  --color-magenta-50: #fff0f7;
+  --color-magenta-100: #ffd6e8;
+  --color-magenta-200: #ffafd2;
+  --color-magenta-300: #ff7eb6;
+  --color-magenta-400: #ee5396;
+  --color-magenta-500: #d02670;
+  --color-magenta-600: #9f1853;
+  --color-magenta-700: #740937;
+  --color-magenta-800: #510224;
+  --color-magenta-900: #2a0a18;
+
+  /* Carbon Colors - Orange */
+  --color-orange-50: #fff2e8;
+  --color-orange-100: #ffd9be;
+  --color-orange-200: #ffb784;
+  --color-orange-300: #ff832b;
+  --color-orange-400: #eb6200;
+  --color-orange-500: #ba4e00;
+  --color-orange-600: #8a3800;
+  --color-orange-700: #5e2900;
+  --color-orange-800: #3e1a00;
+  --color-orange-900: #231000;
+
+  /* Carbon Colors - Purple */
+  --color-purple-50: #f6f2ff;
+  --color-purple-100: #e8daff;
+  --color-purple-200: #d4bbff;
+  --color-purple-300: #be95ff;
+  --color-purple-400: #a56eff;
+  --color-purple-500: #8a3ffc;
+  --color-purple-600: #6929c4;
+  --color-purple-700: #491d8b;
+  --color-purple-800: #31135e;
+  --color-purple-900: #1c0f30;
+
+  /* Carbon Colors - Red */
+  --color-red-50: #fff1f1;
+  --color-red-100: #ffd7d9;
+  --color-red-200: #ffb3b8;
+  --color-red-300: #ff8389;
+  --color-red-400: #fa4d56;
+  --color-red-500: #da1e28;
+  --color-red-600: #a2191f;
+  --color-red-700: #750e13;
+  --color-red-800: #520408;
+  --color-red-900: #2d0709;
+
+  /* Carbon Colors - Teal */
+  --color-teal-50: #d9fbfb;
+  --color-teal-100: #9ef0f0;
+  --color-teal-200: #3ddbd9;
+  --color-teal-300: #08bdba;
+  --color-teal-400: #009d9a;
+  --color-teal-500: #007d79;
+  --color-teal-600: #005d5d;
+  --color-teal-700: #004144;
+  --color-teal-800: #022b30;
+  --color-teal-900: #081a1c;
+
+  /* Carbon Colors - Warm Gray */
+  --color-warm-gray-50: #f7f3f2;
+  --color-warm-gray-100: #e5e0df;
+  --color-warm-gray-200: #cac5c4;
+  --color-warm-gray-300: #ada8a8;
+  --color-warm-gray-400: #8f8b8b;
+  --color-warm-gray-500: #726e6e;
+  --color-warm-gray-600: #565151;
+  --color-warm-gray-700: #3c3838;
+  --color-warm-gray-800: #272525;
+  --color-warm-gray-900: #171414;
+
+  /* Carbon Colors - Yellow */
+  --color-yellow-50: #fcf4d6;
+  --color-yellow-100: #fddc69;
+  --color-yellow-200: #f1c21b;
+  --color-yellow-300: #d2a106;
+  --color-yellow-400: #b28600;
+  --color-yellow-500: #8e6a00;
+  --color-yellow-600: #684e00;
+  --color-yellow-700: #483700;
+  --color-yellow-800: #302400;
+  --color-yellow-900: #1c1500;
+
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-sans: 'Inter var', sans-serif;
+}
+
+a {
+  @apply transition-colors duration-75 ease-out;
+}
+
+@utility text-vertical {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-weight: theme('fontWeight.normal');
+  font-display: swap;
+  src: url('/fonts/JetBrainsMono-Regular.woff2');
+}
+
+@font-face {
+  font-family: 'JetBrains Mono';
+  font-weight: theme('fontWeight.bold');
+  font-display: swap;
+  src: url('/fonts/JetBrainsMono-Bold.woff2');
+}
+
+@font-face {
+  font-family: 'Archivo';
+  src:
+    url('/fonts/Archivo-Variable.woff2') format('woff2'),
+    url('/fonts/Archivo-Variable.woff') format('woff'),
+    url('/fonts/Archivo-Variable.ttf') format('truetype');
+  font-weight: 100 900;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Archivo';
+  src:
+    url('/fonts/Archivo-VariableItalic.woff2') format('woff2'),
+    url('/fonts/Archivo-VariableItalic.woff') format('woff'),
+    url('/fonts/Archivo-VariableItalic.ttf') format('truetype');
+  font-weight: 100 900;
+  font-display: swap;
+  font-style: italic;
+}
+
+@layer components {
+  .button {
+    @apply inline-flex scale-100 cursor-pointer
+    items-center justify-center whitespace-nowrap
+    border-0 bg-blue-500
+    p-6 text-center font-mono text-base
+    leading-none text-white no-underline
+    transition-all duration-200;
+  }
+
+  .button:hover {
+    @apply scale-105 bg-blue-600 text-white outline-none;
+  }
+
+  .button:focus {
+    @apply scale-[1.025] bg-blue-700 text-blue-100 outline-none;
+  }
+
+  .button[disabled] {
+    @apply pointer-events-none bg-blue-100 text-blue-200;
+  }
+
+  .wave {
+    animation-name: wave-animation; /* Refers to the name of your @keyframes element below */
+    animation-duration: 2.5s; /* Change to speed up or slow down */
+    animation-iteration-count: infinite; /* Never stop waving :) */
+    transform-origin: 70% 70%; /* Pivot around the bottom-left palm */
+    display: inline-block;
+  }
+
+  @keyframes wave-animation {
+    0% {
+      transform: rotate(0deg);
+    }
+    10% {
+      transform: rotate(14deg);
+    } /* The following five values can be played with to make the waving more or less extreme */
+    20% {
+      transform: rotate(-8deg);
+    }
+    30% {
+      transform: rotate(14deg);
+    }
+    40% {
+      transform: rotate(-4deg);
+    }
+    50% {
+      transform: rotate(10deg);
+    }
+    60% {
+      transform: rotate(0deg);
+    } /* Reset for the last half to pause */
+    100% {
+      transform: rotate(0deg);
+    }
+  }
+
+  /* .prose [block-key] {
+    @apply relative;
+  }
+
+  .prose canvas {
+    @apply h-auto max-w-full;
+  }
+
+  .intro a {
+    @apply underline;
+  }
+
+  .intro a:hover {
+    @apply bg-white text-blue-500 no-underline;
+  } */
+}
