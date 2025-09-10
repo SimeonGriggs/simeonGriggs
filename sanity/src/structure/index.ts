@@ -1,4 +1,7 @@
-import type {DefaultDocumentNodeResolver, StructureResolver} from 'sanity/structure'
+import type {
+  DefaultDocumentNodeResolver,
+  StructureResolver,
+} from 'sanity/structure'
 
 import {og} from './og'
 import HeroIcon from '../components/HeroIcon'
@@ -10,8 +13,9 @@ export const structure: StructureResolver = (S, {currentUser}) => {
     S.documentTypeListItem('youTubeVideo')
       .title('Videos')
       .icon(() => HeroIcon({icon: 'youtube'})),
-    S.divider(),
     S.documentTypeListItem('siteMeta').title('Site Meta'),
+    S.divider(),
+    S.documentTypeListItem('playbook').title('Playbooks'),
     S.divider(),
     S.documentTypeListItem('tailwind').title('Tailwind'),
   ]
@@ -23,7 +27,10 @@ export const structure: StructureResolver = (S, {currentUser}) => {
   return S.list().id('root').title('Content').items(items)
 }
 
-export const defaultDocumentNode: DefaultDocumentNodeResolver = (S, {schemaType}) => {
+export const defaultDocumentNode: DefaultDocumentNodeResolver = (
+  S,
+  {schemaType},
+) => {
   switch (schemaType) {
     case `article`:
       return S.document().views([S.view.form(), og(S)])

@@ -10,6 +10,7 @@ import {portableTextType} from './objects/portableTextType'
 import {buttonType} from './objects/buttonType'
 import {seoType} from './objects/seoType'
 import {videoType} from './objects/videoType'
+import {playbookType} from './documents/playbookType'
 
 export const schemaTypes = [
   // documents
@@ -18,7 +19,7 @@ export const schemaTypes = [
   commentType,
   tailwindType,
   talkType,
-
+  playbookType,
   // objects
   seoType,
   portableTextType,

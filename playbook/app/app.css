@@ -1,0 +1,49 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans:
+    'Archivo', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+}
+
+html,
+body {
+  @media (prefers-color-scheme: dark) {
+    color-scheme: dark;
+  }
+}
+
+@theme {
+  --color-blue-50: #fafaff;
+  --color-blue-100: #f0f0ff;
+  --color-blue-200: #bfbefe;
+  --color-blue-300: #8886fd;
+  --color-blue-400: #5754fd;
+  --color-blue-500: #2522fc;
+  --color-blue-600: #0703d8;
+  --color-blue-700: #050297;
+  --color-blue-800: #030156;
+  --color-blue-900: #010014;
+}
+
+@font-face {
+  font-family: 'Archivo';
+  src:
+    url('/fonts/Archivo-Variable.woff2') format('woff2'),
+    url('/fonts/Archivo-Variable.woff') format('woff'),
+    url('/fonts/Archivo-Variable.ttf') format('truetype');
+  font-weight: 100 900;
+  font-display: swap;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Archivo';
+  src:
+    url('/fonts/Archivo-VariableItalic.woff2') format('woff2'),
+    url('/fonts/Archivo-VariableItalic.woff') format('woff'),
+    url('/fonts/Archivo-VariableItalic.ttf') format('truetype');
+  font-weight: 100 900;
+  font-display: swap;
+  font-style: italic;
+}

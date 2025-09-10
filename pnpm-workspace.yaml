@@ -4,6 +4,7 @@ packages:
   - 'og'
   - 'studio'
   - 'sanity'
+  - 'playbook'
   - 'functions/format-code'
   - 'functions/comment-telegram'
   - 'functions/update-tints-readme'

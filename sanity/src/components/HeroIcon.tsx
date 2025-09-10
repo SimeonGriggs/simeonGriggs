@@ -6,6 +6,7 @@ import {
   PhoneIcon,
   SwatchIcon,
   PlayCircleIcon,
+  BookOpenIcon,
 } from '@heroicons/react/24/outline'
 import type {ColorHueKey} from '@sanity/color'
 import {hues} from '@sanity/color'
@@ -13,7 +14,15 @@ import {Card, Flex, useTheme} from '@sanity/ui'
 import type {CSSProperties} from 'react'
 import {useMemo} from 'react'
 
-type IconName = 'article' | 'unlisted' | 'comment' | 'talk' | 'siteMeta' | 'tailwind' | 'youtube'
+type IconName =
+  | 'article'
+  | 'unlisted'
+  | 'comment'
+  | 'talk'
+  | 'siteMeta'
+  | 'tailwind'
+  | 'youtube'
+  | 'playbook'
 
 type IconData = {
   name: IconName
@@ -41,6 +50,11 @@ const icons: IconData[] = [
     name: `talk`,
     icon: <PhoneIcon />,
     color: `orange`,
+  },
+  {
+    name: `playbook`,
+    icon: <BookOpenIcon />,
+    color: `cyan`,
   },
   {
     name: `siteMeta`,
