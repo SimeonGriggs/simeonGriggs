@@ -6,10 +6,10 @@ import {
   Scripts,
   ScrollRestoration,
 } from 'react-router'
-import {Layout as MainLayout} from '~/components/Layout'
 
 import type {Route} from './+types/root'
 import './app.css'
+import {LayoutWrapper} from './components/layout-wrapper'
 
 export const links: Route.LinksFunction = () => [
   {rel: 'preconnect', href: 'https://fonts.googleapis.com'},
@@ -33,10 +33,8 @@ export function Layout({children}: {children: React.ReactNode}) {
         <Meta />
         <Links />
       </head>
-      <body className="flex h-full bg-blue-50 dark:bg-black">
-        <div className="flex w-full">
-          <MainLayout>{children}</MainLayout>
-        </div>
+      <body className="text-gray-950 antialiased">
+        <LayoutWrapper>{children}</LayoutWrapper>
         <ScrollRestoration />
         <Scripts />
       </body>

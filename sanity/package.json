@@ -10,6 +10,7 @@
     "@sanity/code-input": "^5.1.2",
     "@sanity/color": "^3.0.6",
     "@sanity/icons": "^3.5.3",
+    "@sanity/orderable-document-list": "^1.4.0",
     "@sanity/ui": "^2.10.11",
     "@sanity/vision": "^3.91.0",
     "groq": "^3.67.1",

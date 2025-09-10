@@ -5,6 +5,14 @@ export const HOME_QUERY = defineQuery(`
     _id,
     title,
     summary,
-    content
+    content,
+    "_playbooks": *[_type == "playbook" && visibility != "hidden"]|order(orderRank asc){
+      _id,
+      title,
+      slug,
+      summary,
+      content,
+      visibility
+    }
   }
 `)

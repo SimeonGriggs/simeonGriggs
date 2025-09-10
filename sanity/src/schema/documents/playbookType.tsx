@@ -21,7 +21,7 @@ export const playbookType = defineType({
       name: 'visibility',
       type: 'string',
       options: {
-        list: ['home', 'public', 'hidden'],
+        list: ['home', 'public', 'hidden', 'coming-soon'],
       },
       initialValue: 'public',
     }),
@@ -39,11 +39,12 @@ export const playbookType = defineType({
       options: {hotspot: true},
     }),
     defineField({type: 'seo', name: 'seo', title: 'SEO'}),
+    defineField({name: 'orderRank', type: 'string', hidden: true}),
   ],
   preview: {
     select: {
       title: 'title',
-      subtitle: 'content',
+      subtitle: 'visibility',
       media: 'image',
     },
   },

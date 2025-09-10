@@ -20,10 +20,22 @@ const buttonClasses = (className = ``) => {
   return className ? [`button`, className].join(` `) : `button`
 }
 
-const Button = ({children, to, className, href, disabled, target, type}: ButtonProps) => {
+const Button = ({
+  children,
+  to,
+  className,
+  href,
+  disabled,
+  target,
+  type,
+}: ButtonProps) => {
   if (type === 'submit') {
     return (
-      <button disabled={disabled} className={buttonClasses(className)} type="submit">
+      <button
+        disabled={disabled}
+        className={buttonClasses(className)}
+        type="submit"
+      >
         <span className="hidden w-6 border-t border-white md:block" />
         <span className="px-3">{children}</span>
         <span className="hidden w-6 border-t border-white md:block" />
@@ -48,13 +60,13 @@ const Button = ({children, to, className, href, disabled, target, type}: ButtonP
     )
   }
 
-  if (to) {
-    return (
-      <Link className={buttonClasses(className)} to={to}>
-        {children}
-      </Link>
-    )
-  }
+  // if (to) {
+  //   return (
+  //     <Link className={buttonClasses(className)} to={to}>
+  //       {children}
+  //     </Link>
+  //   )
+  // }
 
   return <>children</>
 }

@@ -12,7 +12,6 @@ import {
 import {z} from 'zod'
 
 import CanonicalLink from '~/components/CanonicalLink'
-import Grid from '~/components/Grid'
 import LiveVisualEditing from '~/components/LiveVisualEditing'
 import {themePreferenceCookie} from '~/cookies'
 import {getBodyClassNames} from '~/lib/getBodyClassNames'
@@ -75,7 +74,8 @@ export const loader = async ({request}: LoaderFunctionArgs) => {
 }
 
 export default function App() {
-  const {themePreference, ENV, requestInfo, preview} = useLoaderData<typeof loader>()
+  const {themePreference, ENV, requestInfo, preview} =
+    useLoaderData<typeof loader>()
 
   const bodyClassNames = getBodyClassNames(themePreference)
 
