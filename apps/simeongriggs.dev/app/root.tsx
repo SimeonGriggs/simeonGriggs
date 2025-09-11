@@ -24,8 +24,6 @@ export const handle = {id: `root`}
 const fonts = [
   `/fonts/JetBrainsMono-Regular.woff2`,
   `/fonts/JetBrainsMono-Bold.woff2`,
-  `/fonts/Inter-roman.var.woff2?v=3.19`,
-  `/fonts/Inter-italic.var.woff2?v=3.19`,
 ]
 
 export const links: LinksFunction = () => {

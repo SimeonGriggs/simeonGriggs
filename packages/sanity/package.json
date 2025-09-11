@@ -25,7 +25,7 @@
     "sanity": "^4.0.0",
     "sanity-plugin-asset-source-unsplash": "^3.0.1",
     "sanity-plugin-media": "^2.3.2",
-    "sanity-plugin-tldraw": "^1.1.0",
+    "sanity-plugin-tldraw": "^2.0.0",
     "sanity-plugin-youtube-documents": "^1.1.1",
     "tldraw": "^3.6.0",
     "usehooks-ts": "^3.1.0"

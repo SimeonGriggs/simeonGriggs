@@ -48,7 +48,7 @@
     "sanity": "^4.0.0",
     "sanity-plugin-asset-source-unsplash": "^3.0.1",
     "sanity-plugin-media": "^2.3.2",
-    "sanity-plugin-tldraw": "^1.1.0",
+    "sanity-plugin-tldraw": "^2.0.0",
     "sanity-plugin-utils": "^1.6.6",
     "styled-components": "^6.1.15",
     "tldraw": "^3.6.0",

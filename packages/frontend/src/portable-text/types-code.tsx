@@ -15,12 +15,10 @@ export function TypeCode(props: PortableTextTypeComponentProps<TypeCodeValue>) {
     props.value.language === 'groq' ? 'json' : props.value.language
 
   return code ? (
-    <div className="not-prose">
-      <Prism
-        code={code}
-        language={language as Language}
-        highlightedLines={highlightedLines ? highlightedLines : []}
-      />
-    </div>
+    <Prism
+      code={code}
+      language={language as Language}
+      highlightedLines={highlightedLines ? highlightedLines : []}
+    />
   ) : null
 }

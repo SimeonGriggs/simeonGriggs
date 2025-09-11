@@ -56,7 +56,7 @@ export const simeonGriggsTheme: PrismTheme = {
     {
       types: ['builtin', 'char', 'constant', 'function'],
       style: {
-        color: clsx('var(--color-cyan-200)'),
+        color: clsx('var(--color-purple-100)'),
       },
     },
     {
@@ -68,38 +68,38 @@ export const simeonGriggsTheme: PrismTheme = {
     {
       types: ['selector', 'doctype'],
       style: {
-        color: clsx('var(--color-magenta-200)'),
+        color: clsx('var(--color-magenta-100)'),
         fontStyle: 'italic',
       },
     },
     {
-      types: ['class-name'],
+      types: ['class-name', 'imports'],
       style: {
-        color: clsx('var(--color-cyan-200)'),
+        color: clsx('var(--color-cyan-100)'),
       },
     },
     {
       types: ['tag', 'operator', 'keyword'],
       style: {
-        color: clsx('var(--color-teal-200)'),
+        color: clsx('var(--color-teal-100)'),
       },
     },
     {
       types: ['boolean'],
       style: {
-        color: clsx('var(--color-red-200)'),
+        color: clsx('var(--color-red-100)'),
       },
     },
     {
       types: ['property'],
       style: {
-        color: clsx('var(--color-purple-200)'),
+        color: clsx('var(--color-purple-100)'),
       },
     },
     {
       types: ['namespace'],
       style: {
-        color: clsx('var(--color-blue-200)'),
+        color: clsx('var(--color-blue-100)'),
       },
     },
   ],

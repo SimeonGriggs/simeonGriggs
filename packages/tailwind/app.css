@@ -1,6 +1,5 @@
 @import 'tailwindcss';
-@source "../sanity/src/components.tsx";
-@source "../sanity/src/portable-text/prism/simeon-griggs-theme.ts";
+@source "../frontend/";
 
 body {
   -webkit-font-smoothing: antialiased;

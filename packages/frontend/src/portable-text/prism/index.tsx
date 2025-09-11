@@ -42,7 +42,7 @@ export default function Prism(props: PrismProps) {
   return (
     <div className="relative">
       <button
-        className="absolute -right-3 top-1 flex items-center gap-1 bg-blue-500 px-3 py-2 font-mono text-xs text-white transition-colors duration-500 ease-in-out hover:bg-blue-600 focus:bg-white focus:text-blue-500"
+        className="absolute bottom-0 right-0 flex items-center gap-1 bg-blue-500 px-3 py-2 font-mono text-xs text-white transition-colors duration-500 ease-in-out hover:bg-blue-600 focus:bg-white focus:text-blue-500"
         onClick={handleCopy}
         ref={copyButtonRef}
       >
@@ -62,7 +62,10 @@ export default function Prism(props: PrismProps) {
           getTokenProps,
         }: RenderProps) => (
           <pre
-            className={clsx(className, '-mx-4 p-8 text-base/loose')}
+            className={clsx(
+              className,
+              `lg:rounded-tr-4xl shadow-xs rounded-lg p-4 text-sm/loose`,
+            )}
             style={style}
           >
             <code translate="no">
