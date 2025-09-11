@@ -23,9 +23,14 @@ export const typedObjectButtonZ = baseTypedObjectZ.extend({
 
 export type TypedObjectButton = z.infer<typeof typedObjectButtonZ>
 
-export default function TypeButton(props: PortableTextTypeComponentProps<TypedObjectButton>) {
+export default function TypeButton(
+  props: PortableTextTypeComponentProps<TypedObjectButton>,
+) {
   // Now we still get Zod's strict parsing on this specific TypedObject
-  const value = React.useMemo(() => typedObjectButtonZ.parse(props.value), [props.value])
+  const value = React.useMemo(
+    () => typedObjectButtonZ.parse(props.value),
+    [props.value],
+  )
 
   if (!value) return null
 

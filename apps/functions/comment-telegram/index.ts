@@ -18,22 +18,29 @@ export const handler = documentEventHandler(async ({event}) => {
     const message = `New comment received: ${comment}`
     const studioUrl = `https://studio.simeongriggs.dev/structure/comment;${_id}`
 
-    const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        chat_id: CHAT_ID,
-        text: message,
-        reply_markup: {
-          inline_keyboard: [[{text: '📝 Open in Sanity Studio', url: studioUrl}]],
+    const response = await fetch(
+      `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
         },
-      }),
-    })
+        body: JSON.stringify({
+          chat_id: CHAT_ID,
+          text: message,
+          reply_markup: {
+            inline_keyboard: [
+              [{text: '📝 Open in Sanity Studio', url: studioUrl}],
+            ],
+          },
+        }),
+      },
+    )
 
     if (!response.ok) {
-      throw new Error(`Telegram API error: ${response.status} ${response.statusText}`)
+      throw new Error(
+        `Telegram API error: ${response.status} ${response.statusText}`,
+      )
     }
 
     const result = await response.json()

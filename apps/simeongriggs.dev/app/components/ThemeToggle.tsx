@@ -22,7 +22,9 @@ export default function ThemeToggle() {
         ) : (
           <MoonIcon className="h-auto w-full md:w-5" />
         )}
-        <div className="sr-only select-none">{isDarkMode ? `Light` : `Dark`} Mode</div>
+        <div className="sr-only select-none">
+          {isDarkMode ? `Light` : `Dark`} Mode
+        </div>
       </button>
     </cookieToggle.Form>
   )

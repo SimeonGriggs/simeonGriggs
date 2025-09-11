@@ -65,7 +65,7 @@ export default function Index() {
   const siteMeta = rootLoader?.initial?.data
 
   return (
-    <section className="grid grid-cols-1 px-4 md:grid-cols-12 md:px-0 lg:grid-cols-16">
+    <section className="lg:grid-cols-16 grid grid-cols-1 px-4 md:grid-cols-12 md:px-0">
       <div className="flex flex-col gap-y-12 pb-12 pt-48 md:col-span-6 md:col-start-6 md:py-48 lg:col-span-8 lg:col-start-8">
         <HomeTitle title="Hello, internet!" wave />
 

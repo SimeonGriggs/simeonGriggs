@@ -4,7 +4,8 @@
   "scripts": {
     "dev": "pnpm -r dev",
     "lint": "pnpm dlx oxlint@latest --fix",
-    "prettier": "prettier --write ."
+    "format": "prettier --write .",
+    "typecheck": "pnpm -r typecheck"
   },
   "packageManager": "pnpm@9.14.2",
   "dependencies": {

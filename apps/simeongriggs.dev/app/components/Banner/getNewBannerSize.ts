@@ -51,7 +51,10 @@ const bannerPostDesktop = {
   image: {scale: 1, x: `-20%`},
 }
 
-export function getNewBannerSize(useHomeSize = false, windowWidth = 0): BannerSize {
+export function getNewBannerSize(
+  useHomeSize = false,
+  windowWidth = 0,
+): BannerSize {
   const width = windowWidth ?? window.innerWidth
 
   switch (true) {

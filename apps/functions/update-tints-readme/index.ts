@@ -16,7 +16,9 @@ type Projection = {
 
 export const handler = documentEventHandler<Projection>(async ({event}) => {
   const blockContent =
-    'content' in event.data && Array.isArray(event.data.content) ? event.data.content : []
+    'content' in event.data && Array.isArray(event.data.content)
+      ? event.data.content
+      : []
   const {_rev, _updatedAt} = event.data
 
   if (blockContent.length === 0) {
@@ -106,7 +108,9 @@ export const handler = documentEventHandler<Projection>(async ({event}) => {
 
         // If there's an existing PR, we'll update the existing branch instead of creating a new PR
         if (existingPRs.length > 0) {
-          console.log(`Found existing PR #${existingPRs[0].number} (${existingPRs[0].state})`)
+          console.log(
+            `Found existing PR #${existingPRs[0].number} (${existingPRs[0].state})`,
+          )
           // If the PR was closed, we'll create a new one
           if (existingPRs[0].state === 'closed') {
             await octokit.pulls.create({

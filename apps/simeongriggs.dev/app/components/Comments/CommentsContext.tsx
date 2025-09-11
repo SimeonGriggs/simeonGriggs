@@ -11,5 +11,9 @@ export function CommentsProvider({
   children: React.ReactNode
   comments: CommentKey[]
 }) {
-  return <CommentsContext.Provider value={comments}>{children}</CommentsContext.Provider>
+  return (
+    <CommentsContext.Provider value={comments}>
+      {children}
+    </CommentsContext.Provider>
+  )
 }

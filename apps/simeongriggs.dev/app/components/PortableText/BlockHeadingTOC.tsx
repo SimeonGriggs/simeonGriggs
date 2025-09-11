@@ -3,7 +3,9 @@ import type {PortableTextBlock} from '@portabletext/types'
 
 import {scrollableKey} from '~/lib/scrollableId'
 
-export default function BlockHeadingTOC(props: PortableTextComponentProps<PortableTextBlock>) {
+export default function BlockHeadingTOC(
+  props: PortableTextComponentProps<PortableTextBlock>,
+) {
   const {value, children} = props
 
   const href = value._key ? `#${scrollableKey(value._key)}` : undefined

@@ -18,7 +18,7 @@ export function Video(props: VideoProps) {
     const loomEmbedUrl = `https://www.loom.com/embed/${loomId}`
 
     return (
-      <div className="group aspect-video relative">
+      <div className="group relative aspect-video">
         <iframe
           title={title ?? `Loom video`}
           loading="lazy"
@@ -37,7 +37,7 @@ export function Video(props: VideoProps) {
       href={url}
       target="_blank"
       rel="noopener noreferrer"
-      className="group aspect-video relative"
+      className="group relative aspect-video"
     >
       <div className="absolute inset-0 z-10 flex items-center justify-center bg-blue-500/50 text-white transition-colors duration-1000 group-hover:bg-blue-500/20">
         <PlayIcon className="duration-250 h-auto w-1/6 transition-transform group-hover:scale-125" />

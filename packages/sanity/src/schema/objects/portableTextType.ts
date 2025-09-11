@@ -75,7 +75,12 @@ export const portableTextType = defineType({
     {type: 'video'},
     {type: 'break', icon: RemoveIcon},
     {type: 'codeSandbox', icon: PackageIcon},
-    {type: 'object', name: 'talks', fields: [{name: 'thing', type: 'string'}], icon: JoystickIcon},
+    {
+      type: 'object',
+      name: 'talks',
+      fields: [{name: 'thing', type: 'string'}],
+      icon: JoystickIcon,
+    },
     {
       type: 'reference',
       name: 'gallery',

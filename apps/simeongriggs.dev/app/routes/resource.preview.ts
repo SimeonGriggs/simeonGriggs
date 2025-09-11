@@ -1,4 +1,8 @@
-import {type ActionFunction, type LoaderFunctionArgs, redirect} from 'react-router'
+import {
+  type ActionFunction,
+  type LoaderFunctionArgs,
+  redirect,
+} from 'react-router'
 
 import {validatePreviewUrl} from '@sanity/preview-url-secret'
 
@@ -30,7 +34,10 @@ export const loader = async ({request}: LoaderFunctionArgs) => {
     token: process.env.SANITY_READ_TOKEN,
   })
 
-  const {isValid, redirectTo = '/'} = await validatePreviewUrl(clientWithToken, request.url)
+  const {isValid, redirectTo = '/'} = await validatePreviewUrl(
+    clientWithToken,
+    request.url,
+  )
 
   if (!isValid) {
     throw new Response('Invalid secret', {status: 401})

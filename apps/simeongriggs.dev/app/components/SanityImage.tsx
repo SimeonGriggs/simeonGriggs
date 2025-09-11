@@ -24,7 +24,12 @@ function createSrcsetString(config: CreateSrcsetStringConfig) {
       const height = Number((width / aspectRatio).toFixed(0))
 
       return [
-        urlFor(asset).width(width).height(height).dpr(2).auto('format').toString(),
+        urlFor(asset)
+          .width(width)
+          .height(height)
+          .dpr(2)
+          .auto('format')
+          .toString(),
         `${width}w`,
       ].join(` `)
     })
@@ -47,7 +52,11 @@ export default function SanityImage(props: SanityImageProps) {
   // This is a mess :/
   // It's designed to set a width and height, even if only one are supplied
   const {width, height, url, srcset} = useMemo(() => {
-    const {width: originalWidth, height: originalHeight, aspectRatio} = getImageDimensions(asset)
+    const {
+      width: originalWidth,
+      height: originalHeight,
+      aspectRatio,
+    } = getImageDimensions(asset)
 
     let width = originalWidth
     let height = originalHeight
@@ -73,7 +82,12 @@ export default function SanityImage(props: SanityImageProps) {
     return {
       width,
       height,
-      url: urlFor(asset).width(width).height(height).dpr(2).auto('format').toString(),
+      url: urlFor(asset)
+        .width(width)
+        .height(height)
+        .dpr(2)
+        .auto('format')
+        .toString(),
       srcset: createSrcsetString({asset, width, height}),
     }
   }, [asset, props.width, props.height])

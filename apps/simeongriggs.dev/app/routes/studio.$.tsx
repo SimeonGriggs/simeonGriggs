@@ -17,7 +17,9 @@ export const links: LinksFunction = () => {
 
 const StudioWrapper = lazy(() => import('~/components/StudioWrapper'))
 const Fallback = (
-  <div className="flex h-screen w-screen items-center justify-center">Loading...</div>
+  <div className="flex h-screen w-screen items-center justify-center">
+    Loading...
+  </div>
 )
 
 export default function StudioPage() {

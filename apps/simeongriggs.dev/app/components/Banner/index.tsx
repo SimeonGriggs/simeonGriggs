@@ -14,8 +14,12 @@ import {Mobile} from './Mobile'
 export function Banner() {
   const {pathname} = useLocation()
   const isHome = pathname === '/'
-  const homeData = useRouteLoaderData<typeof homeLoader>('routes/_website._index')
-  const pageData = useRouteLoaderData<typeof pageLoader>('routes/_website.$slug')
+  const homeData = useRouteLoaderData<typeof homeLoader>(
+    'routes/_website._index',
+  )
+  const pageData = useRouteLoaderData<typeof pageLoader>(
+    'routes/_website.$slug',
+  )
 
   let bannerImage: ArticleStub['image'] = null
 
@@ -26,9 +30,13 @@ export function Banner() {
         .find((b: ArticleStub) => b.image && b.published),
     )
 
-    bannerImage = firstBlogPostWithImage?.image ? firstBlogPostWithImage.image : null
+    bannerImage = firstBlogPostWithImage?.image
+      ? firstBlogPostWithImage.image
+      : null
   } else if (pageData) {
-    bannerImage = pageData?.initial?.data?.image ? pageData.initial.data.image : null
+    bannerImage = pageData?.initial?.data?.image
+      ? pageData.initial.data.image
+      : null
   }
 
   const {width: windowWidth} = useWindowSize()
@@ -64,7 +72,12 @@ export function Banner() {
       <Mobile isHome={isHome} bannerImage={bannerImage} alt={alt} />
 
       {/* All-nonsense image on desktop */}
-      <Desktop isHome={isHome} bannerImage={bannerImage} bannerSize={bannerSize} alt={alt} />
+      <Desktop
+        isHome={isHome}
+        bannerImage={bannerImage}
+        bannerSize={bannerSize}
+        alt={alt}
+      />
     </>
   )
 }

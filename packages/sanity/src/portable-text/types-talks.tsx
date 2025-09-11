@@ -41,7 +41,7 @@ function TalkCard(props: TalkCardProps) {
   return (
     <>
       {video?.url ? (
-        <div className="w-full rounded-2xl aspect-video overflow-hidden">
+        <div className="aspect-video w-full overflow-hidden rounded-2xl">
           <Video
             url={video.url}
             title={title ?? ``}
@@ -55,7 +55,7 @@ function TalkCard(props: TalkCardProps) {
           className="w-full rounded-2xl"
         />
       )}
-      <h3 className="mt-12 mb-10 text-xl/8 font-medium tracking-tight text-gray-950 first:mt-0 last:mb-0">
+      <h3 className="mb-10 mt-12 text-xl/8 font-medium tracking-tight text-gray-950 first:mt-0 last:mb-0">
         {video?.url ? (
           <Link
             to={video.url}

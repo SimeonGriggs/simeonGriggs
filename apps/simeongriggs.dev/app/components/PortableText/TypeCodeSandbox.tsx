@@ -15,7 +15,10 @@ export default function TypeCodeSandbox(
   props: PortableTextTypeComponentProps<TypedObjectCodeSandbox>,
 ) {
   // Now we still get Zod's strict parsing on this specific TypedObject
-  const value = React.useMemo(() => typedObjectCodeSandboxZ.parse(props.value), [props.value])
+  const value = React.useMemo(
+    () => typedObjectCodeSandboxZ.parse(props.value),
+    [props.value],
+  )
 
   if (!value?.url) return null
 

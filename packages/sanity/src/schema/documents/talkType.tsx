@@ -8,7 +8,11 @@ export const talkType = defineType({
   icon: () => <HeroIcon icon="talk" />,
   type: 'document',
   orderings: [
-    {title: 'Event Date', name: 'eventDateDesc', by: [{field: 'eventDate', direction: 'desc'}]},
+    {
+      title: 'Event Date',
+      name: 'eventDateDesc',
+      by: [{field: 'eventDate', direction: 'desc'}],
+    },
   ],
   fields: [
     defineField({

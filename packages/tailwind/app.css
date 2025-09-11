@@ -221,12 +221,7 @@ a {
 
 @layer components {
   .button {
-    @apply inline-flex scale-100 cursor-pointer
-    items-center justify-center whitespace-nowrap
-    border-0 bg-blue-500
-    p-6 text-center font-mono text-base
-    leading-none text-white no-underline
-    transition-all duration-200;
+    @apply inline-flex scale-100 cursor-pointer items-center justify-center whitespace-nowrap border-0 bg-blue-500 p-6 text-center font-mono text-base leading-none text-white no-underline transition-all duration-200;
   }
 
   .button:hover {

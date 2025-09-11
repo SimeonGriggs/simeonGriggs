@@ -15,15 +15,20 @@ export const typedObjectTldrawZ = baseTypedObjectZ.extend({
 
 export type TypedObjectTldraw = z.infer<typeof typedObjectTldrawZ>
 
-export default function TypeTldraw(props: PortableTextTypeComponentProps<TypedObjectTldraw>) {
-  const value = useMemo(() => typedObjectTldrawZ.parse(props.value), [props.value])
+export default function TypeTldraw(
+  props: PortableTextTypeComponentProps<TypedObjectTldraw>,
+) {
+  const value = useMemo(
+    () => typedObjectTldrawZ.parse(props.value),
+    [props.value],
+  )
 
   if (!value?.document) {
     return null
   }
 
   return (
-    <div className="not-prose relative -mx-4 border-b border-t border-gray-200 dark:border-blue-700 md:border">
+    <div className="not-prose relative -mx-4 border-b border-t border-gray-200 md:border dark:border-blue-700">
       <TldrawImage snapshot={JSON.parse(stegaClean(value.document))} />
     </div>
   )

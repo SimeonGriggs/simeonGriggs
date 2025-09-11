@@ -6,11 +6,15 @@ import React, {useCallback, useContext, useState} from 'react'
 import CommentForm from '~/components/Comments/CommentForm'
 import {CommentsContext} from '~/components/Comments/CommentsContext'
 
-export default function BlockNormal(props: PortableTextComponentProps<PortableTextBlock>) {
+export default function BlockNormal(
+  props: PortableTextComponentProps<PortableTextBlock>,
+) {
   const {children} = props
   const {_key} = props.value
   const comments = useContext(CommentsContext)
-  const commentsCount = comments.filter((commentKey) => commentKey === _key).length
+  const commentsCount = comments.filter(
+    (commentKey) => commentKey === _key,
+  ).length
   const [open, setOpen] = useState(``)
   const closeDialog = useCallback(() => setOpen(``), [])
 
@@ -20,8 +24,10 @@ export default function BlockNormal(props: PortableTextComponentProps<PortableTe
       <button
         type="button"
         onClick={() => setOpen(open ? `` : String(_key))}
-        className={`absolute right-0 top-0 hidden h-full translate-x-full items-center justify-center rounded transition-all duration-75 ease-in-out group-hover:text-blue-500 dark:text-blue-600 md:flex md:w-1/6 lg:w-1/8 ${
-          commentsCount > 0 ? 'text-blue-400' : 'text-blue-200 dark:text-blue-500'
+        className={`lg:w-1/8 absolute right-0 top-0 hidden h-full translate-x-full items-center justify-center rounded transition-all duration-75 ease-in-out group-hover:text-blue-500 md:flex md:w-1/6 dark:text-blue-600 ${
+          commentsCount > 0
+            ? 'text-blue-400'
+            : 'text-blue-200 dark:text-blue-500'
         }`}
         title="Comment on this paragraph"
       >
@@ -32,7 +38,9 @@ export default function BlockNormal(props: PortableTextComponentProps<PortableTe
         ) : null}
         <ChatBubbleBottomCenterIcon className="h-auto w-1/3" />
       </button>
-      {open === _key ? <CommentForm _key={_key} closeDialog={closeDialog} /> : null}
+      {open === _key ? (
+        <CommentForm _key={_key} closeDialog={closeDialog} />
+      ) : null}
     </p>
   )
 }

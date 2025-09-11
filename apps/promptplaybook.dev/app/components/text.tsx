@@ -19,7 +19,7 @@ export function Heading({
       data-dark={dark ? 'true' : undefined}
       className={clsx(
         className,
-        'text-4xl text-balance font-medium tracking-tighter text-gray-950 data-dark:text-white sm:text-6xl',
+        'data-dark:text-white text-balance text-4xl font-medium tracking-tighter text-gray-950 sm:text-6xl',
       )}
     />
   )
@@ -37,7 +37,7 @@ export function Subheading({
       data-dark={dark ? 'true' : undefined}
       className={clsx(
         className,
-        'font-mono text-xs/5 font-semibold tracking-widest text-gray-500 uppercase data-dark:text-gray-400',
+        'data-dark:text-gray-400 font-mono text-xs/5 font-semibold uppercase tracking-widest text-gray-500',
       )}
     />
   )
@@ -51,7 +51,7 @@ export function Lead({
     <p
       className={clsx(
         className,
-        'text-xl sm:text-2xl font-medium text-gray-500 text-balance',
+        'text-balance text-xl font-medium text-gray-500 sm:text-2xl',
       )}
       {...props}
     />

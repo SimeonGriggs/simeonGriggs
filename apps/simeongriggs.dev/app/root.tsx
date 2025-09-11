@@ -117,7 +117,7 @@ export function CatchBoundary() {
 
   if (isRouteErrorResponse(error)) {
     return (
-      <div className="container prose mx-auto lg:prose-xl">
+      <div className="prose lg:prose-xl container mx-auto">
         <h1>
           {error.status} {error.statusText}
         </h1>
@@ -129,7 +129,7 @@ export function CatchBoundary() {
   }
 
   return (
-    <div className="container prose mx-auto lg:prose-xl">
+    <div className="prose lg:prose-xl container mx-auto">
       <h1>Unknown error</h1>
       <p>
         <a href="/">Go home</a>

@@ -32,9 +32,7 @@
         {
           "_key": "ad37752d3222",
           "_type": "span",
-          "marks": [
-            "b531de4214c1"
-          ],
+          "marks": ["b531de4214c1"],
           "text": "launch blog post for full details"
         },
         {
@@ -80,9 +78,7 @@
         {
           "_key": "d237185952cb",
           "_type": "span",
-          "marks": [
-            "strong"
-          ],
+          "marks": ["strong"],
           "text": "Value"
         },
         {
@@ -108,9 +104,7 @@
         {
           "_key": "b338a27492601",
           "_type": "span",
-          "marks": [
-            "strong"
-          ],
+          "marks": ["strong"],
           "text": "Saturation"
         },
         {
@@ -122,9 +116,7 @@
         {
           "_key": "b338a27492603",
           "_type": "span",
-          "marks": [
-            "strong"
-          ],
+          "marks": ["strong"],
           "text": "Hue"
         },
         {
@@ -150,9 +142,7 @@
         {
           "_key": "5f80a82aecd81",
           "_type": "span",
-          "marks": [
-            "strong"
-          ],
+          "marks": ["strong"],
           "text": "Saturation"
         },
         {
@@ -164,9 +154,7 @@
         {
           "_key": "5f80a82aecd83",
           "_type": "span",
-          "marks": [
-            "strong"
-          ],
+          "marks": ["strong"],
           "text": "Saturation"
         },
         {
@@ -192,9 +180,7 @@
         {
           "_key": "9afa7bb559a41",
           "_type": "span",
-          "marks": [
-            "strong"
-          ],
+          "marks": ["strong"],
           "text": "Minimum/Maximum"
         },
         {
@@ -206,9 +192,7 @@
         {
           "_key": "9afa7bb559a43",
           "_type": "span",
-          "marks": [
-            "strong"
-          ],
+          "marks": ["strong"],
           "text": "Lightness/Luminance"
         },
         {
@@ -234,9 +218,7 @@
         {
           "_key": "fb06f34e0b5f1",
           "_type": "span",
-          "marks": [
-            "406cb32abaaa"
-          ],
+          "marks": ["406cb32abaaa"],
           "text": "Refactoring UI"
         },
         {
@@ -338,9 +320,7 @@
         {
           "_key": "e61ea00de51c1",
           "_type": "span",
-          "marks": [
-            "6bd78a4c37b6"
-          ],
+          "marks": ["6bd78a4c37b6"],
           "text": "Simeon Griggs"
         }
       ],
@@ -366,9 +346,7 @@
         {
           "_key": "43cb181641c31",
           "_type": "span",
-          "marks": [
-            "a66ce4825a44"
-          ],
+          "marks": ["a66ce4825a44"],
           "text": "Tailwind CSS"
         },
         {
@@ -402,9 +380,7 @@
         {
           "_key": "43cb181641c33",
           "_type": "span",
-          "marks": [
-            "3332f60c6981"
-          ],
+          "marks": ["3332f60c6981"],
           "text": "Headless UI"
         }
       ],
@@ -432,9 +408,7 @@
         {
           "_key": "43cb181641c35",
           "_type": "span",
-          "marks": [
-            "b38417050f79"
-          ],
+          "marks": ["b38417050f79"],
           "text": "HeroIcons"
         }
       ],
@@ -462,9 +436,7 @@
         {
           "_key": "f8115d37534e1",
           "_type": "span",
-          "marks": [
-            "7ebff146208f"
-          ],
+          "marks": ["7ebff146208f"],
           "text": "React Router"
         }
       ],
@@ -492,9 +464,7 @@
         {
           "_key": "cc671346cae8",
           "_type": "span",
-          "marks": [
-            "69cb662f0938"
-          ],
+          "marks": ["69cb662f0938"],
           "text": "Vercel"
         }
       ],
@@ -522,9 +492,7 @@
         {
           "_key": "0b94a0f17193",
           "_type": "span",
-          "marks": [
-            "4ff86a9d8121"
-          ],
+          "marks": ["4ff86a9d8121"],
           "text": "Sanity.io"
         }
       ],

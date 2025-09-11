@@ -78,7 +78,7 @@ export default function Prism(props: PrismProps) {
                     className={clsx(
                       lineProps.className,
                       isHighlighted &&
-                        `-mx-4 px-4 md:-mx-8 md:px-8 bg-blue-700`,
+                        `-mx-4 bg-blue-700 px-4 md:-mx-8 md:px-8`,
                     )}
                   >
                     {line.map((token, lineI) => (

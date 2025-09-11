@@ -71,7 +71,7 @@ export default function Home() {
               <img
                 alt={data.mainImage.alt || ''}
                 src={image(data.mainImage).size(2016, 1344).url()}
-                className="mb-10 aspect-3/2 w-full rounded-2xl object-cover shadow-xl"
+                className="aspect-3/2 mb-10 w-full rounded-2xl object-cover shadow-xl"
               />
             )}
             {data.content && (
@@ -103,9 +103,9 @@ export default function Home() {
               <li
                 key={playbook._id}
                 className={clsx(
-                  'pb-2 mb-2 border-b border-blue-100 border-dashed text-balance',
+                  'mb-2 text-balance border-b border-dashed border-blue-100 pb-2',
                   playbook.visibility === 'coming-soon' &&
-                    'opacity-50 pointer-events-none',
+                    'pointer-events-none opacity-50',
                 )}
               >
                 <Subheading>
@@ -114,7 +114,7 @@ export default function Home() {
                       prefetch="intent"
                       className={({isActive}) =>
                         clsx(
-                          'inline-block hover:text-blue-500 transition-colors duration-100',
+                          'inline-block transition-colors duration-100 hover:text-blue-500',
                           isActive && 'text-blue-500',
                         )
                       }

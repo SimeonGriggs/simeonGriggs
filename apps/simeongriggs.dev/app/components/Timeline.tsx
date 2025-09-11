@@ -40,7 +40,7 @@ export function Timeline({articles}: TimelineProps) {
   return (
     <>
       <div className="relative">
-        <div className="h-24 top-12 mt-px absolute -left-3 flex w-6 justify-center">
+        <div className="absolute -left-3 top-12 mt-px flex h-24 w-6 justify-center">
           <div className="w-px bg-gray-200 dark:bg-blue-800" />
         </div>
         <Tabs tabs={uniqueTypes} current={current} onChange={handleTabChange} />
@@ -87,13 +87,13 @@ export function Timeline({articles}: TimelineProps) {
 function BlogPost({article}: {article: ArticleStub}) {
   return (
     <article className="relative flex justify-end pl-4 pr-8 md:px-[calc(100vw/12)] lg:px-[calc(100vw/16)]">
-      <div className="absolute left-0 flex -translate-x-3 size-6 flex-none items-center justify-center">
-        <div className="size-6 flex items-center justify-center bg-blue-500 text-white absolute rounded-full ring-1 ring-white dark:ring-blue-900">
+      <div className="absolute left-0 flex size-6 flex-none -translate-x-3 items-center justify-center">
+        <div className="absolute flex size-6 items-center justify-center rounded-full bg-blue-500 text-white ring-1 ring-white dark:ring-blue-900">
           <PencilSquareIcon aria-hidden="true" className="size-4" />
         </div>
       </div>
       <div className="flex flex-col gap-6">
-        <div className="flex justify-between items-center gap-3">
+        <div className="flex items-center justify-between gap-3">
           {article.published ? (
             <Published
               updated={article.updated ?? undefined}
@@ -139,13 +139,13 @@ function Summary({
 function Video({article}: {article: YouTubeVideoStub}) {
   return (
     <article className="relative min-w-0">
-      <div className="absolute z-10 top-6 left-0 flex -translate-x-3 size-6 flex-none items-center justify-center">
-        <div className="size-6 flex items-center justify-center bg-blue-500 text-white absolute rounded-full ring-1 ring-white dark:ring-blue-900">
+      <div className="absolute left-0 top-6 z-10 flex size-6 flex-none -translate-x-3 items-center justify-center">
+        <div className="absolute flex size-6 items-center justify-center rounded-full bg-blue-500 text-white ring-1 ring-white dark:ring-blue-900">
           <PlayIcon aria-hidden="true" className="size-4" />
         </div>
         <div className="size-1.5 rounded-full bg-gray-100 ring-1 ring-gray-300" />
       </div>
-      <div className="relative isolate flex flex-col justify-end overflow-hidden rounded-r-2xl bg-gray-900 aspect-[16/9] w-full hover:shadow-xl transition-shadow duration-75 ease-in-out">
+      <div className="relative isolate flex aspect-[16/9] w-full flex-col justify-end overflow-hidden rounded-r-2xl bg-gray-900 transition-shadow duration-75 ease-in-out hover:shadow-xl">
         <img
           alt=""
           src={article.thumbnailUrl}
@@ -154,7 +154,7 @@ function Video({article}: {article: YouTubeVideoStub}) {
         <div className="absolute inset-0 -z-10 bg-gradient-to-t from-blue-600 via-blue-600/40" />
         <div className="absolute inset-0 -z-10 rounded-r-2xl ring-1 ring-inset ring-blue-700/10" />
 
-        <div className="flex flex-col overflow-hidden gap-3 text-gray-300 pl-4 pr-8 pb-8 md:px-[calc(100vw/12)] lg:px-[calc(100vw/16)]">
+        <div className="flex flex-col gap-3 overflow-hidden pb-8 pl-4 pr-8 text-gray-300 md:px-[calc(100vw/12)] lg:px-[calc(100vw/16)]">
           {article.link ? (
             <a
               className="absolute inset-0 z-10"
@@ -165,7 +165,7 @@ function Video({article}: {article: YouTubeVideoStub}) {
               <span className="sr-only">Watch {article.title}</span>
             </a>
           ) : null}
-          <div className="flex justify-between items-center gap-3">
+          <div className="flex items-center justify-between gap-3">
             {article.published ? (
               <Published published={article.published} tone="light" />
             ) : null}
@@ -179,10 +179,10 @@ function Video({article}: {article: YouTubeVideoStub}) {
           </H2>
         </div>
       </div>
-      <div className="flex flex-col gap-3 pt-8 pl-4 pr-8 md:px-[calc(100vw/12)] lg:px-[calc(100vw/16)]">
+      <div className="flex flex-col gap-3 pl-4 pr-8 pt-8 md:px-[calc(100vw/12)] lg:px-[calc(100vw/16)]">
         <Summary className="line-clamp-3">{article.summary}</Summary>
         {article.link ? (
-          <p className="text-base/8 text-blue-500 hover:text-blue-700 dark:hover:text-blue-100 font-semibold">
+          <p className="text-base/8 font-semibold text-blue-500 hover:text-blue-700 dark:hover:text-blue-100">
             <a href={article.link} target="_blank" rel="noopener noreferrer">
               Watch on YouTube <span aria-hidden="true">&rarr;</span>
             </a>
@@ -196,13 +196,13 @@ function Video({article}: {article: YouTubeVideoStub}) {
 function Talk({article}: {article: TalkStub}) {
   return (
     <article className="relative w-full">
-      <div className="absolute z-10 top-6 left-0 flex -translate-x-3 size-6 flex-none items-center justify-center">
-        <div className="size-6 flex items-center justify-center bg-blue-500 text-white absolute rounded-full ring-1 ring-white dark:ring-blue-900">
+      <div className="absolute left-0 top-6 z-10 flex size-6 flex-none -translate-x-3 items-center justify-center">
+        <div className="absolute flex size-6 items-center justify-center rounded-full bg-blue-500 text-white ring-1 ring-white dark:ring-blue-900">
           <MegaphoneIcon aria-hidden="true" className="size-4" />
         </div>
         <div className="size-1.5 rounded-full bg-gray-100 ring-1 ring-gray-300" />
       </div>
-      <div className="relative isolate flex flex-col justify-end overflow-hidden rounded-r-2xl bg-gray-900 aspect-[16/9] w-full hover:shadow-xl transition-shadow duration-75 ease-in-out">
+      <div className="relative isolate flex aspect-[16/9] w-full flex-col justify-end overflow-hidden rounded-r-2xl bg-gray-900 transition-shadow duration-75 ease-in-out hover:shadow-xl">
         {article.image ? (
           <img
             alt=""
@@ -219,7 +219,7 @@ function Talk({article}: {article: TalkStub}) {
         <div className="absolute inset-0 -z-10 bg-gradient-to-t from-blue-600 via-blue-600/40" />
         <div className="absolute inset-0 -z-10 rounded-r-2xl ring-1 ring-inset ring-blue-700/10" />
 
-        <div className="flex flex-col overflow-hidden gap-3 text-gray-300 pl-4 pr-8 pb-8 md:px-[calc(100vw/12)] lg:px-[calc(100vw/16)]">
+        <div className="flex flex-col gap-3 overflow-hidden pb-8 pl-4 pr-8 text-gray-300 md:px-[calc(100vw/12)] lg:px-[calc(100vw/16)]">
           {article.link ? (
             <a
               className="absolute inset-0 z-10"
@@ -230,7 +230,7 @@ function Talk({article}: {article: TalkStub}) {
               <span className="sr-only">Watch {article.title}</span>
             </a>
           ) : null}
-          <div className="flex justify-between items-center gap-3">
+          <div className="flex items-center justify-between gap-3">
             {article.published ? (
               <Published
                 updated={article.updated ?? undefined}
@@ -251,10 +251,10 @@ function Talk({article}: {article: TalkStub}) {
           </h3>
         </div>
       </div>
-      <div className="flex flex-col gap-3 pt-8 pl-4 pr-8 md:px-[calc(100vw/12)] lg:px-[calc(100vw/16)]">
+      <div className="flex flex-col gap-3 pl-4 pr-8 pt-8 md:px-[calc(100vw/12)] lg:px-[calc(100vw/16)]">
         <Summary>{article.summary}</Summary>
         {article.link ? (
-          <p className="text-base/8 text-blue-500 hover:text-blue-700 font-semibold">
+          <p className="text-base/8 font-semibold text-blue-500 hover:text-blue-700">
             <a href={article.link} target="_blank" rel="noopener noreferrer">
               Watch <span aria-hidden="true">&rarr;</span>
             </a>
@@ -267,17 +267,14 @@ function Talk({article}: {article: TalkStub}) {
 
 function Sanity({article}: {article: ExchangeStub | LearnStub}) {
   return (
-    <div className="flex justify-between w-full pl-4 pr-8 md:px-[calc(100vw/12)] lg:px-[calc(100vw/16)]">
-      <div className="absolute left-0 top-1.5 flex -translate-x-3 size-6 flex-none items-center justify-center">
-        <div
-          className="size-6 flex items-center justify-center bg-[#f03e2f] text-white absolute rounded-full ring-1 ring-white
-        dark:ring-blue-900"
-        >
+    <div className="flex w-full justify-between pl-4 pr-8 md:px-[calc(100vw/12)] lg:px-[calc(100vw/16)]">
+      <div className="absolute left-0 top-1.5 flex size-6 flex-none -translate-x-3 items-center justify-center">
+        <div className="absolute flex size-6 items-center justify-center rounded-full bg-[#f03e2f] text-white ring-1 ring-white dark:ring-blue-900">
           <LinkIcon aria-hidden="true" className="size-4" />
         </div>
         <div className="size-1.5 rounded-full bg-gray-100 ring-1 ring-gray-300" />
       </div>
-      <div className="py-0.5 text-lg/8 text-gray-500 flex flex-col w-full gap-4">
+      <div className="flex w-full flex-col gap-4 py-0.5 text-lg/8 text-gray-500">
         <h2>
           <a
             className="font-medium text-gray-900 hover:text-[#f03e2f]"
@@ -295,7 +292,7 @@ function Sanity({article}: {article: ExchangeStub | LearnStub}) {
         </h2>
         <Summary>{article.summary}</Summary>
 
-        <div className="flex justify-between items-center gap-3">
+        <div className="flex items-center justify-between gap-3">
           {article.published ? (
             <Published
               updated={
@@ -368,7 +365,7 @@ function Tabs({tabs, current, onChange}: TabsProps) {
         />
       </div>
       <div className="hidden lg:block">
-        <div className="border-b border-gray-200 dark:border-blue-800 lg:pl-[calc(100vw/16)]">
+        <div className="border-b border-gray-200 lg:pl-[calc(100vw/16)] dark:border-blue-800">
           <nav aria-label="Tabs" className="-mb-px flex justify-between">
             {tabs.map((tab) => (
               <button
@@ -402,7 +399,7 @@ function H2({
   return (
     <h2
       className={clsx(
-        'text-3xl text-balance font-black tracking-tighter  md:text-4xl md:leading-none',
+        'text-balance text-3xl font-black tracking-tighter md:text-4xl md:leading-none',
         tone === 'auto' && 'text-blue-500',
         tone === 'light' && 'text-white',
         tone === 'dark' && 'text-blue-700',

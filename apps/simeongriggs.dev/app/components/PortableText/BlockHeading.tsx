@@ -24,7 +24,7 @@ function BlockHeadingButton(props: BlockHeadingButtonProps) {
 
   return (
     <button
-      className="group  absolute inset-0"
+      className="group absolute inset-0"
       onClick={() => (hashHref ? setCopiedText(hashHref) : null)}
     >
       <LinkIcon className="absolute -left-6 top-1 h-auto w-6 -translate-x-6 tracking-tighter text-blue-500 opacity-0 transition duration-150 ease-in-out group-hover:-translate-x-0 group-hover:opacity-100" />
@@ -33,7 +33,9 @@ function BlockHeadingButton(props: BlockHeadingButtonProps) {
   )
 }
 
-export default function BlockHeading(props: PortableTextComponentProps<PortableTextBlock>) {
+export default function BlockHeading(
+  props: PortableTextComponentProps<PortableTextBlock>,
+) {
   const {value, children} = props
 
   const id = value._key ? scrollableKey(value._key) : undefined

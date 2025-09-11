@@ -14,7 +14,12 @@ type PublishedProps = {
   tone?: LabelTones
 }
 
-export default function Published({updated, location, published, tone}: PublishedProps) {
+export default function Published({
+  updated,
+  location,
+  published,
+  tone,
+}: PublishedProps) {
   return (
     <Label tone={tone}>
       <span className="flex flex-col md:flex-row md:items-center">

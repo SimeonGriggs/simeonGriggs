@@ -23,7 +23,12 @@ export function heightColumnOffset(columns = 16) {
   return twoDecimals(heightPerc)
 }
 
-export function clipPathInset(columns: number, left: number, right: number, y: number) {
+export function clipPathInset(
+  columns: number,
+  left: number,
+  right: number,
+  y: number,
+) {
   const heightPerc = y ? heightColumnOffset(columns) : 100
 
   const corners = [
@@ -37,4 +42,5 @@ export function clipPathInset(columns: number, left: number, right: number, y: n
 }
 
 // eslint-disable-next-line no-empty-function
-export const useSSRLayoutEffect = typeof document === 'undefined' ? () => {} : useLayoutEffect
+export const useSSRLayoutEffect =
+  typeof document === 'undefined' ? () => {} : useLayoutEffect

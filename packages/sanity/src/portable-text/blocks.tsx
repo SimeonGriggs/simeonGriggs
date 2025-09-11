@@ -6,12 +6,12 @@ export const blockComponents: Partial<PortableTextComponents> = {
       <p className="my-10 text-base/8 first:mt-0 last:mb-0">{children}</p>
     ),
     h2: ({children}) => (
-      <h2 className="mt-12 mb-10 text-2xl/8 font-medium tracking-tight text-gray-950 first:mt-0 last:mb-0">
+      <h2 className="mb-10 mt-12 text-2xl/8 font-medium tracking-tight text-gray-950 first:mt-0 last:mb-0">
         {children}
       </h2>
     ),
     h3: ({children}) => (
-      <h3 className="mt-12 mb-10 text-xl/8 font-medium tracking-tight text-gray-950 first:mt-0 last:mb-0">
+      <h3 className="mb-10 mt-12 text-xl/8 font-medium tracking-tight text-gray-950 first:mt-0 last:mb-0">
         {children}
       </h3>
     ),

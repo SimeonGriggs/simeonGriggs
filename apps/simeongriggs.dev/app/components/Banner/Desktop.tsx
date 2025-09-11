@@ -42,12 +42,12 @@ export function Desktop(props: DesktopProps) {
       exit={{opacity: 0, ...bannerSize.wrapper}}
       transition={{duration: 0.33}}
       className={clsx(
-        `pointer-events-none top-0 z-20 w-screen origin-top-left hidden md:block h-screen`,
+        `pointer-events-none top-0 z-20 hidden h-screen w-screen origin-top-left md:block`,
         isHome ? `fixed` : `fixed`,
       )}
     >
       <motion.div
-        className="absolute inset-0 h-32 bg-blue-500 md:right-auto md:h-screen md:w-4/12 lg:w-6/16"
+        className="lg:w-6/16 absolute inset-0 h-32 bg-blue-500 md:right-auto md:h-screen md:w-4/12"
         initial={{opacity: 0, ...bannerSize.image}}
         animate={{opacity: 1, ...bannerSize.image}}
         exit={{opacity: 0, ...bannerSize.image}}
@@ -78,7 +78,10 @@ export function Desktop(props: DesktopProps) {
           <>
             <motion.img
               loading="eager"
-              key={[bannerConfigDesktop.key, JSON.stringify(bannerImage.asset)].join('-')}
+              key={[
+                bannerConfigDesktop.key,
+                JSON.stringify(bannerImage.asset),
+              ].join('-')}
               src={imageUrlBuilder(projectDetails())
                 .image(bannerImage)
                 .height(bannerConfigDesktop.height)

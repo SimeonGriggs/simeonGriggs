@@ -40,7 +40,7 @@ export default function CommentForm(props: CommentFormProps) {
       <div className="z-50 flex min-h-screen items-center justify-center">
         <DialogBackdrop className="fixed inset-0 bg-blue-500/90 dark:bg-blue-900/90" />
 
-        <div className="relative z-20 mx-auto max-w-sm rounded bg-white p-6 shadow dark:bg-blue-800 md:p-12">
+        <div className="relative z-20 mx-auto max-w-sm rounded bg-white p-6 shadow md:p-12 dark:bg-blue-800">
           <button
             type="button"
             onClick={() => closeDialog()}
