@@ -17,7 +17,7 @@ const Header = (props: HeaderProps) => {
 
   return (
     <header className={menuClasses}>
-      <div className="flex items-center justify-center border-l-2 border-r-2 border-blue-500 bg-blue-500 px-3 py-2 font-mono text-white md:w-full md:flex-col md:rounded-r-2xl md:border-none md:py-8">
+      <div className="flex items-center justify-center border-l-2 border-r-2 border-blue-500 bg-blue-500 px-3 py-2 font-mono text-white md:w-full md:flex-col md:border-none md:py-8">
         <Link
           to="/"
           className="md:text-vertical flex items-center justify-center hover:bg-blue-900"

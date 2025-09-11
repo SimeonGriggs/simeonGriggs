@@ -20,7 +20,7 @@ export function Layout({children}: {children: React.ReactNode}) {
         <Meta />
         <Links />
       </head>
-      <body className="text-gray-950 antialiased">
+      <body className="w-screen overflow-x-hidden text-gray-950 antialiased">
         <LayoutWrapper>{children}</LayoutWrapper>
         <ScrollRestoration />
         <Scripts />

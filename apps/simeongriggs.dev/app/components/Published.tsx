@@ -1,7 +1,6 @@
 import {MapPinIcon} from '@heroicons/react/24/solid'
-import React from 'react'
 
-import Label, {type LabelTones} from './Label'
+import {Subheading} from '@repo/frontend'
 
 function dateDisplay(dateString: string) {
   return dateString.split('T')[0]
@@ -11,17 +10,15 @@ type PublishedProps = {
   published: string
   updated?: string
   location?: string
-  tone?: LabelTones
 }
 
 export default function Published({
   updated,
   location,
   published,
-  tone,
 }: PublishedProps) {
   return (
-    <Label tone={tone}>
+    <Subheading>
       <span className="flex flex-col md:flex-row md:items-center">
         {updated ? (
           <span>
@@ -40,6 +37,6 @@ export default function Published({
           </span>
         ) : null}
       </span>
-    </Label>
+    </Subheading>
   )
 }

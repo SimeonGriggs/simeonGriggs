@@ -1,24 +1,21 @@
 import type {PortableTextTypeComponentProps} from '@portabletext/react'
 import React from 'react'
-import {z} from 'zod'
 
-import {baseTypedObjectZ} from '~/types/block'
+type CodeSandboxValue = {
+  _type: 'codeSandbox'
+  _key?: string
+  url: string | null
+}
 
-export const typedObjectCodeSandboxZ = baseTypedObjectZ.extend({
-  _type: z.literal('codeSandbox'),
-  url: z.string().url().nullable(),
-})
-
-export type TypedObjectCodeSandbox = z.infer<typeof typedObjectCodeSandboxZ>
-
-export default function TypeCodeSandbox(
-  props: PortableTextTypeComponentProps<TypedObjectCodeSandbox>,
+export function TypeCodeSandbox(
+  props: PortableTextTypeComponentProps<CodeSandboxValue>,
 ) {
-  // Now we still get Zod's strict parsing on this specific TypedObject
-  const value = React.useMemo(
-    () => typedObjectCodeSandboxZ.parse(props.value),
-    [props.value],
-  )
+  const value = React.useMemo(() => {
+    if (!props.value || props.value._type !== 'codeSandbox') {
+      return null
+    }
+    return props.value as CodeSandboxValue
+  }, [props.value])
 
   if (!value?.url) return null
 

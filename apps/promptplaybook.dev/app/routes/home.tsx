@@ -7,7 +7,7 @@ import clsx from 'clsx'
 import type {Route} from './+types/home'
 
 import {Container} from '~/components/container'
-import {Heading, Lead, Subheading} from '~/components/text'
+import {Heading, Lead, Subheading} from '@repo/frontend'
 import {client} from '~/sanity/client'
 import {HOME_QUERY} from '~/sanity/queries'
 

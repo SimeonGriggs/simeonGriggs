@@ -6,6 +6,8 @@ export const HOME_QUERY = defineQuery(`
     title,
     summary,
     content,
+    mainImage,
+    publishedAt,
     "_playbooks": *[_type == "playbook" && visibility != "hidden"]|order(orderRank asc){
       _id,
       title,

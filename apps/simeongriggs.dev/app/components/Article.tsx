@@ -1,6 +1,6 @@
 import {PencilSquareIcon} from '@heroicons/react/24/outline'
 import {PortableText} from '@portabletext/react'
-import {components} from '@repo/frontend'
+import {components, Heading, Lead, Subheading} from '@repo/frontend'
 
 import Published from '~/components/Published'
 import Subscribe from '~/components/Subscribe'
@@ -17,28 +17,27 @@ export default function Article(props: ArticleProps) {
 
   return (
     <div className="lg:grid-cols-16 grid grid-cols-1 gap-12 px-4 pb-32 md:mt-0 md:grid-cols-12 md:gap-0 md:px-0">
-      <div className="grid-col-1 grid gap-6 pt-48 md:col-span-8 md:col-start-3 md:py-24 lg:col-span-8 lg:col-start-5">
+      <div className="grid-col-1 grid pt-48 md:col-span-8 md:col-start-3 md:py-24 lg:col-span-8 lg:col-start-5">
         {title ? (
-          <h1 className="text-balance text-4xl font-black leading-none tracking-tighter text-blue-500 md:text-6xl lg:text-7xl">
+          <Heading as="h1" className="mt-2">
             {title}
-          </h1>
+          </Heading>
         ) : null}
 
-        {summary ? (
-          <p className="max-w-xl text-pretty font-mono leading-relaxed md:text-lg md:leading-loose">
-            {summary}
-          </p>
-        ) : null}
+        {summary ? <Lead className="mt-6 max-w-3xl">{summary}</Lead> : null}
 
-        <a
-          className="flex items-center gap-2 font-mono text-xs text-blue-500 hover:bg-blue-500 hover:text-white dark:text-blue-200 dark:hover:text-white"
-          target="_blank"
-          rel="noopener noreferrer"
-          href={`/studio/structure/article;${_id}`}
-        >
-          <PencilSquareIcon className="w-5" />
-          View in Sanity Studio
-        </a>
+        <Subheading className="mt-6">
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href={`/studio/structure/article;${_id}`}
+            className="inline-flex items-center gap-2"
+            items-center
+          >
+            <PencilSquareIcon className="size-4" />
+            View in Sanity Studio
+          </a>
+        </Subheading>
       </div>
 
       <div className="md:col-span-2 md:col-start-3 md:row-start-2 lg:col-span-3 lg:col-start-5">

@@ -5,6 +5,7 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
+    "@headlessui/react": "^2.2.0",
     "@heroicons/react": "^2.2.0",
     "@portabletext/react": "^3.2.0",
     "@repo/constants": "workspace:*",
@@ -16,6 +17,14 @@
     "react-dom": "^19.0.0",
     "react-router": "^7.7.1",
     "usehooks-ts": "^3.1.0"
+  },
+  "peerDependencies": {
+    "tldraw": "^2.0.0"
+  },
+  "peerDependenciesMeta": {
+    "tldraw": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@types/react": "^19.1.2",

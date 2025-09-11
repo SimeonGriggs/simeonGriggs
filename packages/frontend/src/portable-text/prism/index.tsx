@@ -64,7 +64,7 @@ export default function Prism(props: PrismProps) {
           <pre
             className={clsx(
               className,
-              `lg:rounded-tr-4xl shadow-xs rounded-lg p-4 text-sm/loose`,
+              `lg:rounded-tr-4xl shadow-xs overflow-auto rounded-lg p-4 text-sm/loose`,
             )}
             style={style}
           >
@@ -80,8 +80,8 @@ export default function Prism(props: PrismProps) {
                     {...lineProps}
                     className={clsx(
                       lineProps.className,
-                      isHighlighted &&
-                        `-mx-4 bg-blue-700 px-4 md:-mx-8 md:px-8`,
+                      'w-max min-w-full pr-8',
+                      isHighlighted && `bg-blue-700 px-4 md:-mx-8 md:px-8`,
                     )}
                   >
                     {line.map((token, lineI) => (

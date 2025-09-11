@@ -1,3 +1,12 @@
 // Re-export frontend components and utilities for reuse across apps
 export {components} from './portable-text'
 export {image} from './image'
+export {Heading, Subheading, Lead} from './components/text'
+export {default as TypeTldraw} from './components/tldraw'
+export {TypeCodeSandbox} from './components/codesandbox'
+export {TypeButton} from './components/type-button'
+export {Button} from './components/button'
+export {BlockNormal} from './components/block-normal'
+export {BlockH2} from './components/block-h2'
+export {BlockH3} from './components/block-h3'
+export {BlockQuote} from './components/block-quote'

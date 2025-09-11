@@ -2,8 +2,6 @@ import {useQuery} from '@sanity/react-loader'
 import type {LinksFunction, LoaderFunctionArgs} from 'react-router'
 import {useLoaderData} from 'react-router'
 
-import HomeTitle from '~/components/HomeTitle'
-import Intro from '~/components/Intro'
 import {Timeline} from '~/components/Timeline'
 import {useRootLoaderData} from '~/hooks/useRootLoaderData'
 import {sortArticles} from '~/lib/sortArticles'
@@ -21,6 +19,8 @@ import {
 import styles from '@repo/tailwind/app.css?url'
 import type {ArticleStub} from '~/types/stubs'
 import {combinedStubsZ, exchangeStubsZ, learnStubsZ} from '~/types/stubs'
+import {components, Heading} from '@repo/frontend'
+import {PortableText} from '@portabletext/react'
 
 export const handle = {id: `home`}
 
@@ -67,10 +67,15 @@ export default function Index() {
   return (
     <section className="lg:grid-cols-16 grid grid-cols-1 px-4 md:grid-cols-12 md:px-0">
       <div className="flex flex-col gap-y-12 pb-12 pt-48 md:col-span-6 md:col-start-6 md:py-48 lg:col-span-8 lg:col-start-8">
-        <HomeTitle title="Hello, internet!" wave />
+        <Heading as="h1">
+          Hello, internet!
+          <span className="wave ml-2">👋</span>
+        </Heading>
 
-        {siteMeta?.bio && siteMeta?.bio?.length > 1 ? (
-          <Intro value={siteMeta.bio} />
+        {siteMeta?.bio ? (
+          <div>
+            <PortableText value={siteMeta.bio} components={components} />
+          </div>
         ) : null}
 
         {Array.isArray(articles) ? <Timeline articles={articles} /> : null}

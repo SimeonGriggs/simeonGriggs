@@ -7,17 +7,11 @@ import type {
   YouTubeVideoStub,
 } from '~/types/stubs'
 import {urlFor} from '~/sanity/helpers'
-import {
-  ChevronDownIcon,
-  LinkIcon,
-  MegaphoneIcon,
-  PencilSquareIcon,
-  PlayIcon,
-} from '@heroicons/react/24/outline'
+import {ChevronDownIcon} from '@heroicons/react/24/outline'
 import Published from './Published'
 import {Link, useSearchParams} from 'react-router'
 import type {Talk} from '~/types/talk'
-import Label from './Label'
+import {BlockH2, Subheading} from '@repo/frontend'
 import clsx from 'clsx'
 
 type TimelineProps = {
@@ -39,28 +33,14 @@ export function Timeline({articles}: TimelineProps) {
 
   return (
     <>
-      <div className="relative">
-        <div className="absolute -left-3 top-12 mt-px flex h-24 w-6 justify-center">
-          <div className="w-px bg-gray-200 dark:bg-blue-800" />
-        </div>
-        <Tabs tabs={uniqueTypes} current={current} onChange={handleTabChange} />
-      </div>
+      <Tabs tabs={uniqueTypes} current={current} onChange={handleTabChange} />
       <ul role="list" className="space-y-24">
         {articles
           .filter(
             (article) => current === DEFAULT_TAB || article._type === current,
           )
-          .map((article, articleIdx) => (
+          .map((article) => (
             <li key={article._id} className="relative flex gap-x-4">
-              <div
-                className={clsx(
-                  articleIdx === articles.length - 1 ? 'h-24' : '-bottom-24',
-                  'absolute -left-3 top-0 flex w-6 justify-center',
-                )}
-              >
-                <div className="w-px bg-gray-200 dark:bg-blue-800" />
-              </div>
-
               {(() => {
                 switch (article._type) {
                   case 'article':
@@ -86,25 +66,9 @@ export function Timeline({articles}: TimelineProps) {
 
 function BlogPost({article}: {article: ArticleStub}) {
   return (
-    <article className="relative flex justify-end pl-4 pr-8 md:px-[calc(100vw/12)] lg:px-[calc(100vw/16)]">
-      <div className="absolute left-0 flex size-6 flex-none -translate-x-3 items-center justify-center">
-        <div className="absolute flex size-6 items-center justify-center rounded-full bg-blue-500 text-white ring-1 ring-white dark:ring-blue-900">
-          <PencilSquareIcon aria-hidden="true" className="size-4" />
-        </div>
-      </div>
+    <article className="relative flex justify-end">
       <div className="flex flex-col gap-6">
-        <div className="flex items-center justify-between gap-3">
-          {article.published ? (
-            <Published
-              updated={article.updated ?? undefined}
-              published={article.published}
-            />
-          ) : null}
-          <Pill>
-            <Label tone="inherit">Blog</Label>
-          </Pill>
-        </div>
-        <H2>
+        <BlockH2 className="!my-0">
           <Link
             className="hover:text-blue-700 dark:hover:text-blue-100"
             to={`/${article.slug.current}`}
@@ -113,8 +77,17 @@ function BlogPost({article}: {article: ArticleStub}) {
             <span aria-hidden="true">{` `}&rarr;</span>
             <span className="absolute inset-0"></span>
           </Link>
-        </H2>
+        </BlockH2>
         <Summary>{article.summary}</Summary>
+        <div className="flex items-center justify-between gap-3">
+          {article.published ? (
+            <Published
+              updated={article.updated ?? undefined}
+              published={article.published}
+            />
+          ) : null}
+          <Pill>Blog</Pill>
+        </div>
       </div>
     </article>
   )
@@ -136,16 +109,16 @@ function Summary({
   )
 }
 
-function Video({article}: {article: YouTubeVideoStub}) {
+function Video({
+  article,
+  pillText,
+}: {
+  article: YouTubeVideoStub
+  pillText?: string
+}) {
   return (
-    <article className="relative min-w-0">
-      <div className="absolute left-0 top-6 z-10 flex size-6 flex-none -translate-x-3 items-center justify-center">
-        <div className="absolute flex size-6 items-center justify-center rounded-full bg-blue-500 text-white ring-1 ring-white dark:ring-blue-900">
-          <PlayIcon aria-hidden="true" className="size-4" />
-        </div>
-        <div className="size-1.5 rounded-full bg-gray-100 ring-1 ring-gray-300" />
-      </div>
-      <div className="relative isolate flex aspect-[16/9] w-full flex-col justify-end overflow-hidden rounded-r-2xl bg-gray-900 transition-shadow duration-75 ease-in-out hover:shadow-xl">
+    <article className="rounded-tr-4xl relative min-w-0 overflow-hidden rounded-b-lg rounded-tl-lg bg-white shadow-md shadow-black/5 ring-1 ring-black/5">
+      <div className="relative isolate flex aspect-[16/9] w-full flex-col justify-end overflow-hidden">
         <img
           alt=""
           src={article.thumbnailUrl}
@@ -154,7 +127,7 @@ function Video({article}: {article: YouTubeVideoStub}) {
         <div className="absolute inset-0 -z-10 bg-gradient-to-t from-blue-600 via-blue-600/40" />
         <div className="absolute inset-0 -z-10 rounded-r-2xl ring-1 ring-inset ring-blue-700/10" />
 
-        <div className="flex flex-col gap-3 overflow-hidden pb-8 pl-4 pr-8 text-gray-300 md:px-[calc(100vw/12)] lg:px-[calc(100vw/16)]">
+        <div className="flex flex-col gap-3 overflow-hidden p-8 text-gray-300">
           {article.link ? (
             <a
               className="absolute inset-0 z-10"
@@ -165,22 +138,15 @@ function Video({article}: {article: YouTubeVideoStub}) {
               <span className="sr-only">Watch {article.title}</span>
             </a>
           ) : null}
-          <div className="flex items-center justify-between gap-3">
-            {article.published ? (
-              <Published published={article.published} tone="light" />
-            ) : null}
-            <Pill>
-              <Label tone="inherit">YouTube</Label>
-            </Pill>
-          </div>
-          <H2 tone="light">
+          <BlockH2 dark className="text-balance">
             <span className="absolute inset-0" />
             {article.title}
-          </H2>
+          </BlockH2>
         </div>
       </div>
-      <div className="flex flex-col gap-3 pl-4 pr-8 pt-8 md:px-[calc(100vw/12)] lg:px-[calc(100vw/16)]">
+      <div className="flex flex-col gap-3 p-8">
         <Summary className="line-clamp-3">{article.summary}</Summary>
+
         {article.link ? (
           <p className="text-base/8 font-semibold text-blue-500 hover:text-blue-700 dark:hover:text-blue-100">
             <a href={article.link} target="_blank" rel="noopener noreferrer">
@@ -188,96 +154,43 @@ function Video({article}: {article: YouTubeVideoStub}) {
             </a>
           </p>
         ) : null}
+        <div className="flex items-center justify-between gap-3">
+          {article.published ? (
+            <Published published={article.published} />
+          ) : null}
+          <Pill>{pillText || 'YouTube'}</Pill>
+        </div>
       </div>
     </article>
   )
 }
 
 function Talk({article}: {article: TalkStub}) {
-  return (
-    <article className="relative w-full">
-      <div className="absolute left-0 top-6 z-10 flex size-6 flex-none -translate-x-3 items-center justify-center">
-        <div className="absolute flex size-6 items-center justify-center rounded-full bg-blue-500 text-white ring-1 ring-white dark:ring-blue-900">
-          <MegaphoneIcon aria-hidden="true" className="size-4" />
-        </div>
-        <div className="size-1.5 rounded-full bg-gray-100 ring-1 ring-gray-300" />
-      </div>
-      <div className="relative isolate flex aspect-[16/9] w-full flex-col justify-end overflow-hidden rounded-r-2xl bg-gray-900 transition-shadow duration-75 ease-in-out hover:shadow-xl">
-        {article.image ? (
-          <img
-            alt=""
-            src={
-              urlFor(article.image)
-                .width(1920)
-                .height(1080)
-                .auto('format')
-                .url() || ''
-            }
-            className="absolute inset-0 -z-10 size-full object-cover"
-          />
-        ) : null}
-        <div className="absolute inset-0 -z-10 bg-gradient-to-t from-blue-600 via-blue-600/40" />
-        <div className="absolute inset-0 -z-10 rounded-r-2xl ring-1 ring-inset ring-blue-700/10" />
+  // Transform TalkStub to YouTubeVideoStub format for Video component
+  const videoProps: YouTubeVideoStub = {
+    _id: article._id,
+    _type: 'youTubeVideo' as const,
+    title: [article.title, article.event].filter(Boolean).join(' @ ') || '',
+    summary: article.summary || '',
+    published: article.published || '',
+    link: article.link || '',
+    duration: '', // Talk doesn't have duration, so we'll use empty string
+    thumbnailUrl: article.image
+      ? urlFor(article.image).width(1920).height(1080).auto('format').url() ||
+        ''
+      : '',
+  }
 
-        <div className="flex flex-col gap-3 overflow-hidden pb-8 pl-4 pr-8 text-gray-300 md:px-[calc(100vw/12)] lg:px-[calc(100vw/16)]">
-          {article.link ? (
-            <a
-              className="absolute inset-0 z-10"
-              href={article.link}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span className="sr-only">Watch {article.title}</span>
-            </a>
-          ) : null}
-          <div className="flex items-center justify-between gap-3">
-            {article.published ? (
-              <Published
-                updated={article.updated ?? undefined}
-                published={article.published}
-                tone="light"
-              />
-            ) : null}
-            <Pill>
-              <Label tone="inherit">{article._type}</Label>
-            </Pill>
-          </div>
-          <H2 tone="light">
-            <span className="absolute inset-0" />
-            {article.title}
-          </H2>
-          <h3 className="text-lg/6 font-semibold text-white">
-            {article.event}
-          </h3>
-        </div>
-      </div>
-      <div className="flex flex-col gap-3 pl-4 pr-8 pt-8 md:px-[calc(100vw/12)] lg:px-[calc(100vw/16)]">
-        <Summary>{article.summary}</Summary>
-        {article.link ? (
-          <p className="text-base/8 font-semibold text-blue-500 hover:text-blue-700">
-            <a href={article.link} target="_blank" rel="noopener noreferrer">
-              Watch <span aria-hidden="true">&rarr;</span>
-            </a>
-          </p>
-        ) : null}
-      </div>
-    </article>
-  )
+  return <Video article={videoProps} pillText="Talk" />
 }
 
 function Sanity({article}: {article: ExchangeStub | LearnStub}) {
   return (
-    <div className="flex w-full justify-between pl-4 pr-8 md:px-[calc(100vw/12)] lg:px-[calc(100vw/16)]">
-      <div className="absolute left-0 top-1.5 flex size-6 flex-none -translate-x-3 items-center justify-center">
-        <div className="absolute flex size-6 items-center justify-center rounded-full bg-[#f03e2f] text-white ring-1 ring-white dark:ring-blue-900">
-          <LinkIcon aria-hidden="true" className="size-4" />
-        </div>
-        <div className="size-1.5 rounded-full bg-gray-100 ring-1 ring-gray-300" />
-      </div>
+    <div className="flex w-full justify-between">
       <div className="flex w-full flex-col gap-4 py-0.5 text-lg/8 text-gray-500">
         <h2>
           <a
-            className="font-medium text-gray-900 hover:text-[#f03e2f]"
+            className="font-medium text-[#f03e2f] hover:text-red-700"
             href={
               article._type === 'contribution.guide'
                 ? `https://www.sanity.io/guides/${article.slug.current}`
@@ -286,7 +199,7 @@ function Sanity({article}: {article: ExchangeStub | LearnStub}) {
             target="_blank"
             rel="noopener noreferrer"
           >
-            {article.title}
+            {article.title} &rarr;
             <span className="absolute inset-0"></span>
           </a>
         </h2>
@@ -303,6 +216,10 @@ function Sanity({article}: {article: ExchangeStub | LearnStub}) {
               published={article.published}
             />
           ) : null}
+
+          <Pill>
+            {article._type === 'contribution.guide' ? 'Guide' : 'Course'}
+          </Pill>
         </div>
       </div>
     </div>
@@ -319,11 +236,13 @@ function Pill({
   return (
     <span
       className={clsx(
-        `relative z-10 rounded-full bg-blue-100 px-3 py-1.5 text-blue-500 dark:bg-blue-500 dark:text-blue-50`,
+        `relative z-10 flex items-center rounded-full bg-blue-500 px-3 py-1.5 text-white dark:bg-blue-500 dark:text-blue-50`,
         className,
       )}
     >
-      {children}
+      <Subheading as="span" dark>
+        {children}
+      </Subheading>
     </span>
   )
 }
@@ -345,13 +264,13 @@ const TAB_TITLES: Record<string, string> = {
 
 function Tabs({tabs, current, onChange}: TabsProps) {
   return (
-    <div>
+    <>
       <div className="grid grid-cols-1 lg:hidden">
         <select
           defaultValue={current}
           aria-label="Select a tab"
           onChange={(event) => onChange(event.target.value)}
-          className="col-start-1 row-start-1 w-full appearance-none rounded-md bg-white py-2 pl-3 pr-8 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600"
+          className="w-full appearance-none rounded-md bg-white py-2 pl-3 pr-8 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600"
         >
           {tabs.map((tab) => (
             <option value={tab} key={tab}>
@@ -364,8 +283,8 @@ function Tabs({tabs, current, onChange}: TabsProps) {
           className="pointer-events-none col-start-1 row-start-1 mr-3 size-5 self-center justify-self-end text-blue-500"
         />
       </div>
-      <div className="hidden lg:block">
-        <div className="border-b border-gray-200 lg:pl-[calc(100vw/16)] dark:border-blue-800">
+      <div className="sticky top-0 z-10 hidden bg-white lg:block">
+        <div className="border-b border-gray-200 dark:border-blue-800">
           <nav aria-label="Tabs" className="-mb-px flex justify-between">
             {tabs.map((tab) => (
               <button
@@ -379,33 +298,12 @@ function Tabs({tabs, current, onChange}: TabsProps) {
                   'whitespace-nowrap border-b-2 px-1 py-4 text-sm font-medium',
                 )}
               >
-                <Label>{TAB_TITLES[tab] ?? tab}</Label>
+                <Subheading>{TAB_TITLES[tab] ?? tab}</Subheading>
               </button>
             ))}
           </nav>
         </div>
       </div>
-    </div>
-  )
-}
-
-function H2({
-  children,
-  tone = 'auto',
-}: {
-  children: React.ReactNode
-  tone?: 'auto' | 'light' | 'dark'
-}) {
-  return (
-    <h2
-      className={clsx(
-        'text-balance text-3xl font-black tracking-tighter md:text-4xl md:leading-none',
-        tone === 'auto' && 'text-blue-500',
-        tone === 'light' && 'text-white',
-        tone === 'dark' && 'text-blue-700',
-      )}
-    >
-      {children}
-    </h2>
+    </>
   )
 }

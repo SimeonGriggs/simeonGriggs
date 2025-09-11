@@ -1,6 +1,6 @@
 import {LinkIcon} from '@heroicons/react/24/solid'
+import {Subheading} from '@repo/frontend'
 
-import Label from '~/components/Label'
 import Published from '~/components/Published'
 import type {ExchangeStub} from '~/types/stubs'
 
@@ -28,7 +28,7 @@ export default function HomeCommunity(props: ExchangeStub) {
       {published ? (
         <div className="flex justify-between">
           <Published published={published} updated={updated ?? ``} />
-          <Label>Posted on Sanity.io Exchange</Label>
+          <Subheading>Posted on Sanity.io Exchange</Subheading>
         </div>
       ) : null}
 

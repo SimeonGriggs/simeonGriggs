@@ -1,5 +1,8 @@
 import type {PortableTextComponents} from '@portabletext/react'
 import {image} from '../image'
+import {TypeButton} from '../components/type-button'
+import {TypeCodeSandbox} from '../components/codesandbox'
+import TypeTldraw from '../components/tldraw'
 import {TypeCode} from './types-code'
 import {TypeGallery} from './types-gallery'
 import {TypeTalks} from './types-talks'
@@ -24,5 +27,8 @@ export const typeComponents: Partial<PortableTextComponents> = {
       }
     },
     code: TypeCode,
+    tldraw: TypeTldraw,
+    codeSandbox: TypeCodeSandbox,
+    button: TypeButton,
   },
 }

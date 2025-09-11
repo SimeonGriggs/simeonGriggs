@@ -7,7 +7,7 @@ export const markComponents: Partial<PortableTextComponents> = {
       <strong className="font-semibold text-gray-950">{children}</strong>
     ),
     code: ({children}) => (
-      <code className="text-[14px]/8 font-semibold text-blue-600">
+      <code className="text-[14px]/8 font-semibold text-blue-700">
         {children}
       </code>
     ),

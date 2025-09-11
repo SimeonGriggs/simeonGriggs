@@ -2,11 +2,9 @@ import {Dialog, DialogBackdrop, DialogTitle} from '@headlessui/react'
 import {XCircleIcon} from '@heroicons/react/24/outline'
 import {useEffect} from 'react'
 import {useFetcher, useRouteLoaderData} from 'react-router'
+import {Subheading} from '@repo/frontend'
 
 import type {loader as pageLoader} from '~/routes/_website.$slug'
-
-import Button from '../Button'
-import Label from '../Label'
 
 const inputClasses = `border bg-white dark:bg-blue-800 border-blue-500 dark:border-white focus:border-blue-600 focus:outline-none focus:bg-blue-50 dark:focus:bg-blue-900 p-2 w-full`
 
@@ -66,7 +64,7 @@ export default function CommentForm(props: CommentFormProps) {
             />
             <div className="grid grid-cols-1 gap-2">
               <DialogTitle>
-                <Label>Comment</Label>
+                <Subheading>Comment</Subheading>
               </DialogTitle>
               <textarea
                 required
@@ -79,7 +77,7 @@ export default function CommentForm(props: CommentFormProps) {
               />
             </div>
             <div className="grid grid-cols-1 gap-2">
-              <Label>Name</Label>
+              <Subheading>Name</Subheading>
               <input
                 required
                 type="text"
@@ -89,7 +87,7 @@ export default function CommentForm(props: CommentFormProps) {
               />
             </div>
             <div className="grid grid-cols-1 gap-2">
-              <Label>Email</Label>
+              <Subheading>Email</Subheading>
               <input
                 required
                 type="email"
@@ -98,9 +96,13 @@ export default function CommentForm(props: CommentFormProps) {
                 className={inputClasses}
               />
             </div>
-            <Button disabled={fetcher.state !== 'idle'} type="submit">
+            <button
+              disabled={fetcher.state !== 'idle'}
+              type="submit"
+              className="data-disabled:bg-gray-950 data-disabled:opacity-40 data-hover:bg-gray-800 inline-flex items-center justify-center whitespace-nowrap rounded-full border border-transparent bg-gray-950 px-4 py-[calc(--spacing(2)-1px)] text-base font-medium text-white shadow-md"
+            >
               Post Comment
-            </Button>
+            </button>
           </fetcher.Form>
         </div>
       </div>

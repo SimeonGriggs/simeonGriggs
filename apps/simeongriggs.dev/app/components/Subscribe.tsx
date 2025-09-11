@@ -1,15 +1,12 @@
-import React from 'react'
+import {Input} from '@headlessui/react'
+import {BlockH2, BlockNormal, Button} from '@repo/frontend'
+import {clsx} from 'clsx'
 
 const Subscribe = () => (
-  // Things
+  <aside className="rounded-tr-4xl relative min-w-0 overflow-hidden rounded-b-lg rounded-tl-lg bg-white p-8 shadow-md shadow-black/5 ring-1 ring-black/5">
+    <BlockH2>There's more where this came from</BlockH2>
+    <BlockNormal>Subscribe for updates. Not spam.</BlockNormal>
 
-  <aside className="mt-12 bg-blue-500 p-6 text-white">
-    <h3 className="mb-3 border-b border-white pb-3 text-2xl font-black leading-none">
-      There's more where this came from
-    </h3>
-    <p className="mb-6 text-lg">Subscribe for updates. Not spam.</p>
-
-    {/* <script defer src="https://f.convertkit.com/ckjs/ck.5.js" /> */}
     <form
       action="https://app.convertkit.com/forms/1465609/subscriptions"
       className=""
@@ -23,23 +20,23 @@ const Subscribe = () => (
       <div
         data-element="fields"
         data-stacked="true"
-        className="flex flex-col md:flex-row"
+        className="flex flex-col items-center gap-3 md:flex-row"
       >
-        {/* <div className='formkit-field'>
-              <input className='formkit-input' aria-label='Your first name' name='fields[first_name]' placeholder='Your first name' type='text' />
-            </div> */}
         <div className="formkit-field flex-1">
-          <input
-            className="h-full w-full border border-blue-500 p-3 text-lg text-blue-900 transition-colors duration-200 ease-out focus:border-white focus:bg-blue-900 focus:text-white focus:outline-none"
+          <Input
+            autoFocus
             name="email_address"
             placeholder="Your email address"
             required
             type="email"
+            className={clsx(
+              'block w-full rounded-lg border border-transparent shadow-sm ring-1 ring-black/10',
+              'p-2 text-base/6 sm:text-sm/6',
+              'data-focus:outline-2 data-focus:-outline-offset-1 data-focus:outline-black',
+            )}
           />
         </div>
-        <button data-element="submit" type="submit" className="button">
-          Subscribe
-        </button>
+        <Button type="submit">Subscribe</Button>
       </div>
     </form>
   </aside>
