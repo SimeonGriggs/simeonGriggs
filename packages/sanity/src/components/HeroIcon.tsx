@@ -1,12 +1,12 @@
 import {
+  BookOpenIcon,
   ChatBubbleBottomCenterIcon,
   CogIcon,
   DocumentTextIcon,
   NoSymbolIcon,
   PhoneIcon,
-  SwatchIcon,
   PlayCircleIcon,
-  BookOpenIcon,
+  SwatchIcon,
 } from '@heroicons/react/24/outline'
 import type {ColorHueKey} from '@sanity/color'
 import {hues} from '@sanity/color'

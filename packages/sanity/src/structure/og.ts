@@ -1,4 +1,4 @@
-import {isDev, type SanityDocument} from 'sanity'
+import {type SanityDocument, isDev} from 'sanity'
 import type {StructureBuilder} from 'sanity/structure'
 import {LOCAL_OG_URL, PROD_OG_URL} from '@repo/constants'
 

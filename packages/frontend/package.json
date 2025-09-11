@@ -1,0 +1,25 @@
+{
+  "name": "@repo/frontend",
+  "private": true,
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@heroicons/react": "^2.2.0",
+    "@portabletext/react": "^3.2.0",
+    "@repo/constants": "workspace:*",
+    "@sanity/image-url": "^1.1.0",
+    "clsx": "^2.1.1",
+    "get-youtube-id": "^1.0.1",
+    "prism-react-renderer": "^2.4.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "react-router": "^7.7.1",
+    "usehooks-ts": "^3.1.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.1.2",
+    "@types/react-dom": "^19.1.2",
+    "typescript": "^5.8.3"
+  }
+}

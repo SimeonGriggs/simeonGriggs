@@ -1,6 +1,6 @@
 packages:
-  - 'apps/blog'
-  - 'apps/playbook'
+  - 'apps/simeongriggs.dev'
+  - 'apps/promptplaybook.dev'
   - 'apps/og'
   - 'apps/studio'
   - 'apps/functions/comment-telegram'
@@ -8,4 +8,5 @@ packages:
   - 'apps/functions/format-code'
   - 'packages/sanity'
   - 'packages/constants'
+  - 'packages/frontend'
   - 'packages/tailwind'

@@ -1,28 +1,30 @@
 @import 'tailwindcss';
+@source "../sanity/src/components.tsx";
+@source "../sanity/src/portable-text/prism/simeon-griggs-theme.ts";
 
-/* body {
+body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
   -webkit-text-size-adjust: 100%;
   -ms-font-feature-settings: 'kern' 1;
   font-feature-settings: 'kern';
-} */
+}
 
 @theme {
   /* @carbon/colors */
 
   /* Carbon Colors - Blue */
-  /* --color-blue-50: #edf5ff;
-  --color-blue-100: #d0e2ff;
-  --color-blue-200: #a6c8ff;
-  --color-blue-300: #78a9ff;
-  --color-blue-400: #4589ff;
-  --color-blue-500: #0f62fe;
-  --color-blue-600: #0043ce;
-  --color-blue-700: #002d9c;
-  --color-blue-800: #001d6c;
-  --color-blue-900: #001141; */
+  --color-carbon-blue-50: #edf5ff;
+  --color-carbon-blue-100: #d0e2ff;
+  --color-carbon-blue-200: #a6c8ff;
+  --color-carbon-blue-300: #78a9ff;
+  --color-carbon-blue-400: #4589ff;
+  --color-carbon-blue-500: #0f62fe;
+  --color-carbon-blue-600: #0043ce;
+  --color-carbon-blue-700: #002d9c;
+  --color-carbon-blue-800: #001d6c;
+  --color-carbon-blue-900: #001141;
 
   /* Simeon's Blue */
   --color-blue-50: #fafaff;
@@ -169,7 +171,7 @@
   --color-yellow-900: #1c1500;
 
   --font-mono: 'JetBrains Mono', monospace;
-  --font-sans: 'Inter var', sans-serif;
+  --font-sans: 'Archivo', sans-serif;
 }
 
 a {

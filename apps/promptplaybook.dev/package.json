@@ -1,0 +1,42 @@
+{
+  "name": "playbook",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "react-router build",
+    "dev": "react-router dev",
+    "start": "react-router-serve ./build/server/index.js",
+    "typecheck": "react-router typegen && tsc"
+  },
+  "dependencies": {
+    "@headlessui/react": "^2.2.0",
+    "@repo/constants": "workspace:*",
+    "@repo/frontend": "workspace:*",
+    "@repo/sanity": "workspace:*",
+    "@repo/tailwind": "workspace:*",
+    "@heroicons/react": "^2.2.0",
+    "@portabletext/react": "^3.2.0",
+    "@react-router/node": "^7.7.1",
+    "@react-router/serve": "^7.7.1",
+    "@sanity/client": "^7.11.0",
+    "clsx": "^2.1.1",
+    "dayjs": "^1.11.18",
+    "groq": "^4.6.1",
+    "isbot": "^5.1.27",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-router": "^7.7.1"
+  },
+  "devDependencies": {
+    "@react-router/dev": "^7.7.1",
+    "@sanity/image-url": "^1.1.0",
+    "@tailwindcss/vite": "^4.1.4",
+    "@types/node": "^20",
+    "@types/react": "^19.1.2",
+    "@types/react-dom": "^19.1.2",
+    "tailwindcss": "^4.1.4",
+    "typescript": "^5.8.3",
+    "vite": "^6.3.3",
+    "vite-tsconfig-paths": "^5.1.4"
+  }
+}

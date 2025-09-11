@@ -29,7 +29,10 @@ export default defineConfig({
       resolve,
       previewUrl: {
         previewMode: {
-          enable: new URL(`/resource/preview`, isDev ? LOCAL_URL : SITE_URL).toString(),
+          enable: new URL(
+            `/resource/preview`,
+            isDev ? LOCAL_URL : SITE_URL,
+          ).toString(),
         },
       },
     }),

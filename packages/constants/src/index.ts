@@ -8,3 +8,6 @@ export const LOCAL_OG_URL = new URL('http://localhost:3000')
 
 export const PREVIEW_SESSION_NAME = 'preview'
 export const STUDIO_BASEPATH = '/studio'
+
+export const SANITY_PROJECT_ID = 'az8av6xl'
+export const SANITY_DATASET = 'production'
