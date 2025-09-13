@@ -4,7 +4,8 @@
   "type": "module",
   "scripts": {
     "build": "react-router build",
-    "dev": "cross-env NODE_ENV=development node ./dev-server.js",
+    "dev": "react-router dev",
+    "start": "react-router-serve ./build/server/index.js",
     "typecheck": "react-router typegen && tsc"
   },
   "dependencies": {

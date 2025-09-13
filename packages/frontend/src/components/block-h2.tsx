@@ -1,4 +1,4 @@
-import {ReactNode, HTMLAttributes} from 'react'
+import type {ReactNode, HTMLAttributes} from 'react'
 import {clsx} from 'clsx'
 
 interface BlockH2Props extends HTMLAttributes<HTMLHeadingElement> {

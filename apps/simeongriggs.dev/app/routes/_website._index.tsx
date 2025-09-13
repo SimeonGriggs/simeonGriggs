@@ -1,5 +1,4 @@
 import {useQuery} from '@sanity/react-loader'
-import type {LinksFunction, LoaderFunctionArgs} from 'react-router'
 import {useLoaderData} from 'react-router'
 
 import {Timeline} from '~/components/Timeline'
@@ -21,17 +20,18 @@ import type {ArticleStub} from '~/types/stubs'
 import {combinedStubsZ, exchangeStubsZ, learnStubsZ} from '~/types/stubs'
 import {components, Heading} from '@repo/frontend'
 import {PortableText} from '@portabletext/react'
+import type {Route} from './+types/_website._index'
 
 export const handle = {id: `home`}
 
-export const links: LinksFunction = () => {
+export const links: Route.LinksFunction = () => {
   return [
     {rel: 'preload', href: styles, as: 'style'},
     {rel: 'stylesheet', href: styles},
   ]
 }
 
-export const loader = async ({request}: LoaderFunctionArgs) => {
+export const loader = async ({request}: Route.LoaderArgs) => {
   const {options, preview} = await loadQueryOptions(request.headers)
 
   const query = HOME_QUERY

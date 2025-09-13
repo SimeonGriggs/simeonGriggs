@@ -1,5 +1,5 @@
 import {useQuery} from '@sanity/react-loader'
-import type {LoaderFunctionArgs, MetaFunction} from 'react-router'
+import type {MetaFunction} from 'react-router'
 import {Outlet, ScrollRestoration, useLoaderData} from 'react-router'
 import {
   LOCAL_OG_URL,
@@ -17,9 +17,11 @@ import {loadQueryOptions} from '~/sanity/loadQueryOptions'
 import {SITE_META_QUERY} from '~/sanity/queries'
 import type {SiteMeta} from '~/types/siteMeta'
 import {siteMetaZ} from '~/types/siteMeta'
+import type {Route} from './+types/_website'
 
-export const meta: MetaFunction<typeof loader> = ({data}) => {
-  const {data: siteMeta} = data?.initial ?? {}
+export const meta: MetaFunction<Route.MetaArgs> = ({data}) => {
+  const routeData = data as Awaited<ReturnType<typeof loader>>
+  const {data: siteMeta} = routeData?.initial ?? {}
 
   if (!siteMeta) {
     return [{title: `Home page`}]
@@ -53,7 +55,7 @@ export const meta: MetaFunction<typeof loader> = ({data}) => {
   ]
 }
 
-export const loader = async ({request}: LoaderFunctionArgs) => {
+export const loader = async ({request}: Route.LoaderArgs) => {
   const {options, preview} = await loadQueryOptions(request.headers)
 
   const query = SITE_META_QUERY

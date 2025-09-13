@@ -17,6 +17,9 @@ const clientWithToken = client.withConfig({
   },
 })
 
-queryStore.setServerClient(clientWithToken)
+queryStore.setServerClient(
+  // @ts-expect-error
+  clientWithToken,
+)
 
 export const {loadQuery} = queryStore

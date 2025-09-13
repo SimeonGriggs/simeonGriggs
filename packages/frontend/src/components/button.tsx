@@ -1,6 +1,7 @@
 import {clsx} from 'clsx'
-import {ButtonHTMLAttributes} from 'react'
-import {Link, LinkProps} from 'react-router'
+import type {AnchorHTMLAttributes, ButtonHTMLAttributes} from 'react'
+import {Link} from 'react-router'
+import type {LinkProps} from 'react-router'
 
 const variants = {
   primary: clsx(
@@ -26,7 +27,11 @@ const variants = {
 
 type ButtonProps = {
   variant?: keyof typeof variants
-} & (LinkProps | ButtonHTMLAttributes<HTMLButtonElement>)
+} & (
+  | LinkProps
+  | ButtonHTMLAttributes<HTMLButtonElement>
+  | AnchorHTMLAttributes<HTMLAnchorElement>
+)
 
 export function Button({
   variant = 'primary',
@@ -48,6 +53,17 @@ export function Button({
       >
         {children}
       </button>
+    )
+  }
+
+  if ('href' in props) {
+    return (
+      <a
+        {...(props as AnchorHTMLAttributes<HTMLAnchorElement>)}
+        className={className}
+      >
+        {children}
+      </a>
     )
   }
 

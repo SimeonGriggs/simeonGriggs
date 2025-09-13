@@ -9,7 +9,10 @@ const stegaClient = client.withConfig({
 // Export default required for lazy loading
 // eslint-disable-next-line import/no-default-export
 export default function LiveVisualEditing() {
-  useLiveMode({client: stegaClient})
+  useLiveMode({
+    // @ts-expect-error
+    client: stegaClient,
+  })
 
   return <VisualEditing />
 }

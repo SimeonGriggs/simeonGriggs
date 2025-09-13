@@ -1,4 +1,4 @@
-import {PortableTextTypeComponentProps} from '@portabletext/react'
+import type {PortableTextTypeComponentProps} from '@portabletext/react'
 import {Video} from './video'
 
 type TypeVideoValue = {
