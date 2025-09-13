@@ -1,0 +1,23 @@
+{
+  "name": "@repo/tailwind",
+  "version": "1.0.0",
+  "description": "Shared Tailwind CSS styles and theme configuration",
+  "main": "app.css",
+  "files": [
+    "app.css"
+  ],
+  "dependencies": {
+    "tailwindcss": "^4.1.13"
+  },
+  "keywords": [
+    "tailwind",
+    "css",
+    "styles",
+    "theme"
+  ],
+  "author": "Simeon Griggs",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "restricted"
+  }
+}

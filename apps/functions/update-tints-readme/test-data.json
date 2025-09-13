@@ -1,0 +1,511 @@
+{
+  "_createdAt": "2021-12-28T18:18:27Z",
+  "_id": "tailwind",
+  "_rev": "VL5zofCNjBnC0jW8oDZToU",
+  "_type": "tailwind",
+  "_updatedAt": "2025-06-06T05:41:18Z",
+  "content": [
+    {
+      "_key": "e2fe554cce19",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "54158ad60610",
+          "_type": "span",
+          "marks": [],
+          "text": "Palette Generator and API for Tailwind CSS"
+        }
+      ],
+      "markDefs": [],
+      "style": "h1"
+    },
+    {
+      "_key": "9799cb6ec79c",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "f6b87810ec6c0",
+          "_type": "span",
+          "marks": [],
+          "text": "Read the "
+        },
+        {
+          "_key": "ad37752d3222",
+          "_type": "span",
+          "marks": ["b531de4214c1"],
+          "text": "launch blog post for full details"
+        },
+        {
+          "_key": "9d8db871837d",
+          "_type": "span",
+          "marks": [],
+          "text": " on how this works."
+        }
+      ],
+      "markDefs": [
+        {
+          "_key": "b531de4214c1",
+          "_type": "link",
+          "href": "https://www.simeongriggs.dev/using-the-tailwind-css-palette-generator-and-api"
+        }
+      ],
+      "style": "normal"
+    },
+    {
+      "_key": "b798fbf6c9bf",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "0f734e6129a00",
+          "_type": "span",
+          "marks": [],
+          "text": "Palette Creator"
+        }
+      ],
+      "markDefs": [],
+      "style": "h2"
+    },
+    {
+      "_key": "62880f621e55",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "517ad88d0c850",
+          "_type": "span",
+          "marks": [],
+          "text": "Set the initial "
+        },
+        {
+          "_key": "d237185952cb",
+          "_type": "span",
+          "marks": ["strong"],
+          "text": "Value"
+        },
+        {
+          "_key": "22d7bf5dfad6",
+          "_type": "span",
+          "marks": [],
+          "text": " as a valid hexadecimal colour. By default this is stop 500, but it can be changed to any stop from 50-950."
+        }
+      ],
+      "markDefs": [],
+      "style": "normal"
+    },
+    {
+      "_key": "b001ae72dbfe",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "b338a27492600",
+          "_type": "span",
+          "marks": [],
+          "text": "For colours that have 100% "
+        },
+        {
+          "_key": "b338a27492601",
+          "_type": "span",
+          "marks": ["strong"],
+          "text": "Saturation"
+        },
+        {
+          "_key": "b338a27492602",
+          "_type": "span",
+          "marks": [],
+          "text": ", make the Palette more interesting by shifting the "
+        },
+        {
+          "_key": "b338a27492603",
+          "_type": "span",
+          "marks": ["strong"],
+          "text": "Hue"
+        },
+        {
+          "_key": "b338a27492604",
+          "_type": "span",
+          "marks": [],
+          "text": " up or down."
+        }
+      ],
+      "markDefs": [],
+      "style": "normal"
+    },
+    {
+      "_key": "abfb4ed455b1",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "5f80a82aecd80",
+          "_type": "span",
+          "marks": [],
+          "text": "Palettes starting from a Base colour with little "
+        },
+        {
+          "_key": "5f80a82aecd81",
+          "_type": "span",
+          "marks": ["strong"],
+          "text": "Saturation"
+        },
+        {
+          "_key": "5f80a82aecd82",
+          "_type": "span",
+          "marks": [],
+          "text": " get more interesting by increasing "
+        },
+        {
+          "_key": "5f80a82aecd83",
+          "_type": "span",
+          "marks": ["strong"],
+          "text": "Saturation"
+        },
+        {
+          "_key": "5f80a82aecd84",
+          "_type": "span",
+          "marks": [],
+          "text": " at the extremes."
+        }
+      ],
+      "markDefs": [],
+      "style": "normal"
+    },
+    {
+      "_key": "1b0eab32d2a7",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "9afa7bb559a40",
+          "_type": "span",
+          "marks": [],
+          "text": "Shift the "
+        },
+        {
+          "_key": "9afa7bb559a41",
+          "_type": "span",
+          "marks": ["strong"],
+          "text": "Minimum/Maximum"
+        },
+        {
+          "_key": "9afa7bb559a42",
+          "_type": "span",
+          "marks": [],
+          "text": " "
+        },
+        {
+          "_key": "9afa7bb559a43",
+          "_type": "span",
+          "marks": ["strong"],
+          "text": "Lightness/Luminance"
+        },
+        {
+          "_key": "9afa7bb559a44",
+          "_type": "span",
+          "marks": [],
+          "text": " to spread out the rest of the colours to the extremes of white and black. Switch between Lightness and Luminance to produce a different spread of colours at the extremes."
+        }
+      ],
+      "markDefs": [],
+      "style": "normal"
+    },
+    {
+      "_key": "15179d4ddf89",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "fb06f34e0b5f0",
+          "_type": "span",
+          "marks": [],
+          "text": "These principles are inspired by the excellent "
+        },
+        {
+          "_key": "fb06f34e0b5f1",
+          "_type": "span",
+          "marks": ["406cb32abaaa"],
+          "text": "Refactoring UI"
+        },
+        {
+          "_key": "fb06f34e0b5f2",
+          "_type": "span",
+          "marks": [],
+          "text": " book by Adam Wathan & Steve Schoger. The same book recommends against automated tools, just like this one!"
+        }
+      ],
+      "markDefs": [
+        {
+          "_key": "406cb32abaaa",
+          "_type": "link",
+          "href": "https://refactoringui.com/book/"
+        }
+      ],
+      "style": "normal"
+    },
+    {
+      "_key": "d25d56cd2819",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "60a917f8ee250",
+          "_type": "span",
+          "marks": [],
+          "text": "This tool exists to fast-track the creation of new palettes."
+        }
+      ],
+      "markDefs": [],
+      "style": "normal"
+    },
+    {
+      "_key": "d549e0455120",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "25647bae0b590",
+          "_type": "span",
+          "marks": [],
+          "text": "Palette API"
+        }
+      ],
+      "markDefs": [],
+      "style": "h2"
+    },
+    {
+      "_key": "863c1d603ba2",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "fccfa03b840f0",
+          "_type": "span",
+          "marks": [],
+          "text": "Any set of Palettes can be fetched via an API. You may find this useful for design tools that need to generate a 50-950 Palette from just a single Hex value."
+        }
+      ],
+      "markDefs": [],
+      "style": "normal"
+    },
+    {
+      "_key": "aa907009568f",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "b66cb0331a4a",
+          "_type": "span",
+          "marks": [],
+          "text": "Currently, the API will only return a Palette using the base hex value, with no options to have HSL tweaks."
+        }
+      ],
+      "markDefs": [],
+      "style": "normal"
+    },
+    {
+      "_key": "53ed045da08a",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "333097c455300",
+          "_type": "span",
+          "marks": [],
+          "text": "Credits"
+        }
+      ],
+      "markDefs": [],
+      "style": "h2"
+    },
+    {
+      "_key": "bc3fcbadbb83",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "e61ea00de51c0",
+          "_type": "span",
+          "marks": [],
+          "text": "Made by "
+        },
+        {
+          "_key": "e61ea00de51c1",
+          "_type": "span",
+          "marks": ["6bd78a4c37b6"],
+          "text": "Simeon Griggs"
+        }
+      ],
+      "markDefs": [
+        {
+          "_key": "6bd78a4c37b6",
+          "_type": "link",
+          "href": "https://simeongriggs.dev/"
+        }
+      ],
+      "style": "normal"
+    },
+    {
+      "_key": "ad719c668ca0",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "43cb181641c30",
+          "_type": "span",
+          "marks": [],
+          "text": "Designed with "
+        },
+        {
+          "_key": "43cb181641c31",
+          "_type": "span",
+          "marks": ["a66ce4825a44"],
+          "text": "Tailwind CSS"
+        },
+        {
+          "_key": "43cb181641c32",
+          "_type": "span",
+          "marks": [],
+          "text": " (obvs) "
+        }
+      ],
+      "level": 1,
+      "listItem": "bullet",
+      "markDefs": [
+        {
+          "_key": "a66ce4825a44",
+          "_type": "link",
+          "href": "https://tailwindcss.com/"
+        }
+      ],
+      "style": "normal"
+    },
+    {
+      "_key": "c4c364bbb874",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "47e4896535c9",
+          "_type": "span",
+          "marks": [],
+          "text": "with a sprinkling of "
+        },
+        {
+          "_key": "43cb181641c33",
+          "_type": "span",
+          "marks": ["3332f60c6981"],
+          "text": "Headless UI"
+        }
+      ],
+      "level": 2,
+      "listItem": "bullet",
+      "markDefs": [
+        {
+          "_key": "3332f60c6981",
+          "_type": "link",
+          "href": "https://headlessui.dev/"
+        }
+      ],
+      "style": "normal"
+    },
+    {
+      "_key": "14bd16514dbe",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "ca67cd059daf",
+          "_type": "span",
+          "marks": [],
+          "text": "and a dash of "
+        },
+        {
+          "_key": "43cb181641c35",
+          "_type": "span",
+          "marks": ["b38417050f79"],
+          "text": "HeroIcons"
+        }
+      ],
+      "level": 2,
+      "listItem": "bullet",
+      "markDefs": [
+        {
+          "_key": "b38417050f79",
+          "_type": "link",
+          "href": "https://heroicons.com/"
+        }
+      ],
+      "style": "normal"
+    },
+    {
+      "_key": "9f4be8dabc0d",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "f8115d37534e0",
+          "_type": "span",
+          "marks": [],
+          "text": "Built with "
+        },
+        {
+          "_key": "f8115d37534e1",
+          "_type": "span",
+          "marks": ["7ebff146208f"],
+          "text": "React Router"
+        }
+      ],
+      "level": 1,
+      "listItem": "bullet",
+      "markDefs": [
+        {
+          "_key": "7ebff146208f",
+          "_type": "link",
+          "href": "https://reactrouter.com"
+        }
+      ],
+      "style": "normal"
+    },
+    {
+      "_key": "4cda4a574878",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "c780a7abaf760",
+          "_type": "span",
+          "marks": [],
+          "text": "Hosted on "
+        },
+        {
+          "_key": "cc671346cae8",
+          "_type": "span",
+          "marks": ["69cb662f0938"],
+          "text": "Vercel"
+        }
+      ],
+      "level": 1,
+      "listItem": "bullet",
+      "markDefs": [
+        {
+          "_key": "69cb662f0938",
+          "_type": "link",
+          "href": "https://vercel.com"
+        }
+      ],
+      "style": "normal"
+    },
+    {
+      "_key": "5bbccad550af",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "ab2d7ca40512",
+          "_type": "span",
+          "marks": [],
+          "text": "Content in "
+        },
+        {
+          "_key": "0b94a0f17193",
+          "_type": "span",
+          "marks": ["4ff86a9d8121"],
+          "text": "Sanity.io"
+        }
+      ],
+      "level": 1,
+      "listItem": "bullet",
+      "markDefs": [
+        {
+          "_key": "4ff86a9d8121",
+          "_type": "link",
+          "href": "https://www.sanity.io/"
+        }
+      ],
+      "style": "normal"
+    }
+  ]
+}

@@ -3,6 +3,6 @@ node_modules
 .env*
 
 # Sanity Functions
-functions/**/.env*
-functions/**/.build/
-functions/**/node_modules/
+apps/functions/**/.env*
+apps/functions/**/.build/
+apps/functions/**/node_modules/
