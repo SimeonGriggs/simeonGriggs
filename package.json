@@ -5,17 +5,22 @@
     "dev": "pnpm -r dev",
     "lint": "pnpm dlx oxlint@latest --fix",
     "format": "prettier --write .",
-    "typecheck": "pnpm -r typecheck"
+    "typecheck": "pnpm -r typecheck",
+    "syncpack:list": "syncpack list",
+    "syncpack:lint": "syncpack lint",
+    "syncpack:fix": "syncpack fix",
+    "syncpack:update": "syncpack update"
   },
-  "packageManager": "pnpm@9.14.2",
+  "packageManager": "pnpm@10.16.0",
   "dependencies": {
-    "@types/node": "^20.19.11",
+    "@types/node": "^20",
     "prettier": "^3.6.2",
     "prettier-plugin-tailwindcss": "^0.6.14"
   },
   "devDependencies": {
     "@sanity/blueprints": "^0.2.0",
     "@sanity/client": "latest",
-    "@sanity/functions": "1.0.3"
+    "@sanity/functions": "1.0.3",
+    "syncpack": "^14.0.0-alpha.0"
   }
 }

@@ -20,8 +20,8 @@
     "@sanity/code-input": "^6.0.1",
     "@sanity/orderable-document-list": "^1.4.0",
     "@sanity/vision": "^4.6.1",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
     "sanity": "^4.0.0",
     "sanity-plugin-asset-source-unsplash": "^4.0.1",
     "sanity-plugin-media": "^4.0.0",
@@ -30,7 +30,7 @@
     "tldraw": "^3.15.4"
   },
   "devDependencies": {
-    "@types/react": "^19.0.1",
-    "typescript": "^5.1.6"
+    "@types/react": "^19",
+    "typescript": "^5"
   }
 }

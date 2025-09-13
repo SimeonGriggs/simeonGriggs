@@ -5,7 +5,7 @@
   "dependencies": {
     "@octokit/rest": "^22.0.0",
     "@sanity/block-content-to-markdown": "^1.0.0",
-    "@sanity/functions": "1.0.2"
+    "@sanity/functions": "1.0.3"
   },
   "devDependencies": {
     "@portabletext/types": "^2.0.13",
