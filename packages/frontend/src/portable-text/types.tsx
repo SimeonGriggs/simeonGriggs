@@ -6,6 +6,7 @@ import TypeTldraw from '../components/tldraw'
 import {TypeCode} from './types-code'
 import {TypeGallery} from './types-gallery'
 import {TypeTalks} from './types-talks'
+import {TypeVideo} from './types-video'
 
 export const typeComponents: Partial<PortableTextComponents> = {
   types: {
@@ -30,5 +31,6 @@ export const typeComponents: Partial<PortableTextComponents> = {
     tldraw: TypeTldraw,
     codeSandbox: TypeCodeSandbox,
     button: TypeButton,
+    video: TypeVideo,
   },
 }

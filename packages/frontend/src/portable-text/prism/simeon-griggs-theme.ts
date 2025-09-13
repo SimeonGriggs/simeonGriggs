@@ -4,7 +4,7 @@ import type {PrismTheme} from 'prism-react-renderer'
 export const simeonGriggsTheme: PrismTheme = {
   plain: {
     color: clsx('var(--color-blue-50)'),
-    backgroundColor: clsx('var(--color-carbon-blue-900)'),
+    backgroundColor: clsx('var(--color-blue-900)'),
   },
   styles: [
     {
@@ -31,7 +31,7 @@ export const simeonGriggsTheme: PrismTheme = {
     {
       types: ['comment'],
       style: {
-        color: clsx('var(--color-carbon-blue-300)'),
+        color: clsx('var(--color-blue-300)'),
         fontStyle: 'italic',
       },
     },

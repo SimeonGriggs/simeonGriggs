@@ -1,3 +1,5 @@
+import 'tldraw/tldraw.css'
+
 import type {PortableTextTypeComponentProps} from '@portabletext/react'
 import {stegaClean} from '@sanity/client/stega'
 import React, {Suspense, useMemo} from 'react'

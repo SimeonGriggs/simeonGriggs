@@ -9,7 +9,7 @@ export function BlockH3({children, className, ...rest}: BlockH3Props) {
   return (
     <h3
       className={clsx(
-        'mb-10 mt-12 text-xl/8 font-medium tracking-tight text-gray-950 first:mt-0 last:mb-0',
+        'mb-10 mt-12 text-xl/8 font-medium tracking-tight text-gray-950 first:mt-0 last:mb-0 dark:text-blue-100',
         className,
       )}
       {...rest}

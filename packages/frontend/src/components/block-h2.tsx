@@ -16,7 +16,7 @@ export function BlockH2({
     <h2
       data-dark={dark ? 'true' : undefined}
       className={clsx(
-        'data-dark:text-white mb-10 mt-12 text-2xl/8 font-medium tracking-tight text-gray-950 first:mt-0 last:mb-0',
+        'data-dark:text-white mb-10 mt-12 text-2xl/8 font-medium tracking-tight text-gray-950 first:mt-0 last:mb-0 dark:text-blue-100',
         className,
       )}
       {...rest}

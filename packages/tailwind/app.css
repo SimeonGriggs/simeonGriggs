@@ -1,5 +1,6 @@
 @import 'tailwindcss';
 @source "../frontend/";
+@custom-variant dark (&:where(.dark, .dark *));
 
 body {
   -webkit-font-smoothing: antialiased;
@@ -11,6 +12,20 @@ body {
 }
 
 @theme {
+  /* Simeon's Blue */
+  /* https://www.tints.dev/palette/v1:Ymx1ZXwyNTIyZmN8NTAwfHB8LTR8MTB8MHwxMDB8bQ */
+  --color-blue-50: oklch(0.9486 0.025 257.65);
+  --color-blue-100: oklch(0.8889 0.054 263.23);
+  --color-blue-200: oklch(0.7774 0.112 265.45);
+  --color-blue-300: oklch(0.6697 0.174 265.88);
+  --color-blue-400: oklch(0.5665 0.238 266.38);
+  --color-blue-500: oklch(0.4724 0.294 267.83);
+  --color-blue-600: oklch(0.3922 0.192 262.72);
+  --color-blue-700: oklch(0.3241 0.125 258.92);
+  --color-blue-800: oklch(0.2593 0.084 254.58);
+  --color-blue-900: oklch(0.197 0.055 249.78);
+  --color-blue-950: oklch(0.1635 0.042 246.43);
+
   /* @carbon/colors */
 
   /* Carbon Colors - Blue */
@@ -23,19 +38,7 @@ body {
   --color-carbon-blue-600: #0043ce;
   --color-carbon-blue-700: #002d9c;
   --color-carbon-blue-800: #001d6c;
-  --color-carbon-blue-900: #001141;
-
-  /* Simeon's Blue */
-  --color-blue-50: #fafaff;
-  --color-blue-100: #f0f0ff;
-  --color-blue-200: #bfbefe;
-  --color-blue-300: #8886fd;
-  --color-blue-400: #5754fd;
-  --color-blue-500: #2522fc;
-  --color-blue-600: #0703d8;
-  --color-blue-700: #050297;
-  --color-blue-800: #030156;
-  --color-blue-900: #010014;
+  --color-carbon-blue-950: #001141;
 
   /* Carbon Colors - Cool Gray */
   --color-cool-gray-50: #f2f4f8;

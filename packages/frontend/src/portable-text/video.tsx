@@ -42,13 +42,6 @@ export function Video(props: VideoProps) {
       <div className="absolute inset-0 z-10 flex items-center justify-center bg-blue-500/50 text-white transition-colors duration-1000 group-hover:bg-blue-500/20">
         <PlayIcon className="duration-250 h-auto w-1/6 transition-transform group-hover:scale-125" />
       </div>
-      {/* {title ? (
-        <div className="absolute inset-0 z-10 p-4 pr-12 leading-none md:pr-32">
-          <span className="text-lg font-black text-white md:text-xl lg:text-2xl">
-            {title}
-          </span>
-        </div>
-      ) : null} */}
       <img
         src={poster ?? `https://i.ytimg.com/vi/${id}/maxresdefault.jpg`}
         loading="lazy"

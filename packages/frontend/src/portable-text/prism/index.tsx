@@ -39,6 +39,8 @@ export default function Prism(props: PrismProps) {
     return null
   }
 
+  const lineCount = code.split('\n').length
+
   return (
     <div className="relative">
       <button
@@ -64,6 +66,7 @@ export default function Prism(props: PrismProps) {
           <pre
             className={clsx(
               className,
+              lineCount < 2 && `pb-8`,
               `lg:rounded-tr-4xl shadow-xs overflow-auto rounded-lg p-4 text-sm/loose`,
             )}
             style={style}
