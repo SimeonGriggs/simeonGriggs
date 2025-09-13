@@ -27,7 +27,7 @@ function BlockHeadingButton(props: BlockHeadingButtonProps) {
       className="group absolute inset-0"
       onClick={() => (hashHref ? setCopiedText(hashHref) : null)}
     >
-      <LinkIcon className="absolute -left-6 top-1 h-auto w-6 -translate-x-6 tracking-tighter text-blue-500 opacity-0 transition duration-150 ease-in-out group-hover:-translate-x-0 group-hover:opacity-100" />
+      <LinkIcon className="absolute -left-6 top-1 h-auto w-6 -translate-x-6 tracking-tighter text-blue-500 opacity-0 transition duration-150 ease-in-out group-hover:-translate-x-0 group-hover:opacity-100 dark:text-blue-200" />
       <span className="sr-only">Copy link to this section</span>
     </button>
   )

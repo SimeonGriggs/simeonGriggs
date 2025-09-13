@@ -16,7 +16,10 @@ export default function TableOfContents(props: TableOfContentsProps) {
     <div className="sticky top-3">
       <ul className="grid grid-cols-1 gap-3">
         {headings.map((heading) => (
-          <li className="flex items-start gap-4 text-balance text-base/7 text-gray-950/75">
+          <li
+            key={heading.id}
+            className="flex items-start gap-4 text-balance text-sm/6 text-gray-700 dark:text-blue-100"
+          >
             <Link to={`#${heading.id}`}>{heading.title}</Link>
           </li>
         ))}

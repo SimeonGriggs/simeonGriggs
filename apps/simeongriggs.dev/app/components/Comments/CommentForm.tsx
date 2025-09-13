@@ -6,7 +6,7 @@ import {Subheading} from '@repo/frontend'
 
 import type {loader as pageLoader} from '~/routes/_website.$slug'
 
-const inputClasses = `border bg-white dark:bg-blue-800 border-blue-500 dark:border-white focus:border-blue-600 focus:outline-none focus:bg-blue-50 dark:focus:bg-blue-900 p-2 w-full`
+const inputClasses = `border bg-white dark:bg-blue-800 border-blue-500 dark:border-white focus:border-blue-600 focus:outline-none focus:bg-blue-50 dark:focus:bg-blue-950 p-2 w-full`
 
 type CommentFormProps = {
   _key: string
@@ -36,7 +36,7 @@ export default function CommentForm(props: CommentFormProps) {
       className="fixed inset-0 z-30 overflow-y-auto"
     >
       <div className="z-50 flex min-h-screen items-center justify-center">
-        <DialogBackdrop className="fixed inset-0 bg-blue-500/90 dark:bg-blue-900/90" />
+        <DialogBackdrop className="fixed inset-0 bg-blue-500/90 dark:bg-blue-950/90" />
 
         <div className="relative z-20 mx-auto max-w-sm rounded bg-white p-6 shadow md:p-12 dark:bg-blue-800">
           <button

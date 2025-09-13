@@ -3,7 +3,7 @@ import {BlockH2, BlockNormal, Button} from '@repo/frontend'
 import {clsx} from 'clsx'
 
 const Subscribe = () => (
-  <aside className="rounded-tr-4xl relative min-w-0 overflow-hidden rounded-b-lg rounded-tl-lg bg-white p-8 shadow-md shadow-black/5 ring-1 ring-black/5">
+  <aside className="rounded-tr-4xl relative min-w-0 overflow-hidden rounded-b-lg rounded-tl-lg bg-white p-8 shadow-md shadow-black/5 ring-1 ring-black/5 dark:bg-blue-900">
     <BlockH2>There's more where this came from</BlockH2>
     <BlockNormal>Subscribe for updates. Not spam.</BlockNormal>
 
@@ -30,7 +30,7 @@ const Subscribe = () => (
             required
             type="email"
             className={clsx(
-              'block w-full rounded-lg border border-transparent shadow-sm ring-1 ring-black/10',
+              'block w-full rounded-lg border border-transparent bg-white shadow-sm ring-1 ring-black/10',
               'p-2 text-base/6 sm:text-sm/6',
               'data-focus:outline-2 data-focus:-outline-offset-1 data-focus:outline-black',
             )}

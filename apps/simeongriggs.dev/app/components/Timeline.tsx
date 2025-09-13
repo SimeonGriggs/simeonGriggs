@@ -70,7 +70,7 @@ function BlogPost({article}: {article: ArticleStub}) {
       <div className="flex flex-col gap-6">
         <BlockH2 className="!my-0">
           <Link
-            className="hover:text-blue-700 dark:hover:text-blue-100"
+            className="text-blue-500 hover:text-blue-700 dark:text-blue-200 dark:hover:text-blue-100"
             to={`/${article.slug.current}`}
           >
             {article.title}
@@ -101,9 +101,7 @@ function Summary({
   className?: string
 }) {
   return (
-    <p
-      className={clsx(`text-lg/8 text-gray-600 dark:text-blue-100`, className)}
-    >
+    <p className={clsx(`text-lg/8 text-gray-600 dark:text-white`, className)}>
       {children}
     </p>
   )
@@ -117,7 +115,7 @@ function Video({
   pillText?: string
 }) {
   return (
-    <article className="rounded-tr-4xl relative min-w-0 overflow-hidden rounded-b-lg rounded-tl-lg bg-white shadow-md shadow-black/5 ring-1 ring-black/5">
+    <article className="rounded-tr-4xl relative min-w-0 overflow-hidden rounded-b-lg rounded-tl-lg bg-white shadow-md shadow-black/5 ring-1 ring-black/5 dark:bg-blue-900">
       <div className="relative isolate flex aspect-[16/9] w-full flex-col justify-end overflow-hidden">
         <img
           alt=""
@@ -148,7 +146,7 @@ function Video({
         <Summary className="line-clamp-3">{article.summary}</Summary>
 
         {article.link ? (
-          <p className="text-base/8 font-semibold text-blue-500 hover:text-blue-700 dark:hover:text-blue-100">
+          <p className="text-base/8 font-semibold text-blue-500 hover:text-blue-700 dark:text-blue-200 dark:hover:text-blue-100">
             <a href={article.link} target="_blank" rel="noopener noreferrer">
               Watch on YouTube <span aria-hidden="true">&rarr;</span>
             </a>
@@ -255,7 +253,7 @@ type TabsProps = {
 
 const TAB_TITLES: Record<string, string> = {
   all: 'All',
-  article: 'Blog Posts',
+  article: 'Blogs',
   'contribution.guide': 'Guides',
   talk: 'Talks',
   youTubeVideo: 'YouTube',
@@ -270,7 +268,7 @@ function Tabs({tabs, current, onChange}: TabsProps) {
           defaultValue={current}
           aria-label="Select a tab"
           onChange={(event) => onChange(event.target.value)}
-          className="w-full appearance-none rounded-md bg-white py-2 pl-3 pr-8 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600"
+          className="w-full appearance-none rounded-md bg-white py-2 pl-3 pr-8 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600 dark:bg-blue-950"
         >
           {tabs.map((tab) => (
             <option value={tab} key={tab}>
@@ -283,8 +281,8 @@ function Tabs({tabs, current, onChange}: TabsProps) {
           className="pointer-events-none col-start-1 row-start-1 mr-3 size-5 self-center justify-self-end text-blue-500"
         />
       </div>
-      <div className="sticky top-0 z-10 hidden bg-white lg:block">
-        <div className="border-b border-gray-200 dark:border-blue-800">
+      <div className="sticky top-0 z-10 hidden bg-white lg:block dark:bg-blue-950">
+        <div className="border-b border-gray-200 dark:border-blue-700">
           <nav aria-label="Tabs" className="-mb-px flex justify-between">
             {tabs.map((tab) => (
               <button

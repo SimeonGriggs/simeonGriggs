@@ -4,34 +4,51 @@ import {ImageResponse} from 'next/og'
 import {defineQuery} from 'groq'
 import type {SanityDocument, SanityDocumentLike} from 'sanity'
 import {createClient} from '@sanity/client'
-import type {SatoriOptions} from 'satori'
 import {z} from 'zod'
-import {OG_IMAGE_HEIGHT, OG_IMAGE_WIDTH, SITE_URL} from '@repo/constants'
-import {sanityImageObjectExtendedZ} from '../../../../blog/app/types/image'
+import {
+  OG_IMAGE_HEIGHT,
+  OG_IMAGE_WIDTH,
+  SANITY_API_VERSION,
+  SANITY_DATASET,
+  SANITY_PROJECT_ID,
+  SITE_NAME,
+} from '@repo/constants'
+import {sanityImageObjectExtendedZ} from '../../../../simeongriggs.dev/app/types/image'
 
 const clientWithToken = createClient({
-  projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!,
-  dataset: process.env.NEXT_PUBLIC_SANITY_DATASET!,
+  projectId: SANITY_PROJECT_ID,
+  dataset: SANITY_DATASET,
   token: process.env.NEXT_PUBLIC_SANITY_READ_TOKEN!,
   useCdn: true,
+  apiVersion: SANITY_API_VERSION,
 })
 const urlFor = (source: SanityImageSource) =>
   imageUrlBuilder({
-    projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID!,
-    dataset: process.env.NEXT_PUBLIC_SANITY_DATASET!,
+    projectId: SANITY_PROJECT_ID,
+    dataset: SANITY_DATASET,
   }).image(source)
 
 const fontMono = (baseUrl: string) =>
   fetch(new URL(`${baseUrl}/fonts/JetBrainsMono-Regular.ttf`)).then((res) =>
     res.arrayBuffer(),
   )
-const fontSans = (baseUrl: string) =>
-  fetch(new URL(`${baseUrl}/fonts/Inter-ExtraBold.otf`)).then((res) =>
-    res.arrayBuffer(),
-  )
+async function loadGoogleFont(font: string, text: string) {
+  const url = `https://fonts.googleapis.com/css2?family=${font}&text=${encodeURIComponent(text)}`
+  const css = await (await fetch(url)).text()
+  const resource = css.match(/src: url\((.+)\) format\('(opentype|truetype)'\)/)
 
-const BLUE = `#2522fc`
-const BLUE_600 = `#0703d8`
+  if (resource) {
+    const response = await fetch(resource[1])
+    if (response.status == 200) {
+      return await response.arrayBuffer()
+    }
+  }
+
+  throw new Error('failed to load font data')
+}
+
+const BLUE_500 = `#2522fc`
+const BLUE_600 = `#0035aa`
 
 const DEFAULT_CONTENT: SanityDocumentLike = {
   _id: 'default',
@@ -73,25 +90,6 @@ export async function GET(request: Request) {
     return new Response('Bad request', {status: 400})
   }
 
-  const fontMonoData = await fontMono(origin)
-  const fontSansData = await fontSans(origin)
-  const options: SatoriOptions = {
-    width: OG_IMAGE_WIDTH,
-    height: OG_IMAGE_HEIGHT,
-    fonts: [
-      {
-        name: 'JetBrains Mono',
-        data: fontMonoData,
-        style: 'normal',
-      },
-      {
-        name: 'Inter',
-        data: fontSansData,
-        style: 'normal',
-      },
-    ],
-  }
-
   const document = z.object({
     _id: z.string(),
     _type: z.string(),
@@ -119,12 +117,16 @@ export async function GET(request: Request) {
       .url()
   }
 
+  const allText = [title, published, updated, SITE_NAME]
+    .filter(Boolean)
+    .join(' ')
+
   return new ImageResponse(
     (
       <div
         style={{
-          width: options.width,
-          height: options.height,
+          width: OG_IMAGE_WIDTH,
+          height: OG_IMAGE_HEIGHT,
           display: 'flex',
         }}
       >
@@ -147,7 +149,7 @@ export async function GET(request: Request) {
                 src={imageUrl}
                 alt=""
                 style={{
-                  backgroundColor: BLUE,
+                  backgroundColor: BLUE_500,
                   width: 400,
                   height: `100%`,
                 }}
@@ -163,7 +165,7 @@ export async function GET(request: Request) {
               display: 'flex',
               flexDirection: 'row',
               flex: 1,
-              background: BLUE,
+              background: BLUE_500,
               height: `100%`,
             }}
           >
@@ -172,7 +174,7 @@ export async function GET(request: Request) {
                 letterSpacing: '-0.04em',
                 flex: 1,
                 color: 'white',
-                fontFamily: 'Inter',
+                fontFamily: 'Archivo',
                 lineHeight: 1,
                 fontSize: 76,
                 padding: 60,
@@ -210,17 +212,32 @@ export async function GET(request: Request) {
               </div>
               <div
                 style={{
-                  fontFamily: 'Inter',
+                  fontFamily: 'JetBrains Mono',
                   fontSize: 30,
                 }}
               >
-                {SITE_URL.hostname.replace(`www.`, ``)}
+                {SITE_NAME}
               </div>
             </div>
           </div>
         </div>
       </div>
     ),
-    options,
+    {
+      width: OG_IMAGE_WIDTH,
+      height: OG_IMAGE_HEIGHT,
+      fonts: [
+        {
+          name: 'JetBrains Mono',
+          data: await fontMono(origin),
+          style: 'normal',
+        },
+        {
+          name: 'Archivo',
+          data: await loadGoogleFont('Archivo', allText),
+          style: 'normal',
+        },
+      ],
+    },
   )
 }
