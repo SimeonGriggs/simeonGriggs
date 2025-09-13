@@ -12,6 +12,7 @@
     "@heroicons/react": "^2.2.0",
     "@icons-pack/react-simple-icons": "^10.2.0",
     "@portabletext/react": "^4.0.0",
+    "@react-router/fs-routes": "^7.9.1",
     "@react-router/node": "*",
     "@react-router/serve": "^7.7.1",
     "@repo/constants": "workspace:*",
