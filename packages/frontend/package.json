@@ -7,7 +7,7 @@
   "dependencies": {
     "@headlessui/react": "^2.2.0",
     "@heroicons/react": "^2.2.0",
-    "@portabletext/react": "^3.2.0",
+    "@portabletext/react": "^4.0.0",
     "@repo/constants": "workspace:*",
     "@sanity/image-url": "^1.1.0",
     "clsx": "^2.1.1",

@@ -6,7 +6,7 @@
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
-    "@portabletext/react": "^3.2.0",
+    "@portabletext/react": "^4.0.0",
     "@repo/constants": "workspace:*",
     "@sanity/code-input": "^6.0.1",
     "@sanity/color": "^3.0.6",
