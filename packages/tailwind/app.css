@@ -201,10 +201,7 @@ a {
 
 @font-face {
   font-family: 'Archivo';
-  src:
-    url('/fonts/Archivo-Variable.woff2') format('woff2'),
-    url('/fonts/Archivo-Variable.woff') format('woff'),
-    url('/fonts/Archivo-Variable.ttf') format('truetype');
+  src: url('/fonts/Archivo-Variable.woff2') format('woff2');
   font-weight: 100 900;
   font-display: swap;
   font-style: normal;
@@ -212,10 +209,7 @@ a {
 
 @font-face {
   font-family: 'Archivo';
-  src:
-    url('/fonts/Archivo-VariableItalic.woff2') format('woff2'),
-    url('/fonts/Archivo-VariableItalic.woff') format('woff'),
-    url('/fonts/Archivo-VariableItalic.ttf') format('truetype');
+  src: url('/fonts/Archivo-VariableItalic.woff2') format('woff2');
   font-weight: 100 900;
   font-display: swap;
   font-style: italic;

@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "react-router build && node vercel/prepare.js",
+    "build": "react-router build",
     "dev": "cross-env NODE_ENV=development node ./dev-server.js",
     "typecheck": "react-router typegen && tsc"
   },
@@ -35,6 +35,7 @@
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/vite": "^4.1.4",
     "@vercel/node": "^5.0.0",
+    "@vercel/react-router": "^1.2.3",
     "blurhash": "^2.0.5",
     "express": "^4.21.1",
     "framer-motion": "^11.15.0",
