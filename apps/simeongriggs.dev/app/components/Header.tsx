@@ -1,6 +1,6 @@
-import {SiGithub, SiX, SiYoutube} from '@icons-pack/react-simple-icons'
 import {Link} from 'react-router'
 
+import {GitHub, X, YouTube} from '~/components/icons'
 import ThemeToggle from '~/components/ThemeToggle'
 
 const menuClasses =
@@ -34,7 +34,7 @@ const Header = (props: HeaderProps) => {
             target="blank"
             rel="noopener noreferrer"
           >
-            <SiX className="w-full" />
+            <X className="w-full" />
             <div className="sr-only">Twitter</div>
           </a>
           <a
@@ -43,7 +43,7 @@ const Header = (props: HeaderProps) => {
             target="blank"
             rel="noopener noreferrer"
           >
-            <SiGithub className="w-full" />
+            <GitHub className="w-full" />
             <div className="sr-only">GitHub</div>
           </a>
           <a
@@ -52,7 +52,7 @@ const Header = (props: HeaderProps) => {
             target="blank"
             rel="noopener noreferrer"
           >
-            <SiYoutube className="w-full" />
+            <YouTube className="w-full" />
             <div className="sr-only">YouTube</div>
           </a>
           <ThemeToggle />

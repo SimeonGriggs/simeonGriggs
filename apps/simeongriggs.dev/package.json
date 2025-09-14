@@ -11,7 +11,6 @@
   "dependencies": {
     "@headlessui/react": "^2.2.8",
     "@heroicons/react": "^2.2.0",
-    "@icons-pack/react-simple-icons": "^13.7.0",
     "@portabletext/react": "^4.0.3",
     "@react-router/fs-routes": "^7.9.1",
     "@react-router/node": "*",
