@@ -265,10 +265,11 @@ function Tabs({tabs, current, onChange}: TabsProps) {
     <>
       <div className="grid grid-cols-1 lg:hidden">
         <select
-          defaultValue={current}
+          name="timeline-tab"
+          value={current}
           aria-label="Select a tab"
           onChange={(event) => onChange(event.target.value)}
-          className="w-full appearance-none rounded-md bg-white py-2 pl-3 pr-8 text-base text-gray-900 outline outline-1 -outline-offset-1 outline-gray-300 focus:outline focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600 dark:bg-blue-950"
+          className="w-full appearance-none rounded-md bg-white py-2 pl-3 pr-8 text-base text-gray-900 outline -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600 dark:bg-blue-950"
         >
           {tabs.map((tab) => (
             <option value={tab} key={tab}>
