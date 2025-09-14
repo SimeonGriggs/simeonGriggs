@@ -1,17 +1,4 @@
 {
   "buildCommand": "cd apps/simeongriggs.dev && pnpm build",
-  "outputDirectory": "apps/simeongriggs.dev/build/client",
-  "installCommand": "pnpm install --frozen-lockfile",
-  "framework": null,
-  "functions": {
-    "apps/simeongriggs.dev/build/server/index.js": {
-      "runtime": "nodejs20.x"
-    }
-  },
-  "rewrites": [
-    {
-      "source": "/(.*)",
-      "destination": "/apps/simeongriggs.dev/build/server/index.js"
-    }
-  ]
+  "installCommand": "pnpm install --frozen-lockfile"
 }
