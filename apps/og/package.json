@@ -18,7 +18,7 @@
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "sanity": "^4.8.1",
-    "satori": "^1.0.4",
+    "satori": "0.18.2",
     "zod": "^4.1.8"
   },
   "devDependencies": {
