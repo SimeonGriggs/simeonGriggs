@@ -5,18 +5,18 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@headlessui/react": "^2.2.0",
+    "@headlessui/react": "^2.2.8",
     "@heroicons/react": "^2.2.0",
-    "@portabletext/react": "^4.0.0",
+    "@portabletext/react": "^4.0.3",
     "@repo/constants": "workspace:*",
-    "@sanity/image-url": "^1.1.0",
+    "@sanity/image-url": "^1.2.0",
     "clsx": "^2.1.1",
     "get-youtube-id": "^1.0.1",
-    "prism-react-renderer": "^2.4.0",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
-    "react-router": "^7.7.1",
-    "usehooks-ts": "^3.1.0"
+    "prism-react-renderer": "^2.4.1",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "react-router": "^7.9.1",
+    "usehooks-ts": "^3.1.1"
   },
   "peerDependencies": {
     "tldraw": "^3.15.4"

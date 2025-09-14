@@ -8,7 +8,7 @@
     "@sanity/functions": "1.0.3"
   },
   "devDependencies": {
-    "@portabletext/types": "^2.0.13",
-    "@types/node": "^20"
+    "@portabletext/types": "^2.0.15",
+    "@types/node": "^24.4.0"
   }
 }

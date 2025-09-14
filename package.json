@@ -11,9 +11,9 @@
     "syncpack:fix": "syncpack fix",
     "syncpack:update": "syncpack update"
   },
-  "packageManager": "pnpm@10.16.0",
+  "packageManager": "pnpm@10.16.1",
   "dependencies": {
-    "@types/node": "^20",
+    "@types/node": "^24.4.0",
     "prettier": "^3.6.2",
     "prettier-plugin-tailwindcss": "^0.6.14"
   },
@@ -21,6 +21,6 @@
     "@sanity/blueprints": "^0.2.0",
     "@sanity/client": "latest",
     "@sanity/functions": "1.0.3",
-    "syncpack": "^14.0.0-alpha.0"
+    "syncpack": "^14.0.0-alpha.21"
   }
 }
