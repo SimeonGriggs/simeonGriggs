@@ -1,0 +1,37 @@
+{
+  "name": "@repo/sanity",
+  "private": true,
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@heroicons/react": "^2.2.0",
+    "@portabletext/react": "^4.0.3",
+    "@repo/constants": "workspace:*",
+    "@sanity/code-input": "^6.0.1",
+    "@sanity/color": "^3.0.6",
+    "@sanity/icons": "^3.7.4",
+    "@sanity/image-url": "^1.2.0",
+    "@sanity/orderable-document-list": "^1.4.0",
+    "@sanity/ui": "^3.1.0",
+    "@sanity/vision": "^4.8.1",
+    "clsx": "^2.1.1",
+    "get-youtube-id": "^1.0.1",
+    "groq": "^4.8.1",
+    "prism-react-renderer": "^2.4.1",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "react-router": "^7.9.1",
+    "sanity": "^4.8.1",
+    "sanity-plugin-asset-source-unsplash": "^4.0.1",
+    "sanity-plugin-media": "^4.0.0",
+    "sanity-plugin-tldraw": "^2.0.0",
+    "sanity-plugin-youtube-documents": "^1.1.1",
+    "tldraw": "^3.15.4",
+    "usehooks-ts": "^3.1.1"
+  },
+  "devDependencies": {
+    "@types/react": "^19",
+    "@types/react-dom": "^19"
+  }
+}

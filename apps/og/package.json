@@ -1,0 +1,32 @@
+{
+  "name": "og",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@repo/constants": "workspace:*",
+    "@sanity/asset-utils": "^2.3.0",
+    "@sanity/client": "*",
+    "@sanity/image-url": "^1.2.0",
+    "@vercel/og": "^1.0.0",
+    "groq": "^4.8.1",
+    "next": "15.5.3",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "sanity": "^4.8.1",
+    "satori": "0.18.2",
+    "zod": "^4.1.8"
+  },
+  "devDependencies": {
+    "@types/node": "^24.4.0",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "postcss": "^8",
+    "tailwindcss": "^4.1.13",
+    "typescript": "^5"
+  }
+}
