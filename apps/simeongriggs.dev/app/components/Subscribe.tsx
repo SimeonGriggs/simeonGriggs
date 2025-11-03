@@ -24,7 +24,6 @@ const Subscribe = () => (
       >
         <div className="formkit-field flex-1">
           <Input
-            autoFocus
             name="email_address"
             placeholder="Your email address"
             required
