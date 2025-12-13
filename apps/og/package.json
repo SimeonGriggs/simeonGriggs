@@ -14,7 +14,7 @@
     "@sanity/image-url": "^1.2.0",
     "@vercel/og": "^1.0.0",
     "groq": "^4.8.1",
-    "next": "15.5.3",
+    "next": "15.5.9",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "sanity": "^4.8.1",
