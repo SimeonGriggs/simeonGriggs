@@ -10,23 +10,23 @@
   "dependencies": {
     "@repo/constants": "workspace:*",
     "@sanity/asset-utils": "^2.3.0",
-    "@sanity/client": "*",
-    "@sanity/image-url": "^1.2.0",
+    "@sanity/client": "^7.13.2",
+    "@sanity/image-url": "^2.0.2",
     "@vercel/og": "^1.0.0",
-    "groq": "^4.8.1",
-    "next": "15.5.3",
-    "react": "^19.1.1",
-    "react-dom": "^19.1.1",
-    "sanity": "^4.8.1",
-    "satori": "0.18.2",
-    "zod": "^4.1.8"
+    "groq": "^4.21.1",
+    "next": "^16.0.10",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "sanity": "^4.21.1",
+    "satori": "0.18.3",
+    "zod": "^4.1.13"
   },
   "devDependencies": {
-    "@types/node": "^24.4.0",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "postcss": "^8",
-    "tailwindcss": "^4.1.13",
-    "typescript": "^5"
+    "@types/node": "^25.0.1",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.18",
+    "typescript": "^5.9.3"
   }
 }

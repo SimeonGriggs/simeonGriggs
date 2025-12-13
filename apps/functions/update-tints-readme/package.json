@@ -3,12 +3,12 @@
   "type": "module",
   "main": "index.ts",
   "dependencies": {
-    "@octokit/rest": "^22.0.0",
+    "@octokit/rest": "^22.0.1",
     "@sanity/block-content-to-markdown": "^1.0.0",
-    "@sanity/functions": "1.0.3"
+    "@sanity/functions": "1.1.0"
   },
   "devDependencies": {
-    "@portabletext/types": "^2.0.15",
-    "@types/node": "^24.4.0"
+    "@portabletext/types": "^4.0.0",
+    "@types/node": "^25.0.1"
   }
 }

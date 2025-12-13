@@ -5,21 +5,21 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@headlessui/react": "^2.2.8",
+    "@headlessui/react": "^2.2.9",
     "@heroicons/react": "^2.2.0",
-    "@portabletext/react": "^4.0.3",
+    "@portabletext/react": "^6.0.0",
     "@repo/constants": "workspace:*",
-    "@sanity/image-url": "^1.2.0",
+    "@sanity/image-url": "^2.0.2",
     "clsx": "^2.1.1",
     "get-youtube-id": "^1.0.1",
     "prism-react-renderer": "^2.4.1",
-    "react": "^19.1.1",
-    "react-dom": "^19.1.1",
-    "react-router": "^7.9.1",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "react-router": "^7.10.1",
     "usehooks-ts": "^3.1.1"
   },
   "peerDependencies": {
-    "tldraw": "^3.15.4"
+    "tldraw": "^4.2.1"
   },
   "peerDependenciesMeta": {
     "tldraw": {
