@@ -13,7 +13,7 @@
   },
   "packageManager": "pnpm@10.16.1",
   "dependencies": {
-    "@types/node": "^25.0.1",
+    "@types/node": "^25.0.2",
     "prettier": "^3.7.4",
     "prettier-plugin-tailwindcss": "^0.7.2"
   },

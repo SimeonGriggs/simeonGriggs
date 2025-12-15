@@ -9,6 +9,6 @@
   },
   "devDependencies": {
     "@portabletext/types": "^4.0.0",
-    "@types/node": "^25.0.1"
+    "@types/node": "^25.0.2"
   }
 }
