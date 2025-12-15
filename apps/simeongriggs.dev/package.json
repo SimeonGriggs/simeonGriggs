@@ -53,18 +53,18 @@
     "styled-components": "^6.1.19",
     "tldraw": "^4.2.1",
     "usehooks-ts": "^3.1.1",
-    "zod": "^4.1.13"
+    "zod": "^4.2.0"
   },
   "devDependencies": {
     "@portabletext/types": "^4.0.0",
     "@react-router/dev": "*",
     "@tailwindcss/typography": "^0.5.19",
     "@types/express": "^5.0.6",
-    "@types/node": "^25.0.1",
+    "@types/node": "^25.0.2",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@types/styled-components": "^5.1.36",
-    "autoprefixer": "^10.4.22",
+    "autoprefixer": "^10.4.23",
     "clsx": "^2.1.1",
     "cross-env": "^10.1.0",
     "groq": "^4.21.1",
@@ -73,6 +73,6 @@
     "tailwindcss": "^4.1.18",
     "typescript": "^5",
     "vite": "^7.2.7",
-    "vite-tsconfig-paths": "^5.1.4"
+    "vite-tsconfig-paths": "^6.0.1"
   }
 }

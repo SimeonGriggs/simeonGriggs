@@ -32,12 +32,12 @@
     "@react-router/dev": "*",
     "@sanity/image-url": "^2.0.2",
     "@tailwindcss/vite": "^4.1.18",
-    "@types/node": "^25.0.1",
+    "@types/node": "^25.0.2",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "tailwindcss": "^4.1.18",
     "typescript": "^5",
     "vite": "^7.2.7",
-    "vite-tsconfig-paths": "^5.1.4"
+    "vite-tsconfig-paths": "^6.0.1"
   }
 }
