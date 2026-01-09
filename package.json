@@ -13,12 +13,12 @@
   },
   "packageManager": "pnpm@10.16.1",
   "dependencies": {
-    "@types/node": "^25.0.2",
+    "@types/node": "^25.0.3",
     "prettier": "^3.7.4",
     "prettier-plugin-tailwindcss": "^0.7.2"
   },
   "devDependencies": {
-    "@sanity/blueprints": "^0.7.0",
+    "@sanity/blueprints": "^0.7.1",
     "@sanity/client": "latest",
     "@sanity/functions": "1.1.0",
     "syncpack": "14.0.0-alpha.32"
