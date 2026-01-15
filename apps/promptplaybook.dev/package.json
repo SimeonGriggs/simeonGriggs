@@ -11,33 +11,33 @@
   "dependencies": {
     "@headlessui/react": "^2.2.9",
     "@heroicons/react": "^2.2.0",
-    "@portabletext/react": "^6.0.0",
-    "@react-router/node": "*",
-    "@react-router/serve": "^7.10.1",
+    "@portabletext/react": "^6.0.2",
+    "@react-router/node": "^7.12.0",
+    "@react-router/serve": "^7.12.0",
     "@repo/constants": "workspace:*",
     "@repo/frontend": "workspace:*",
     "@repo/sanity": "workspace:*",
     "@repo/tailwind": "workspace:*",
-    "@sanity/client": "*",
+    "@sanity/client": "^7.14.0",
     "@vercel/react-router": "^1.2.4",
     "clsx": "^2.1.1",
     "dayjs": "^1.11.19",
-    "groq": "^4.21.1",
+    "groq": "^5.4.0",
     "isbot": "^5.1.32",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
-    "react-router": "^7.10.1"
+    "react-router": "^7.12.0"
   },
   "devDependencies": {
-    "@react-router/dev": "*",
+    "@react-router/dev": "^7.12.0",
     "@sanity/image-url": "^2.0.2",
     "@tailwindcss/vite": "^4.1.18",
-    "@types/node": "^25.0.2",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
+    "@types/node": "^25.0.8",
+    "@types/react": "^19.2.8",
+    "@types/react-dom": "^19.2.3",
     "tailwindcss": "^4.1.18",
-    "typescript": "^5",
-    "vite": "^7.2.7",
-    "vite-tsconfig-paths": "^6.0.1"
+    "typescript": "^5.9.3",
+    "vite": "^7.3.1",
+    "vite-tsconfig-paths": "^6.0.4"
   }
 }
