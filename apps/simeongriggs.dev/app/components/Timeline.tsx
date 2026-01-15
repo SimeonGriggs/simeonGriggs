@@ -66,7 +66,7 @@ export function Timeline({articles}: TimelineProps) {
 
 function BlogPost({article}: {article: ArticleStub}) {
   return (
-    <article className="relative flex justify-end">
+    <article className="relative w-full">
       <div className="flex flex-col gap-6">
         <BlockH2 className="!my-0">
           <Link
@@ -115,7 +115,7 @@ function Video({
   pillText?: string
 }) {
   return (
-    <article className="rounded-tr-4xl relative min-w-0 overflow-hidden rounded-b-lg rounded-tl-lg bg-white shadow-md shadow-black/5 ring-1 ring-black/5 dark:bg-blue-900">
+    <article className="relative w-full min-w-0 overflow-hidden rounded-tl-lg rounded-tr-4xl rounded-b-lg bg-white shadow-md ring-1 shadow-black/5 ring-black/5 dark:bg-blue-900">
       <div className="relative isolate flex aspect-[16/9] w-full flex-col justify-end overflow-hidden">
         <img
           alt=""
@@ -123,7 +123,7 @@ function Video({
           className="absolute inset-0 -z-10 size-full object-cover"
         />
         <div className="absolute inset-0 -z-10 bg-gradient-to-t from-blue-600 via-blue-600/40" />
-        <div className="absolute inset-0 -z-10 rounded-r-2xl ring-1 ring-inset ring-blue-700/10" />
+        <div className="absolute inset-0 -z-10 rounded-r-2xl ring-1 ring-blue-700/10 ring-inset" />
 
         <div className="flex flex-col gap-3 overflow-hidden p-8 text-gray-300">
           {article.link ? (
@@ -269,7 +269,7 @@ function Tabs({tabs, current, onChange}: TabsProps) {
           value={current}
           aria-label="Select a tab"
           onChange={(event) => onChange(event.target.value)}
-          className="w-full appearance-none rounded-md bg-white py-2 pl-3 pr-8 text-base text-gray-900 outline -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600 dark:bg-blue-950"
+          className="w-full appearance-none rounded-md bg-white py-2 pr-8 pl-3 text-base text-gray-900 outline -outline-offset-1 outline-gray-300 focus:outline-2 focus:-outline-offset-2 focus:outline-blue-600 dark:bg-blue-950"
         >
           {tabs.map((tab) => (
             <option value={tab} key={tab}>
@@ -294,7 +294,7 @@ function Tabs({tabs, current, onChange}: TabsProps) {
                   tab === current
                     ? 'border-blue-500 text-blue-600'
                     : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700',
-                  'whitespace-nowrap border-b-2 px-1 py-4 text-sm font-medium',
+                  'border-b-2 px-1 py-4 text-sm font-medium whitespace-nowrap',
                 )}
               >
                 <Subheading>{TAB_TITLES[tab] ?? tab}</Subheading>

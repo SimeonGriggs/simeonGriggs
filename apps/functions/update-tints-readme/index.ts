@@ -1,5 +1,5 @@
 import {documentEventHandler} from '@sanity/functions'
-import toMarkdown from '@sanity/block-content-to-markdown'
+import {toMarkdown} from '@portabletext/markdown'
 import {Octokit} from '@octokit/rest'
 import {type PortableTextBlock} from '@portabletext/types'
 

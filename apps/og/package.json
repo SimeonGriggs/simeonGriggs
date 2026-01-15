@@ -10,20 +10,20 @@
   "dependencies": {
     "@repo/constants": "workspace:*",
     "@sanity/asset-utils": "^2.3.0",
-    "@sanity/client": "^7.13.2",
+    "@sanity/client": "^7.14.0",
     "@sanity/image-url": "^2.0.2",
     "@vercel/og": "^1.0.0",
-    "groq": "^4.21.1",
-    "next": "^16.0.10",
+    "groq": "^5.4.0",
+    "next": "^16.1.2",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
-    "sanity": "^4.21.1",
+    "sanity": "^5.4.0",
     "satori": "0.18.3",
-    "zod": "^4.2.0"
+    "zod": "^4.3.5"
   },
   "devDependencies": {
-    "@types/node": "^25.0.2",
-    "@types/react": "^19.2.7",
+    "@types/node": "^25.0.8",
+    "@types/react": "^19.2.8",
     "@types/react-dom": "^19.2.3",
     "postcss": "^8.5.6",
     "tailwindcss": "^4.1.18",

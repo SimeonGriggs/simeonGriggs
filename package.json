@@ -2,7 +2,7 @@
   "name": "simeongriggs",
   "private": true,
   "scripts": {
-    "dev": "pnpm -r dev",
+    "dev": "pnpm -r --parallel dev",
     "lint": "pnpm dlx oxlint@latest --fix",
     "format": "prettier --write .",
     "typecheck": "pnpm -r typecheck",
@@ -11,10 +11,10 @@
     "syncpack:fix": "syncpack fix",
     "syncpack:update": "syncpack update"
   },
-  "packageManager": "pnpm@10.16.1",
+  "packageManager": "pnpm@10.28.0",
   "dependencies": {
-    "@types/node": "^25.0.3",
-    "prettier": "^3.7.4",
+    "@types/node": "^25.0.8",
+    "prettier": "^3.8.0",
     "prettier-plugin-tailwindcss": "^0.7.2"
   },
   "devDependencies": {

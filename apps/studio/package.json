@@ -17,20 +17,20 @@
   "dependencies": {
     "@repo/constants": "workspace:*",
     "@repo/sanity": "workspace:*",
-    "@sanity/code-input": "^6.0.3",
-    "@sanity/orderable-document-list": "^1.4.1",
-    "@sanity/vision": "^4.21.1",
+    "@sanity/code-input": "^7.0.5",
+    "@sanity/orderable-document-list": "^1.4.2",
+    "@sanity/vision": "^5.4.0",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
-    "sanity": "^4.21.1",
-    "sanity-plugin-asset-source-unsplash": "^4.0.1",
-    "sanity-plugin-media": "^4.1.0",
-    "sanity-plugin-tldraw": "^2.0.0",
-    "styled-components": "^6.1.19",
-    "tldraw": "^4.2.1"
+    "sanity": "^5.4.0",
+    "sanity-plugin-asset-source-unsplash": "^7.0.2",
+    "sanity-plugin-media": "^4.1.1",
+    "sanity-plugin-tldraw": "^3.0.0",
+    "styled-components": "^6.3.6",
+    "tldraw": "^4.2.3"
   },
   "devDependencies": {
-    "@types/react": "^19",
-    "typescript": "^5"
+    "@types/react": "^19.2.8",
+    "typescript": "^5.9.3"
   }
 }
