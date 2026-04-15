@@ -10,6 +10,7 @@ import HeroIcon from '../components/HeroIcon'
 export const structure: StructureResolver = (S, context) => {
   const items = [
     S.documentTypeListItem('article').title('Articles'),
+    S.documentTypeListItem('externalArticle').title('External Articles'),
     S.documentTypeListItem('talk').title('Talks'),
     S.documentTypeListItem('youTubeVideo')
       .title('Videos')

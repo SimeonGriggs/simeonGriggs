@@ -34,34 +34,21 @@ export const talkStubZ = z.object({
 
 export type TalkStub = z.infer<typeof talkStubZ>
 
-// Exchange posts, from Sanity
-export const exchangeStubZ = z.object({
+export const externalArticleStubZ = z.object({
   _id: z.string(),
-  _type: z.literal('contribution.guide'),
+  _type: z.literal('externalArticle'),
   title: z.string().nullable(),
-  slug: slugZ,
+  summary: z.string().nullable(),
   published: z.string().nullable(),
   updated: z.string().nullable(),
-  summary: z.string().nullable(),
+  image: sanityImageObjectExtendedZ.nullable(),
+  source: z.enum(['planetscale', 'sanity_guides', 'sanity_learn']),
+  url: z.string().nullable(),
 })
 
-export type ExchangeStub = z.infer<typeof exchangeStubZ>
+export type ExternalArticleStub = z.infer<typeof externalArticleStubZ>
 
-export const exchangeStubsZ = z.array(exchangeStubZ)
-
-// Learn courses, from Sanity
-export const learnStubZ = z.object({
-  _id: z.string(),
-  _type: z.literal('course'),
-  title: z.string().nullable(),
-  slug: slugZ,
-  published: z.string().nullable(),
-  summary: z.string().nullable(),
-})
-
-export type LearnStub = z.infer<typeof learnStubZ>
-
-export const learnStubsZ = z.array(learnStubZ)
+export const externalArticleStubsZ = z.array(externalArticleStubZ)
 
 // YouTube Video Documents, from this blog
 export const youTubeVideoStubZ = z.object({
@@ -83,8 +70,7 @@ export const combinedStubsZ = z.array(
   z.discriminatedUnion('_type', [
     articleStubZ,
     talkStubZ,
-    exchangeStubZ,
-    learnStubZ,
+    externalArticleStubZ,
     youTubeVideoStubZ,
   ]),
 )

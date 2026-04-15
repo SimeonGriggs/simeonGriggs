@@ -17,10 +17,12 @@ export default function Published({
   location,
   published,
 }: PublishedProps) {
+  const showUpdated = Boolean(updated && dateDisplay(updated) !== dateDisplay(published))
+
   return (
     <Subheading>
       <span className="flex flex-col md:flex-row md:items-center">
-        {updated ? (
+        {showUpdated ? (
           <span>
             <time dateTime={published}>{dateDisplay(published)}</time>
             {` `}•{` `}

@@ -1,8 +1,7 @@
 import type {
   ArticleStub,
   CombinedStubs,
-  ExchangeStub,
-  LearnStub,
+  ExternalArticleStub,
   TalkStub,
   YouTubeVideoStub,
 } from '~/types/stubs'
@@ -45,14 +44,12 @@ export function Timeline({articles}: TimelineProps) {
                 switch (article._type) {
                   case 'article':
                     return <BlogPost article={article} />
-                  case 'contribution.guide':
-                    return <Sanity article={article} />
+                  case 'externalArticle':
+                    return <External article={article} />
                   case 'talk':
                     return <Talk article={article} />
                   case 'youTubeVideo':
                     return <Video article={article} />
-                  case 'course':
-                    return <Sanity article={article} />
                   default:
                     return null
                 }
@@ -182,24 +179,32 @@ function Talk({article}: {article: TalkStub}) {
   return <Video article={videoProps} pillText="Talk" />
 }
 
-function Sanity({article}: {article: ExchangeStub | LearnStub}) {
+function External({article}: {article: ExternalArticleStub}) {
+  const href = article.url ?? undefined
+  const pill =
+    article.source === 'planetscale'
+      ? 'PlanetScale'
+      : article.source === 'sanity_guides'
+        ? 'Sanity Guide'
+        : 'Sanity Course'
+
   return (
     <div className="flex w-full justify-between">
       <div className="flex w-full flex-col gap-4 py-0.5 text-lg/8 text-gray-500">
         <h2>
-          <a
-            className="font-medium text-[#f03e2f] hover:text-red-700"
-            href={
-              article._type === 'contribution.guide'
-                ? `https://www.sanity.io/guides/${article.slug.current}`
-                : `https://www.sanity.io/learn/course/${article.slug.current}`
-            }
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            {article.title} &rarr;
-            <span className="absolute inset-0"></span>
-          </a>
+          {href ? (
+            <a
+              className="font-medium text-blue-500 hover:text-blue-700 dark:text-blue-200 dark:hover:text-blue-100"
+              href={href}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {article.title} &rarr;
+              <span className="absolute inset-0"></span>
+            </a>
+          ) : (
+            <span className="font-medium">{article.title}</span>
+          )}
         </h2>
         <Summary>{article.summary}</Summary>
 
@@ -207,17 +212,13 @@ function Sanity({article}: {article: ExchangeStub | LearnStub}) {
           {article.published ? (
             <Published
               updated={
-                article._type === 'contribution.guide' && article.updated
-                  ? article.updated
-                  : undefined
+                article.updated ? article.updated : undefined
               }
               published={article.published}
             />
           ) : null}
 
-          <Pill>
-            {article._type === 'contribution.guide' ? 'Guide' : 'Course'}
-          </Pill>
+          <Pill>{pill}</Pill>
         </div>
       </div>
     </div>
@@ -254,10 +255,9 @@ type TabsProps = {
 const TAB_TITLES: Record<string, string> = {
   all: 'All',
   article: 'Blogs',
-  'contribution.guide': 'Guides',
+  externalArticle: 'External',
   talk: 'Talks',
   youTubeVideo: 'YouTube',
-  course: 'Courses',
 }
 
 function Tabs({tabs, current, onChange}: TabsProps) {
