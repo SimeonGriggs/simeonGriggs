@@ -11,6 +11,7 @@ import {buttonType} from './objects/buttonType'
 import {seoType} from './objects/seoType'
 import {videoType} from './objects/videoType'
 import {playbookType} from './documents/playbookType'
+import {externalArticleType} from './documents/externalArticleType'
 
 export const schemaTypes = [
   // documents
@@ -19,6 +20,7 @@ export const schemaTypes = [
   commentType,
   tailwindType,
   talkType,
+  externalArticleType,
   playbookType,
   // objects
   seoType,

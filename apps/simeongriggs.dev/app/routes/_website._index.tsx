@@ -4,20 +4,13 @@ import {useLoaderData} from 'react-router'
 import {Timeline} from '~/components/Timeline'
 import {useRootLoaderData} from '~/hooks/useRootLoaderData'
 import {sortArticles} from '~/lib/sortArticles'
-import {adminClient, exchangeClient} from '~/sanity/client.server'
 import {fixInitialType} from '~/sanity/fixInitialType'
 import {loadQuery} from '~/sanity/loader.server'
 import {loadQueryOptions} from '~/sanity/loadQueryOptions'
-import {
-  EXCHANGE_QUERY,
-  HOME_QUERY,
-  LEARN_QUERY,
-  exchangeParams,
-  learnParams,
-} from '~/sanity/queries'
+import {HOME_QUERY} from '~/sanity/queries'
 import styles from '@repo/tailwind/app.css?url'
-import type {ArticleStub} from '~/types/stubs'
-import {combinedStubsZ, exchangeStubsZ, learnStubsZ} from '~/types/stubs'
+import type {CombinedStubs} from '~/types/stubs'
+import {combinedStubsZ} from '~/types/stubs'
 import {components, Heading} from '@repo/frontend'
 import {PortableText} from '@portabletext/react'
 import type {Route} from './+types/_website._index'
@@ -37,29 +30,18 @@ export const loader = async ({request}: Route.LoaderArgs) => {
   const query = HOME_QUERY
   const params = {}
 
-  const [initial, exchangeArticles, learnArticles] = await Promise.all([
-    loadQuery(query, params, options).then((result) => ({
-      ...result,
-      data: combinedStubsZ.parse(result.data),
-    })),
-    exchangeClient
-      .fetch(EXCHANGE_QUERY, exchangeParams)
-      .then((result) => exchangeStubsZ.parse(result)),
-    adminClient
-      .fetch(LEARN_QUERY, learnParams)
-      .then((result) => learnStubsZ.parse(result)),
-  ])
+  const initial = await loadQuery(query, params, options).then((result) => ({
+    ...result,
+    data: combinedStubsZ.parse(result.data),
+  }))
 
-  return {initial, query, params, exchangeArticles, learnArticles, preview}
+  return {initial, query, params, preview}
 }
 
 export default function Index() {
-  const {initial, query, params, exchangeArticles, learnArticles} =
-    useLoaderData<typeof loader>()
-  const {data} = useQuery<ArticleStub[]>(query, params, fixInitialType(initial))
-  const articles = data
-    ? sortArticles([...data, ...exchangeArticles, ...learnArticles])
-    : []
+  const {initial, query, params} = useLoaderData<typeof loader>()
+  const {data} = useQuery<CombinedStubs>(query, params, fixInitialType(initial))
+  const articles = data ? sortArticles(data) : []
 
   const rootLoader = useRootLoaderData()
   const siteMeta = rootLoader?.initial?.data

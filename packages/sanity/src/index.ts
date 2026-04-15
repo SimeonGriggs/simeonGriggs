@@ -14,6 +14,7 @@ import {youTubeDocuments} from 'sanity-plugin-youtube-documents'
 import {resolve} from './presentation/resolve'
 import {schemaTypes} from './schema'
 import {defaultDocumentNode, structure} from './structure'
+import {externalArticlesTool} from './tools/externalArticlesTool'
 
 export default defineConfig({
   name: 'simeonGriggs',
@@ -46,8 +47,8 @@ export default defineConfig({
   schema: {
     types: schemaTypes,
   },
-  tools: (prev, context) =>
-    prev.filter((tool) => {
+  tools: (prev: any[], context: any) =>
+    [...prev, externalArticlesTool].filter((tool) => {
       if (tool.name === 'schedules') {
         return false
       } else if (!context.currentUser && tool.name === 'presentation') {

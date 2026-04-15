@@ -100,7 +100,7 @@ export const TALK_PROJECTION = groq`
 export const TALK_QUERY = groq`*[_type == "talk" && slug.current == $slug]{ ${TALK_PROJECTION} }`
 
 export const HOME_QUERY = groq`
-  *[_type in ["article", "talk", "youTubeVideo"] && unlisted != true]|order(published desc){
+  *[_type in ["article", "externalArticle", "talk", "youTubeVideo"] && unlisted != true]|order(published desc){
     _id,
     _type,
     _updatedAt,
@@ -108,6 +108,13 @@ export const HOME_QUERY = groq`
     slug,
     image { ${SANITY_IMAGE_OBJECT_STUB} },
     _type == "article" => {
+      published,
+      updated,
+      summary
+    },
+    _type == "externalArticle" => {
+      source,
+      url,
       published,
       updated,
       summary
