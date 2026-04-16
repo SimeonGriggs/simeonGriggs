@@ -1,4 +1,3 @@
-import {useQuery} from '@sanity/react-loader'
 import type {MetaFunction} from 'react-router'
 import {Outlet, ScrollRestoration, useLoaderData} from 'react-router'
 import {
@@ -13,7 +12,8 @@ import {getEnv} from '~/env.server'
 import Header from '~/components/Header'
 import {removeTrailingSlash} from '~/lib/helpers'
 import {fixInitialType} from '~/sanity/fixInitialType'
-import {loadQuery} from '~/sanity/loader.server'
+import {useQuery} from '~/sanity/loader'
+import {loadServerQuery} from '~/sanity/loader.server'
 import {loadQueryOptions} from '~/sanity/loadQueryOptions'
 import {SITE_META_QUERY} from '~/sanity/queries'
 import type {SiteMeta} from '~/types/siteMeta'
@@ -63,7 +63,7 @@ export const loader = async ({request, context}: Route.LoaderArgs) => {
   const query = SITE_META_QUERY
   const params = {}
 
-  const initial = await loadQuery(query, params, options, env).then((result) => ({
+  const initial = await loadServerQuery(query, params, options, env).then((result) => ({
     ...result,
     data: siteMetaZ.parse(result.data),
   }))

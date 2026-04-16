@@ -1,4 +1,4 @@
-import {useQuery} from '@sanity/react-loader'
+import {useQuery} from '~/sanity/loader'
 import type {
   LinksFunction,
   MetaFunction,
@@ -16,7 +16,7 @@ import {getEnv} from '~/env.server'
 import type {loader as layoutLoader} from '~/routes/_website'
 import {getWriteClient} from '~/sanity/client.server'
 import {fixInitialType} from '~/sanity/fixInitialType'
-import {loadQuery} from '~/sanity/loader.server'
+import {loadServerQuery} from '~/sanity/loader.server'
 import {loadQueryOptions} from '~/sanity/loadQueryOptions'
 import {ARTICLE_QUERY} from '~/sanity/queries'
 import styles from '@repo/tailwind/app.css?url'
@@ -114,7 +114,7 @@ export const loader = async ({request, params, context}: Route.LoaderArgs) => {
 
   const query = ARTICLE_QUERY
 
-  const initial = await loadQuery(query, params, options, env).then((result) => ({
+  const initial = await loadServerQuery(query, params, options, env).then((result) => ({
     ...result,
     data: articleZ.parse(result.data),
   }))

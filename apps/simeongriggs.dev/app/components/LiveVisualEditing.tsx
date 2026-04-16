@@ -1,5 +1,5 @@
 import {client} from '~/sanity/client'
-import {useLiveMode} from '@sanity/react-loader'
+import {useLiveMode} from '~/sanity/loader'
 import {VisualEditing} from '@sanity/visual-editing/react-router'
 
 const stegaClient = client.withConfig({
