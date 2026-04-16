@@ -10,7 +10,6 @@ const stegaClient = client.withConfig({
 // eslint-disable-next-line import/no-default-export
 export default function LiveVisualEditing() {
   useLiveMode({
-    // @ts-expect-error
     client: stegaClient,
   })
 

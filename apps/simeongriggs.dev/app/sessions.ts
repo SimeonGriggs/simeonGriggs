@@ -1,17 +1,34 @@
 import {createCookieSessionStorage} from 'react-router'
 
+import type {AppEnv} from '~/env.server'
+import {getRequiredEnvValue} from '~/env.server'
+
 export const PREVIEW_SESSION_NAME = '__preview'
 
-if (!process.env.SANITY_SESSION_SECRET) {
-  throw new Error(`Missing SANITY_SESSION_SECRET in .env`)
+function getSessionStorage(env: AppEnv) {
+  return createCookieSessionStorage({
+    cookie: {
+      name: PREVIEW_SESSION_NAME,
+      secrets: [getRequiredEnvValue(env, 'SANITY_SESSION_SECRET')],
+      sameSite: 'lax',
+    },
+  })
 }
 
-const {getSession, commitSession, destroySession} = createCookieSessionStorage({
-  cookie: {
-    name: PREVIEW_SESSION_NAME,
-    secrets: [process.env.SANITY_SESSION_SECRET],
-    sameSite: 'lax',
-  },
-})
+export function getSession(env: AppEnv, cookieHeader?: string | null) {
+  return getSessionStorage(env).getSession(cookieHeader)
+}
 
-export {commitSession, destroySession, getSession}
+export function commitSession(
+  env: AppEnv,
+  session: Awaited<ReturnType<typeof getSession>>,
+) {
+  return getSessionStorage(env).commitSession(session)
+}
+
+export function destroySession(
+  env: AppEnv,
+  session: Awaited<ReturnType<typeof getSession>>,
+) {
+  return getSessionStorage(env).destroySession(session)
+}

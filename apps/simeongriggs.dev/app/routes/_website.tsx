@@ -9,6 +9,7 @@ import {
 } from '../../../../packages/constants/src'
 
 import {Banner} from '~/components/Banner'
+import {getEnv} from '~/env.server'
 import Header from '~/components/Header'
 import {removeTrailingSlash} from '~/lib/helpers'
 import {fixInitialType} from '~/sanity/fixInitialType'
@@ -28,7 +29,7 @@ export const meta: MetaFunction<Route.MetaArgs> = ({data}) => {
   }
 
   const baseUrl =
-    process.env.NODE_ENV === 'development' ? LOCAL_OG_URL : PROD_OG_URL
+    import.meta.env.DEV ? LOCAL_OG_URL : PROD_OG_URL
   const ogImageUrl = new URL(`/image`, baseUrl)
   ogImageUrl.searchParams.set(`id`, siteMeta._id)
 
@@ -55,13 +56,14 @@ export const meta: MetaFunction<Route.MetaArgs> = ({data}) => {
   ]
 }
 
-export const loader = async ({request}: Route.LoaderArgs) => {
-  const {options, preview} = await loadQueryOptions(request.headers)
+export const loader = async ({request, context}: Route.LoaderArgs) => {
+  const env = getEnv(context)
+  const {options, preview} = await loadQueryOptions(request.headers, env)
 
   const query = SITE_META_QUERY
   const params = {}
 
-  const initial = await loadQuery(query, params, options).then((result) => ({
+  const initial = await loadQuery(query, params, options, env).then((result) => ({
     ...result,
     data: siteMetaZ.parse(result.data),
   }))

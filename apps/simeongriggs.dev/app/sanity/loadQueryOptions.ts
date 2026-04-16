@@ -1,6 +1,7 @@
 import type {loadQuery} from '@sanity/react-loader'
 import {STUDIO_BASEPATH} from '../../../../packages/constants/src'
 
+import type {AppEnv} from '~/env.server'
 import {projectId} from '~/sanity/projectDetails'
 import {getSession} from '~/sessions'
 
@@ -9,8 +10,9 @@ import {getSession} from '~/sessions'
 // But it's simplest, for now, to do it in *every* loader
 export async function loadQueryOptions(
   headers: Headers,
+  env: AppEnv,
 ): Promise<{preview: boolean; options: Parameters<typeof loadQuery>[2]}> {
-  const previewSession = await getSession(headers.get('Cookie'))
+  const previewSession = await getSession(env, headers.get('Cookie'))
   const preview = previewSession.get('projectId') === projectId
 
   return {

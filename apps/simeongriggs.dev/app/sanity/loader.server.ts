@@ -1,25 +1,26 @@
 import * as queryStore from '@sanity/react-loader'
 import {STUDIO_BASEPATH} from '../../../../packages/constants/src'
 
+import type {AppEnv} from '~/env.server'
+import {getRequiredEnvValue} from '~/env.server'
 import {client} from '~/sanity/client'
 
-// In a perfect world, these could be dynamic based on the Request
-// But because middleware hasn't landed in Remix
-// And server.ts's context is messy to configure (except in Hydrogen!)
-// We're overriding these in loadQueryOptions in every loader
-const clientWithToken = client.withConfig({
-  // Token required for when previewDrafts perspective is set in a loader
-  token: process.env.SANITY_READ_TOKEN,
-  // You do not want this enabled in production
-  // This should be overridden when using loadQuery in a loader
-  stega: {
-    studioUrl: STUDIO_BASEPATH,
-  },
-})
+export function loadQuery(
+  ...[query, params, options, env]: [
+    Parameters<typeof queryStore.loadQuery>[0],
+    Parameters<typeof queryStore.loadQuery>[1],
+    Parameters<typeof queryStore.loadQuery>[2],
+    AppEnv,
+  ]
+) {
+  const clientWithToken = client.withConfig({
+    token: getRequiredEnvValue(env, 'SANITY_READ_TOKEN'),
+    stega: {
+      studioUrl: STUDIO_BASEPATH,
+    },
+  })
 
-queryStore.setServerClient(
-  // @ts-expect-error
-  clientWithToken,
-)
+  queryStore.setServerClient(clientWithToken)
 
-export const {loadQuery} = queryStore
+  return queryStore.loadQuery(query, params, options)
+}

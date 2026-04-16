@@ -14,6 +14,7 @@ import {combinedStubsZ} from '~/types/stubs'
 import {components, Heading} from '@repo/frontend'
 import {PortableText} from '@portabletext/react'
 import type {Route} from './+types/_website._index'
+import {getEnv} from '~/env.server'
 
 export const handle = {id: `home`}
 
@@ -24,13 +25,14 @@ export const links: Route.LinksFunction = () => {
   ]
 }
 
-export const loader = async ({request}: Route.LoaderArgs) => {
-  const {options, preview} = await loadQueryOptions(request.headers)
+export const loader = async ({request, context}: Route.LoaderArgs) => {
+  const env = getEnv(context)
+  const {options, preview} = await loadQueryOptions(request.headers, env)
 
   const query = HOME_QUERY
   const params = {}
 
-  const initial = await loadQuery(query, params, options).then((result) => ({
+  const initial = await loadQuery(query, params, options, env).then((result) => ({
     ...result,
     data: combinedStubsZ.parse(result.data),
   }))

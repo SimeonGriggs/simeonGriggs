@@ -14,6 +14,7 @@ import {z} from 'zod'
 import CanonicalLink from '~/components/CanonicalLink'
 import LiveVisualEditing from '~/components/LiveVisualEditing'
 import {themePreferenceCookie} from '~/cookies'
+import {getEnv} from '~/env.server'
 import {getBodyClassNames} from '~/lib/getBodyClassNames'
 import {getDomainUrl} from '~/lib/getDomainUrl'
 import {loadQueryOptions} from '~/sanity/loadQueryOptions'
@@ -45,7 +46,8 @@ export const links: LinksFunction = () => {
   ]
 }
 
-export const loader = async ({request}: LoaderFunctionArgs) => {
+export const loader = async ({request, context}: LoaderFunctionArgs) => {
+  const env = getEnv(context)
   // Dark/light mode
   const cookieHeader = request.headers.get('Cookie')
   const cookie = (await themePreferenceCookie.parse(cookieHeader)) || {}
@@ -54,7 +56,7 @@ export const loader = async ({request}: LoaderFunctionArgs) => {
     .optional()
     .parse(cookie.themePreference)
 
-  const {preview} = await loadQueryOptions(request.headers)
+  const {preview} = await loadQueryOptions(request.headers, env)
 
   return {
     themePreference: themePreference || 'light',
@@ -62,7 +64,7 @@ export const loader = async ({request}: LoaderFunctionArgs) => {
       VITE_SANITY_PROJECT_ID: import.meta.env.VITE_SANITY_PROJECT_ID!,
       VITE_SANITY_DATASET: import.meta.env.VITE_SANITY_DATASET!,
       VITE_SANITY_API_VERSION: import.meta.env.VITE_SANITY_API_VERSION!,
-      NODE_ENV: process.env.NODE_ENV,
+      NODE_ENV: import.meta.env.MODE,
     },
     requestInfo: {
       origin: getDomainUrl(request),
