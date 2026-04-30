@@ -8,13 +8,9 @@ import {
 } from '../../../../packages/constants/src'
 
 import {Banner} from '~/components/Banner'
-import {getEnv} from '~/env.server'
 import Header from '~/components/Header'
 import {removeTrailingSlash} from '~/lib/helpers'
-import {fixInitialType} from '~/sanity/fixInitialType'
-import {useQuery} from '~/sanity/loader'
-import {loadServerQuery} from '~/sanity/loader.server'
-import {loadQueryOptions} from '~/sanity/loadQueryOptions'
+import {client} from '~/sanity/client'
 import {SITE_META_QUERY} from '~/sanity/queries'
 import type {SiteMeta} from '~/types/siteMeta'
 import {siteMetaZ} from '~/types/siteMeta'
@@ -22,7 +18,7 @@ import type {Route} from './+types/_website'
 
 export const meta: MetaFunction<Route.MetaArgs> = ({data}) => {
   const routeData = data as Awaited<ReturnType<typeof loader>>
-  const {data: siteMeta} = routeData?.initial ?? {}
+  const {siteMeta} = routeData ?? {}
 
   if (!siteMeta) {
     return [{title: `Home page`}]
@@ -57,32 +53,20 @@ export const meta: MetaFunction<Route.MetaArgs> = ({data}) => {
 }
 
 export const loader = async ({request, context}: Route.LoaderArgs) => {
-  const env = getEnv(context)
-  const {options, preview} = await loadQueryOptions(request.headers, env)
-
   const query = SITE_META_QUERY
   const params = {}
 
-  const initial = await loadServerQuery(query, params, options, env).then((result) => ({
-    ...result,
-    data: siteMetaZ.parse(result.data),
-  }))
+  const siteMeta = await client.fetch<SiteMeta>(query, params).then((result) => {
+    return siteMetaZ.parse(result)
+  })
 
   return {
-    initial,
-    query,
-    params,
-    preview,
+    siteMeta,
   }
 }
 
 export default function Website() {
-  const {initial, query, params} = useLoaderData<typeof loader>()
-  const {data: siteMeta} = useQuery<SiteMeta>(
-    query,
-    params,
-    fixInitialType(initial),
-  )
+  const {siteMeta} = useLoaderData<typeof loader>()
 
   return (
     <>

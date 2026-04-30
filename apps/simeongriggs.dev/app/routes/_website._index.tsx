@@ -1,12 +1,9 @@
-import {useQuery} from '~/sanity/loader'
 import {useLoaderData} from 'react-router'
 
 import {Timeline} from '~/components/Timeline'
 import {useRootLoaderData} from '~/hooks/useRootLoaderData'
 import {sortArticles} from '~/lib/sortArticles'
-import {fixInitialType} from '~/sanity/fixInitialType'
-import {loadServerQuery} from '~/sanity/loader.server'
-import {loadQueryOptions} from '~/sanity/loadQueryOptions'
+import {client} from '~/sanity/client'
 import {HOME_QUERY} from '~/sanity/queries'
 import styles from '@repo/tailwind/app.css?url'
 import type {CombinedStubs} from '~/types/stubs'
@@ -14,7 +11,6 @@ import {combinedStubsZ} from '~/types/stubs'
 import {components, Heading} from '@repo/frontend'
 import {PortableText} from '@portabletext/react'
 import type {Route} from './+types/_website._index'
-import {getEnv} from '~/env.server'
 
 export const handle = {id: `home`}
 
@@ -26,27 +22,22 @@ export const links: Route.LinksFunction = () => {
 }
 
 export const loader = async ({request, context}: Route.LoaderArgs) => {
-  const env = getEnv(context)
-  const {options, preview} = await loadQueryOptions(request.headers, env)
-
   const query = HOME_QUERY
   const params = {}
 
-  const initial = await loadServerQuery(query, params, options, env).then((result) => ({
-    ...result,
-    data: combinedStubsZ.parse(result.data),
-  }))
+  const data = await client.fetch(query, params).then((result) => {
+    return combinedStubsZ.parse(result)
+  })
 
-  return {initial, query, params, preview}
+  return {data}
 }
 
 export default function Index() {
-  const {initial, query, params} = useLoaderData<typeof loader>()
-  const {data} = useQuery<CombinedStubs>(query, params, fixInitialType(initial))
+  const {data} = useLoaderData<typeof loader>()
   const articles = data ? sortArticles(data) : []
 
   const rootLoader = useRootLoaderData()
-  const siteMeta = rootLoader?.initial?.data
+  const siteMeta = rootLoader?.siteMeta
 
   return (
     <section className="lg:grid-cols-16 grid grid-cols-1 px-4 md:grid-cols-12 md:px-0">

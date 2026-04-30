@@ -12,13 +12,10 @@ import {
 import {z} from 'zod'
 
 import CanonicalLink from '~/components/CanonicalLink'
-import LiveVisualEditing from '~/components/LiveVisualEditing'
 import {themePreferenceCookie} from '~/cookies'
 import {getEnv} from '~/env.server'
 import {getBodyClassNames} from '~/lib/getBodyClassNames'
 import {getDomainUrl} from '~/lib/getDomainUrl'
-import {loadQueryOptions} from '~/sanity/loadQueryOptions'
-import ExitPreview from './components/ExitPreview'
 
 export const handle = {id: `root`}
 
@@ -56,8 +53,6 @@ export const loader = async ({request, context}: LoaderFunctionArgs) => {
     .optional()
     .parse(cookie.themePreference)
 
-  const {preview} = await loadQueryOptions(request.headers, env)
-
   return {
     themePreference: themePreference || 'light',
     ENV: {
@@ -69,13 +64,11 @@ export const loader = async ({request, context}: LoaderFunctionArgs) => {
     requestInfo: {
       origin: getDomainUrl(request),
     },
-    preview,
   }
 }
 
 export default function App() {
-  const {themePreference, ENV, requestInfo, preview} =
-    useLoaderData<typeof loader>()
+  const {themePreference, ENV, requestInfo} = useLoaderData<typeof loader>()
 
   const bodyClassNames = getBodyClassNames(themePreference)
 
@@ -94,12 +87,6 @@ export default function App() {
       <body className={bodyClassNames}>
         <Outlet />
         {/* {ENV.NODE_ENV === 'development' ? <Grid /> : null} */}
-        {preview ? (
-          <>
-            <LiveVisualEditing />
-            <ExitPreview />
-          </>
-        ) : null}
         <ScrollRestoration />
         <script
           dangerouslySetInnerHTML={{

@@ -1,4 +1,3 @@
-import {useQuery} from '~/sanity/loader'
 import type {
   LinksFunction,
   MetaFunction,
@@ -15,9 +14,7 @@ import Article from '~/components/Article'
 import {getEnv} from '~/env.server'
 import type {loader as layoutLoader} from '~/routes/_website'
 import {getWriteClient} from '~/sanity/client.server'
-import {fixInitialType} from '~/sanity/fixInitialType'
-import {loadServerQuery} from '~/sanity/loader.server'
-import {loadQueryOptions} from '~/sanity/loadQueryOptions'
+import {client} from '~/sanity/client'
 import {ARTICLE_QUERY} from '~/sanity/queries'
 import styles from '@repo/tailwind/app.css?url'
 import type {Article as ArticleType} from '~/types/article'
@@ -46,7 +43,7 @@ export const meta: MetaFunction<
     (match) => match.id === `routes/_website`,
   )?.data
 
-  const {_id, _updatedAt, title, summary} = routeData?.initial.data ?? {}
+  const {_id, _updatedAt, title, summary} = routeData?.article ?? {}
   const baseUrl =
     import.meta.env.DEV ? LOCAL_OG_URL : PROD_OG_URL
   const ogImageUrl = new URL(`/image`, baseUrl)
@@ -60,7 +57,7 @@ export const meta: MetaFunction<
 
   // SEO Meta
   const pageTitle = layoutData
-    ? [title, layoutData.initial.data.title].filter(Boolean).join(` | `)
+    ? [title, layoutData.siteMeta?.title].filter(Boolean).join(` | `)
     : title
 
   return [
@@ -69,7 +66,7 @@ export const meta: MetaFunction<
     {property: 'twitter:card', content: 'summary_large_image'},
     {
       property: 'twitter:creator',
-      content: layoutData ? String(layoutData.initial.data.author) : '',
+      content: layoutData ? String(layoutData.siteMeta?.author) : '',
     },
     {property: 'twitter:title', content: pageTitle},
     {property: 'twitter:description', content: summary},
@@ -110,29 +107,22 @@ export const action = async ({request, context}: Route.ActionArgs) => {
 
 export const loader = async ({request, params, context}: Route.LoaderArgs) => {
   const env = getEnv(context)
-  const {options, preview} = await loadQueryOptions(request.headers, env)
-
   const query = ARTICLE_QUERY
 
-  const initial = await loadServerQuery(query, params, options, env).then((result) => ({
-    ...result,
-    data: articleZ.parse(result.data),
-  }))
+  const article = await client.fetch<ArticleType | null>(query, params).then((result) => {
+    return result ? articleZ.parse(result) : null
+  })
 
-  if (!initial.data && !preview) {
+  if (!article) {
     throw new Response(`Article not found`, {status: 404})
   }
 
   return {
-    initial,
-    query,
-    params,
+    article,
   }
 }
 
 export default function Index() {
-  const {initial, query, params} = useLoaderData<typeof loader>()
-  const {data} = useQuery<ArticleType>(query, params, fixInitialType(initial))
-
-  return data ? <Article article={data} /> : <div>Loading...</div>
+  const {article} = useLoaderData<typeof loader>()
+  return <Article article={article} />
 }
