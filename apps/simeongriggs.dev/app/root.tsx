@@ -99,7 +99,7 @@ export default function App() {
   )
 }
 
-export function CatchBoundary() {
+function RootBoundary() {
   const error = useRouteError()
 
   if (isRouteErrorResponse(error)) {
@@ -123,4 +123,13 @@ export function CatchBoundary() {
       </p>
     </div>
   )
+}
+
+export function ErrorBoundary() {
+  return <RootBoundary />
+}
+
+// Back-compat with older Remix-style route modules.
+export function CatchBoundary() {
+  return <RootBoundary />
 }

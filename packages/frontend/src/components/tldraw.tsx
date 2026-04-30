@@ -2,16 +2,12 @@ import type {PortableTextTypeComponentProps} from '@portabletext/react'
 import {stegaClean} from '@sanity/client/stega'
 import type {ComponentType} from 'react'
 import {useEffect, useMemo, useState} from 'react'
+import type {TldrawImageProps} from 'tldraw'
 
 type TldrawValue = {
   _type: 'tldraw'
   _key?: string
   document: string | null
-}
-
-type TldrawImageProps = {
-  snapshot: unknown
-  format?: 'png' | 'svg'
 }
 
 /**
@@ -31,7 +27,7 @@ export default function TypeTldraw(
   const snapshot = useMemo(() => {
     if (!value?.document) return null
     try {
-      return JSON.parse(stegaClean(value.document)) as unknown
+      return JSON.parse(stegaClean(value.document)) as TldrawImageProps['snapshot']
     } catch {
       return null
     }
@@ -47,7 +43,7 @@ export default function TypeTldraw(
       await import('tldraw/tldraw.css')
       const mod = await import('tldraw')
       if (!cancelled) {
-        setTldrawImage(() => mod.TldrawImage)
+        setTldrawImage(mod.TldrawImage)
       }
     })()
 

@@ -19,8 +19,8 @@ function tldrawSsrStub(): Plugin {
   return {
     name: 'tldraw-ssr-stub',
     enforce: 'pre',
-    resolveId(source, _importer, {ssr} = {}) {
-      if (!ssr) return null
+    resolveId(source, _importer, options) {
+      if (!options?.ssr) return null
       if (source === 'tldraw') return tldrawSsrStubPath
       if (source === 'tldraw/tldraw.css') return tldrawCssSsrStubPath
       return null
