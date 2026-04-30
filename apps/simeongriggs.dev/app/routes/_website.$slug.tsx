@@ -1,8 +1,5 @@
-import {useQuery} from '@sanity/react-loader'
 import type {
-  ActionFunction,
   LinksFunction,
-  LoaderFunctionArgs,
   MetaFunction,
 } from 'react-router'
 import {useLoaderData} from 'react-router'
@@ -14,16 +11,16 @@ import {
 } from '../../../../packages/constants/src'
 
 import Article from '~/components/Article'
+import {getEnv} from '~/env.server'
 import type {loader as layoutLoader} from '~/routes/_website'
-import {writeClient} from '~/sanity/client.server'
-import {fixInitialType} from '~/sanity/fixInitialType'
-import {loadQuery} from '~/sanity/loader.server'
-import {loadQueryOptions} from '~/sanity/loadQueryOptions'
+import {getWriteClient} from '~/sanity/client.server'
+import {client} from '~/sanity/client'
 import {ARTICLE_QUERY} from '~/sanity/queries'
 import styles from '@repo/tailwind/app.css?url'
 import type {Article as ArticleType} from '~/types/article'
 import {articleZ} from '~/types/article'
 import {commentZ} from '~/types/comment'
+import type {Route} from './+types/_website.$slug'
 
 export const handle = {id: `article`}
 
@@ -41,13 +38,14 @@ export const meta: MetaFunction<
   }
 > = (props) => {
   const {data, matches} = props
+  const routeData = data as Awaited<ReturnType<typeof loader>> | undefined
   const layoutData = matches.find(
     (match) => match.id === `routes/_website`,
   )?.data
 
-  const {_id, _updatedAt, title, summary} = data?.initial.data ?? {}
+  const {_id, _updatedAt, title, summary} = routeData?.article ?? {}
   const baseUrl =
-    process.env.NODE_ENV === 'development' ? LOCAL_OG_URL : PROD_OG_URL
+    import.meta.env.DEV ? LOCAL_OG_URL : PROD_OG_URL
   const ogImageUrl = new URL(`/image`, baseUrl)
 
   if (_id) {
@@ -59,7 +57,7 @@ export const meta: MetaFunction<
 
   // SEO Meta
   const pageTitle = layoutData
-    ? [title, layoutData.initial.data.title].filter(Boolean).join(` | `)
+    ? [title, layoutData.siteMeta?.title].filter(Boolean).join(` | `)
     : title
 
   return [
@@ -68,7 +66,7 @@ export const meta: MetaFunction<
     {property: 'twitter:card', content: 'summary_large_image'},
     {
       property: 'twitter:creator',
-      content: layoutData ? String(layoutData.initial.data.author) : '',
+      content: layoutData ? String(layoutData.siteMeta?.author) : '',
     },
     {property: 'twitter:title', content: pageTitle},
     {property: 'twitter:description', content: summary},
@@ -81,7 +79,8 @@ export const meta: MetaFunction<
   ]
 }
 
-export const action: ActionFunction = async ({request}) => {
+export const action = async ({request, context}: Route.ActionArgs) => {
+  const env = getEnv(context)
   const body = await request.formData()
 
   // Basic honeypot check
@@ -101,35 +100,29 @@ export const action: ActionFunction = async ({request}) => {
     },
   })
 
-  const data = await writeClient.create(comment).then((res) => res)
+  const data = await getWriteClient(env).create(comment).then((res) => res)
 
   return data
 }
 
-export const loader = async ({request, params}: LoaderFunctionArgs) => {
-  const {options, preview} = await loadQueryOptions(request.headers)
-
+export const loader = async ({request, params, context}: Route.LoaderArgs) => {
+  const env = getEnv(context)
   const query = ARTICLE_QUERY
 
-  const initial = await loadQuery(query, params, options).then((result) => ({
-    ...result,
-    data: articleZ.parse(result.data),
-  }))
+  const article = await client.fetch<ArticleType | null>(query, params).then((result) => {
+    return result ? articleZ.parse(result) : null
+  })
 
-  if (!initial.data && !preview) {
+  if (!article) {
     throw new Response(`Article not found`, {status: 404})
   }
 
   return {
-    initial,
-    query,
-    params,
+    article,
   }
 }
 
 export default function Index() {
-  const {initial, query, params} = useLoaderData<typeof loader>()
-  const {data} = useQuery<ArticleType>(query, params, fixInitialType(initial))
-
-  return data ? <Article article={data} /> : <div>Loading...</div>
+  const {article} = useLoaderData<typeof loader>()
+  return <Article article={article} />
 }

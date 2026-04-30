@@ -4,8 +4,10 @@
   "type": "module",
   "scripts": {
     "build": "react-router build",
+    "cf-typegen": "wrangler types && react-router typegen",
     "dev": "react-router dev",
-    "start": "react-router-serve ./build/server/index.js",
+    "deploy": "wrangler deploy",
+    "preview": "react-router build && vite preview",
     "typecheck": "react-router typegen && tsc"
   },
   "dependencies": {
@@ -25,18 +27,12 @@
     "@sanity/color": "^3.0.6",
     "@sanity/icons": "^3.7.4",
     "@sanity/image-url": "^2.0.2",
-    "@sanity/preview-url-secret": "^4.0.2",
-    "@sanity/react-loader": "^2.0.5",
     "@sanity/types": "^5.4.0",
     "@sanity/ui": "^3.1.11",
     "@sanity/vision": "^5.4.0",
-    "@sanity/visual-editing": "^5.1.0",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/vite": "^4.1.18",
-    "@vercel/node": "^5.5.21",
-    "@vercel/react-router": "^1.2.4",
     "blurhash": "^2.0.5",
-    "express": "^5.2.1",
     "framer-motion": "^12.26.2",
     "get-youtube-id": "^1.0.1",
     "isbot": "^5.1.32",
@@ -56,10 +52,11 @@
     "zod": "^4.3.5"
   },
   "devDependencies": {
+    "@cloudflare/vite-plugin": "^1.32.3",
+    "@cloudflare/workers-types": "^4.20260416.2",
     "@portabletext/types": "^4.0.1",
     "@react-router/dev": "^7.12.0",
     "@tailwindcss/typography": "^0.5.19",
-    "@types/express": "^5.0.6",
     "@types/node": "^25.0.8",
     "@types/react": "^19.2.8",
     "@types/react-dom": "^19.2.3",
@@ -73,6 +70,7 @@
     "tailwindcss": "^4.1.18",
     "typescript": "^5.9.3",
     "vite": "^7.3.1",
-    "vite-tsconfig-paths": "^6.0.4"
+    "vite-tsconfig-paths": "^6.0.4",
+    "wrangler": "^4.83.0"
   }
 }

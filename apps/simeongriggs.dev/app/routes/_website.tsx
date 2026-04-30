@@ -1,4 +1,3 @@
-import {useQuery} from '@sanity/react-loader'
 import type {MetaFunction} from 'react-router'
 import {Outlet, ScrollRestoration, useLoaderData} from 'react-router'
 import {
@@ -11,9 +10,7 @@ import {
 import {Banner} from '~/components/Banner'
 import Header from '~/components/Header'
 import {removeTrailingSlash} from '~/lib/helpers'
-import {fixInitialType} from '~/sanity/fixInitialType'
-import {loadQuery} from '~/sanity/loader.server'
-import {loadQueryOptions} from '~/sanity/loadQueryOptions'
+import {client} from '~/sanity/client'
 import {SITE_META_QUERY} from '~/sanity/queries'
 import type {SiteMeta} from '~/types/siteMeta'
 import {siteMetaZ} from '~/types/siteMeta'
@@ -21,14 +18,14 @@ import type {Route} from './+types/_website'
 
 export const meta: MetaFunction<Route.MetaArgs> = ({data}) => {
   const routeData = data as Awaited<ReturnType<typeof loader>>
-  const {data: siteMeta} = routeData?.initial ?? {}
+  const {siteMeta} = routeData ?? {}
 
   if (!siteMeta) {
     return [{title: `Home page`}]
   }
 
   const baseUrl =
-    process.env.NODE_ENV === 'development' ? LOCAL_OG_URL : PROD_OG_URL
+    import.meta.env.DEV ? LOCAL_OG_URL : PROD_OG_URL
   const ogImageUrl = new URL(`/image`, baseUrl)
   ogImageUrl.searchParams.set(`id`, siteMeta._id)
 
@@ -55,32 +52,21 @@ export const meta: MetaFunction<Route.MetaArgs> = ({data}) => {
   ]
 }
 
-export const loader = async ({request}: Route.LoaderArgs) => {
-  const {options, preview} = await loadQueryOptions(request.headers)
-
+export const loader = async ({request, context}: Route.LoaderArgs) => {
   const query = SITE_META_QUERY
   const params = {}
 
-  const initial = await loadQuery(query, params, options).then((result) => ({
-    ...result,
-    data: siteMetaZ.parse(result.data),
-  }))
+  const siteMeta = await client.fetch<SiteMeta>(query, params).then((result) => {
+    return siteMetaZ.parse(result)
+  })
 
   return {
-    initial,
-    query,
-    params,
-    preview,
+    siteMeta,
   }
 }
 
 export default function Website() {
-  const {initial, query, params} = useLoaderData<typeof loader>()
-  const {data: siteMeta} = useQuery<SiteMeta>(
-    query,
-    params,
-    fixInitialType(initial),
-  )
+  const {siteMeta} = useLoaderData<typeof loader>()
 
   return (
     <>

@@ -1,4 +1,4 @@
-import imageUrlBuilder from '@sanity/image-url'
+import {createImageUrlBuilder} from '@sanity/image-url'
 import {clsx} from 'clsx'
 import {motion} from 'framer-motion'
 import type {PropsWithChildren} from 'react'
@@ -82,7 +82,7 @@ export function Desktop(props: DesktopProps) {
                 bannerConfigDesktop.key,
                 JSON.stringify(bannerImage.asset),
               ].join('-')}
-              src={imageUrlBuilder(projectDetails())
+              src={createImageUrlBuilder(projectDetails())
                 .image(bannerImage)
                 .height(bannerConfigDesktop.height)
                 .width(bannerConfigDesktop.width)
