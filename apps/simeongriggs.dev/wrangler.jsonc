@@ -1,6 +1,6 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  "name": "simeongriggs-dev",
+  "name": "simeongriggs",
   "main": "workers/app.ts",
   "assets": {
     "directory": "build/client"
@@ -8,9 +8,20 @@
   "compatibility_date": "2026-04-16",
   "compatibility_flags": ["nodejs_compat"],
   "workers_dev": true,
-  "preview_urls": true,
+  "preview_urls": true, 
   "observability": {
-    "enabled": true,
-    "invocation_logs": true
-  },
+    "enabled": false,
+    "head_sampling_rate": 1,
+    "logs": {
+      "enabled": true,
+      "head_sampling_rate": 1,
+      "persist": true,
+      "invocation_logs": true
+    },
+    "traces": {
+      "enabled": false,
+      "persist": true,
+      "head_sampling_rate": 1
+    }
+  }
 }
