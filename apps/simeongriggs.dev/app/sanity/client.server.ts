@@ -1,22 +1,26 @@
 import {createClient} from '@sanity/client'
 
+import type {AppEnv} from '~/env.server'
+import {getRequiredEnvValue} from '~/env.server'
 import {client} from './client'
 
 export const exchangeClient = createClient({
   ...client.config(),
   projectId: `81pocpw8`,
-  useCdn: process.env.NODE_ENV === 'production',
+  useCdn: import.meta.env.PROD,
 })
 
 export const adminClient = createClient({
   ...client.config(),
   projectId: `3do82whm`,
   dataset: `next`,
-  useCdn: process.env.NODE_ENV === 'production',
+  useCdn: import.meta.env.PROD,
 })
 
-export const writeClient = createClient({
-  ...client.config(),
-  useCdn: false,
-  token: process.env.SANITY_WRITE_TOKEN,
-})
+export function getWriteClient(env: AppEnv) {
+  return createClient({
+    ...client.config(),
+    useCdn: false,
+    token: getRequiredEnvValue(env, 'SANITY_WRITE_TOKEN'),
+  })
+}

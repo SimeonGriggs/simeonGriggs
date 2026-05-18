@@ -71,7 +71,7 @@ export const ARTICLE_QUERY = groq`*[_type == "article" && slug.current == $slug]
           }
         },
         _type == "gallery" => {
-          "images": *[_type == "sanity.imageAsset" && references(^._ref)]{
+          "images": *[_type == "sanity.imageAsset" && references(^._ref)]|order(_createdAt desc){
             url,
             ${SANITY_IMAGE_OBJECT_STUB_ASSET}
           }

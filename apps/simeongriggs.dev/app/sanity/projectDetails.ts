@@ -19,15 +19,9 @@ let apiVersion: string
 const defaultApiVersion = `2024-02-13`
 
 if (typeof document === 'undefined') {
-  if (typeof process !== 'undefined') {
-    projectId = process.env.VITE_SANITY_PROJECT_ID!
-    dataset = process.env.VITE_SANITY_DATASET!
-    apiVersion = process.env.VITE_SANITY_API_VERSION ?? defaultApiVersion
-  } else {
-    projectId = import.meta.env.VITE_SANITY_PROJECT_ID
-    dataset = import.meta.env.VITE_SANITY_DATASET
-    apiVersion = import.meta.env.VITE_SANITY_API_VERSION ?? defaultApiVersion
-  }
+  projectId = import.meta.env.VITE_SANITY_PROJECT_ID
+  dataset = import.meta.env.VITE_SANITY_DATASET
+  apiVersion = import.meta.env.VITE_SANITY_API_VERSION ?? defaultApiVersion
 } else {
   projectId = window.ENV.VITE_SANITY_PROJECT_ID
   dataset = window.ENV.VITE_SANITY_DATASET

@@ -1,6 +1,5 @@
-import {PencilSquareIcon} from '@heroicons/react/24/outline'
 import {PortableText} from '@portabletext/react'
-import {components, Heading, Lead, Subheading} from '@repo/frontend'
+import {components, Heading, Lead} from '@repo/frontend'
 
 import Published from '~/components/Published'
 import Subscribe from '~/components/Subscribe'
@@ -25,19 +24,6 @@ export default function Article(props: ArticleProps) {
         ) : null}
 
         {summary ? <Lead className="mt-6 max-w-3xl">{summary}</Lead> : null}
-
-        <Subheading className="mt-6">
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href={`/studio/structure/article;${_id}`}
-            className="inline-flex items-center gap-2"
-            items-center
-          >
-            <PencilSquareIcon className="size-4" />
-            View in Sanity Studio
-          </a>
-        </Subheading>
       </div>
 
       <div className="md:col-span-2 md:col-start-3 md:row-start-2 lg:col-span-3 lg:col-start-5">

@@ -25,18 +25,16 @@ export function Banner() {
 
   if (isHome && homeData) {
     const firstBlogPostWithImage = articleStubZ.parse(
-      homeData.initial.data
+      homeData.data
         .filter((a) => a._type === 'article')
-        .find((b: ArticleStub) => b.image && b.published),
+        .find((b) => Boolean(b.image && b.published)),
     )
 
     bannerImage = firstBlogPostWithImage?.image
       ? firstBlogPostWithImage.image
       : null
   } else if (pageData) {
-    bannerImage = pageData?.initial?.data?.image
-      ? pageData.initial.data.image
-      : null
+    bannerImage = pageData?.article?.image ? pageData.article.image : null
   }
 
   const {width: windowWidth} = useWindowSize()

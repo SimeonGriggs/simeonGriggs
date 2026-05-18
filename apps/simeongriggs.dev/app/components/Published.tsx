@@ -26,7 +26,7 @@ export default function Published({
           <span>
             <time dateTime={published}>{dateDisplay(published)}</time>
             {` `}•{` `}
-            <time dateTime={updated}>Updated {dateDisplay(updated)}</time>
+            <time dateTime={updated!}>Updated {dateDisplay(updated!)}</time>
           </span>
         ) : (
           <time dateTime={published}>{dateDisplay(published)}</time>

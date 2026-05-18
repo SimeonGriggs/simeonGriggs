@@ -1,5 +1,5 @@
 import type {SanityImageSource} from '@sanity/asset-utils'
-import imageUrlBuilder from '@sanity/image-url'
+import {createImageUrlBuilder} from '@sanity/image-url'
 import {ImageResponse} from 'next/og'
 import {defineQuery} from 'groq'
 import type {SanityDocument, SanityDocumentLike} from 'sanity'
@@ -23,7 +23,7 @@ const clientWithToken = createClient({
   apiVersion: SANITY_API_VERSION,
 })
 const urlFor = (source: SanityImageSource) =>
-  imageUrlBuilder({
+  createImageUrlBuilder({
     projectId: SANITY_PROJECT_ID,
     dataset: SANITY_DATASET,
   }).image(source)
