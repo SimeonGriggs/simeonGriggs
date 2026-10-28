@@ -5,8 +5,8 @@ export const SITE_NAME = 'simeonGriggs.dev'
 
 export const SITE_URL = new URL('https://www.simeongriggs.dev')
 export const LOCAL_URL = new URL('http://localhost:5173')
-export const PROD_OG_URL = new URL('https://og.simeongriggs.dev')
-export const LOCAL_OG_URL = new URL('http://localhost:3000')
+export const PROD_OG_URL = SITE_URL
+export const LOCAL_OG_URL = LOCAL_URL
 
 export const PREVIEW_SESSION_NAME = 'preview'
 export const STUDIO_BASEPATH = '/studio'

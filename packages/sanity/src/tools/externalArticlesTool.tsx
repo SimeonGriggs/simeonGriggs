@@ -1,7 +1,7 @@
 import {useClient} from 'sanity'
 import {Box, Button, Card, Container, Flex, Heading, Stack, Text} from '@sanity/ui'
 import {useCallback, useMemo, useState} from 'react'
-import {RefreshIcon} from '@sanity/icons'
+import {RefreshIcon} from '@sanity/icons/Refresh'
 
 type Source = 'planetscale' | 'sanity_guides' | 'sanity_learn'
 
@@ -358,7 +358,7 @@ function ExternalArticlesTool() {
 
   return (
     <Container width={2} padding={4}>
-      <Stack space={4}>
+      <Stack gap={4}>
         <Heading size={3}>External Articles</Heading>
         <Text muted>
           Imports and upserts external articles into your dataset. Uses your
@@ -366,7 +366,7 @@ function ExternalArticlesTool() {
         </Text>
 
         <Card padding={3} radius={2} shadow={1} tone="transparent">
-          <Stack space={3}>
+          <Stack gap={3}>
             <Flex gap={2} wrap="wrap">
               <Button
                 icon={RefreshIcon}
@@ -425,9 +425,9 @@ function ExternalArticlesTool() {
         </Card>
 
         <Card padding={3} radius={2} shadow={1}>
-          <Stack space={2}>
+          <Stack gap={2}>
             <Heading size={1}>Log</Heading>
-            <Stack space={2}>
+            <Stack gap={2}>
               {log.length === 0 ? (
                 <Text muted size={1}>
                   No runs yet.

@@ -1,4 +1,7 @@
+import {createContext, RouterContextProvider} from 'react-router'
+
 export interface AppEnv {
+  ASSETS?: Fetcher
   SANITY_READ_TOKEN?: string
   SANITY_WRITE_TOKEN?: string
   SANITY_SESSION_SECRET?: string
@@ -7,6 +10,11 @@ export interface AppEnv {
   VITE_SANITY_API_VERSION?: string
 }
 
+export const cloudflareContext = createContext<{
+  env: AppEnv
+  ctx: ExecutionContext
+}>()
+
 interface CloudflareContext {
   cloudflare?: {
     env?: AppEnv
@@ -14,6 +22,10 @@ interface CloudflareContext {
 }
 
 export function getEnv(context: unknown): AppEnv {
+  if (context instanceof RouterContextProvider) {
+    return context.get(cloudflareContext).env
+  }
+
   if (!context || typeof context !== 'object') {
     throw new Error(
       'Missing Cloudflare environment bindings. Run the app with the Cloudflare Vite plugin or Workers runtime.',
@@ -32,7 +44,10 @@ export function getEnv(context: unknown): AppEnv {
   return env
 }
 
-export function getRequiredEnvValue(env: AppEnv, key: keyof AppEnv): string {
+export function getRequiredEnvValue(
+  env: AppEnv,
+  key: Exclude<keyof AppEnv, 'ASSETS'>,
+): string {
   const value = env[key]
 
   if (!value) {

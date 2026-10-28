@@ -3,9 +3,11 @@ import {reactRouter} from '@react-router/dev/vite'
 import tailwindcss from '@tailwindcss/vite'
 import {fileURLToPath} from 'node:url'
 import {defineConfig, type Plugin} from 'vite'
-import tsconfigPaths from 'vite-tsconfig-paths'
+import {satoriCloudflare} from './build-tools/satori-cloudflare.ts'
 
-const tldrawSsrStubPath = fileURLToPath(new URL('./app/stubs/tldraw-ssr.ts', import.meta.url))
+const tldrawSsrStubPath = fileURLToPath(
+  new URL('./app/stubs/tldraw-ssr.ts', import.meta.url),
+)
 const tldrawCssSsrStubPath = fileURLToPath(
   new URL('./app/stubs/tldraw-empty.css', import.meta.url),
 )
@@ -29,11 +31,30 @@ function tldrawSsrStub(): Plugin {
 }
 
 export default defineConfig({
+  resolve: {tsconfigPaths: true},
+  environments: {
+    ssr: {
+      optimizeDeps: {
+        include: [
+          'postcss-value-parser',
+          'css-to-react-native',
+          'css-background-parser',
+          'css-box-shadow',
+          'parse-css-color',
+          'escape-html',
+          'linebreak',
+          '@shuding/opentype.js',
+          'fflate',
+          'css-gradient-parser',
+        ].map((name) => `satori > ${name}`),
+      },
+    },
+  },
   plugins: [
+    satoriCloudflare(),
     tldrawSsrStub(),
     cloudflare({viteEnvironment: {name: 'ssr'}}),
     tailwindcss(),
     reactRouter(),
-    tsconfigPaths(),
   ],
 })

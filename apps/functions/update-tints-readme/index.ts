@@ -1,5 +1,5 @@
 import {documentEventHandler} from '@sanity/functions'
-import {toMarkdown} from '@portabletext/markdown'
+import {portableTextToMarkdown} from '@portabletext/markdown'
 import {Octokit} from '@octokit/rest'
 import {type PortableTextBlock} from '@portabletext/types'
 
@@ -26,7 +26,7 @@ export const handler = documentEventHandler<Projection>(async ({event}) => {
     return
   }
 
-  const markdownContent = toMarkdown(blockContent)
+  const markdownContent = portableTextToMarkdown(blockContent)
 
   if (!GITHUB_TOKEN || !REPO_OWNER || !REPO_NAME) {
     throw new Error('Missing required GitHub configuration')
@@ -59,7 +59,12 @@ export const handler = documentEventHandler<Projection>(async ({event}) => {
       })
     } catch (error) {
       // Branch doesn't exist, which is fine
-      if (error.status !== 404) {
+      if (!(
+        error &&
+        typeof error === 'object' &&
+        'status' in error &&
+        error.status === 404
+      )) {
         throw error
       }
     }
@@ -137,10 +142,18 @@ export const handler = documentEventHandler<Projection>(async ({event}) => {
         }
       } catch (error) {
         // If PR creation fails for other reasons
-        if (error.status !== 422) {
+        if (!(
+          error &&
+          typeof error === 'object' &&
+          'status' in error &&
+          error.status === 422
+        )) {
           throw error
         }
-        console.log('Error creating pull request:', error.message)
+        console.log(
+          'Error creating pull request:',
+          error instanceof Error ? error.message : String(error),
+        )
       }
     }
   } catch (error) {

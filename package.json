@@ -11,21 +11,16 @@
     "syncpack:fix": "syncpack fix",
     "syncpack:update": "syncpack update"
   },
-  "packageManager": "pnpm@10.28.0",
+  "packageManager": "pnpm@12.15.0",
   "dependencies": {
-    "@types/node": "^25.0.8",
-    "prettier": "^3.8.0",
-    "prettier-plugin-tailwindcss": "^0.7.2"
+    "@types/node": "^26.6.5",
+    "prettier": "^3.9.10",
+    "prettier-plugin-tailwindcss": "^0.8.1"
   },
   "devDependencies": {
-    "@sanity/blueprints": "^0.7.1",
-    "@sanity/client": "latest",
-    "@sanity/functions": "1.1.0",
-    "syncpack": "14.0.0-alpha.32"
-  },
-  "pnpm": {
-    "overrides": {
-      "rollup": "4.59.1"
-    }
+    "@sanity/blueprints": "^0.30.0",
+    "@sanity/client": "^8.12.0",
+    "@sanity/functions": "1.10.1",
+    "syncpack": "15.3.3"
   }
 }

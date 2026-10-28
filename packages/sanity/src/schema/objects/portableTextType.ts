@@ -1,11 +1,9 @@
-import {
-  CodeIcon,
-  CreditCardIcon,
-  ImageIcon,
-  JoystickIcon,
-  PackageIcon,
-  RemoveIcon,
-} from '@sanity/icons'
+import {CodeIcon} from '@sanity/icons/Code'
+import {CreditCardIcon} from '@sanity/icons/CreditCard'
+import {ImageIcon} from '@sanity/icons/Image'
+import {JoystickIcon} from '@sanity/icons/Joystick'
+import {PackageIcon} from '@sanity/icons/Package'
+import {RemoveIcon} from '@sanity/icons/Remove'
 import type {Rule} from 'sanity'
 import {defineType} from 'sanity'
 

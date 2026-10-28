@@ -1,0 +1,59 @@
+name: Sanity Studio
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'apps/studio/**'
+      - 'packages/sanity/**'
+      - 'packages/constants/**'
+      - '.node-version'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+      - 'pnpm-workspace.yaml'
+      - '.github/workflows/sanity-studio.yml'
+  pull_request:
+    paths:
+      - 'apps/studio/**'
+      - 'packages/sanity/**'
+      - 'packages/constants/**'
+      - '.node-version'
+      - 'package.json'
+      - 'pnpm-lock.yaml'
+      - 'pnpm-workspace.yaml'
+      - '.github/workflows/sanity-studio.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: sanity-studio-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  studio:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: pnpm/action-setup@d9184bf108216479bc5a137cc391f4d7b14c870b # v6.1.0
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .node-version
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Typecheck Studio
+        run: pnpm --filter simeongriggs-studio typecheck
+      - name: Build Studio
+        run: pnpm --filter simeongriggs-studio build
+      - name: Deploy to Sanity hosting
+        if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
+        env:
+          SANITY_AUTH_TOKEN: ${{ secrets.SANITY_STUDIO_DEPLOY }}
+        run: |
+          if [ -z "$SANITY_AUTH_TOKEN" ]; then
+            echo 'Set the SANITY_STUDIO_DEPLOY repository secret to a Sanity deploy token.' >&2
+            exit 1
+          fi
+          pnpm --filter simeongriggs-studio exec sanity deploy --no-build --yes --schema-required --url simeongriggs

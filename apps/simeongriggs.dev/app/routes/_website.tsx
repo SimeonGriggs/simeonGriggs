@@ -1,7 +1,5 @@
-import type {MetaFunction} from 'react-router'
 import {Outlet, ScrollRestoration, useLoaderData} from 'react-router'
 import {
-  LOCAL_OG_URL,
   OG_IMAGE_HEIGHT,
   OG_IMAGE_WIDTH,
   PROD_OG_URL,
@@ -16,16 +14,16 @@ import type {SiteMeta} from '~/types/siteMeta'
 import {siteMetaZ} from '~/types/siteMeta'
 import type {Route} from './+types/_website'
 
-export const meta: MetaFunction<Route.MetaArgs> = ({data}) => {
-  const routeData = data as Awaited<ReturnType<typeof loader>>
+export const meta = ({loaderData}: Route.MetaArgs) => {
+  const routeData = loaderData
   const {siteMeta} = routeData ?? {}
 
   if (!siteMeta) {
     return [{title: `Home page`}]
   }
 
-  const baseUrl = import.meta.env.DEV ? LOCAL_OG_URL : PROD_OG_URL
-  const ogImageUrl = new URL(`/image`, baseUrl)
+  const baseUrl = routeData?.origin ?? PROD_OG_URL
+  const ogImageUrl = new URL(`/api/og`, baseUrl)
   ogImageUrl.searchParams.set(`id`, siteMeta._id)
 
   // SEO Meta
@@ -63,6 +61,7 @@ export const loader = async ({request, context}: Route.LoaderArgs) => {
 
   return {
     siteMeta,
+    origin: new URL(request.url).origin,
   }
 }
 

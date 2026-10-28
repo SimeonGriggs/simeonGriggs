@@ -5,22 +5,22 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@headlessui/react": "^2.2.9",
+    "@headlessui/react": "^2.2.10",
     "@heroicons/react": "^2.2.0",
-    "@portabletext/react": "^6.0.2",
+    "@portabletext/react": "^8.0.1",
     "@repo/constants": "workspace:*",
-    "@sanity/client": "^7.14.0",
-    "@sanity/image-url": "^2.0.2",
+    "@sanity/client": "^8.12.0",
+    "@sanity/image-url": "^2.1.1",
     "clsx": "^2.1.1",
     "get-youtube-id": "^1.0.1",
     "prism-react-renderer": "^2.4.1",
-    "react": "^19.2.3",
-    "react-dom": "^19.2.3",
-    "react-router": "^7.12.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "react-router": "^8.5.1",
     "usehooks-ts": "^3.1.1"
   },
   "peerDependencies": {
-    "tldraw": "^4.2.1"
+    "tldraw": "^5.5.2"
   },
   "peerDependenciesMeta": {
     "tldraw": {
@@ -28,8 +28,8 @@
     }
   },
   "devDependencies": {
-    "@types/react": "^19.2.8",
-    "@types/react-dom": "^19.2.3",
-    "typescript": "^5.9.3"
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "typescript": "^7.0.2"
   }
 }

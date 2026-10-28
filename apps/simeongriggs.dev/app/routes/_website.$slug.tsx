@@ -1,7 +1,6 @@
 import type {LinksFunction, MetaFunction} from 'react-router'
 import {useLoaderData} from 'react-router'
 import {
-  LOCAL_OG_URL,
   OG_IMAGE_HEIGHT,
   OG_IMAGE_WIDTH,
   PROD_OG_URL,
@@ -32,15 +31,15 @@ export const meta: MetaFunction<
     'routes/_website': typeof layoutLoader
   }
 > = (props) => {
-  const {data, matches} = props
-  const routeData = data as Awaited<ReturnType<typeof loader>> | undefined
+  const {loaderData, matches} = props
+  const routeData = loaderData as Awaited<ReturnType<typeof loader>> | undefined
   const layoutData = matches.find(
     (match) => match.id === `routes/_website`,
-  )?.data
+  )?.loaderData
 
   const {_id, _updatedAt, title, summary} = routeData?.article ?? {}
-  const baseUrl = import.meta.env.DEV ? LOCAL_OG_URL : PROD_OG_URL
-  const ogImageUrl = new URL(`/image`, baseUrl)
+  const baseUrl = layoutData?.origin ?? PROD_OG_URL
+  const ogImageUrl = new URL(`/api/og`, baseUrl)
 
   if (_id) {
     ogImageUrl.searchParams.set(`id`, _id)
