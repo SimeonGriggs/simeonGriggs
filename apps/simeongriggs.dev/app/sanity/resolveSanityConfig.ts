@@ -6,16 +6,11 @@ export type SanityPublicConfig = {
   apiVersion: string
 }
 
-/** Resolve per request: Worker bindings take precedence over build-time values. */
+/** Resolve per request from Cloudflare runtime bindings only. */
 export function resolveSanityConfig(env: AppEnv): SanityPublicConfig {
-  const projectId =
-    env.VITE_SANITY_PROJECT_ID || import.meta.env?.VITE_SANITY_PROJECT_ID
-  const dataset =
-    env.VITE_SANITY_DATASET || import.meta.env?.VITE_SANITY_DATASET
-  const apiVersion =
-    env.VITE_SANITY_API_VERSION ||
-    import.meta.env?.VITE_SANITY_API_VERSION ||
-    '2024-02-13'
+  const projectId = env.VITE_SANITY_PROJECT_ID
+  const dataset = env.VITE_SANITY_DATASET
+  const apiVersion = env.VITE_SANITY_API_VERSION || '2024-02-13'
 
   if (!projectId || !dataset) {
     throw new Error(
