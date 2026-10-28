@@ -15,17 +15,17 @@ Production deployments and remote preview uploads run only through Cloudflare Wo
 
 In Workers & Pages > simeongriggs > Settings > Build, use:
 
-| Setting                                                   | Value                                                     |
-| --------------------------------------------------------- | --------------------------------------------------------- |
-| Connected repository                                      | `SimeonGriggs/simeonGriggs`                               |
-| Root directory                                            | `apps/simeongriggs.dev`                                   |
-| Production branch                                         | `main`                                                    |
-| Build command                                             | `NODE_OPTIONS="--max-old-space-size=8192" pnpm run build` |
-| Production deploy command                                 | `npx wrangler deploy --keep-vars`                         |
-| Enable Preview Builds                                     | Enabled for non-production branches                       |
-| Non-production deploy command (existing version previews) | `npx wrangler versions upload`                            |
+| Setting                   | Value                                                     |
+| ------------------------- | --------------------------------------------------------- |
+| Connected repository      | `SimeonGriggs/simeonGriggs`                               |
+| Root directory            | `apps/simeongriggs.dev`                                   |
+| Production branch         | `main`                                                    |
+| Build command             | `NODE_OPTIONS="--max-old-space-size=8192" pnpm run build` |
+| Production deploy command | `npx wrangler deploy --keep-vars`                         |
+| Enable Preview Builds     | Enabled for non-production branches                       |
+| Preview command           | `npx wrangler preview`                                    |
 
-These publish commands belong in CF Builds settings only. A feature-branch push creates a version preview and branch alias without changing production traffic. A merge to `main` triggers the production build and deployment. Check the Workers Builds GitHub check and preview URL before merging; do not manually promote the version.
+These publish commands belong in CF Builds settings only. A feature-branch push creates a Worker Preview and branch URL without changing production traffic. A merge to `main` triggers the production build and deployment. Check the Workers Builds GitHub check and preview URL before merging; do not manually promote the version.
 
 ## Runtime configuration
 
@@ -43,24 +43,19 @@ Configure these secrets in Production and Previews Base:
 - `SANITY_WRITE_TOKEN`
 - `SANITY_SESSION_SECRET`
 
-The empty `previews` block lets Worker Previews use the runtime settings stored in Previews Base. Do not pass `--ignore-base-config`. The `keep_vars` setting preserves Production variables when CF Builds deploys. Existing version previews use the Worker's production runtime bindings.
+The empty `previews` block lets Worker Previews use the runtime settings stored in Previews Base. Do not pass `--ignore-base-config`. The `keep_vars` setting preserves Production variables when CF Builds deploys. Production and Worker Previews use separate runtime settings.
 
 Previews Base contains a verified copy of the three Production public variables. Cloudflare cannot export secret values; copy secrets from their original secure source using `wrangler preview base-config secret bulk` (or `secret put`). These settings commands do not publish Worker code. Never print or commit secret values. Base secret changes apply to newly created Previews; existing Previews need their secrets updated separately.
 
 For local development, put values in the gitignored `.dev.vars` file. This local file is not the source of truth for remote runtime settings.
 
-## New Worker Previews migration
+## Worker Previews
 
-This existing CF Builds integration uses version previews unless it has been switched in the dashboard. The newer Worker Previews mode is a separate, one-way migration; changing only the preview command is insufficient.
+CF Builds uses `npx wrangler preview` for non-production branches. Project Wrangler must remain at `4.135.0` or later. Keep the empty `previews` block and configure values in Previews Base so each new Preview receives its runtime settings without checked-in duplicates.
 
-Before selecting Set up Worker Previews > Switch to Worker Previews:
+Previews Base public variables have been copied from Production and verified. The three secret values still need their original secure source; Cloudflare cannot export Production secrets. Update existing Previews separately after adding missing Base secrets.
 
-1. Populate the Previews Base secrets from their original secure source. Production secrets are not inherited automatically.
-2. Keep the empty `previews` block so preview runtime values come from Previews Base, and keep project Wrangler at `4.135.0` or later.
-3. Switch the integration in the dashboard and use `npx wrangler preview` as the Preview command inside CF Builds.
-4. Push a branch and verify the resulting CF Builds preview before merging.
-
-Do not run the remote preview command locally during migration.
+Do not run the remote preview command locally. Push a branch, wait for CF Builds, and verify the Preview URL before merging.
 
 [Cloudflare build branches and preview builds](https://developers.cloudflare.com/workers/ci-cd/builds/build-branches/#configure-preview-builds)
 
