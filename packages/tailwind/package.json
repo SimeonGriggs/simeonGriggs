@@ -7,7 +7,7 @@
     "app.css"
   ],
   "dependencies": {
-    "tailwindcss": "^4.1.18"
+    "tailwindcss": "^4.3.3"
   },
   "keywords": [
     "tailwind",

@@ -9,7 +9,8 @@
     "start": "sanity start",
     "build": "sanity build",
     "deploy": "sanity deploy",
-    "deploy-graphql": "sanity graphql deploy"
+    "deploy-graphql": "sanity graphql deploy",
+    "typecheck": "tsc --noEmit"
   },
   "keywords": [
     "sanity"
@@ -17,20 +18,20 @@
   "dependencies": {
     "@repo/constants": "workspace:*",
     "@repo/sanity": "workspace:*",
-    "@sanity/code-input": "^7.0.5",
-    "@sanity/orderable-document-list": "^1.4.2",
-    "@sanity/vision": "^5.4.0",
-    "react": "^19.2.3",
-    "react-dom": "^19.2.3",
-    "sanity": "^5.4.0",
-    "sanity-plugin-asset-source-unsplash": "^7.0.2",
-    "sanity-plugin-media": "^4.1.1",
+    "@sanity/code-input": "^7.3.14",
+    "@sanity/orderable-document-list": "^2.0.28",
+    "@sanity/vision": "^6.20.0",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1",
+    "sanity": "^6.20.0",
+    "sanity-plugin-asset-source-unsplash": "^7.0.30",
+    "sanity-plugin-media": "^6.6.0",
     "sanity-plugin-tldraw": "^3.0.0",
-    "styled-components": "^6.3.6",
-    "tldraw": "^4.2.3"
+    "styled-components": "^6.6.0",
+    "tldraw": "^5.5.2"
   },
   "devDependencies": {
-    "@types/react": "^19.2.8",
-    "typescript": "^5.9.3"
+    "@types/react": "^19.3.0",
+    "typescript": "^7.0.2"
   }
 }

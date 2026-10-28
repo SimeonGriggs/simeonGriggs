@@ -1,4 +1,5 @@
-import {Card, Code, Flex} from '@sanity/ui'
+import {Card, Flex} from '@sanity/ui'
+import {Code} from '@sanity/ui/code'
 import {useMemo} from 'react'
 
 export default function OGPreview({document, options}: any) {

@@ -1,7 +1,6 @@
 packages:
   - 'apps/simeongriggs.dev'
   - 'apps/promptplaybook.dev'
-  - 'apps/og'
   - 'apps/studio'
   - 'apps/functions/comment-telegram'
   - 'apps/functions/update-tints-readme'
@@ -10,3 +9,49 @@ packages:
   - 'packages/constants'
   - 'packages/frontend'
   - 'packages/tailwind'
+allowBuilds:
+  bufferutil: false
+  core-js: false
+  esbuild: true
+  utf-8-validate: false
+  workerd: true
+minimumReleaseAgeExclude:
+  - '@cloudflare/workers-types@5.20261028.1'
+  - '@mux/mux-data-google-ima@0.3.19'
+  - '@portabletext/editor@8.2.9'
+  - '@portabletext/markdown@2.8.1'
+  - '@portabletext/plugin-character-pair-decorator@9.0.23'
+  - '@portabletext/plugin-dnd@2.0.24'
+  - '@portabletext/plugin-input-rule@7.0.23'
+  - '@portabletext/plugin-list-index@2.0.22'
+  - '@portabletext/plugin-markdown-shortcuts@9.0.23'
+  - '@portabletext/plugin-one-line@8.0.22'
+  - '@portabletext/plugin-paste-link@5.0.22'
+  - '@portabletext/plugin-table@2.0.22'
+  - '@portabletext/plugin-typography@9.0.23'
+  - '@react-router/dev@8.5.1'
+  - '@react-router/express@8.5.1'
+  - '@react-router/fs-routes@8.5.1'
+  - '@react-router/node@8.5.1'
+  - '@react-router/serve@8.5.1'
+  - '@sanity/cli-build@7.0.3'
+  - '@sanity/cli-core@3.14.0'
+  - '@sanity/cli@8.25.0'
+  - '@sanity/client@8.12.0'
+  - '@sanity/import@7.1.0'
+  - '@sanity/sdk-react@3.10.0'
+  - '@sanity/sdk@3.10.0'
+  - '@sanity/workbench-cli@2.14.1'
+  - baseline-browser-mapping@2.11.34
+  - electron-to-chromium@1.5.467
+  - exsolve@1.2.0
+  - framer-motion@14.7.1
+  - miniflare@5.20261023.1-beta
+  - motion-dom@14.7.1
+  - motion-utils@14.7.0
+  - motion@14.7.1
+  - mux-embed@5.19.0
+  - react-redux@9.3.1
+  - react-router@8.5.1
+  - sanity-plugin-media@6.6.0
+  - wrangler@4.154.0

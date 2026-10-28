@@ -7,8 +7,8 @@ import OGPreview from '../components/OGPreview'
 type DocProps = SanityDocument
 
 function createOgUrl(doc: DocProps) {
-  const urlBase = new URL(`/image`, isDev ? LOCAL_OG_URL : PROD_OG_URL)
-  urlBase.searchParams.set('id', doc._id)
+  const urlBase = new URL(`/api/og`, isDev ? LOCAL_OG_URL : PROD_OG_URL)
+  urlBase.searchParams.set('id', doc._id.replace(/^drafts\./, ''))
   urlBase.searchParams.set('updatedAt', doc._updatedAt)
 
   return urlBase.toString()
