@@ -6,7 +6,6 @@
     "build": "react-router build",
     "cf-typegen": "wrangler types && react-router typegen",
     "dev": "react-router dev",
-    "deploy": "wrangler deploy --keep-vars",
     "preview": "react-router build && vite preview",
     "test": "node --import tsx --test tests/*.test.ts",
     "typecheck": "react-router typegen && tsc"

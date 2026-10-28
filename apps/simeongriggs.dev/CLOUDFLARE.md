@@ -1,37 +1,56 @@
-# Cloudflare Workers deployment
+# Cloudflare Workers Builds
 
-This app now targets Cloudflare Workers for SSR.
+Production deployments and remote preview uploads run only through Cloudflare Workers Builds, using the connected Git repository. There is no local deployment script and no GitHub Actions deployment workflow. Do not deploy, upload, promote, or roll back this Worker directly from a local shell.
 
-## Local development
+## Local development and verification
 
 1. Install dependencies with `pnpm install`.
 2. Start the app with `pnpm --filter simeongriggs-blog dev`.
 3. Generate Cloudflare and route types with `pnpm --filter simeongriggs-blog cf-typegen`.
+4. Run `pnpm --filter simeongriggs-blog test`, `pnpm --filter simeongriggs-blog typecheck`, and `pnpm --filter simeongriggs-blog build` before pushing.
 
-## Required bindings
+`pnpm --filter simeongriggs-blog preview` builds and serves the app locally with Vite. It does not publish a Cloudflare preview.
 
-Public Sanity variables are declared in `wrangler.jsonc` so CI preview uploads and production deployments receive the same configuration. Override them in `.dev.vars` locally. Configure the secrets on the Worker:
+## Cloudflare Builds settings
 
-- `SANITY_READ_TOKEN` as a secret
-- `SANITY_WRITE_TOKEN` as a secret
-- `SANITY_SESSION_SECRET` as a secret
-- `VITE_SANITY_PROJECT_ID` as a plain text variable
-- `VITE_SANITY_DATASET` as a plain text variable
-- `VITE_SANITY_API_VERSION` as an optional plain text variable (defaults to `2024-02-13`)
+In Workers & Pages > simeongriggs > Settings > Build, use:
 
-Sanity clients are created inside request handlers from Worker bindings. The root loader passes only the public Sanity configuration to React for consistent server rendering and hydration. Builds do not require Sanity environment variables. Runtime bindings take precedence over any legacy Vite build-time values.
+| Setting                                                   | Value                                                     |
+| --------------------------------------------------------- | --------------------------------------------------------- |
+| Connected repository                                      | `SimeonGriggs/simeonGriggs`                               |
+| Root directory                                            | `apps/simeongriggs.dev`                                   |
+| Production branch                                         | `main`                                                    |
+| Build command                                             | `NODE_OPTIONS="--max-old-space-size=8192" pnpm run build` |
+| Production deploy command                                 | `npx wrangler deploy --keep-vars`                         |
+| Enable Preview Builds                                     | Enabled for non-production branches                       |
+| Non-production deploy command (existing version previews) | `npx wrangler versions upload`                            |
 
-Run `pnpm --filter simeongriggs-blog test` for the runtime configuration regression tests.
+These publish commands belong in CF Builds settings only. A feature-branch push creates a version preview and branch alias without changing production traffic. A merge to `main` triggers the production build and deployment. Check the Workers Builds GitHub check and preview URL before merging; do not manually promote the version.
 
-When deploying with Wrangler, use `pnpm --filter simeongriggs-blog deploy` to preserve additional variables configured in the Cloudflare dashboard.
+## Runtime configuration
 
-## Git-based preview deploys
+Public Sanity variables are declared in `wrangler.jsonc` for reproducible builds and deployments. Override them in `.dev.vars` locally. Configure secrets on the Worker:
 
-To keep preview environments available before production cutover:
+- `SANITY_READ_TOKEN`
+- `SANITY_WRITE_TOKEN`
+- `SANITY_SESSION_SECRET`
 
-1. Connect the repository to the Cloudflare Worker in the dashboard.
-2. Set the production branch to `main`.
-3. Enable non-production branch builds in `Settings -> Build -> Branch control`.
-4. Keep `preview_urls` enabled so each branch gets a stable `workers.dev` preview alias.
+Sanity clients initialize inside request handlers from Worker bindings. The root loader passes only public configuration to React for server rendering and hydration. Builds do not require Sanity environment variables. Runtime bindings take precedence over legacy Vite build-time values.
 
-Once enabled, pushes to this migration branch will build a preview deployment without affecting production traffic or the custom domain.
+## New Worker Previews migration
+
+This existing integration uses version previews. Cloudflare's newer Worker Previews mode is a separate, one-way migration; changing only the preview command is insufficient.
+
+Before selecting Set up Worker Previews > Switch to Worker Previews:
+
+1. Upgrade the project's Wrangler dependency to at least `4.135.0`, as required by the current documentation, and verify the Vite integration.
+2. Add a `previews` configuration block with the public Sanity variables; the new mode does not inherit production variables or bindings.
+3. Configure the required secrets in Previews Base. Production secrets are not inherited automatically.
+4. Switch the integration in the dashboard and use `npx wrangler preview` as the Preview command inside CF Builds.
+5. Push a branch and verify the resulting CF Builds preview before merging.
+
+Do not run the remote preview command locally during migration.
+
+[Cloudflare build branches and preview builds](https://developers.cloudflare.com/workers/ci-cd/builds/build-branches/#configure-preview-builds)
+
+[Worker Previews requirements](https://developers.cloudflare.com/workers/previews/get-started/)
