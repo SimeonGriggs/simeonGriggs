@@ -7,11 +7,8 @@
   },
   "compatibility_date": "2026-04-16",
   "compatibility_flags": ["nodejs_compat"],
-  "vars": {
-    "VITE_SANITY_PROJECT_ID": "az8av6xl",
-    "VITE_SANITY_DATASET": "production",
-    "VITE_SANITY_API_VERSION": "2025-11-01",
-  },
+  "keep_vars": true,
+  "previews": {},
   "workers_dev": true,
   "preview_urls": true,
   "observability": {

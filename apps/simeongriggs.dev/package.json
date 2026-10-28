@@ -6,7 +6,6 @@
     "build": "react-router build",
     "cf-typegen": "wrangler types && react-router typegen",
     "dev": "react-router dev",
-    "deploy": "wrangler deploy --keep-vars",
     "preview": "react-router build && vite preview",
     "test": "node --import tsx --test tests/*.test.ts",
     "typecheck": "react-router typegen && tsc"
@@ -73,6 +72,6 @@
     "typescript": "^5.9.3",
     "vite": "^7.3.1",
     "vite-tsconfig-paths": "^6.0.4",
-    "wrangler": "^4.83.0"
+    "wrangler": "^4.154.0"
   }
 }
