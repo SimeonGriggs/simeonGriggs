@@ -53,7 +53,7 @@ For local development, put values in the gitignored `.dev.vars` file. This local
 
 CF Builds uses `npx wrangler preview` for non-production branches. Project Wrangler must remain at `4.135.0` or later. Keep the empty `previews` block and configure values in Previews Base so each new Preview receives its runtime settings without checked-in duplicates.
 
-Previews Base public variables have been copied from Production and verified. The three secret values still need their original secure source; Cloudflare cannot export Production secrets. Update existing Previews separately after adding missing Base secrets.
+Previews Base has the three public variables copied from Production and all three secrets loaded from the supplied local source. Secret names were verified without displaying values. New Previews inherit these settings; existing Previews need their secrets updated separately. Cloudflare cannot export Production secret values for comparison.
 
 Do not run the remote preview command locally. Push a branch, wait for CF Builds, and verify the Preview URL before merging.
 
