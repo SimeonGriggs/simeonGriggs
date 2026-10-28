@@ -8,9 +8,9 @@ export function getDomainUrl(request: Request) {
   if (!host) {
     throw new Error('Could not determine domain URL.')
   }
-  const protocol = host.includes('localhost') ? 'http' : 'https'
-  const productionHost = host.includes('vercel.app')
-    ? 'www.simeongriggs.dev'
-    : host
-  return `${protocol}://${productionHost}`
+  const isLocalHost = host.includes('localhost') || host.startsWith('127.0.0.1')
+  const protocol =
+    request.headers.get('X-Forwarded-Proto') ?? (isLocalHost ? 'http' : 'https')
+
+  return `${protocol}://${host}`
 }

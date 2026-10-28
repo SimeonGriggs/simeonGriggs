@@ -1,5 +1,4 @@
-import createImageUrlBuilder from '@sanity/image-url'
-import type {SanityImageSource} from '@sanity/image-url/lib/types/types'
+import {createImageUrlBuilder, type SanityImageSource} from '@sanity/image-url'
 
 import {SANITY_DATASET, SANITY_PROJECT_ID} from '@repo/constants'
 

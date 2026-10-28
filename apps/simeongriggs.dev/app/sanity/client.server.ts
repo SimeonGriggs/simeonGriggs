@@ -1,22 +1,19 @@
 import {createClient} from '@sanity/client'
 
-import {client} from './client'
+import {getEnv, getRequiredEnvValue} from '~/env.server'
+import {resolveSanityConfig} from './resolveSanityConfig'
 
-export const exchangeClient = createClient({
-  ...client.config(),
-  projectId: `81pocpw8`,
-  useCdn: process.env.NODE_ENV === 'production',
-})
+export function getSanityClient(context: unknown) {
+  return createClient({
+    ...resolveSanityConfig(getEnv(context)),
+    useCdn: import.meta.env.PROD,
+    perspective: 'published',
+  })
+}
 
-export const adminClient = createClient({
-  ...client.config(),
-  projectId: `3do82whm`,
-  dataset: `next`,
-  useCdn: process.env.NODE_ENV === 'production',
-})
-
-export const writeClient = createClient({
-  ...client.config(),
-  useCdn: false,
-  token: process.env.SANITY_WRITE_TOKEN,
-})
+export function getWriteClient(context: unknown) {
+  return getSanityClient(context).withConfig({
+    useCdn: false,
+    token: getRequiredEnvValue(getEnv(context), 'SANITY_WRITE_TOKEN'),
+  })
+}

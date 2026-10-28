@@ -22,5 +22,10 @@
     "@sanity/client": "latest",
     "@sanity/functions": "1.1.0",
     "syncpack": "14.0.0-alpha.32"
+  },
+  "pnpm": {
+    "overrides": {
+      "rollup": "4.59.1"
+    }
   }
 }

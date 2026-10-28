@@ -1,16 +1,18 @@
 import type {LoaderFunction} from 'react-router'
 
 import {removeTrailingSlash} from '~/lib/helpers'
-import {client} from '~/sanity/client'
+import {getSanityClient} from '~/sanity/client.server'
 import {HOME_QUERY, SITE_META_QUERY} from '~/sanity/queries'
 import {siteMetaZ} from '~/types/siteMeta'
 import {combinedStubsZ} from '~/types/stubs'
 
-export const loader: LoaderFunction = async () => {
-  const articles = await client
+export const loader: LoaderFunction = async ({context}) => {
+  const sanity = getSanityClient(context)
+
+  const articles = await sanity
     .fetch(HOME_QUERY)
     .then((result) => combinedStubsZ.parse(result))
-  const siteMeta = await client
+  const siteMeta = await sanity
     .fetch(SITE_META_QUERY)
     .then((res) => siteMetaZ.parse(res))
 

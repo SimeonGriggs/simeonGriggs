@@ -3,9 +3,12 @@ import {getImageDimensions} from '@sanity/asset-utils'
 import React, {useMemo} from 'react'
 
 import {urlFor} from '~/sanity/helpers'
+import {useSanityConfig} from '~/hooks/useSanityConfig'
+import type {SanityPublicConfig} from '~/sanity/resolveSanityConfig'
 
 type CreateSrcsetStringConfig = {
   asset: SanityImageSource
+  sanity: SanityPublicConfig
   width: number
   height: number
 }
@@ -13,7 +16,7 @@ type CreateSrcsetStringConfig = {
 const WIDTHS = [300, 768, 1024, 1536, 2048]
 
 function createSrcsetString(config: CreateSrcsetStringConfig) {
-  const {asset} = config
+  const {asset, sanity} = config
   const aspectRatio = config.width / config.height
 
   const sizes = WIDTHS
@@ -24,7 +27,7 @@ function createSrcsetString(config: CreateSrcsetStringConfig) {
       const height = Number((width / aspectRatio).toFixed(0))
 
       return [
-        urlFor(asset)
+        urlFor(asset, sanity)
           .width(width)
           .height(height)
           .dpr(2)
@@ -48,6 +51,7 @@ type SanityImageProps = {
 
 export default function SanityImage(props: SanityImageProps) {
   const {asset, className, loading = 'lazy'} = props
+  const sanity = useSanityConfig()
 
   // This is a mess :/
   // It's designed to set a width and height, even if only one are supplied
@@ -82,15 +86,15 @@ export default function SanityImage(props: SanityImageProps) {
     return {
       width,
       height,
-      url: urlFor(asset)
+      url: urlFor(asset, sanity)
         .width(width)
         .height(height)
         .dpr(2)
         .auto('format')
         .toString(),
-      srcset: createSrcsetString({asset, width, height}),
+      srcset: createSrcsetString({asset, sanity, width, height}),
     }
-  }, [asset, props.width, props.height])
+  }, [asset, props.width, props.height, sanity])
 
   return (
     <img

@@ -12,12 +12,11 @@ import {
 import {z} from 'zod'
 
 import CanonicalLink from '~/components/CanonicalLink'
-import LiveVisualEditing from '~/components/LiveVisualEditing'
 import {themePreferenceCookie} from '~/cookies'
+import {getEnv} from '~/env.server'
+import {resolveSanityConfig} from '~/sanity/resolveSanityConfig'
 import {getBodyClassNames} from '~/lib/getBodyClassNames'
 import {getDomainUrl} from '~/lib/getDomainUrl'
-import {loadQueryOptions} from '~/sanity/loadQueryOptions'
-import ExitPreview from './components/ExitPreview'
 
 export const handle = {id: `root`}
 
@@ -45,7 +44,7 @@ export const links: LinksFunction = () => {
   ]
 }
 
-export const loader = async ({request}: LoaderFunctionArgs) => {
+export const loader = async ({request, context}: LoaderFunctionArgs) => {
   // Dark/light mode
   const cookieHeader = request.headers.get('Cookie')
   const cookie = (await themePreferenceCookie.parse(cookieHeader)) || {}
@@ -54,26 +53,17 @@ export const loader = async ({request}: LoaderFunctionArgs) => {
     .optional()
     .parse(cookie.themePreference)
 
-  const {preview} = await loadQueryOptions(request.headers)
-
   return {
     themePreference: themePreference || 'light',
-    ENV: {
-      VITE_SANITY_PROJECT_ID: import.meta.env.VITE_SANITY_PROJECT_ID!,
-      VITE_SANITY_DATASET: import.meta.env.VITE_SANITY_DATASET!,
-      VITE_SANITY_API_VERSION: import.meta.env.VITE_SANITY_API_VERSION!,
-      NODE_ENV: process.env.NODE_ENV,
-    },
+    sanity: resolveSanityConfig(getEnv(context)),
     requestInfo: {
       origin: getDomainUrl(request),
     },
-    preview,
   }
 }
 
 export default function App() {
-  const {themePreference, ENV, requestInfo, preview} =
-    useLoaderData<typeof loader>()
+  const {themePreference, requestInfo} = useLoaderData<typeof loader>()
 
   const bodyClassNames = getBodyClassNames(themePreference)
 
@@ -91,26 +81,14 @@ export default function App() {
       </head>
       <body className={bodyClassNames}>
         <Outlet />
-        {/* {ENV.NODE_ENV === 'development' ? <Grid /> : null} */}
-        {preview ? (
-          <>
-            <LiveVisualEditing />
-            <ExitPreview />
-          </>
-        ) : null}
         <ScrollRestoration />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `window.ENV = ${JSON.stringify(ENV)}`,
-          }}
-        />
         <Scripts />
       </body>
     </html>
   )
 }
 
-export function CatchBoundary() {
+function RootBoundary() {
   const error = useRouteError()
 
   if (isRouteErrorResponse(error)) {
@@ -134,4 +112,13 @@ export function CatchBoundary() {
       </p>
     </div>
   )
+}
+
+export function ErrorBoundary() {
+  return <RootBoundary />
+}
+
+// Back-compat with older Remix-style route modules.
+export function CatchBoundary() {
+  return <RootBoundary />
 }

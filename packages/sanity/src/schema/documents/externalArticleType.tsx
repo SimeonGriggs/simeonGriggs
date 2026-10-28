@@ -1,4 +1,3 @@
-import type {Rule} from 'sanity'
 import {defineField, defineType} from 'sanity'
 
 import HeroIcon from '../../components/HeroIcon'
@@ -8,7 +7,6 @@ const SOURCE_VALUES = ['planetscale', 'sanity_guides', 'sanity_learn'] as const
 type ExternalArticleSource = (typeof SOURCE_VALUES)[number]
 
 type UnlistedDoc = {unlisted?: boolean; source?: ExternalArticleSource}
-type HiddenProps = {document?: UnlistedDoc}
 
 function validateUrlForSource(
   url: string | undefined,
@@ -76,25 +74,25 @@ export const externalArticleType = defineType({
           {title: 'Sanity Learn', value: 'sanity_learn'},
         ],
       },
-      validation: (rule: Rule) => rule.required(),
+      validation: (rule) => rule.required(),
     }),
     defineField({
       name: 'title',
       type: 'string',
-      validation: (rule: Rule) => rule.required(),
+      validation: (rule) => rule.required(),
     }),
     defineField({
       name: 'url',
       title: 'URL',
       type: 'url',
-      validation: (rule: Rule) =>
+      validation: (rule) =>
         rule
           .required()
           .uri({scheme: ['https']})
-          .custom((value: unknown, {document}: {document?: UnlistedDoc}) =>
+          .custom((value, context) =>
             validateUrlForSource(
               typeof value === 'string' ? value : undefined,
-              document?.source,
+              (context?.document as UnlistedDoc | undefined)?.source,
             ),
           ),
     }),
@@ -102,9 +100,11 @@ export const externalArticleType = defineType({
       name: 'published',
       type: 'date',
       fieldset: 'dates',
-      hidden: (props: HiddenProps) => Boolean(props?.document?.unlisted),
-      validation: (rule: Rule) =>
-        rule.custom((value: unknown, {document}: {document?: UnlistedDoc}) => {
+      hidden: (context) =>
+        Boolean((context?.document as UnlistedDoc | undefined)?.unlisted),
+      validation: (rule) =>
+        rule.custom((value, context) => {
+          const document = context?.document as UnlistedDoc | undefined
           if (document?.unlisted) return true
           return typeof value === 'string' && value ? true : 'Published date is required'
         }),
@@ -113,15 +113,18 @@ export const externalArticleType = defineType({
       name: 'updated',
       type: 'date',
       fieldset: 'dates',
-      hidden: (props: HiddenProps) => Boolean(props?.document?.unlisted),
+      hidden: (context) =>
+        Boolean((context?.document as UnlistedDoc | undefined)?.unlisted),
     }),
     defineField({
       name: 'summary',
       type: 'text',
       rows: 2,
-      hidden: (props: HiddenProps) => Boolean(props?.document?.unlisted),
-      validation: (rule: Rule) =>
-        rule.custom((value: unknown, {document}: {document?: UnlistedDoc}) => {
+      hidden: (context) =>
+        Boolean((context?.document as UnlistedDoc | undefined)?.unlisted),
+      validation: (rule) =>
+        rule.custom((value, context) => {
+          const document = context?.document as UnlistedDoc | undefined
           if (document?.unlisted) return true
           return typeof value === 'string' && value ? true : 'Summary is required'
         }),

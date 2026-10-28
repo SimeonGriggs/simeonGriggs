@@ -1,0 +1,32 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "simeongriggs",
+  "main": "workers/app.ts",
+  "assets": {
+    "directory": "build/client",
+  },
+  "compatibility_date": "2026-04-16",
+  "compatibility_flags": ["nodejs_compat"],
+  "vars": {
+    "VITE_SANITY_PROJECT_ID": "az8av6xl",
+    "VITE_SANITY_DATASET": "production",
+    "VITE_SANITY_API_VERSION": "2025-11-01",
+  },
+  "workers_dev": true,
+  "preview_urls": true,
+  "observability": {
+    "enabled": false,
+    "head_sampling_rate": 1,
+    "logs": {
+      "enabled": true,
+      "head_sampling_rate": 1,
+      "persist": true,
+      "invocation_logs": true,
+    },
+    "traces": {
+      "enabled": false,
+      "persist": true,
+      "head_sampling_rate": 1,
+    },
+  },
+}

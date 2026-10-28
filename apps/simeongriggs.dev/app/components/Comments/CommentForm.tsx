@@ -18,7 +18,7 @@ export default function CommentForm(props: CommentFormProps) {
   const pageData = useRouteLoaderData<typeof pageLoader>(
     'routes/_website.$slug',
   )
-  const {_id} = pageData?.initial.data || {}
+  const {_id} = pageData?.article || {}
   const fetcher = useFetcher()
 
   useEffect(() => {
