@@ -10,14 +10,20 @@ This app now targets Cloudflare Workers for SSR.
 
 ## Required bindings
 
-Configure these values in Cloudflare Workers Builds and for local Wrangler usage:
+Public Sanity variables are declared in `wrangler.jsonc` so CI preview uploads and production deployments receive the same configuration. Override them in `.dev.vars` locally. Configure the secrets on the Worker:
 
 - `SANITY_READ_TOKEN` as a secret
 - `SANITY_WRITE_TOKEN` as a secret
 - `SANITY_SESSION_SECRET` as a secret
 - `VITE_SANITY_PROJECT_ID` as a plain text variable
 - `VITE_SANITY_DATASET` as a plain text variable
-- `VITE_SANITY_API_VERSION` as a plain text variable
+- `VITE_SANITY_API_VERSION` as an optional plain text variable (defaults to `2024-02-13`)
+
+Sanity clients are created inside request handlers from Worker bindings. The root loader passes only the public Sanity configuration to React for consistent server rendering and hydration. Builds do not require Sanity environment variables. Runtime bindings take precedence over any legacy Vite build-time values.
+
+Run `pnpm --filter simeongriggs-blog test` for the runtime configuration regression tests.
+
+When deploying with Wrangler, use `pnpm --filter simeongriggs-blog deploy` to preserve additional variables configured in the Cloudflare dashboard.
 
 ## Git-based preview deploys
 

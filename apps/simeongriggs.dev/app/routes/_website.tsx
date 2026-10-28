@@ -10,7 +10,7 @@ import {
 import {Banner} from '~/components/Banner'
 import Header from '~/components/Header'
 import {removeTrailingSlash} from '~/lib/helpers'
-import {client} from '~/sanity/client'
+import {getSanityClient} from '~/sanity/client.server'
 import {SITE_META_QUERY} from '~/sanity/queries'
 import type {SiteMeta} from '~/types/siteMeta'
 import {siteMetaZ} from '~/types/siteMeta'
@@ -24,8 +24,7 @@ export const meta: MetaFunction<Route.MetaArgs> = ({data}) => {
     return [{title: `Home page`}]
   }
 
-  const baseUrl =
-    import.meta.env.DEV ? LOCAL_OG_URL : PROD_OG_URL
+  const baseUrl = import.meta.env.DEV ? LOCAL_OG_URL : PROD_OG_URL
   const ogImageUrl = new URL(`/image`, baseUrl)
   ogImageUrl.searchParams.set(`id`, siteMeta._id)
 
@@ -56,9 +55,11 @@ export const loader = async ({request, context}: Route.LoaderArgs) => {
   const query = SITE_META_QUERY
   const params = {}
 
-  const siteMeta = await client.fetch<SiteMeta>(query, params).then((result) => {
-    return siteMetaZ.parse(result)
-  })
+  const siteMeta = await getSanityClient(context)
+    .fetch<SiteMeta>(query, params)
+    .then((result) => {
+      return siteMetaZ.parse(result)
+    })
 
   return {
     siteMeta,

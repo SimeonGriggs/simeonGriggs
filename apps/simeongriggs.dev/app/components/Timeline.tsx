@@ -6,6 +6,7 @@ import type {
   YouTubeVideoStub,
 } from '~/types/stubs'
 import {urlFor} from '~/sanity/helpers'
+import {useSanityConfig} from '~/hooks/useSanityConfig'
 import {ChevronDownIcon} from '@heroicons/react/24/outline'
 import Published from './Published'
 import {Link, useSearchParams} from 'react-router'
@@ -161,6 +162,8 @@ function Video({
 }
 
 function Talk({article}: {article: TalkStub}) {
+  const sanity = useSanityConfig()
+
   // Transform TalkStub to YouTubeVideoStub format for Video component
   const videoProps: YouTubeVideoStub = {
     _id: article._id,
@@ -171,8 +174,11 @@ function Talk({article}: {article: TalkStub}) {
     link: article.link || '',
     duration: '', // Talk doesn't have duration, so we'll use empty string
     thumbnailUrl: article.image
-      ? urlFor(article.image).width(1920).height(1080).auto('format').url() ||
-        ''
+      ? urlFor(article.image, sanity)
+          .width(1920)
+          .height(1080)
+          .auto('format')
+          .url() || ''
       : '',
   }
 
@@ -211,9 +217,7 @@ function External({article}: {article: ExternalArticleStub}) {
         <div className="flex items-center justify-between gap-3">
           {article.published ? (
             <Published
-              updated={
-                article.updated ? article.updated : undefined
-              }
+              updated={article.updated ? article.updated : undefined}
               published={article.published}
             />
           ) : null}

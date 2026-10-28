@@ -1,7 +1,7 @@
 import type {SanityImageSource} from '@sanity/asset-utils'
 import {createImageUrlBuilder} from '@sanity/image-url'
 
-import {projectDetails} from './projectDetails'
+import type {SanityPublicConfig} from './resolveSanityConfig'
 
-export const urlFor = (source: SanityImageSource) =>
-  createImageUrlBuilder(projectDetails()).image(source)
+export const urlFor = (source: SanityImageSource, config: SanityPublicConfig) =>
+  createImageUrlBuilder(config).image(source)

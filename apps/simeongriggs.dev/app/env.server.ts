@@ -2,6 +2,9 @@ export interface AppEnv {
   SANITY_READ_TOKEN?: string
   SANITY_WRITE_TOKEN?: string
   SANITY_SESSION_SECRET?: string
+  VITE_SANITY_PROJECT_ID?: string
+  VITE_SANITY_DATASET?: string
+  VITE_SANITY_API_VERSION?: string
 }
 
 interface CloudflareContext {
@@ -11,7 +14,14 @@ interface CloudflareContext {
 }
 
 export function getEnv(context: unknown): AppEnv {
-  const env = (context as CloudflareContext | undefined)?.cloudflare?.env
+  if (!context || typeof context !== 'object') {
+    throw new Error(
+      'Missing Cloudflare environment bindings. Run the app with the Cloudflare Vite plugin or Workers runtime.',
+    )
+  }
+
+  const ctx = context as CloudflareContext & {env?: AppEnv}
+  const env = ctx.cloudflare?.env ?? ctx.env
 
   if (!env) {
     throw new Error(
@@ -22,10 +32,7 @@ export function getEnv(context: unknown): AppEnv {
   return env
 }
 
-export function getRequiredEnvValue(
-  env: AppEnv,
-  key: keyof AppEnv,
-): string {
+export function getRequiredEnvValue(env: AppEnv, key: keyof AppEnv): string {
   const value = env[key]
 
   if (!value) {

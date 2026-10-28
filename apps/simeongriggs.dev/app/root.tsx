@@ -14,6 +14,7 @@ import {z} from 'zod'
 import CanonicalLink from '~/components/CanonicalLink'
 import {themePreferenceCookie} from '~/cookies'
 import {getEnv} from '~/env.server'
+import {resolveSanityConfig} from '~/sanity/resolveSanityConfig'
 import {getBodyClassNames} from '~/lib/getBodyClassNames'
 import {getDomainUrl} from '~/lib/getDomainUrl'
 
@@ -44,7 +45,6 @@ export const links: LinksFunction = () => {
 }
 
 export const loader = async ({request, context}: LoaderFunctionArgs) => {
-  const env = getEnv(context)
   // Dark/light mode
   const cookieHeader = request.headers.get('Cookie')
   const cookie = (await themePreferenceCookie.parse(cookieHeader)) || {}
@@ -55,12 +55,7 @@ export const loader = async ({request, context}: LoaderFunctionArgs) => {
 
   return {
     themePreference: themePreference || 'light',
-    ENV: {
-      VITE_SANITY_PROJECT_ID: import.meta.env.VITE_SANITY_PROJECT_ID!,
-      VITE_SANITY_DATASET: import.meta.env.VITE_SANITY_DATASET!,
-      VITE_SANITY_API_VERSION: import.meta.env.VITE_SANITY_API_VERSION!,
-      NODE_ENV: import.meta.env.MODE,
-    },
+    sanity: resolveSanityConfig(getEnv(context)),
     requestInfo: {
       origin: getDomainUrl(request),
     },
@@ -68,7 +63,7 @@ export const loader = async ({request, context}: LoaderFunctionArgs) => {
 }
 
 export default function App() {
-  const {themePreference, ENV, requestInfo} = useLoaderData<typeof loader>()
+  const {themePreference, requestInfo} = useLoaderData<typeof loader>()
 
   const bodyClassNames = getBodyClassNames(themePreference)
 
@@ -86,13 +81,7 @@ export default function App() {
       </head>
       <body className={bodyClassNames}>
         <Outlet />
-        {/* {ENV.NODE_ENV === 'development' ? <Grid /> : null} */}
         <ScrollRestoration />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `window.ENV = ${JSON.stringify(ENV)}`,
-          }}
-        />
         <Scripts />
       </body>
     </html>

@@ -1,7 +1,4 @@
-import type {
-  LinksFunction,
-  MetaFunction,
-} from 'react-router'
+import type {LinksFunction, MetaFunction} from 'react-router'
 import {useLoaderData} from 'react-router'
 import {
   LOCAL_OG_URL,
@@ -11,10 +8,8 @@ import {
 } from '../../../../packages/constants/src'
 
 import Article from '~/components/Article'
-import {getEnv} from '~/env.server'
 import type {loader as layoutLoader} from '~/routes/_website'
-import {getWriteClient} from '~/sanity/client.server'
-import {client} from '~/sanity/client'
+import {getSanityClient, getWriteClient} from '~/sanity/client.server'
 import {ARTICLE_QUERY} from '~/sanity/queries'
 import styles from '@repo/tailwind/app.css?url'
 import type {Article as ArticleType} from '~/types/article'
@@ -44,8 +39,7 @@ export const meta: MetaFunction<
   )?.data
 
   const {_id, _updatedAt, title, summary} = routeData?.article ?? {}
-  const baseUrl =
-    import.meta.env.DEV ? LOCAL_OG_URL : PROD_OG_URL
+  const baseUrl = import.meta.env.DEV ? LOCAL_OG_URL : PROD_OG_URL
   const ogImageUrl = new URL(`/image`, baseUrl)
 
   if (_id) {
@@ -80,7 +74,6 @@ export const meta: MetaFunction<
 }
 
 export const action = async ({request, context}: Route.ActionArgs) => {
-  const env = getEnv(context)
   const body = await request.formData()
 
   // Basic honeypot check
@@ -100,18 +93,21 @@ export const action = async ({request, context}: Route.ActionArgs) => {
     },
   })
 
-  const data = await getWriteClient(env).create(comment).then((res) => res)
+  const data = await getWriteClient(context)
+    .create(comment)
+    .then((res) => res)
 
   return data
 }
 
 export const loader = async ({request, params, context}: Route.LoaderArgs) => {
-  const env = getEnv(context)
   const query = ARTICLE_QUERY
 
-  const article = await client.fetch<ArticleType | null>(query, params).then((result) => {
-    return result ? articleZ.parse(result) : null
-  })
+  const article = await getSanityClient(context)
+    .fetch<ArticleType | null>(query, params)
+    .then((result) => {
+      return result ? articleZ.parse(result) : null
+    })
 
   if (!article) {
     throw new Response(`Article not found`, {status: 404})
