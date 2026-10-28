@@ -9,7 +9,7 @@ Compatibility changes:
 - React Router now receives runtime bindings through a typed RouterContextProvider. Metadata reads loaderData, and the obsolete v8 future flag is removed.
 - Vite's native tsconfig path resolution replaces vite-tsconfig-paths; TypeScript baseUrl is removed.
 - Sanity icons and Code use their new subpath exports; Stack uses gap.
-- Studio CI uses locked dependencies and the existing SANITY_STUDIO_DEPLOY GitHub secret to publish through Sanity hosting. Its Vercel Git deployments are disabled in project configuration.
+- Studio CI uses locked dependencies and the existing SANITY_STUDIO_DEPLOY GitHub secret to publish through Sanity hosting. Vercel Git deployments are disabled for Studio, the retired OG app, and the Cloudflare-hosted website.
 - OG rendering is on the website at /api/og using Satori and resvg Wasm, with fonts served through the ASSETS binding. Website publishing remains exclusive to CF Builds.
 
 The latest releases of sanity-plugin-tldraw and sanity-plugin-youtube-documents still declare Sanity 5 peers, and @vercel/react-router still declares React Router 7 peers. Their current releases were retained and the upgraded Studio/Playbook builds checked; those upstream peer warnings remain visible rather than being hidden with an override.
